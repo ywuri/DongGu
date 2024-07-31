@@ -10,4 +10,179 @@
 	/* //	========== 이지현 끝 ============= // */
 	
 	/* //	========== 진예림 시작 ============= // */
-	/* //	========== 진예림 끝 ============= // */
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+
+	body {
+	    display: flex; 
+	    justify-content: center; 
+	    min-height: 100vh; /* 최소 높이를 화면 전체로 설정 */
+	}
+	
+	/* 전체 컨테이너 설정 */
+	.container {
+		width: 2000px;
+	    display: flex;
+	    justify-content: flex-start; 
+	    padding: 20px;
+	    margin: 0, auto;
+	    max-width: 85rem;
+	}
+
+	/* 사이드바 스타일 */
+	.sidebar {
+	    width: 18%;
+	    background-color: #fedc56;
+	    padding: 35px;
+	    border-radius: 8px; 
+	}
+
+	/* 사이드바 메뉴 스타일 */
+	.menu {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	}
+
+	.menu li {
+	    margin-bottom: 19px;
+	    margin-left: 10px;
+	}
+
+	.menu li a{
+		font-family: 'Pretendard-Regular', sans-serif;
+	    text-decoration: none;
+	    color: #333;
+        font-size: 18px;
+        font-weight: bold;
+	}
+
+
+	.menu li a:hover {
+          color: #fd7e14;
+	}
+
+
+	.content {
+	    width: 75%;
+	    padding: 50px;
+	    background-color: #fff; 
+	    border-radius: 8px; 
+		border: 1px solid rgb(222, 226, 230);
+	}
+	
+	.content1{
+	 	text-align: center;  
+    	padding: 20px; 
+    	margin-bottom: 50px;
+	}
+	
+	.content2{
+    	margin-top: 50px; 
+    	margin-bottom: 20px;
+	}
+	
+	.content2_list {
+		font-family: 'Pretendard-Regular', sans-serif;
+		margin-top:35px;
+	    padding: 20px;
+	    background-color: #fff; 
+	    border-radius: 8px; 
+		border: 1px solid rgb(222, 226, 230);
+		height: 180px;
+	}
+	
+	.list1_info{
+		display: flex;
+	    flex-direction: column; 
+	    justify-content: space-between; 
+	    flex: 1;
+	    height: 130px;
+	}
+	
+	.content2_title{
+		display:flex;
+		width: 100%
+	}
+	
+	.content2_list_title1, 
+	.content2_list_title2 {  
+		margin-left:20px;
+		margin-bottom: 15px;    
+		font-weight: bold;
+		font-size: 17px;
+		width: 50%
+	}
+	
+	.content2_list_title2 {  
+		margin-right:20px;
+		text-align: right;
+	}
+	
+	.content1_title{
+		font-family: 'Pretendard-Regular', sans-serif;
+		font-size: 25px;
+	}
+	
+	.content2_title{
+		font-family: 'Pretendard-Regular', sans-serif;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.name {
+	 	font-weight: bold;
+	 	font-size: 27px;
+	}
+	
+	.grade {
+	 	font-weight: bold;
+	 	font-size: 27px;
+	 	color: #47C867;
+	}
+	
+	.content2_hr {
+	    background-color: #dadada;
+	    margin: 15px 0; 
+	}
+
+	img{
+		margin-left:20px;
+	 	float: left; 
+    	width: 100px;
+    	height: 130px;
+	}
+	
+	.list1_info ul {
+		height:100%;
+		list-style: none; 
+   }
+   
+   .list1_info ul li {
+   		position: relative;
+   		align-items: center; 
+		height:50%;
+		list-style: none; 
+   }
+   
+   .list1_info ul li span {
+	    position: absolute;
+	    top: 25%;
+   		font-family: 'Pretendard-Regular', sans-serif;
+   }
+   
+   .list1_1_title {
+   		font-size: 19px;
+   		font-weight: bold;
+   }
+   
+   .list1_1_date {
+   		color: #c0c0c0;
+   		font-size: 15px;
+   }
+
+  	/* //	========== 진예림 끝 ============= // */
