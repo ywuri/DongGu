@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/DongGU.css">
+<link rel="stylesheet" type="text/css" href="css/DongGu.css">
 <style>
 footer {background: #f9f9f9; padding 100px 0;}
 footer .area {    max-width: 1470px;
