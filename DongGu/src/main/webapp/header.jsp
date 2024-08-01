@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/DongGU.css">
+<link rel="stylesheet" type="text/css" href="css/DongGu.css">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <style>
 header.dg_hd {
@@ -36,7 +36,7 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
-		<a href="#"><img src="img/logo.png" alt="logo"></a>
+		<a href="index.jsp"><img src="img/logo.png" alt="logo"></a>
 	</h1>
 	<nav>
 		<ul>
