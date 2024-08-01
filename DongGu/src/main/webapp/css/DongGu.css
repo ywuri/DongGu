@@ -397,6 +397,7 @@
     font-weight: bold;
     font-size: 30pt;
   	margin:40px 0;
+  	margin-top:190px;
 }
 #FreeBoardTable{
 	border-collapse: collapse;
@@ -477,7 +478,7 @@ width:100px;
 }
 
 #FreeBoardSearch{
-	height:19px;
+	/* height:19px; */
 }
 
 #FreeBoardFormSelect{
@@ -502,7 +503,9 @@ width:100px;
 #FreeBoardFormSubmit{
 	
 }
-
+#FreeBoardFormTd{
+	background:white;
+}
 #FindDongGuTagButton{
 	text-align:left;
 	background:white;
