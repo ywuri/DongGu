@@ -10,6 +10,10 @@
 </head>
 <body>
 
+
+<h1>유리언니 확인용 수정입니다</h1>
+
+
 <div class="container">
     <!------------- 왼쪽 사이드 메뉴 영역 ----------->
     <div class="sidebar">
