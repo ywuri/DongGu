@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<link rel="stylesheet" type="text/css" href="/DongGu/css/DongGU.css">
+<link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
 <body>
