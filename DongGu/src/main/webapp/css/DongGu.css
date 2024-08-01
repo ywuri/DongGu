@@ -476,7 +476,11 @@ width:100px;
 	
 	
 	
-	
+	 bodyfix {
+       display: flex; 
+       justify-content: center; 
+       min-height: 100vh; /* 최소 높이를 화면 전체로 설정 */
+   }
 	
 	
 	/* //	========== 진예림 시작 ============= // */
