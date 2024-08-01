@@ -403,7 +403,8 @@
 	border-collapse: collapse;
 	width: 800px;
     margin: 0px auto;
-    text-align: center
+    text-align: center;
+    margin-bottom:100px;
 }
 #FreeBoardTable>thead>tr{
 	background:#fffae5;
@@ -496,7 +497,7 @@ width:100px;
 	height:27px;
 }
 #FreeBoardFormDiv{
-	text-align:center;
+/* 	text-align:center; */
 	margin:20px;
 	border-radius: 5px;
 }
@@ -510,12 +511,42 @@ width:100px;
 	text-align:left;
 	background:white;
 	padding-bottom:15px;
+	width:100%;
 }
 
 .FindDongGuTagButton{
 	font-size:17pt;
 	margin:7px 7px;
 	
+}
+
+.FindDongGuSearchDiv{
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 버튼과 폼 사이의 간격 */
+}
+
+.FreeBoardForm{
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 폼 내부 요소 간의 간격 */
+}
+
+.FreeBoardFormDivCenter{
+	text-align:center;
+}
+
+/* 밑 두개는 가운데정렬을 위해*/
+.FreeBoardFormDiv2{
+	display: flex;
+    align-items: center;
+    gap: 10px; /* 폼 내부 요소 간의 간격 */
+}
+
+.FindDongGuTagButton2{
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
 	/* //	========== 이지현 끝 ============= // */
 	

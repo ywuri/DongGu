@@ -10,7 +10,7 @@
 <body>
 <%@include file="Header.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 게 시 판 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 공 지 사 항 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
 <div>
 	<table id="FreeBoardTable">
