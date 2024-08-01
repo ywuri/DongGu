@@ -5,15 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/DongGU.css">
+<link rel="stylesheet" type="text/css" href="css/DongGu.css">
 </head>
-<style>
-
-
-
-</style>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="Header.jsp" %>
 <!-- main 시작 -->
 <section class="main">
 	<div>
@@ -64,8 +59,8 @@
 						</div>
 						<img src="img/star.png" alt="별점">
 						<p>
-						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워<br>
-						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.<br>
+						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워
+						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.
 						아자아자 화이자 !  
 						</p>
 					</div>
@@ -83,8 +78,8 @@
 						</div>
 						<img src="img/star.png" alt="별점">
 						<p>
-						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워<br>
-						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.<br>
+						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워
+						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.
 						아자아자 화이자 !  
 						</p>
 					</div>
@@ -102,8 +97,8 @@
 						</div>
 						<img src="img/star.png" alt="별점">
 						<p>
-						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워<br>
-						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.<br>
+						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워
+						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.
 						아자아자 화이자 !  
 						</p>
 					</div>
@@ -141,4 +136,4 @@
 </section>
 </body>
 <!-- banner 끝 -->
-<%@include file="footer.jsp" %>
+<%@include file="Footer.jsp" %>

@@ -18,6 +18,7 @@
 	/* //	========== 고유리 시작 ============= // */
 
 	/* 공통 css */
+	body {overflow-x:hidden; margin: 0; padding: 0;}
 	p, span, li {font-family: 'Pretendard';}
 	li::marker {content: none;}
 	
@@ -59,11 +60,11 @@
 	.rivew .rivew_cont ul {padding:0;}
 	.rivew .rivew_cont ul li {margin-bottom: 40px;}
 	.rivew .rivew_cont ul li:nth-child(1) .left_box { 
-		background: url(img/rivew_img01.png) no-repeat top right; background-position: right -25px; background-size: cover;}
+		background: url(../img/rivew_img01.png) no-repeat top right; background-position: right -25px; background-size: cover;}
 	.rivew .rivew_cont ul li:nth-child(2) .left_box { 
-		background: url(img/rivew_img02.png) no-repeat top right; background-position: right -145px; background-size: cover;}
+		background: url(../img/rivew_img02.png) no-repeat top right; background-position: right -65px; background-size: cover;}
 	.rivew .rivew_cont ul li:nth-child(3) .left_box { 
-		background: url(img/rivew_img03.png) no-repeat top right; background-position: right -180px; background-size: cover;}
+		background: url(../img/rivew_img03.png) no-repeat top right; background-position: right -80px; background-size: cover;}
 	.rivew .rivew_cont ul li:last-child {margin-bottom: 0px;}
 	.rivew .box {	 
 		display: flex;
@@ -108,7 +109,7 @@
 	section.bn {padding: 100px 0;}
 	.bn .bk_bn {width: 1400px; background: #000; height: 450px; margin: 0 auto;}
 	.bn .bk_bn .img { height: 450px;
-		background: url(img/banner_img.png) no-repeat top right; background-position: right -100px;}
+		background: url(../img/banner_img.png) no-repeat top right; background-position: right -100px;}
 	.bn .bk_bn .txt { padding: 80px 0 0 90px;}
 	.bn .bk_bn .txt .big_txt {color: #fff; font-size: 30px; line-height: 1.4; margin:0;}
 	.bn .bk_bn .txt .small_txt {color: #b2b2b2; font-size: 17px; line-height: 1.4; margin:55px 0 0 0;}

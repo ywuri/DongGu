@@ -10,7 +10,7 @@
 </head>
 <body id="jyl_body">
 
-<%@include file="header.jsp" %>
+<%@include file="Header.jsp" %>
 
 
 <div class="jyl_container">
@@ -76,6 +76,6 @@
 
     <!------------- E : 오른쪽 컨텐츠 영역 ----------->
 </div>
-<%@include file="footer.jsp" %>
+<%@include file="Footer.jsp" %>
 </body>
 </html>
