@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-
+<%@include file="Header.jsp" %>
 
 <div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 동 구 구 해 요 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
@@ -18,11 +18,29 @@
 	<table id="FreeBoardTable">
 		<thead>
 			<tr>
-				<td colspan="2" id="FindDongGuTagButton">
+				<td colspan="5" id="FindDongGuTagButton" style="width:100%;">
+				<div>
+				
 					<input type="button" class="FreeBoardButton FindDongGuTagButton" value="동구" onclick="location.href='#;">
 					<input type="button" class="FreeBoardButton FindDongGuTagButton" value="냥구" onclick="location.href='#;">
 					<input type="button" class="FreeBoardButton FindDongGuTagButton" value="칭구" onclick="location.href='#;">
+				</div>
+					<form name="FreeBoardForm">
+						<div id="FreeBoardFormDiv">
+							<select name="" id="FreeBoardFormSelect">
+								<option value="">제목</option>
+								<option value="">내용</option>
+								<option value="">작성자</option>
+							</select>
+							<input type="text" id="FreeBoardSearch">
+							<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
+						</div>
+					</form>
 				</td>
+				
+		<!-- 		<td colspan="3" id="FreeBoardFormTd">
+					
+				</td> -->
 
 			</tr>
 			
@@ -112,21 +130,11 @@
 		</tfoot>
 	</table>
 	
-	<form name="FreeBoardForm">
-		<div id="FreeBoardFormDiv">
-			<select name="" id="FreeBoardFormSelect">
-				<option value="">제목</option>
-				<option value="">내용</option>
-				<option value="">작성자</option>
-			</select>
-			<input type="text" id="FreeBoardSearch">
-			<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
-		</div>
-	</form>
+
 </div>
 	
 	
-
+<%@include file="Footer.jsp" %>
 
 </body>
 </html>

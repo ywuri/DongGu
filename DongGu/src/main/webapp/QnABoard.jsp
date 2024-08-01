@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-
+<%@include file="Header.jsp" %>
 
 <div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 게 시 판 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
@@ -108,7 +108,7 @@
 </div>
 	
 	
-
+<%@include file="Footer.jsp" %>
 
 </body>
 </html>
