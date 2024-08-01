@@ -19,6 +19,8 @@
 				<input type="text" name="" id="" value=""> ~ 
 				<input type="text" name="" id="" value="">
 			</td>
+			<th></th>
+			<td></td>
 		</tr>
 	</table>
 
