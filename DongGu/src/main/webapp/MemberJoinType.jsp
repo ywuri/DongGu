@@ -13,21 +13,17 @@
 
 	<form name="">
 	
-		<div class="saveTableListOne">
-			<ul>
-				<li>
-					<img src="img/cat1.jpg">
-				</li>
-				
-				<li>
-				</li>
-				
-				<li>
-				</li>
-				
-				<li>
-				</li>
-			</ul>
+		<div class="s_joinTableOne">
+			<div class="jto_left" onclick="location.href='MemberJoinOwner.jsp'">
+				<img src="img/f_clean.png">
+				<br />
+				<span>동구구해요!</span>
+			</div>
+			<div class="jto_right" onclick="location.href='MemberJoinDonggu.jsp'">
+				<img src="img/f_yellow.png">
+				<br />
+				<span>동구할래요!</span>
+			</div>
 		</div>
 		
 	</form>	
