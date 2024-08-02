@@ -614,16 +614,17 @@ width:100px;
        display: flex; 
        justify-content: center; 
        min-height: 100vh; /* 최소 높이를 화면 전체로 설정 */
+       background-color: #fffae5;
    }
    
    /* 전체 컨테이너 설정 */
    .jyl_container {
-      width: 2000px;
+         margin-top: 130px;
+       width: 1450px;
        display: flex;
        justify-content: flex-start; 
        padding: 20px;
        margin: 0, auto;
-       max-width: 85rem;
    }
 
    /* 사이드바 스타일 */
@@ -632,6 +633,7 @@ width:100px;
        background-color: #fedc56;
        padding: 30px;
        border-radius: 8px; 
+       margin-right: 20px;
    }
 
    /* 사이드바 메뉴 스타일 */
@@ -642,21 +644,28 @@ width:100px;
    }
 
    .jyl_menu li {
-       margin-bottom: 19px;
-       margin-left: 10px;
+       margin-bottom: 22px;
+       margin-left: 15px;
    }
 
    .jyl_menu li a{
       font-family: 'Pretendard-Regular', sans-serif;
-       text-decoration: none;
-       color: #333;
-        font-size: 18px;
-        font-weight: bold;
+      text-decoration: none;
+      color: #333;
+      font-size: 17px;
+   }
+   
+   .side_title{
+      font-family: 'Pretendard-Regular', sans-serif;
+      text-decoration: none;
+      color: #333;
+      font-size: 22px;
+      font-weight: bold;
+     margin-bottom: 20px;
    }
 
-
-   .jyl_menu li a:hover {
-          color: #fd7e14;
+   .jyl_menu a:hover {
+    color: #ffffff; 
    }
 
 
@@ -665,28 +674,112 @@ width:100px;
        padding: 50px;
        background-color: #fff; 
        border-radius: 8px; 
-      border: 1px solid rgb(222, 226, 230);
    }
    
    .jyl_content1{
        text-align: center;  
-       padding: 20px; 
+       padding-bottom: 40px; 
        margin-bottom: 50px;
+       padding-top: 80px;
    }
    
-   .jyl_content2{
-       margin-top: 50px; 
+   .jyl_content1_list {
+         display: flex;
+       width: 100%;
+       margin-bottom: 100px;
+   }
+   
+   .jyl_content1_list1,
+   .jyl_content1_list2,
+   .jyl_content1_list3 {
+         padding:25px;
+       width: 33.33%;
+       text-align: center;
+       border-radius: 10px;
+       margin-right:10px;
+       box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+   }
+   
+   .jyl_content1_list1_1{
+         margin-bottom: 20px;
+   }
+   
+    .jyl_content1_list span {
+        font-family: 'Pretendard-Regular', sans-serif;
+      text-decoration: none;
+      color: #333;
+      font-size: 17px;
+   }
+   
+   #jyl_content1_list_point {
+        font-family: 'Pretendard-Regular', sans-serif;
+      text-decoration: none;
+      color: #333;
+      font-size: 22px;
+      font-weight: bold;
+   }
+   
+   .jyl_content2, 
+   .jyl_content3{
+       margin-top: 30px; 
        margin-bottom: 20px;
+       padding-bottom: 5px;
    }
    
-   .jyl_content2_list {
-      font-family: 'Pretendard-Regular', sans-serif;
-      margin-top:35px;
+   .jyl_content3_list{
+         display: flex;
+         width: 100%;
+         margin-bottom: 50px;
+   }
+   
+    .jyl_content3_list1 a, 
+    .jyl_content3_list2 a{
+       font-family: 'Pretendard-Regular', sans-serif;
+       text-decoration: none;
+       color: #333;
+   }
+   
+   .jyl_content3_list1,
+   .jyl_content3_list2,
+   .jyl_content3_list3 {
+        width: 30%;
+        font-family: 'Pretendard-Regular', sans-serif;
+        padding: 20px;
+        background-color: #fff; 
+        border-radius: 8px; 
+        border: 1px solid rgb(222, 226, 230);
+   }
+   
+    .jyl_content3_list2, 
+    .jyl_content3_list3 {
+       margin-left:15px;
+    }
+   
+   
+   .jyl_content2_list1,
+   .jyl_content2_list2, 
+    .jyl_content2_list3,
+     .jyl_content2_list4{
+       font-family: 'Pretendard-Regular', sans-serif;
+       margin-top:25px;
        padding: 20px;
        background-color: #fff; 
        border-radius: 8px; 
-      border: 1px solid rgb(222, 226, 230);
-      height: 180px;
+       border: 1px solid rgb(222, 226, 230);
+       height: 180px;
+   }
+   
+ 
+    .jyl_content2_list5,
+    .jyl_content2_list3_1 {
+       font-family: 'Pretendard-Regular', sans-serif;
+       margin-top:25px;
+       padding: 20px;
+       background-color: #fff; 
+       border-radius: 8px; 
+       border: 1px solid rgb(222, 226, 230);
+       height: 180px;
+       margin-bottom: 120px;
    }
    
    .jyl_list1_info{
@@ -699,11 +792,20 @@ width:100px;
    
    .jyl_content2_title{
       display:flex;
-      width: 100%
+      width: 100%;
+      font-size: 28px;
+   }
+   
+     .jyl_content2_title_bottom{
+   	  border-bottom : 1px solid rgb(222, 226, 230);
+      display:flex;
+      width: 100%;
+      font-size: 28px;
    }
    
    .jyl_content2_list_title1, 
    .jyl_content2_list_title2 {  
+
       margin-left:20px;
       margin-bottom: 15px;    
       font-weight: bold;
@@ -716,12 +818,22 @@ width:100px;
       text-align: right;
    }
    
-   .jyl_content1_title{
-      font-family: 'Pretendard-Regular', sans-serif;
-      font-size: 25px;
+   .jyl_content2_list_title2_1{
+   		color:#ff3333;
    }
    
-   .jyl_content2_title{
+    .jyl_content2_list_title2_2{
+   		color:#4646ff;
+   }
+   
+   .jyl_content1_title{
+      font-family: 'Pretendard-Regular', sans-serif;
+      font-size: 27px;
+
+   }
+   
+   .jyl_content2_title, 
+   .jyl_content3_title{
       font-family: 'Pretendard-Regular', sans-serif;
       font-size: 20px;
       font-weight: bold;
@@ -729,25 +841,37 @@ width:100px;
    
    .jyl_name {
        font-weight: bold;
-       font-size: 27px;
+       font-size: 30px;
    }
    
    .jyl_grade {
        font-weight: bold;
-       font-size: 27px;
+       font-size: 30px;
        color: #47C867;
    }
-   
-   .jyl_content2_hr {
-       background-color: #dadada;
-       margin: 15px 0; 
+   .jyl_img_margin {
+   	   margin-top: 17px;
    }
+
 
    .jyl_img{
       margin-left:20px;
        float: left; 
        width: 100px;
        height: 130px;
+   }
+   
+    .jyl_img2{
+      margin-left:20px;
+       float: right; 
+       width: 28px;
+       height: 28px;
+   }
+   
+   .jyl_img3{
+      margin-right:5px; 
+       width: 25px;
+       height: 25px;
    }
    
    .jyl_list1_info ul {

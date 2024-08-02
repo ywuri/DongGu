@@ -10,7 +10,7 @@
 </head>
 <body >
 
-<%@include file="Header.jsp" %>
+<%@include file= "Header.jsp"%>
 
 <div id="jyl_body">
 <div class="jyl_container">
@@ -20,7 +20,7 @@
         <li><a class="side_title" href="MyPage.jsp">My Home</a></li>
         <li><a class="side_title" href="#">나의 이력</a></li>
         <li><a href="#">지원서 작성</a></li>
-        <li><a href="MyPage_ApplyList.jsp">지원 내역</a></li>
+        <li><a href="#">지원 내역</a></li>
         <li><a class="side_title" href="#">나의 활동</a></li>
         <li><a href="#">좋아한</a></li>
         <li><a href="#">게시판 활동 내역</a></li>
@@ -42,29 +42,7 @@
     
     <div class="jyl_content">
     
-      <div class="jyl_content1">   
-                <span class="jyl_content1_title">
-                    <span class="jyl_name">진예림</span> 회원님의 이번 달 등급은 <span class="jyl_grade">프렌즈</span> 등급입니다.
-                </span>         
-      </div>
-      
-      <div class="jyl_content1_list">
-                   <div class="jyl_content1_list1">
-                   <div class="jyl_content1_list1_1"><span>지원하기</span></div>
-                   <div><span><Span id="jyl_content1_list_point">🗂️ 5</span>회</span></div>
-                   </div>
-                   
-                   <div class="jyl_content1_list2">
-                   <div class="jyl_content1_list1_1"><span>활동 횟수</span></div>
-                   <div><span><Span id="jyl_content1_list_point">📝 20</span>회</span></div>
-                   </div>
-                   
-                   <div class="jyl_content1_list3">
-                   <div class="jyl_content1_list1_1"><span>나의 평점</span></div>
-                   <div><img class="jyl_img3" alt="star" src="/DongGu/img/yel6.png"><Span id="jyl_content1_list_point">4.8</span></div>
-                   </div>
-     </div>     
-      
+  
       <div class="jyl_content2">   
                 <span class="jyl_content2_title">지원 내역</span>              
       </div>
@@ -101,7 +79,7 @@
        </div>
       </div>
       
-      <div class="jyl_content2_list3_1">   
+      <div class="jyl_content2_list3">   
         <div class="jyl_content2_title_bottom">
            <div class="jyl_content2_list_title1">멍구</div>      
            <div class="jyl_content2_list_title2"><span class="jyl_content2_list_title2_3">후기작성 완료</span></div> 
@@ -117,23 +95,36 @@
        </div>
       </div>
       
-      <div class="jyl_content3">   
-                <span class="jyl_content3_title">나의 활동</span>              
+      <div class="jyl_content2_list4">   
+        <div class="jyl_content2_title_bottom">
+           <div class="jyl_content2_list_title1">냥구</div>      
+           <div class="jyl_content2_list_title2"><span class="jyl_content2_list_title2_4">후기작성 완료</span></div> 
+        </div>    
+        <div class="jyl_img_margin">
+           <img class="jyl_img" alt="list1" src="/DongGu/img/yel7.jpg">
+        </div>
+        <div class="jyl_list1_info">
+                <ul>
+                  <li class ="jyl_list1_1"><span class ="jyl_list1_1_title">착하고 귀여운 냥이 밥주실분 구합니당!</span></li>
+                   <li class ="jyl_list1_1"><span class ="jyl_list1_1_date">2024-02-11</span></li>
+              </ul>
+       </div>
       </div>
       
-      <div class="jyl_content3_list">
-         <div class="jyl_content3_list1">   
-         <span>♡   좋아한 </span>
-        <a href="#"><img class="jyl_img2" alt="button" src="/DongGu/img/yel5.jpg"></a>
-      </div>
-      <div class="jyl_content3_list2">   
-         <span>♡   게시판 활동 내역 </span>
-        <a href="#"><img class="jyl_img2" alt="button" src="/DongGu/img/yel5.jpg"></a>
-      </div>
-      <div class="jyl_content3_list3">   
-         <span>♡   이용 후기 내역 </span>
-        <a href="#"><img class="jyl_img2" alt="button" src="/DongGu/img/yel5.jpg"></a>
-      </div>
+      <div class="jyl_content2_list5">   
+        <div class="jyl_content2_title_bottom">
+           <div class="jyl_content2_list_title1">멍구</div>      
+           <div class="jyl_content2_list_title2"><span class="jyl_content2_list_title2_5">후기작성 완료</span></div> 
+        </div>    
+        <div class="jyl_img_margin">
+           <img class="jyl_img" alt="list1" src="/DongGu/img/yel8.jpg">
+        </div>
+        <div class="jyl_list1_info">
+                <ul>
+                  <li class ="jyl_list1_1"><span class ="jyl_list1_1_title">설날 연휴 멍구 하실 분?</span></li>
+                   <li class ="jyl_list1_1"><span class ="jyl_list1_1_date">2024-01-31</span></li>
+              </ul>
+       </div>
       </div>
  
 </div>
