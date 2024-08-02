@@ -19,15 +19,16 @@ header.dg_hd {
     height: 80px;
     border-radius: 10px;
     transform: translate(-50%);
-    background: #fff;
+    background: #fffae5;
     transition: all .3s ease;
+    z-index: 1;
 }
 header.dg_hd h1 a img {width: 140px; margin: 10px 0 0 20px;}
 header.dg_hd nav > ul {display:flex;}
 header.dg_hd nav > ul > li {position: relative;}
 header nav > ul > li::marker {content: none;}
 header.dg_hd nav > ul > li > a {line-height:80px; font-family: 'Pretendard'; font-size:18px; color: #444; padding: 0 50px; transition: color .3s ease;}
-header.dg_hd nav > ul > li > a span {display: inline-block; position: relative; line-height: 1;}
+header.dg_hd nav > ul > li > a span {display: inline-block; position: relative; line-height: 1; font-weight: 500;}
 header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-radius: 0 8px 8px 0;
     background: url(img/icon_login.png) no-repeat center;}
 </style>
@@ -36,7 +37,7 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
-		<a href="index.jsp"><img src="img/logo.png" alt="logo"></a>
+		<a href="#"><img src="img/logo.png" alt="logo"></a>
 	</h1>
 	<nav>
 		<ul>
