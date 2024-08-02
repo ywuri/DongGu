@@ -146,7 +146,7 @@ section.bn {padding: 100px 0;}
  .bn .bn_bt img {padding: 0 0 0 10px; }
 </style>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="Header.jsp" %>
 <!-- main 시작 -->
 <section class="main">
 	<div>
@@ -273,4 +273,4 @@ section.bn {padding: 100px 0;}
 
 </section>
 <!-- banner 끝 -->
-<%@include file="footer.jsp" %>
+<%@include file="Footer.jsp" %>
