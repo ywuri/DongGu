@@ -236,6 +236,8 @@
 	
 	.saveTableOne .saveBtnOne {width:100%; height:40px; margin-top:20px; border:2px solid #fdcb08; background-color:#fdcb08; color:white; font-size:20px;}
 	
+	.saveBtnType_1 {background: white; color: #fdcb08; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
+	.saveBtnTypeClick_1 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
 	
 	.saveWS100 {width:100px;}
 	.saveWS250 {width:250px;}
@@ -252,7 +254,12 @@
 	
 	
 	
-	
+	.s_joinTableOne {width:800px; height:500px; margin:200px auto; }
+	.s_joinTableOne > * {float:left; width:49%; height:350px; margin:0px 0 0 0; text-align:center; cursor:pointer; border:2px solid #fdcb08;}
+	.s_joinTableOne .jto_left {background-color:#fdcb08; color:white;}
+	.s_joinTableOne .jto_right {color:#fdcb08;}
+	.s_joinTableOne div img {margin:30px 0 0 0;}
+	.s_joinTableOne div span {display:inline-block; margin-left:-60px; font-size:30px;}
 	
 	
 	
