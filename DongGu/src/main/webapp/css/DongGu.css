@@ -641,7 +641,7 @@ width:100px;
    
    /* 전체 컨테이너 설정 */
    .jyl_container {
-         margin-top: 130px;
+       margin-top: 130px;
        width: 1450px;
        display: flex;
        justify-content: flex-start; 
@@ -655,7 +655,7 @@ width:100px;
        background-color: #fedc56;
        padding: 30px;
        border-radius: 8px; 
-       margin-right: 20px;
+       margin-right: 30px;
    }
 
    /* 사이드바 메뉴 스타일 */
@@ -777,8 +777,9 @@ width:100px;
        margin-left:15px;
     }
    
+ 
    
-   .jyl_content2_list1,
+    .jyl_content2_list1,
    .jyl_content2_list2, 
     .jyl_content2_list3,
      .jyl_content2_list4{
@@ -816,6 +817,7 @@ width:100px;
       display:flex;
       width: 100%;
       font-size: 28px;
+      margin-left: 10px;
    }
    
      .jyl_content2_title_bottom{
@@ -827,8 +829,7 @@ width:100px;
    
    .jyl_content2_list_title1, 
    .jyl_content2_list_title2 {  
-
-      margin-left:20px;
+      margin-left:10px;
       margin-bottom: 15px;    
       font-weight: bold;
       font-size: 17px;
@@ -871,16 +872,41 @@ width:100px;
        font-size: 30px;
        color: #47C867;
    }
+   
    .jyl_img_margin {
-   	   margin-top: 17px;
+   	   margin-top: 14px;
+   }
+
+	.jyl_likeimg{
+		border-radius: 10px; 
+      margin-bottom:20px;
+      margin-right:18px;
+       float: left; 
+       width: 310px;
+       height: 350px;
+   }
+   
+    .jyl_likestar_img{
+      margin-right:5px; 
+       width: 15px;
+       height: 15px;
+   }
+   
+   .jyl_boardlist_img{
+       float: right; 
+       width: 150px;
+
+       
    }
 
 
    .jyl_img{
-      margin-left:20px;
+      margin-left:5px;
+      margin-right:30px;
        float: left; 
        width: 100px;
        height: 130px;
+       
    }
    
     .jyl_img2{
@@ -902,8 +928,8 @@ width:100px;
    }
    
    .jyl_list1_info ul li {
-         position: relative;
-         align-items: center; 
+      position: relative;
+      align-items: center; 
       height:50%;
       list-style: none; 
    }
@@ -911,7 +937,7 @@ width:100px;
    .jyl_list1_info ul li span {
        position: absolute;
        top: 25%;
-         font-family: 'Pretendard-Regular', sans-serif;
+       font-family: 'Pretendard-Regular', sans-serif;
    }
    
    .jyl_list1_1_title {
@@ -923,6 +949,248 @@ width:100px;
          color: #c0c0c0;
          font-size: 15px;
    }
+   
+   .like_array{
+   		display: flex;
+   		width: 100%;
+   		flex-wrap: wrap;
+   }
+   
+   .jyl_like_list{
+   width: 33.33%;
+    font-family: 'Pretendard-Regular', sans-serif;   
+    box-sizing: border-box;
+    padding: 5px;
+   }
+   
+   
+   .jyl_like_list1_info {
+   		font-family: 'Pretendard-Regular', sans-serif;
+   		font-size: 15px;
+   		margin-bottom: 50px;
+   }
+   
+   .jyl_like_info1{
+   		margin-bottom: 5px;
+   }
+   
+   .jyl_like_info_title {
+   		font-size: 17px;
+   		font-weight: bold;
+   }
+   
+   .jyl_like_info_date, 
+   .jyl_like_info_star{
+         color: #8e8e8e;
+   }
+   
+   .like_point {
+	   font-weight: bold;
+	   color: #7a7a7a;
+   }
+   
+   .like_category{
+   	display: flex;
+   
+   }
+   
+   .like_category_list {
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 15px;
+       color:#8e8e8e;
+       margin-right:15px;
+       margin-bottom: 20px;
+       padding: 10px;
+       background-color: #fff; 
+       border-radius: 20px; 
+       border: 1px solid rgb(222, 226, 230);
+   }
+   
+    .like_category2{
+   	display: flex;
+   
+   }
+   
+   .like_category_list2 {
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 13px;
+       color:white;
+       margin-left:10px;
+       margin-bottom: 20px;
+       padding: 10px;
+       background-color: #444; 
+       border-radius: 20px; 
+       border: 1px solid #444;
+   }
+   
+    
+   .like_category_list3 {
+   	   width:110px;
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 16px;
+       color:white;
+       margin-left:22px;
+       margin-bottom: 20px;
+       margin-top: 10px;
+       padding: 10px;
+       background-color: #444; 
+       border-radius: 20px; 
+       border: 1px solid #444;
+   }
+   
+   .like_category_list4 {
+   	   width:97px;
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 16px;
+       color:white;
+       margin-left:30px;
+       margin-bottom: 20px;
+       margin-top: 10px;
+       padding: 10px;
+       background-color: #444; 
+       border-radius: 20px; 
+       border: 1px solid #444;
+   }
+   
+   
+   .jyl_likeimg_margin {
+    position: relative; 
+    display: inline-block; 
+	}
+	
+	.jyl_likeimg {
+	    display: block;
+	}
+	
+	.jyl_likeimg_heart {
+	    position: absolute;
+	    top: 12px; 
+	    right: 30px; 
+	    width: 25px; 
+	    height: 25px;
+	}
+	
+	  
+   .jyl_boardList {
+   	   display:flex;
+       font-family: 'Pretendard-Regular', sans-serif;
+       margin-top:25px;
+       padding: 20px;
+       background-color: #fff; 
+       border-radius: 8px; 
+       border: 1px solid rgb(222, 226, 230);
+       height: 160px;
+   }
+   
+   .jyl_boardList_info{
+   		width:85%;
+   		padding: 15px;
+   }
+   
+     .jyl_boardList_info2{
+   		width:100%;
+   		padding: 15px;
+   }
+
+	.jyl_boardList_info_category {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   padding:8px;
+	   margin-bottom: 12px;
+	   color: #ff8040;
+	}
+	
+	.jyl_boardList_info_category span {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   margin-bottom: 12px;
+	   color: #ff8040;
+	   align-items: center;
+	}
+	
+	.jyl_boardList_info_title {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   margin-bottom: 15px;
+	   color: #555555;
+	}
+	
+	.jyl_reviewList {
+		display: flex;
+		width: 100%;
+		flex-wrap: wrap;
+	}
+	
+	.jyl_reviewList_list1 {
+	   display:flex;
+	   width: 48%;
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   margin-right:8px;
+	   margin-left:8px;
+       margin-top:25px;
+       background-color: #fffae5; 
+       border-radius: 8px; 
+       border: 1px solid #fffae5;
+       height: 280px;
+       box-sizing: border-box;
+       padding: 5px;
+       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.jyl_reviewList_list2 {
+	   display:flex;
+	   width: 48%;
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   margin-right:8px;
+	   margin-left:8px;
+       margin-top:25px;
+       background-color: #fffae5;
+       border-radius: 8px; 
+       border: 1px solid #fffae5;
+       height: 280px;
+       box-sizing: border-box;
+       padding: 5px;
+       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.jyl_reviewList_img{
+		border-radius: 10px; 
+		margin-top:20px;
+      	margin-bottom:20px;
+      	margin-left:20px;
+        float: left; 
+        width: 228px;
+        height: 228px;
+	}
+	
+	.jyl_reviewList_content{
+		margin-top:20px;
+	    margin-bottom:20px;
+	    margin-left:20px;
+	    width: 195px;
+        height: 250px;
+	}
+	
+	.jyl_reviewList_content_category {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   margin-bottom: 15px;
+	   color: #555555;
+	}
+	
+	.reviewlist_img {
+		margin-left: 15px;
+		margin-bottom:7px;	
+	}
+	
+	.jyl_reviewList_content_page{
+		padding: 10px;
+		color: #77766f;
+	}
 
      /* //   ========== 진예림 끝 ============= // */
 	
