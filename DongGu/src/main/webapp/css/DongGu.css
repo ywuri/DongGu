@@ -18,7 +18,8 @@
 	/* //	========== 고유리 시작 ============= // */
 
 	/* 공통 css */
-	body {overflow-x:hidden; margin: 0; padding: 0;}
+	* {margin: 0; padding: 0;}
+	body {overflow-x:hidden;}
 	p, span, li {font-family: 'Pretendard';}
 	li::marker {content: none;}
 	
