@@ -21,7 +21,6 @@ header.dg_hd {
     transform: translate(-50%);
     background: #fff;
     transition: all .3s ease;
-    z-index: 1;
 }
 header.dg_hd h1 a img {width: 140px; margin: 10px 0 0 20px;}
 header.dg_hd nav > ul {display:flex;}
@@ -37,7 +36,7 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
-		<a href="#"><img src="img/logo.png" alt="logo"></a>
+		<a href="index.jsp"><img src="img/logo.png" alt="logo"></a>
 	</h1>
 	<nav>
 		<ul>

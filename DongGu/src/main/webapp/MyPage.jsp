@@ -10,7 +10,7 @@
 </head>
 <body >
 
-<%@include file="Header.jsp" %>
+<%@include file="header.jsp" %>
 
 <div id="jyl_body">
 <div class="jyl_container">
@@ -141,5 +141,5 @@
 </div>
 </div>
 </body>
-<%@include file="Footer.jsp" %>
+<%@include file="footer.jsp" %>
 </html>
