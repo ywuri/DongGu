@@ -36,7 +36,7 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
-		<a href="index.jsp"><img src="img/logo.png" alt="logo"></a>
+		<a href="Index.jsp"><img src="img/logo.png" alt="logo"></a>
 	</h1>
 	<nav>
 		<ul>

@@ -9,72 +9,42 @@
 
 <style>
 
-        #DetailDongGuContainer {
-            width: 80%;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top:190px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .image {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .details {
-            margin-bottom: 20px;
-        }
-        .details p {
-            margin: 8px 0;
-        }
-        .details label {
-            font-weight: bold;
-        }
-        .address {
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-            margin-top: 10px;
-        }
-    </style>
+</style>
 
 </head>
 <body>
 <%@include file="Header.jsp" %>
 
-
-
-    <div id="DetailDongGuContainer">
-        <h1>초대장</h1>
-        <div class="image">
-            <img src="이미지URL" alt="동물 이미지">
-        </div>
-        <div class="details">
-            <p><label>초대제목:</label> 초대장 제목</p>
-            <p><label>시작날짜-끝날짜:</label> 시작날짜 - 끝날짜</p>
-            <p><label>동물 품종:</label> 동물 품종</p>
-            <p><label>이름:</label> 동물 이름</p>
-            <p><label>생년월일:</label> 생년월일</p>
-            <p><label>성격:</label> 성격</p>
-            <p><label>알레르기:</label> 알레르기 정보</p>
-            <p><label>병력사항:</label> 병력사항</p>
-            <p><label>주의사항:</label> 주의사항</p>
-        </div>
-        <div class="address">
-            <p><label>주소:</label> 주소</p>
-            <p><label>자택종류:</label> 자택종류</p>
-        </div>
-        <p><label>초대자이름/닉네임:</label> 초대자 이름/닉네임</p>
-    </div>
-
+<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 초 대 장 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div class="DeTailDongGuMainDiv">
+	
+	<div id="DetailDongGuTitleDiv">제 초코좀 봐주세요</div>
+	<div id="DetailDongGuInfoDiv">
+		<div>
+			<img class="DetailDongGuImg" src="img/rivew_img02.png" >
+		</div>
+		<div id="DetailDongGuContentDiv" >
+			<div>[닉네임]이</div>
+			<div>24.07.31부터 24.08.02까지</div>
+			<div>강아지 치와와 초코(5살)와</div>
+			<div>행복한 시간에 초대합니다~</div>
+			<div>우리 초코는 [성격]하고 [성격]합니다.</div>
+			<div>초코의 [알레르기] [병력사항] [주의사항]을 조심해주세요</div>
+			<div>그리고 ~ [추가 입력한 사항]</div>
+			<div>대략적인 위치는 [주소]입니다 </div>
+			
+			<div id="DetailDongGuButton">
+				<span>초대에 응하시겠습니까? </span>
+				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="goPage();">
+			</div>
+			
+			<div>
+				<span>현재 참가자는 </span><span id="DetailDongGuCountNum">3</span><span>명 입니다.</span>
+			</div>
+		</div>
+		
+	</div>
+</div>
 
 
 <%@include file="Footer.jsp" %>

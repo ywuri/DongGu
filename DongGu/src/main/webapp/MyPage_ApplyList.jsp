@@ -14,17 +14,17 @@
 
 <div id="jyl_body">
 <div class="jyl_container">
-    <!------------- 왼쪽 사이드 메뉴 영역 ----------->
+      <!------------- 왼쪽 사이드 메뉴 영역 ----------->
     <div class="jyl_sidebar">
       <ul class="jyl_menu">
         <li><a class="side_title" href="MyPage.jsp">My Home</a></li>
-        <li><a class="side_title" href="#">나의 이력</a></li>
-        <li><a href="#">지원서 작성</a></li>
-        <li><a href="#">지원 내역</a></li>
-        <li><a class="side_title" href="#">나의 활동</a></li>
-        <li><a href="#">좋아한</a></li>
-        <li><a href="#">게시판 활동 내역</a></li>
-        <li><a href="#">이용 후기 내역</a></li>
+        <li><a class="side_title" href="MyPage_ApplyList.jsp">나의 이력</a></li>
+          <li><a href="MyPage_ApplyList.jsp">지원 내역</a></li>
+        <li><a href="#">지원서 관리</a></li>     
+        <li><a class="side_title" href="MyPage_Like.jsp">나의 활동</a></li>
+        <li><a href="MyPage_Like.jsp">관심 내역</a></li>
+        <li><a href="MyPage_BoardList.jsp">게시판 활동 내역</a></li>
+        <li><a href="MyPage_ReviewList.jsp">이용 후기 내역</a></li>
         <li><a class="side_title" href="#">회원 정보</a></li>
         <li><a href="#">정보 수정</a></li>
         <li><a href="#">나의 회원 등급</a></li>
@@ -34,11 +34,6 @@
     <!------------- E : 왼쪽 메뉴 영역 ----------->
     
     <!------------- 오른쪽 컨텐츠 영역 ----------->
-    <div>
-    
-    
-    
-    </div>
     
     <div class="jyl_content">
     
