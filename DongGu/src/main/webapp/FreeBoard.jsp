@@ -95,7 +95,9 @@
 		
 		<tfoot>
 				<tr> 
-					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="글쓰기"  onclick="location.href='#;"></td>
+					<td colspan="4">
+						<input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="글쓰기"  onclick="location.href='WriteFreeBoard.jsp';">
+					</td>
 				</tr>
 				
 				<tr>
@@ -106,7 +108,7 @@
 							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">3</a>&nbsp;&nbsp;
 							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">4</a>&nbsp;&nbsp;
 							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">5</a>&nbsp;&nbsp;
-							<input class="FreeBoardButton" type="button" value="다음"  onclick="location.href='#;">
+							<input class="FreeBoardButton" type="button" value="다음"  onclick="location.href=#;">
 					</td>
 				</tr>
 		</tfoot>

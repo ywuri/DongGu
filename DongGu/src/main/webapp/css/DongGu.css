@@ -10,7 +10,7 @@
    font-family: 'Pretendard-Regular', sans-serif;
    }
    
-   input, button, textarea, select ,select > option {
+   input, button, textarea, select ,select > option, span{
     font-family: 'Pretendard-Regular', sans-serif;
 }
 
@@ -228,13 +228,41 @@
 	
 	
 	/* //	========== 임수아 시작 ============= // */
+	.saveTableOne {width:600px; margin:150px auto; color:darkorange; }
+	.saveTableOne h3 {border-bottom:1px solid #fdcb08; text-align:center; padding:10px; margin:0;}
+	.saveTableOne table {width:100%; border:0px solid #fdcb08;}
+	.saveTableOne table tr th {width:30%; text-align:right; border:0px solid gray;}
+	.saveTableOne table tr td {width:70%; padding:10px 0 10px 1%; border:0px solid blue;}
+	.saveTableOne table tr td input {border:1px solid #fdcb08; padding:3px;}
+	.saveTableOne table tr td textarea {border:1px solid #fdcb08;}
+	.saveTableOne table tr td select {border:1px solid #fdcb08;}
+	
+	.saveTableOne .saveBtnOne {width:100%; height:40px; margin-top:20px; border:2px solid #fdcb08; background-color:#fdcb08; color:white; font-size:20px;}
+	
+	.saveBtnType_1 {background: white; color: #fdcb08; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
+	.saveBtnTypeClick_1 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
+	
+	.saveWS100 {width:100px;}
+	.saveWS250 {width:250px;}
+	/*
+	.saveWS200 {width:200px;}
+	.saveWS300 {width:300px;}
+	.saveWS400 {width:400px;}
+	.saveWS500 {width:500px;}
+	.saveWS600 {width:600px;}
+	.saveWS700 {width:700px;}
+	.saveWS800 {width:800px;}
+	.saveWS900 {width:900px;}
+	*/
 	
 	
 	
-	
-	
-	
-	
+	.s_joinTableOne {width:800px; height:500px; margin:200px auto; }
+	.s_joinTableOne > * {float:left; width:49%; height:350px; margin:0px 0 0 0; text-align:center; cursor:pointer; border:2px solid #fdcb08;}
+	.s_joinTableOne .jto_left {background-color:#fdcb08; color:white;}
+	.s_joinTableOne .jto_right {color:#fdcb08;}
+	.s_joinTableOne div img {margin:30px 0 0 0;}
+	.s_joinTableOne div span {display:inline-block; margin-left:-60px; font-size:30px;}
 	
 	
 	
@@ -552,6 +580,138 @@ width:100px;
     justify-content: center;
     align-items: center;
 }
+
+.DeTailDongGuMainDiv{
+	/* background-color:lightyellow; */
+	border-radius:10px;
+	margin-top:50px;
+	width: 1100px;
+    margin: 0px auto;
+    margin-bottom:50px;
+    
+    background-image: url('../img/detailDongGuBackGround.jpg'); 
+    background-size: cover;
+    background-position: center;/* 배경 이미지가 중앙에 위치하도록 */
+    padding: 20px; /* 요소들이 배경 이미지와 떨어지도록 패딩 추가 */
+    position: relative; /* 배경 이미지 위에 요소들이 위치하도록 */
+}
+#DetailDongGuTitleDiv{
+	text-align:center;
+	font-size: 27pt;
+    padding-top: 38px;
+    color:#444;
+    font-weight: 600;
+}
+.DetailDongGuImg{
+	/* width: 300px; */
+    height: 350px;
+    border-radius: 43px;
+}
+#DetailDongGuInfoDiv{
+	margin-top:70px;
+	display: flex; 
+	align-items: center;
+	margin-bottom:50px;
+	padding-bottom:50px;
+	margin-left: 50px;
+}
+#DetailDongGuContentDiv{
+	padding-left:100px; 
+	font-size:15pt;
+	color:#555;
+}
+#DetailDongGuContentDiv>div{
+	margin-bottom:10px;
+}
+
+#DetailDongGuButton{
+	margin-top:30px;
+}
+#DetailDongGuButton >span{
+	font-size:20pt;
+}
+.DetailDongGuJoinButton{
+	font-size:17pt;
+	background: green;
+    border: 0px;
+    border-radius: 6px;
+    text-align: center;
+    padding: 5px 5px;
+    color : white;
+    cursor: pointer;
+}
+#DetailDongGuCountNum{
+	color:#6600ff;
+	font-weight: 600;
+}
+
+
+#WriteFreeBoardMainDiv{
+	border: 1px solid #eee; 
+	border-radius: 12px; 
+	width:800px; 
+	margin:0px auto; 
+}
+
+#WriteFreeBoardTitleInput{
+ 	border: 0px;
+    padding: 30px 20px;
+    border-radius: 25px;
+    background-color: #f5f6f8;
+    width: -webkit-fill-available;
+    margin: 20px;
+    font-size: 20pt;
+    outline: none;
+}
+#WriteFreeBoardContent{
+    font-size: 17pt;
+    resize: none;
+    border: 0px;
+    height: 600px;
+    width: 710px;
+    padding: 40px 40px;
+    outline: none;
+}
+
+#WriteFreeBoardContentDiv{
+	border:1px solid #eee; 
+	margin-top:10px;
+}
+
+#WriteFreeBoardSubmitButton{
+	background: #fffae5;
+    color: #fdcb08;
+    border: 1px solid #fdcb08;
+    border-radius: 5px;
+    cursor: pointer;
+	font-size: 18pt;
+    width: 60px;
+    height: 42px;
+}
+
+#WriteFreeBoardImgDiv{
+	width:800px; 
+	margin:0px auto; 
+	margin-bottom:100px;
+}
+
+#WriteFreeBoardImgDiv2{
+	border: 1px solid #eee; 
+	margin-top: 10px; 
+	border-radius: 10px;
+}
+
+#WriteFreeBoardInputImg{
+	font-size:12pt;
+}
+
+#showFreeBoardImgDiv img {
+  width: 300px;
+  height: 300px;
+  margin-top:20px;
+}
+   
+   
 	/* //	========== 이지현 끝 ============= // */
 	
 	
@@ -612,7 +772,7 @@ width:100px;
 	
 
 	
-	/* //	========== 진예림 시작 ============= // */
+	/* //   ========== 진예림 시작 ============= // */
 
    #jyl_body {
        display: flex; 
@@ -623,7 +783,7 @@ width:100px;
    
    /* 전체 컨테이너 설정 */
    .jyl_container {
-         margin-top: 130px;
+       margin-top: 130px;
        width: 1450px;
        display: flex;
        justify-content: flex-start; 
@@ -637,7 +797,7 @@ width:100px;
        background-color: #fedc56;
        padding: 30px;
        border-radius: 8px; 
-       margin-right: 20px;
+       margin-right: 30px;
    }
 
    /* 사이드바 메뉴 스타일 */
@@ -759,8 +919,9 @@ width:100px;
        margin-left:15px;
     }
    
+ 
    
-   .jyl_content2_list1,
+    .jyl_content2_list1,
    .jyl_content2_list2, 
     .jyl_content2_list3,
      .jyl_content2_list4{
@@ -798,6 +959,7 @@ width:100px;
       display:flex;
       width: 100%;
       font-size: 28px;
+      margin-left: 10px;
    }
    
      .jyl_content2_title_bottom{
@@ -809,8 +971,7 @@ width:100px;
    
    .jyl_content2_list_title1, 
    .jyl_content2_list_title2 {  
-
-      margin-left:20px;
+      margin-left:10px;
       margin-bottom: 15px;    
       font-weight: bold;
       font-size: 17px;
@@ -853,16 +1014,41 @@ width:100px;
        font-size: 30px;
        color: #47C867;
    }
+   
    .jyl_img_margin {
-   	   margin-top: 17px;
+   	   margin-top: 14px;
+   }
+
+	.jyl_likeimg{
+		border-radius: 10px; 
+      margin-bottom:20px;
+      margin-right:18px;
+       float: left; 
+       width: 310px;
+       height: 350px;
+   }
+   
+    .jyl_likestar_img{
+      margin-right:5px; 
+       width: 15px;
+       height: 15px;
+   }
+   
+   .jyl_boardlist_img{
+       float: right; 
+       width: 150px;
+
+       
    }
 
 
    .jyl_img{
-      margin-left:20px;
+      margin-left:5px;
+      margin-right:30px;
        float: left; 
        width: 100px;
        height: 130px;
+       
    }
    
     .jyl_img2{
@@ -884,8 +1070,8 @@ width:100px;
    }
    
    .jyl_list1_info ul li {
-         position: relative;
-         align-items: center; 
+      position: relative;
+      align-items: center; 
       height:50%;
       list-style: none; 
    }
@@ -893,7 +1079,7 @@ width:100px;
    .jyl_list1_info ul li span {
        position: absolute;
        top: 25%;
-         font-family: 'Pretendard-Regular', sans-serif;
+       font-family: 'Pretendard-Regular', sans-serif;
    }
    
    .jyl_list1_1_title {
@@ -905,10 +1091,250 @@ width:100px;
          color: #c0c0c0;
          font-size: 15px;
    }
+   
+   .like_array{
+   		display: flex;
+   		width: 100%;
+   		flex-wrap: wrap;
+   }
+   
+   .jyl_like_list{
+   width: 33.33%;
+    font-family: 'Pretendard-Regular', sans-serif;   
+    box-sizing: border-box;
+    padding: 5px;
+   }
+   
+   
+   .jyl_like_list1_info {
+   		font-family: 'Pretendard-Regular', sans-serif;
+   		font-size: 15px;
+   		margin-bottom: 50px;
+   }
+   
+   .jyl_like_info1{
+   		margin-bottom: 5px;
+   }
+   
+   .jyl_like_info_title {
+   		font-size: 17px;
+   		font-weight: bold;
+   }
+   
+   .jyl_like_info_date, 
+   .jyl_like_info_star{
+         color: #8e8e8e;
+   }
+   
+   .like_point {
+	   font-weight: bold;
+	   color: #7a7a7a;
+   }
+   
+   .like_category{
+   	display: flex;
+   
+   }
+   
+   .like_category_list {
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 15px;
+       color:#8e8e8e;
+       margin-right:15px;
+       margin-bottom: 20px;
+       padding: 10px;
+       background-color: #fff; 
+       border-radius: 20px; 
+       border: 1px solid rgb(222, 226, 230);
+   }
+   
+    .like_category2{
+   	display: flex;
+   
+   }
+   
+   .like_category_list2 {
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 13px;
+       color:white;
+       margin-left:10px;
+       margin-bottom: 20px;
+       padding: 10px;
+       background-color: #444; 
+       border-radius: 20px; 
+       border: 1px solid #444;
+   }
+   
+    
+   .like_category_list3 {
+   	   width:110px;
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 16px;
+       color:white;
+       margin-left:22px;
+       margin-bottom: 20px;
+       margin-top: 10px;
+       padding: 10px;
+       background-color: #444; 
+       border-radius: 20px; 
+       border: 1px solid #444;
+   }
+   
+   .like_category_list4 {
+   	   width:97px;
+       font-family: 'Pretendard-Regular', sans-serif;
+       font-size: 16px;
+       color:white;
+       margin-left:30px;
+       margin-bottom: 20px;
+       margin-top: 10px;
+       padding: 10px;
+       background-color: #444; 
+       border-radius: 20px; 
+       border: 1px solid #444;
+   }
+   
+   
+   .jyl_likeimg_margin {
+    position: relative; 
+    display: inline-block; 
+	}
+	
+	.jyl_likeimg {
+	    display: block;
+	}
+	
+	.jyl_likeimg_heart {
+	    position: absolute;
+	    top: 12px; 
+	    right: 30px; 
+	    width: 25px; 
+	    height: 25px;
+	}
+	
+	  
+   .jyl_boardList {
+   	   display:flex;
+       font-family: 'Pretendard-Regular', sans-serif;
+       margin-top:25px;
+       padding: 20px;
+       background-color: #fff; 
+       border-radius: 8px; 
+       border: 1px solid rgb(222, 226, 230);
+       height: 160px;
+   }
+   
+   .jyl_boardList_info{
+   		width:85%;
+   		padding: 15px;
+   }
+   
+     .jyl_boardList_info2{
+   		width:100%;
+   		padding: 15px;
+   }
+
+	.jyl_boardList_info_category {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   padding:8px;
+	   margin-bottom: 12px;
+	   color: #ff8040;
+	}
+	
+	.jyl_boardList_info_category span {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   margin-bottom: 12px;
+	   color: #ff8040;
+	   align-items: center;
+	}
+	
+	.jyl_boardList_info_title {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   margin-bottom: 15px;
+	   color: #555555;
+	}
+	
+	.jyl_reviewList {
+		display: flex;
+		width: 100%;
+		flex-wrap: wrap;
+	}
+	
+	.jyl_reviewList_list1 {
+	   display:flex;
+	   width: 48%;
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   margin-right:8px;
+	   margin-left:8px;
+       margin-top:25px;
+       background-color: #fffae5; 
+       border-radius: 8px; 
+       border: 1px solid #fffae5;
+       height: 280px;
+       box-sizing: border-box;
+       padding: 5px;
+       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.jyl_reviewList_list2 {
+	   display:flex;
+	   width: 48%;
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   margin-right:8px;
+	   margin-left:8px;
+       margin-top:25px;
+       background-color: #fffae5;
+       border-radius: 8px; 
+       border: 1px solid #fffae5;
+       height: 280px;
+       box-sizing: border-box;
+       padding: 5px;
+       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.jyl_reviewList_img{
+		border-radius: 10px; 
+		margin-top:20px;
+      	margin-bottom:20px;
+      	margin-left:20px;
+        float: left; 
+        width: 228px;
+        height: 228px;
+	}
+	
+	.jyl_reviewList_content{
+		margin-top:20px;
+	    margin-bottom:20px;
+	    margin-left:20px;
+	    width: 195px;
+        height: 250px;
+	}
+	
+	.jyl_reviewList_content_category {
+	   font-family: 'Pretendard-Regular', sans-serif;
+	   font-weight: bold;
+	   font-size: 18px;
+	   margin-bottom: 15px;
+	   color: #555555;
+	}
+	
+	.reviewlist_img {
+		margin-left: 15px;
+		margin-bottom:7px;	
+	}
+	
+	.jyl_reviewList_content_page{
+		padding: 10px;
+		color: #77766f;
+	}
 
      /* //   ========== 진예림 끝 ============= // */
-	
-	
 	
 	
 	
