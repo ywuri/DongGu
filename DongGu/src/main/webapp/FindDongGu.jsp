@@ -6,6 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
+
+
+<style>
+
+
+</style>
+
 </head>
 <body>
 <%@include file="Header.jsp" %>
@@ -18,24 +25,24 @@
 	<table id="FreeBoardTable">
 		<thead>
 			<tr>
-				<td colspan="5" id="FindDongGuTagButton" style="width:100%;">
-				<div>
-				
-					<input type="button" class="FreeBoardButton FindDongGuTagButton" value="동구" onclick="location.href='#;">
-					<input type="button" class="FreeBoardButton FindDongGuTagButton" value="냥구" onclick="location.href='#;">
-					<input type="button" class="FreeBoardButton FindDongGuTagButton" value="칭구" onclick="location.href='#;">
-				</div>
-					<form name="FreeBoardForm">
-						<div id="FreeBoardFormDiv">
-							<select name="" id="FreeBoardFormSelect">
-								<option value="">제목</option>
-								<option value="">내용</option>
-								<option value="">작성자</option>
-							</select>
-							<input type="text" id="FreeBoardSearch">
-							<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
-						</div>
-					</form>
+				<td colspan="5" id="FindDongGuTagButton" >
+					<div class="FindDongGuSearchDiv">
+						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="동구" onclick="location.href='#;">
+						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="냥구" onclick="location.href='#;">
+						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="칭구" onclick="location.href='#;">
+					
+						<form name="FreeBoardForm" class="FreeBoardForm">
+							<div id="FreeBoardFormDiv">
+								<select name="" id="FreeBoardFormSelect">
+									<option value="">제목</option>
+									<option value="">내용</option>
+									<option value="">작성자</option>
+								</select>
+								<input type="text" id="FreeBoardSearch">
+								<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
+							</div>
+						</form>
+					</div>
 				</td>
 				
 		<!-- 		<td colspan="3" id="FreeBoardFormTd">

@@ -17,6 +17,23 @@
 	<table id="FreeBoardTable">
 		<thead>
 			<tr>
+				<td colspan="4" id="FindDongGuTagButton"  >
+					<form name="FreeBoardForm" >
+						<div id="FreeBoardFormDiv" class="FreeBoardFormDivCenter">
+							<select name="" id="FreeBoardFormSelect">
+								<option value="">제목</option>
+								<option value="">내용</option>
+								<option value="">작성자</option>
+							</select>
+							<input type="text" id="FreeBoardSearch">
+							<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
+						</div>
+					</form>
+				</td>
+
+			</tr>
+			
+			<tr>
 				<th id="FreeBoardTableTitle">제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
@@ -95,17 +112,7 @@
 		</tfoot>
 	</table>
 	
-	<form name="FreeBoardForm">
-		<div id="FreeBoardFormDiv">
-			<select name="" id="FreeBoardFormSelect">
-				<option value="">제목</option>
-				<option value="">내용</option>
-				<option value="">작성자</option>
-			</select>
-			<input type="text" id="FreeBoardSearch">
-			<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
-		</div>
-	</form>
+
 </div>
 	
 	
