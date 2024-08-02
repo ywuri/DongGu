@@ -55,9 +55,29 @@
 					</td>
 				</tr>
 				<tr>
+					<th>성별</th>
+					<td>
+						<input type="radio" name="" id="" value="" class=""><label for="">남자</label>
+						<input type="radio" name="" id="" value="" class=""><label for="">여자</label>
+					</td>
+				</tr>
+				<tr>
+					<th>흡연여부</th>
+					<td>
+						<input type="radio" name="" id="" value="" class=""><label for="">흡연</label>
+						<input type="radio" name="" id="" value="" class=""><label for="">비흡연</label>
+					</td>
+				</tr>
+				<tr>
 					<th>닉네임</th>
 					<td>
 						<input type="text" name="" id="" value="" class="saveWS250">
+					</td>
+				</tr>
+				<tr>
+					<th>사진</th>
+					<td>
+						<input type="file" name="" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 				<tr>
@@ -79,13 +99,25 @@
 					</td>
 				</tr>
 				<tr>
-					<th>자택종류</th>
+					<th>반려경험</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250">
+						<textarea></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>동구경험</th>
+					<td>
+						<textarea></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>기타경험</th>
+					<td>
+						<textarea></textarea>
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="" id="" value="동구할래요! 가입하기" class="saveBtnOne">
+			<input type="submit" name="" id="" value="동구구해요! 가입하기" class="saveBtnOne">
 		</div>
 		
 	</form>	
