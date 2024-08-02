@@ -15,7 +15,7 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 250px 0 100px 0;
+    padding: 200px 0 100px 0;
 }
 .place ul {display: flex; flex-direction: column; gap: 80px;}
 .place p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 600;}
@@ -54,6 +54,7 @@
 			<p class="title">운동장이 있는 애견카페</p>
 			<div class="place_box">
 				<div class="box 01">
+				<a href="DongGuPlaceView.jsp">
 					<div class="img_box"> 
 						<img src="img/place01.jpg" >
 					</div>
@@ -62,6 +63,7 @@
 						<p class="small_txt">서울 구로구 오류동</p>
 						<p class="tag">평화로운 분위기 · 햇살뷰 · 회원권</p>
 					</div>
+				</a>
 				</div>
 				<div class="box 02">
 					<div class="img_box"> 

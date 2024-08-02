@@ -44,7 +44,7 @@
 <!-- count 끝 -->
 <!-- rivew 시작 -->
 <section class="rivew">
-	<h3>Rivew</h3>
+	<h3><img src="img/logo_rivew.png"></h3>
 	<div class="rivew_cont">
 		<ul>
 			<li>
