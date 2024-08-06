@@ -15,7 +15,7 @@
 <div id="jyl_body">
 <div class="jyl_container">
      <!------------- 왼쪽 사이드 메뉴 영역 ----------->
-    <div class="jyl_sidebar">
+   <div class="jyl_sidebar">
       <ul class="jyl_menu">
         <li><a class="side_title" href="MyPage.jsp">My Home</a></li>
         <li><a class="side_title" href="MyPage_ApplyList.jsp">나의 이력</a></li>
@@ -24,10 +24,10 @@
         <li><a class="side_title" href="MyPage_Like.jsp">나의 활동</a></li>
         <li><a href="MyPage_Like.jsp">관심 내역</a></li>
         <li><a href="MyPage_BoardList.jsp">게시판 활동 내역</a></li>
-        <li><a href="#">이용 후기 내역</a></li>
-        <li><a class="side_title" href="#">회원 정보</a></li>
-        <li><a href="#">정보 수정</a></li>
-        <li><a href="#">나의 회원 등급</a></li>
+        <li><a href="MyPage_ReviewList.jsp">이용 후기 내역</a></li>
+        <li><a class="side_title" href="MyPage_InfoUpdate.jsp"">회원 정보</a></li>
+        <li><a href="MyPage_InfoUpdate.jsp">회원정보 수정</a></li>
+        <li><a href="MyPage_MemberLevel.jsp">나의회원 등급</a></li>
         <li><a class="side_title" href="#">1:1 문의</a></li>
       </ul>
     </div>

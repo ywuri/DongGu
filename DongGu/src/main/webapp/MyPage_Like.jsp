@@ -25,9 +25,9 @@
         <li><a href="MyPage_Like.jsp">관심 내역</a></li>
         <li><a href="MyPage_BoardList.jsp">게시판 활동 내역</a></li>
         <li><a href="MyPage_ReviewList.jsp">이용 후기 내역</a></li>
-        <li><a class="side_title" href="#">회원 정보</a></li>
-        <li><a href="#">정보 수정</a></li>
-        <li><a href="#">나의 회원 등급</a></li>
+        <li><a class="side_title" href="MyPage_InfoUpdate.jsp"">회원 정보</a></li>
+        <li><a href="MyPage_InfoUpdate.jsp">회원정보 수정</a></li>
+        <li><a href="MyPage_MemberLevel.jsp">나의회원 등급</a></li>
         <li><a class="side_title" href="#">1:1 문의</a></li>
       </ul>
     </div>
