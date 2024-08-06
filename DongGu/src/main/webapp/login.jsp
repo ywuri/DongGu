@@ -103,13 +103,24 @@
         font-size: 13px;
      }
      
-    ul li input[type="text"], 
-    ul li input[type="password"]{
+    ul li input[type="text"]{
 	    width: 100%; 
 	    max-width: 250px;
 	    height:43px;
 	    flex-grow: 1;
 	    font-family: 'ONE-Mobile-POP', sans-serif;
+	    font-size: 15px;
+	    padding: 7px;
+	    border: 2px solid #c0c0c0; 
+	    border-radius:10px;
+	    box-sizing: border-box; 
+	}
+	
+	 ul li input[type="password"]{
+	    width: 100%; 
+	    max-width: 250px;
+	    height:43px;
+	    flex-grow: 1;
 	    font-size: 15px;
 	    padding: 7px;
 	    border: 2px solid #c0c0c0; 
@@ -125,6 +136,7 @@
 	
 	ul li input[type="text"]::placeholder,
 	ul li input[type="password"]::placeholder {
+	 	font-family: 'ONE-Mobile-POP', sans-serif;
 	    color: #a0a0a0; /* 더 연한 색상으로 설정 */
 	    opacity: 1; /* 기본 opacity로 설정 (브라우저에 따라 기본값이 다를 수 있음) */
 	}
