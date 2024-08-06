@@ -21,27 +21,18 @@
 					<td>
 						<input type="text" name="" id="" value="" class="saveWS250">
 					</td>
-				</tr>
-				<tr>
-					<th>지원자이름/닉네임</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
-				</tr>
 				<tr>
 					<th>성별</th>
 					<td>
-						<select name="" id="" class="saveWS250">
-							<option value="">남자</option>
-							<option value="">여자</option>
-						</select>
+						<input type="radio" name="" id="" value="" class=""><label for="">남자</label>
+						<input type="radio" name="" id="" value="" class=""><label for="">여자</label>
 					</td>
 				</tr>
 				<tr>
 					<th>흡연여부</th>
 					<td>
-						<select name="" id="" class="saveWS250">
-							<option value="">흡연</option>
-							<option value="">비흡연</option>
-						</select>
+						<input type="radio" name="" id="" value="" class=""><label for="">흡연</label>
+						<input type="radio" name="" id="" value="" class=""><label for="">비흡연</label>
 					</td>
 				</tr>
 				<tr>
@@ -50,27 +41,33 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
+					<td>
+						<input type="text" name="" id="" value="" class="saveWS250" placeholder="기본주소">
+						<input type="text" name="" id="" value="" class="saveWS250" placeholder="상세주소">
+					</td>
 				</tr>
-				
-				
-				
 				<tr>
 					<th>반려경험</th>
 					<td>
-						<textarea class="saveWS250"></textarea>
+						<textarea class="saveWS100p saveHS100" placeholder="본인의 반려경험을 적어주세요."></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>동구경험</th>
 					<td>
-						<textarea class="saveWS250"></textarea>
+						<textarea class="saveWS100p saveHS100" placeholder="타인의 반려동물을 돌봐본 경험을 적어주세요."></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>기타경험</th>
 					<td>
-						<textarea class="saveWS250"></textarea>
+						<textarea class="saveWS100p saveHS100" placeholder="기타 경험을 적어주세요."></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>추가내용</th>
+					<td>
+						<textarea class="saveWS100p saveHS100" placeholder="추가할 내용을 적어주세요."></textarea>
 					</td>
 				</tr>
 			</table>

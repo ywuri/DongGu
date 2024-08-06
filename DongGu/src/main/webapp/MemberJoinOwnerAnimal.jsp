@@ -19,7 +19,7 @@
 				<tr>
 					<th>종류</th>
 					<td>
-						<select name="">
+						<select name="" class="saveWS260">
 							<option value="">강아지</option>
 							<option value="">고양이</option>
 						</select>
@@ -28,7 +28,7 @@
 				<tr>
 					<th>품종</th>
 					<td>
-						<select name="" id="" class="saveWS250">
+						<select name="" id="" class="saveWS260">
 							<option value="">시츄</option>
 							<option value="">말티즈</option>
 							<option value="">푸들</option>
@@ -64,9 +64,9 @@
 					</td>
 				</tr>
 				<tr>
-					<th>생년</th>
+					<th>생년월일</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250">
+						<input type="date" name="" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 				<tr>
@@ -83,9 +83,6 @@
 						<input type="button" class="saveBtnType_1" value="성격8" onclick="">
 						<input type="button" class="saveBtnType_1" value="성격9" onclick="">
 						<input type="button" class="saveBtnType_1" value="성격10" onclick="">
-						<p/>
-						<input type="button" class="saveBtnType_1" value="기타" onclick="">
-						<input type="text" name="" id="" value="" class="saveWS100">
 					</td>
 				</tr>
 				<tr>
@@ -103,7 +100,7 @@
 				<tr>
 					<th>주의사항</th>
 					<td>
-						<textarea></textarea>
+						<textarea class="saveWS100p saveHS100" placeholder="동구가 주의해야 할 점을 적어주세요. (안는 걸 싫어합니다, 손을 내밀면 할퀼 수 있으니 조심해주세요.)"></textarea>
 					</td>
 				</tr>
 			</table>

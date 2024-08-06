@@ -7,14 +7,22 @@
 <title>Insert title here</title>
  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
+
+<script>
+	
+	function findAct(){
+		var pwCheckText = "비번찾기완료";
+		document.getElementById('findActBox').innerHTML = pwCheckText;
+	}
+</script>
+
 </head>
 <body>
 <%@include file="Header.jsp" %>
 
-	<form name="">
-	
-		<div class="saveTableOne">
-			<h3>비밀번호 찾기</h3>
+	<div class="saveTableOne margin_tbtype1">
+		<h3>비밀번호 찾기</h3>
+		<form name="">
 			<table>
 				<tr>
 					<th>비밀번호 찾기 질문</th>
@@ -37,10 +45,13 @@
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="" id="" value="비밀번호 찾기" class="saveBtnOne">
-		</div>
+			<input type="button" name="" id="" value="비밀번호 찾기" class="saveBtnOne" onclick="findAct()">
+		</form>	
+	</div>
+	
+	<div class="findTableOne" id="findActBox">
+	</div>
 		
-	</form>	
 	
 <%@include file="Footer.jsp" %>
 

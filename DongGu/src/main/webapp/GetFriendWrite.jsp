@@ -30,6 +30,15 @@
 					</td>
 				</tr>
 				<tr>
+					<th>이름</th>
+					<td>
+						<select name="" id="" class="saveWS250">
+							<option value="">콩나</option>
+							<option value="">숑이</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<th>동물</th>
 					<td>
 						<select name="" id="" class="saveWS250">
@@ -58,16 +67,25 @@
 					</td>
 				</tr>
 				<tr>
-					<th>이름</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
-				</tr>
-				<tr>
 					<th>사진</th>
 					<td><input type="file" name="" id="" value="" class="saveWS250"></td>
 				</tr>
 				<tr>
+					<th>주소</th>
+					<td>
+						<input type="text" name="" id="" value="" class="saveWS250" placeholder="기본주소">
+						<input type="text" name="" id="" value="" class="saveWS250" placeholder="상세주소">
+					</td>
+				</tr>
+				<tr>
+					<th>자택종류</th>
+					<td>
+						<input type="text" name="" id="" value="" class="saveWS250" placeholder="단독주택, 아파트, 빌라">
+					</td>
+				</tr>
+				<tr>
 					<th>생년월일</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
+					<td><input type="date" name="" id="" value="" class="saveWS250"></td>
 				</tr>
 				<tr>
 					<th>성격</th>
@@ -83,9 +101,6 @@
 						<input type="button" class="saveBtnType_1" value="성격8" onclick="">
 						<input type="button" class="saveBtnType_1" value="성격9" onclick="">
 						<input type="button" class="saveBtnType_1" value="성격10" onclick="">
-						<p/>
-						<input type="button" class="saveBtnType_1" value="기타" onclick="">
-						<input type="text" name="" id="" value="" class="saveWS100">
 						
 					</td>
 				</tr>
@@ -100,20 +115,14 @@
 				<tr>
 					<th>주의사항</th>
 					<td>
-						<textarea class="saveWS250"></textarea>
+						<textarea class="saveWS100p saveHS100" placeholder="동구가 주의해야 할 점을 적어주세요. (안는 걸 싫어합니다, 손을 내밀면 할퀼 수 있으니 조심해주세요.)"></textarea>
 					</td>
 				</tr>
 				<tr>
-					<th>주소</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
-				</tr>
-				<tr>
-					<th>자택종류</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
-				</tr>
-				<tr>
-					<th>초대자이름/닉네임</th>
-					<td><input type="text" name="" id="" value="" class="saveWS250"></td>
+					<th>추가내용</th>
+					<td>
+						<textarea class="saveWS100p saveHS100" placeholder="추가할 내용을 적어주세요."></textarea>
+					</td>
 				</tr>
 			</table>
 			<input type="submit" name="" id="" value="초대하기" class="saveBtnOne">
