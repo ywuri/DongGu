@@ -11,23 +11,22 @@
 </head>
 <body>
 <%@include file="Header.jsp" %>
-<form>
-<div id="FreeBoardDivTitle" style="">
-	<img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 공지사항 작성 <img src="img/paw-solid.svg" class="FreeBoardTitleImg">
-	<span style="text-align:right; ">
-		<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
-	</span>
-	
-</div>
+<form name="WriteQnABoard">
+	<div id="FreeBoardDivTitle">
+		<img src="img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 작성 <img src="img/paw-solid.svg" class="FreeBoardTitleImg">
+		<span style="text-align:right; ">
+			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
+		</span>
+		
+	</div>
 
 	<div id="WriteFreeBoardMainDiv">
-		<input id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." name="title" required>
+		<input name="q_title" id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." required>
 		<div id="WriteFreeBoardContentDiv">
-			<textarea id="WriteFreeBoardContent" name="content" placeholder="내용을 입력하세요." required></textarea>
+			<textarea name="q_content" id="WriteFreeBoardContent" placeholder="내용을 입력하세요." required></textarea>
 		</div>
 	</div>
 	
-
 </form>
 <%@include file="Footer.jsp" %>
 </body>

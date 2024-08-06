@@ -707,7 +707,60 @@ width:100px;
   height: 300px;
   margin-top:20px;
 }
-   
+#DetailQnABoardContentDiv{
+	font-size: 17pt;
+    resize: none;
+    border: 0px;
+    height: fit-content;
+    width: 710px;
+    padding: 40px 40px;
+    outline: none;
+    margin-bottom: 50px;
+}
+#BoardMargin{
+	margin-bottom:60px;
+	margin-top:190px;
+}
+#DetailBoardTitle{
+	border: 0px;
+    border-radius: 25px;
+    width: -webkit-fill-available;
+    margin: 20px;
+    font-size: 25pt;
+    outline: none;
+    font-weight: 600;
+    padding-top: 0px;
+    margin-top: 10px;
+    padding-left:20px;
+}
+
+#DetailBoardSubject{
+	
+    border: 0px;
+    border-radius: 25px;
+    width: -webkit-fill-available;
+    outline: none;
+    padding-top: 20px;
+    padding-left: 30px;
+    margin-left: 14px;
+}
+.DetailBoardSubject{
+	
+	text-decoration: none;
+	color: orange;
+}
+#DetailBoardInfo{
+	border: 0px;
+    border-radius: 25px;
+    width: -webkit-fill-available;
+    outline: none;
+    padding-left: 30px;
+    margin-left: 14px;
+}
+#DetailBoardImg{
+	height:300px;
+	padding: 40px 40px;
+}   
    
 	/* //	========== 이지현 끝 ============= // */
 	
