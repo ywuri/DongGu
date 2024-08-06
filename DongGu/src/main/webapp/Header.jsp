@@ -59,7 +59,9 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 		</ul>
 	</nav>
 	<div class="util">
-		<button type="button" class="login"></button>
+		<a href="login.jsp">
+			<button type="button" class="login"></button>
+		</a>
 	</div>
 </header>
 </body>
