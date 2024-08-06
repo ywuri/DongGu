@@ -23,16 +23,8 @@
 					</td>
 				</tr>
 				<tr>
-					<th>내용</th>
-					<td>
-						<textarea class="saveWS250"></textarea>
-					</td>
-				</tr>
-				<tr>
 					<th>사진</th>
 					<td>
-						<input type="file" name="" id="" value="" class="saveWS250">
-						<input type="file" name="" id="" value="" class="saveWS250">
 						<input type="file" name="" id="" value="" class="saveWS250">
 					</td>
 				</tr>
@@ -41,17 +33,18 @@
 					<td>
 						<select name="" class="saveWS250">
 							<option value="">0</option>
-							<option value="">0.5</option>
 							<option value="">1</option>
-							<option value="">1.5</option>
 							<option value="">2</option>
-							<option value="">2.5</option>
 							<option value="">3</option>
-							<option value="">3.5</option>
 							<option value="">4</option>
-							<option value="">4.5</option>
 							<option value="">5</option>
 						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+						<textarea class="saveWS100p saveHS100" placeholder="후기내용을 적어주세요."></textarea>
 					</td>
 				</tr>
 			</table>
