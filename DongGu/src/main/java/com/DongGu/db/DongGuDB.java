@@ -20,9 +20,12 @@ public class DongGuDB {
     	
 	}
 	
-	public static Connection getConn() throws Exception{
-		return ds.getConnection();
-	}
+   public static Connection getConn() throws SQLException {
+        if (ds == null) {
+            throw new SQLException("DataSource is null.efef");
+        }
+        return ds.getConnection();
+    }
 }
 
 
