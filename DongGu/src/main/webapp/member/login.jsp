@@ -175,27 +175,27 @@
 
 <body>
 	<header>
-		<div class="jyl_login_div"><a href="Index.jsp"><img  class="jyl_login_logo" src="img/logo.png" alt="logo"></a></div>
+		<div class="jyl_login_div"><a href="Index.jsp"><img  class="jyl_login_logo" src="../img/logo.png" alt="logo"></a></div>
 	</header>
-	<form name= "login" action="login_ok.jsp">		
-		<ul>
-		<li>
+	 <form name="login" action="login_ok.jsp" method="post" onsubmit="return validateForm()">      
+        <ul>
+        <li>
         <i>ID</i><input type="text" name="userid" placeholder="아이디를 입력하세요">
-		</li>
-    	<li id="jyl_space">
+        </li>
+        <li id="jyl_space">
         <i>PW</i><input type="password" name="userpwd"  placeholder="비밀번호를 입력하세요">
-    	</li>   		
-		<li>				
-		<input type="submit" value="로그인" class="btn">		
-		</li>		
-		<li>
+        </li>         
+        <li>             
+        <input type="submit" value="로그인" class="btn">       
+        </li>       
+        <li>
         <a class="jyl_link" href="#">아이디 찾기</a>
         <span class="jyl_link">&nbsp; | &nbsp;</span>
         <a class="jyl_link" href="#">비밀번호 찾기</a>
         <span class="jyl_link">&nbsp; | &nbsp;</span>
         <a class="jyl_link" href="#">회원가입</a>
-		</li>
-		</ul>
-	</form>
+        </li>
+        </ul>
+    </form>
 </body>
 </html>

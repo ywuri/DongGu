@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="/Header.jsp" %>
 
 	<form name="">
 	
@@ -28,7 +28,7 @@
 		
 	</form>	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="/Footer.jsp" %>
 
 </body>
 </html>
