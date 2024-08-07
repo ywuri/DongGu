@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="java.sql.Date" %>  
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <%@include file="Header.jsp" %>
-<form name="WriteQnABoard">
+<form name="WriteQnABoard" action="WriteQnABoard_ok.jsp">
 	<div id="FreeBoardDivTitle">
 		<img src="img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 작성 <img src="img/paw-solid.svg" class="FreeBoardTitleImg">
 		<span style="text-align:right; ">
