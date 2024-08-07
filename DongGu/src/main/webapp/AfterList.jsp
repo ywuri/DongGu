@@ -27,6 +27,7 @@
 	<div class="rivew_cont">
 		<ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
 			<li>
+			<a href="AfterView.jsp">
 				<div class="box">
 					<div class="left_box">
 					</div>
@@ -44,6 +45,7 @@
 						</p>
 					</div>
 				</div>
+			</a>
 			</li>
 			<li>
 				<div class="box">

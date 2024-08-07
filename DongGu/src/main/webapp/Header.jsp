@@ -21,6 +21,7 @@ header.dg_hd {
     transform: translate(-50%);
     background: #fff;
     transition: all .3s ease;
+    z-index: 11;
 }
 header.dg_hd h1 a img {width: 140px; margin: 10px 0 0 20px;}
 header.dg_hd nav > ul {display:flex;}
@@ -28,11 +29,16 @@ header.dg_hd nav > ul > li {position: relative;}
 header nav > ul > li::marker {content: none;}
 header.dg_hd nav > ul > li > a {line-height:80px; font-family: 'Pretendard'; font-size:18px; color: #444; padding: 0 50px; transition: color .3s ease;}
 header.dg_hd nav > ul > li > a span {display: inline-block; position: relative; line-height: 1;}
+header.dg_hd .util a {display: block; width:80px; height:80px;}
 header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-radius: 0 8px 8px 0;
-    background: url(img/icon_login.png) no-repeat center;}
+    background: url(img/icon_login.png) no-repeat center; cursor: pointer;}
 </style>
 </head>
 <body>
+<%
+String sname = (String)session.getAttribute("sname");
+String snickname = (String)session.getAttribute("snickname");
+%>
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
@@ -47,11 +53,11 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 				<a href="#"><span>게시판</span></a>
 			</li>
 			<li>
-				<a href="#"><span>동구의 추천</span></a>
+				<a href="DongGuPlace.jsp"><span>동구의 추천</span></a>
 			</li>
 			</li>
 			<li>
-				<a href="#"><span>이용후기</span></a>
+				<a href="AfterList.jsp"><span>이용후기</span></a>
 			</li>
 			<li>
 				<a href="#"><span>고객센터</span></a>
@@ -59,7 +65,20 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 		</ul>
 	</nav>
 	<div class="util">
+	<%if(sname == null){
+	%>
+	<a href="member/login.jsp">
 		<button type="button" class="login"></button>
+	</a>
+	<%
+	}else{
+		%>
+		<div>
+		 <%= snickname %>님 로그인중 | <a href="/DongGu/member/logout.jsp">로그아웃</a>
+		</div>
+		<%
+	} %>
+		
 	</div>
 </header>
 </body>

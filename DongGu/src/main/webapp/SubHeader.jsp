@@ -34,6 +34,10 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 </style>
 </head>
 <body>
+<%
+String sname = (String)session.getAttribute("sname");
+String snickname = (String)session.getAttribute("snickname");
+%>
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
@@ -60,7 +64,20 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 		</ul>
 	</nav>
 	<div class="util">
+	<%if(sname == null){
+	%>
+	<a href="login.jsp">
 		<button type="button" class="login"></button>
+	</a>
+	<%
+	}else{
+		%>
+		<div>
+		 <%= snickname  %>님 로그인중 | <a href="/DongGu/member/logout.jsp">로그아웃</a>
+		</div>
+		<%
+	} %>
+		
 	</div>
 </header>
 </body>
