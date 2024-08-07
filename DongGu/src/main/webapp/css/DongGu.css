@@ -228,7 +228,7 @@
 	
 	
 	/* //	========== 임수아 시작 ============= // */
-	.saveTableOne {width:600px; color:darkorange; }
+	.saveTableOne {width:600px; color:darkorange; margin:150px auto;}
 	.saveTableOne h3 {border-bottom:1px solid #fdcb08; text-align:center; padding:10px; margin:0;}
 	.saveTableOne table {width:100%; border:0px solid #fdcb08;}
 	.saveTableOne table tr th {width:30%; text-align:right; border:0px solid gray;}
@@ -241,8 +241,9 @@
 	.saveTableOne .btnType1 {float:right; width:100px; height:23px; border:2px solid #fdcb08; background-color:#fdcb08; color:white; font-size:10px; 
 								margin-right:30px; cursor:pointer;}
 	
-	.saveBtnType_1 {background: white; color: #fdcb08; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
-	.saveBtnTypeClick_1 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
+	.saveBtnType_1 {background: white; color: #fdcb08; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px; cursor: pointer;}
+	.saveBtnTypeClick_1 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px; cursor: pointer;}
+	.saveBtnTypeClick_2 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px;}
 	
 	
 	.margin_tbtype1 {margin:250px auto 50px;}
