@@ -228,7 +228,7 @@
 	
 	
 	/* //	========== 임수아 시작 ============= // */
-	.saveTableOne {width:600px; color:darkorange; }
+	   .saveTableOne {width:600px; color:darkorange; margin:150px auto;}
 	.saveTableOne h3 {border-bottom:1px solid #fdcb08; text-align:center; padding:10px; margin:0;}
 	.saveTableOne table {width:100%; border:0px solid #fdcb08;}
 	.saveTableOne table tr th {width:30%; text-align:right; border:0px solid gray;}
