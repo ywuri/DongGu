@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +13,7 @@
 
 <script>
 	function duplicateCheck(){
-		alert("중복체크!!");
+		window.open('IdCheck.jsp','idCheck','width=450,height=300');
 	}
 	
 	function pwCheck(){
@@ -40,20 +43,19 @@
 		}
 	}
 </script>
-
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="/SubHeader.jsp" %>
 
 	<form name="">
 	
 		<div class="saveTableOne">
-			<h3>구직자 가입하기</h3>
+			<h3>고용자 가입하기</h3>
 			<table>
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250">
+						<input type="text" name="id" id="" value="" class="saveWS250" readonly>
 						<input type="button" name="" id="" value="아이디 중복검사" class="btnType1" onclick="duplicateCheck()">
 					</td>
 				</tr>
@@ -73,7 +75,7 @@
 				<tr>
 					<th>비밀번호 찾기 질문</th>
 					<td>
-						<select name="" class="saveWS250">
+						<select name="" class="saveWS260">
 							<option value="">질문1</option>
 						</select>
 					</td>
@@ -91,30 +93,10 @@
 					</td>
 				</tr>
 				<tr>
-					<th>성별</th>
-					<td>
-						<input type="radio" name="" id="" value="" class=""><label for="">남자</label>
-						<input type="radio" name="" id="" value="" class=""><label for="">여자</label>
-					</td>
-				</tr>
-				<tr>
-					<th>흡연여부</th>
-					<td>
-						<input type="radio" name="" id="" value="" class=""><label for="">흡연</label>
-						<input type="radio" name="" id="" value="" class=""><label for="">비흡연</label>
-					</td>
-				</tr>
-				<tr>
 					<th>닉네임</th>
 					<td>
 						<input type="text" name="" id="" value="" class="saveWS250">
 						<input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="duplicateCheck()">
-					</td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td>
-						<input type="file" name="" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 				<tr>
@@ -140,30 +122,18 @@
 					</td>
 				</tr>
 				<tr>
-					<th>반려경험</th>
+					<th>자택종류</th>
 					<td>
-						<textarea class="saveWS100p saveHS100" placeholder="본인의 반려경험을 적어주세요."></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>동구경험</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" placeholder="타인의 반려동물을 돌봐본 경험을 적어주세요."></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>기타경험</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" placeholder="기타 경험을 적어주세요."></textarea>
+						<input type="text" name="" id="" value="" class="saveWS250" placeholder="단독주택, 아파트, 빌라">
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="" id="" value="동구할래요! 구직자 가입하기" class="saveBtnOne">
+			<input type="submit" name="" id="" value="동구구해요! 고용자 가입하기" class="saveBtnOne">
 		</div>
 		
 	</form>	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="/Footer.jsp" %>
 
 </body>
 </html>

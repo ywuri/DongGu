@@ -1,134 +1,280 @@
 @charset "UTF-8";
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-   }
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
    
    body{
-   font-family: 'Pretendard-Regular', sans-serif;
+   font-family: '"Pretendard', sans-serif;
    }
    
    input, button, textarea, select ,select > option, span{
-    font-family: 'Pretendard-Regular', sans-serif;
-}
+    font-family: '"Pretendard', sans-serif;
+	}
 
 
 	/* //	========== 고유리 시작 ============= // */
 
-	/* 공통 css */
+	/* ---  공통 css --- */
 	* {margin: 0; padding: 0;}
 	body {overflow-x:hidden;}
-	p, span, li {font-family: 'Pretendard';}
+	p, span, li, label {font-family: 'Pretendard';}
 	li::marker {content: none;}
 	a {text-decoration: none; color: unset;}
 	
-	/* idex - main */
-	section.main {width: 100%; background: #fffae5;}
-	.main .main_img {display: flex; justify-content: flex-end; align-items: flex-end; width: 1440px; height: 900px; position: relative; margin: 0 auto;}
-	.main .main_img img {width: 950px;}
-	.main .main_txt {display: flex; flex-direction: column; align-self: center; position: absolute; top: 300px; left: 0; right: 0; margin: 0px auto; 
-						width: 1440px; z-index: 20;}
-	.main .main_txt p.bg_p {font-size: 65px; letter-spacing: 5px;
-	    line-height: 80px; font-weight: bold; margin: 0 0 30px 0; color: #333;}
-	.main .main_txt p.sm_p {font-size: 20px; font-weight: 500; letter-spacing: 0.5px; color: #77766f; margin: 0;} 
-	.main .main_txt p b {color: #fdcb08;}
-	.main .main_bt {display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 100px;
-					 border-radius: 10px; background: #fdcb08;}
-	.main .main_bt p {color:#fff; font-size: 17px; letter-spacing: 0.5px;}
-	.main .main_bt img {padding: 0 0 0 10px;}
-	
-	/* index - count */
-	section.count {width: 100%; height: 340px; position: relative; box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);}
-	.count .area {width: 1440px; height: 340px; margin: 0px auto; display: flex; justify-content: space-between; align-items: center; padding-left: 210px;
-    				padding-right: 333px;}
-	.count .area .ct_txt01 p {font-size:40px; font-weight: 600; color: #a0a0a0; letter-spacing: 1px;}
-	.count .area .ct_txt01 p span {color:#000;} 
-	.count .area .ct_txt02 {padding-right: 200px;}
-	.count .area .ct_txt02 p {font-size: 24px; color: #a1a1a1;} 
-	.count .area .ct_txt02 p span {font-size: 65px; color:#000; font-weight: 700;} 
-	
-	/* index - rivew */
-	@font-face {
-	    font-family: 'Cafe24Meongi-B-v1.0';
-	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-B-v1.0.woff2') format('woff2');
-	    font-weight: normal;
-	    font-style: normal;
+	/* --- nav css --- */
+	header.dg_hd {
+	    position: absolute; width:1470px; left: 50%; top: 50px; display: flex; justify-content: space-between; align-items: center; height: 80px; 
+	    border-radius: 10px; transform: translate(-50%); background: #fff; transition: all .3s ease; z-index: 11;
 	}
-	section.rivew {background: #fffdf7; padding: 100px 0 100px 0;}
-	.rivew h3 {text-align: center; margin: 0; padding: 0 0 50px 0; }
-	.rivew h3 img {width:250px;}
-	.rivew .rivew_cont {width:1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;} 
-	.rivew .rivew_cont ul {padding:0;}
-	.rivew .rivew_cont ul li {margin-bottom: 40px;}
-	.rivew .rivew_cont ul li:nth-child(1) .left_box { 
-		background: url(../img/rivew_img01.png) no-repeat top right; background-position: right -25px; background-size: cover;}
-	.rivew .rivew_cont ul li:nth-child(2) .left_box { 
-		background: url(../img/rivew_img02.png) no-repeat top right; background-position: right -65px; background-size: cover;}
-	.rivew .rivew_cont ul li:nth-child(3) .left_box { 
-		background: url(../img/rivew_img03.png) no-repeat top right; background-position: right -80px; background-size: cover;}
-	.rivew .rivew_cont ul li:last-child {margin-bottom: 0px;}
-	.rivew .box {	 
-		display: flex;
-	    justify-content: flex-start;
-	    align-items: flex-start;
-	    gap: 25px;
-	    border-radius: 30px;
-	    box-shadow: 10px 10px 24px 10px hsla(0, 5%, 92%, .5);
-	    background-color: #fff;
-	    box-sizing: border-box;
-	    padding: 35px;}
-	.rivew .left_box {width:340px; height: 170px; background: #000;}
-	.rivew .right_box .rb_title {display: flex; justify-content: flex-start; align-items: center; gap: 20px; margin-bottom: 16px;}
-	.rivew .right_box img {margin-bottom: 16px;}
-	.rivew .right_box .rb_title .best {
-	    display: inline-block;
-	    width: 64px;
-	    border-radius: 10px;
-	    background-color: #444;
-	    font-size: 17px;
-	    font-weight: 400;
-	    line-height: 28px;
-	    text-align: center;
-	    letter-spacing: -.64px;
-	    color: #fff;}
-	.rivew .right_box p {color: #444; line-height: 25px;}
-	.rivew .right_box .rb_title .addr {color: #444; font-size:17px; font-weight:500;}
-	.rivew .right_box .rb_title .date {color: #d2d2d2;}
-	.rivew .rivew_bt {
-		display: flex;
-	    cursor: pointer;
-	    align-items: center;
-	    justify-content: center;
-	    width: 130px;
-	    height: 60px;
-	    margin-top: 100px;
-	    border-radius: 10px;
-	    color:#595858;
-	    border: 1px solid #595858;}
-	.rivew .rivew_bt img {padding: 0 0 0 10px; }
+	header.dg_hd h1 a img {
+	    width: 140px; margin: 10px 0 0 20px;
+	}
+	header.dg_hd nav > ul {
+	    display: flex;
+	}
+	header.dg_hd nav > ul > li {
+	    position: relative;
+	}
+	header nav > ul > li::marker {
+	    content: none;
+	}
+	header.dg_hd nav > ul > li > a {
+	    line-height: 80px; font-family: 'Pretendard'; font-size: 18px; color: #444; padding: 0 50px; transition: color .3s ease;
+	}
+	header.dg_hd nav > ul > li > a span {
+	    display: inline-block; position: relative; line-height: 1;
+	}
+	header.dg_hd .util .login {
+	    width:80px; height:80px; padding:0; border:0; border-radius: 0 8px 8px 0; background: url(../img/icon_login.png) no-repeat center; cursor: pointer;
+	}
+	header.dg_hd .util a:hover .login {
+	    width:80px; height:80px; padding:0; border:0; border-radius: 0 8px 8px 0; background: url(../img/icon_login_hv.png) no-repeat center; cursor: pointer;
+	}
 	
-	/* banner */
-	section.bn {padding: 100px 0;}
-	.bn .bk_bn {width: 1400px; background: #000; height: 450px; margin: 0 auto;}
-	.bn .bk_bn .img { height: 450px;
-		background: url(../img/banner_img.png) no-repeat top right; background-position: right -100px;}
-	.bn .bk_bn .txt { padding: 80px 0 0 90px;}
-	.bn .bk_bn .txt .big_txt {color: #fff; font-size: 30px; line-height: 1.4; margin:0;}
-	.bn .bk_bn .txt .small_txt {color: #b2b2b2; font-size: 17px; line-height: 1.4; margin:55px 0 0 0;}
+	/** --- 하위 메뉴 --- */
+	header.dg_hd nav > ul > li .dropdown {
+	    display: none; opacity: 0; visibility: hidden; margin-top: -20px; position: absolute; background: white; width: 180px; z-index: 4; 
+	    border-radius: 10px; left: 50%; transform: translateX(-50%); box-shadow: 0px 3px 15px -1px rgba(0, 0, 0, 0.2); transition: all 0.2s linear;
+	}
+	header.dg_hd nav > ul > li .dropdown::before {
+	    content: ''; position: absolute; top: -6px; left: calc(50% - 5px); width: 0; height: 0; border-left: 10px solid transparent; 
+	    border-right: 10px solid transparent; border-bottom: 10px solid white; z-index: 3;
+	}
+	header.dg_hd nav > ul > li:hover .dropdown, header.dg_hd nav > ul > li .dropdown.show {
+	    display: block; visibility: visible; opacity: 1; margin-top: 0; padding: 10px 5px;
+	}
+	header.dg_hd nav > ul > li .dropdown p {
+	    display: flex; align-items: center; justify-content: space-between; color: #444; text-align: left; padding: 0 18px; margin: -4px 0; 
+	    cursor: pointer; line-height: 40px; transition: opacity .3s ease;
+	}
+	header.dg_hd nav > ul > li .dropdown p:hover {
+	    background: rgba(253, 203, 8, 0.25); border-radius: 10px;
+	}
+	
+	/* --- Tab --- */
+	:root {
+    --pagination-width: 117.5px;
+    --highlight-left: 0px;
+	}
+	.radio-checked { 
+	  position: relative; font-size: 18px; letter-spacing: 1px; box-shadow: -6px -5px 14px 3px #fff, 7px 7px 12px 2px #d0d8e3; border-radius: 70px; width: 235px; margin: 0 auto; margin-bottom: 50px; 
+	}
+	
+	.radio-checked_input { 
+	  display: none; 
+	}
+	
+	.radio-checked_input:checked + .radio-checked_label--on { 
+	  color: #444; /*text-shadow: 0 0 7px rgba(71, 207, 115, 0.6);*/ 
+	}
+	
+	.radio-checked_input:checked + .radio-checked_label--off { 
+	  color: #444; /*text-shadow: 0 0 7px rgba(255, 60, 65, 0.6);*/ 
+	}
+	
+	.radio-checked_input:checked + .radio-checked_label:before { 
+	  display: none; 
+	}
+	
+	.radio-checked_label { 
+	  font-family: 'Cafe24Meongi-B-v1.0'; cursor: pointer; display: inline-block; padding: 20px 25px 15px; line-height: 1; border-radius: 3rem; color: #acb2c0; transition: all 150ms ease-in-out; 
+	}
+	
+	.radio-checked_label:before { 
+	  content: ""; position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: block; 
+	}
+	
+	.radio-checked_container { 
+	  position: relative; 
+	}
+	
+	.radio-checked_highlight { 
+	  position: absolute; left: 0; bottom: 0; width: var(--pagination-width); height: 100%; border-radius: 70px; box-shadow: inset -5px -5px 10px 4px #fff, inset -2px 6px 8px 6px #d0d8e3; background: #eef3f7; transition: all 0.6s ease; transform: translateX(var(--highlight-left)); 
+	}
+	
+	.svg { 
+	  position: absolute; top: -50%; bottom: -50%; pointer-events: none; 
+	}
+	
+	.svg_icon { 
+	  width: auto; height: 100%; 
+	}
+	
+	.svg--right { 
+	  left: 100%; 
+	}
+	
+	.svg--left { 
+	  right: 100%; 
+	}
+
+	
+	/* --- idex > main --- */
+	section.main {
+	    width: 100%; background: #fffae5;
+	}
+	.main .main_img {
+	    display: flex; justify-content: flex-end; align-items: flex-end; width: 1440px; height: 900px; position: relative; margin: 0 auto;
+	}
+	.main .main_img img {
+	    width: 950px;
+	}
+	.main .main_txt {
+	    display: flex; flex-direction: column; align-self: center; position: absolute; top: 300px; left: 0; right: 0; margin: 0px auto; width: 1440px; z-index: 20;
+	}
+	.main .main_txt p.bg_p {
+	    font-size: 65px; letter-spacing: 5px; line-height: 80px; font-weight: bold; margin: 0 0 30px 0; color: #333;
+	}
+	.main .main_txt p.sm_p {
+	    font-size: 20px; font-weight: 500; letter-spacing: 0.5px; color: #77766f; margin: 0;
+	}
+	.main .main_txt p b {
+	    color: #fdcb08;
+	}
+	.main .main_bt {
+	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 100px; border-radius: 10px; background: #fdcb08;
+	}
+	.main .main_bt p {
+	    color: #fff; font-size: 17px; letter-spacing: 0.5px;
+	}
+	.main .main_bt img {
+	    padding: 0 0 0 10px;
+	}
+	
+	/* --- index > count --- */
+	section.count {
+	    width: 100%; height: 340px; position: relative; box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);
+	}
+	.count .area {
+	    width: 1440px; height: 340px; margin: 0px auto; display: flex; justify-content: space-between; align-items: center; padding-left: 210px; padding-right: 333px;
+	}
+	.count .area .ct_txt01 p {
+	    font-size: 40px; font-weight: 600; color: #a0a0a0; letter-spacing: 1px;
+	}
+	.count .area .ct_txt01 p span {
+	    color: #000;
+	}
+	.count .area .ct_txt02 {
+	    padding-right: 200px;
+	}
+	.count .area .ct_txt02 p {
+	    font-size: 24px; color: #a1a1a1;
+	}
+	.count .area .ct_txt02 p span {
+	    font-size: 65px; color: #000; font-weight: 700;
+	}
+	
+	/* --- index > rivew --- */
+	@font-face {
+	    font-family: 'Cafe24Meongi-B-v1.0'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-B-v1.0.woff2') format('woff2'); font-weight: normal; font-style: normal;
+	}
+	section.rivew {
+	    background: #fffdf7; padding: 100px 0 100px 0;
+	}
+	.rivew h3 {
+	    text-align: center; margin: 0; padding: 0 0 50px 0;
+	}
+	.rivew h3 img {
+	    width: 250px;
+	}
+	.rivew .rivew_cont {
+	    width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;
+	}
+	.rivew .rivew_cont ul {
+	    padding: 0;
+	}
+	.rivew .rivew_cont ul li {
+	    margin-bottom: 40px;
+	}
+	.rivew .rivew_cont ul li:nth-child(1) .left_box {
+	    background: url(../img/rivew_img01.png) no-repeat top right; background-position: right -25px; background-size: cover;
+	}
+	.rivew .rivew_cont ul li:nth-child(2) .left_box {
+	    background: url(../img/rivew_img02.png) no-repeat top right; background-position: right -65px; background-size: cover;
+	}
+	.rivew .rivew_cont ul li:nth-child(3) .left_box {
+	    background: url(../img/rivew_img03.png) no-repeat top right; background-position: right -80px; background-size: cover;
+	}
+	.rivew .rivew_cont ul li:last-child {
+	    margin-bottom: 0px;
+	}
+	.rivew .box {
+	    display: flex; justify-content: flex-start; align-items: flex-start; gap: 25px; border-radius: 30px; box-shadow: 10px 10px 24px 10px hsla(0, 5%, 92%, .5); background-color: #fff; box-sizing: border-box; padding: 35px;
+	}
+	.rivew .left_box {
+	    width: 340px; height: 170px; background: #000;
+	}
+	.rivew .right_box .rb_title {
+	    display: flex; justify-content: flex-start; align-items: center; gap: 20px; margin-bottom: 16px;
+	}
+	.rivew .right_box img {
+	    margin-bottom: 16px;
+	}
+	.rivew .right_box .rb_title .best {
+	    display: inline-block; width: 64px; border-radius: 10px; background-color: #444; font-size: 17px; font-weight: 400; line-height: 28px; text-align: center; letter-spacing: -.64px; color: #fff;
+	}
+	.rivew .right_box p {
+	    color: #444; line-height: 25px;
+	}
+	.rivew .right_box .rb_title .addr {
+	    color: #444; font-size: 17px; font-weight: 500;
+	}
+	.rivew .right_box .rb_title .date {
+	    color: #d2d2d2;
+	}
+	.rivew .rivew_bt {
+	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; 
+	    margin-top: 100px; margin: 0 auto; margin-top: 100px; border-radius: 10px; color: #595858; border: 1px solid #595858;
+	}
+	.rivew .rivew_bt img {
+	    padding: 0 0 0 10px;
+	}
+	
+	/* --- banner --- */
+	section.bn {
+	    padding: 100px 0;
+	}
+	.bn .bk_bn {
+	    width: 1400px; background: #000; height: 450px; margin: 0 auto;
+	}
+	.bn .bk_bn .img {
+	    height: 450px; background: url(../img/banner_img.png) no-repeat top right; background-position: right -100px;
+	}
+	.bn .bk_bn .txt {
+	    padding: 80px 0 0 90px;
+	}
+	.bn .bk_bn .txt .big_txt {
+	    color: #fff; font-size: 30px; line-height: 1.4; margin: 0;
+	}
+	.bn .bk_bn .txt .small_txt {
+	    color: #b2b2b2; font-size: 17px; line-height: 1.4; margin: 55px 0 0 0;
+	}
 	.bn .bn_bt {
-		display: flex;
-	    cursor: pointer;
-	    align-items: center;
-	    justify-content: center;
-	    width: 130px;
-	    height: 60px;
-	    margin-top: 50px;
-	    border-radius: 10px;
-	    color:#fff;
-	    border: 1px solid #fff;}
-	 .bn .bn_bt img {padding: 0 0 0 10px;}
+	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 50px; border-radius: 10px; color: #fff; border: 1px solid #fff;
+	}
+	.bn .bn_bt img {
+	    padding: 0 0 0 10px;
+	}
+
+
 	
 	
 	
@@ -228,7 +374,9 @@
 	
 	
 	/* //	========== 임수아 시작 ============= // */
-	.saveTableOne {width:600px; color:darkorange; }
+
+	.saveTableOne {width:600px; color:darkorange; margin:150px auto;}
+
 	.saveTableOne h3 {border-bottom:1px solid #fdcb08; text-align:center; padding:10px; margin:0;}
 	.saveTableOne table {width:100%; border:0px solid #fdcb08;}
 	.saveTableOne table tr th {width:30%; text-align:right; border:0px solid gray;}
@@ -241,8 +389,9 @@
 	.saveTableOne .btnType1 {float:right; width:100px; height:23px; border:2px solid #fdcb08; background-color:#fdcb08; color:white; font-size:10px; 
 								margin-right:30px; cursor:pointer;}
 	
-	.saveBtnType_1 {background: white; color: #fdcb08; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
-	.saveBtnTypeClick_1 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; cursor: pointer; font-size:12px;}
+	.saveBtnType_1 {background: white; color: #fdcb08; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px; cursor: pointer;}
+	.saveBtnTypeClick_1 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px; cursor: pointer;}
+	.saveBtnTypeClick_2 {background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px;}
 	
 	
 	.margin_tbtype1 {margin:250px auto 50px;}
@@ -470,7 +619,7 @@ width:100px;
 width:100px;
 }
 #FreeBoardTable > thead>tr>th:last-child{
-width:100px;
+width:170px;
 }
 #FreeBoardTable >thead>tr>th{
 	border-top : solid 1px #fdcb08;;
@@ -778,7 +927,13 @@ width:100px;
 	height:300px;
 	padding: 40px 40px;
 }   
-   
+#searchTitle{
+	font-size: 20pt;
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background:white;
+}   
 	/* //	========== 이지현 끝 ============= // */
 	
 	
