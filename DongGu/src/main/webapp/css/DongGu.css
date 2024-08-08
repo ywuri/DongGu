@@ -1029,10 +1029,10 @@ width:170px;
    #jyl_info_short4{width:85%;text-align: left;}
    #jyl_info_short4_spandiv{margin-left:10px; padding: 10px;}
    #jyl_info_short4_span{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; color: black; font-weight: bold;}	
-   .jyl_label{margin-left:10px; width: 10%;}	
-   .jyl_label1{font-family: 'Pretendard-Regular', sans-serif;	font-size: 14px;	font-weight:bold;	color:#8290e3;}	
-   .jyl_label2{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; color: #a7a7a7;}	
-   .jyl_label3{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; color: #fedc56;}
+   .jyl_label{margin-left:10px;width: 10%;}	
+   .jyl_label1{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px;	font-weight:bold; color:#8290e3;}	
+   .jyl_label2{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; font-weight:bold; color:#a7a7a7;}	
+   .jyl_label3{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; font-weight:bold; color: #fdcb08;}
 
 	
    .jyl_content2, .jyl_content3{ margin-top: 80px;  margin-bottom: 20px; padding-bottom: 5px;}
@@ -1041,21 +1041,23 @@ width:170px;
    .jyl_content2_title_bottom{border-bottom : 1px solid rgb(222, 226, 230); display:flex; width: 100%; font-size: 28px;}   
    .jyl_content2_list_title1, .jyl_content2_list_title2 {margin-left:25px;margin-right:25px; padding:15px; font-weight: bold; font-size: 16px; width: 50%}   
    .jyl_content2_list_title2 {margin-right:20px; text-align: right;}   	
-   .jyl_content2_list_title2_1{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#ff3333;}   
-   .jyl_content2_list_title2_2{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#1313f1e0;}
-   .jyl_content2_list_title2_3{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#1ac31a;}   	
+   .jyl_content2_list_title2_1{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#fbb206;}   
+   .jyl_content2_list_title2_2{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#ff3333;}   
+   .jyl_content2_list_title2_3{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#1313f1e0;}
+   .jyl_content2_list_title2_4{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#fb06db;}
+   .jyl_content2_list_title2_5{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 16px; color:#1ac31a;}   	
    .jyl_content2_list_area{display: flex;}
    .jyl_img_div {width:18%; padding:15px; padding-right: 5px;}  	
    .jyl_list1_info{display:flex; justify-content:space-between; flex: 1;}  
    .jyl_list1_info1{width: 85%; padding: 15px; padding-left: 5px;}
-   .jyl_list1_info1_1 {padding: 15px; padding-top: 30px; padding-bottom: 10px;}
+   .jyl_list1_info1_1 {padding: 15px; padding-top: 20px; padding-bottom: 10px;}
    .jyl_list1_info1_title { font-size: 19px; font-weight: bold;}
-   .jyl_list1_info2{width: 12%; padding: 15px; display:flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
+   .jyl_list1_info2{width: 15%; padding: 15px; display:flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
    .jyl_list1_info1_nature {font-family: 'Pretendard-Regular', sans-serif; font-size: 16px; color:#8e8e8e; margin-right:10px; padding: 10px; background-color:#fff; border-radius: 20px; border: 1px solid rgb(222, 226, 230);}
    .jyl_list1_info1_3{padding: 10px; padding-left: 15px; padding-top: 5px;}
    .jyl_list1_info1_date {color: #8e8e8e; font-size: 16px;}   
    .jyl_list1_info1_2 {display:flex; text-align:center; padding: 10px;	padding-left: 10px;}   
-   .jyl_list1_info2_btn1, .jyl_list1_info2_btn2, .jyl_list1_info2_btn3 {font-family: 'Pretendard-Regular', sans-serif; width:60px; padding: 10px; margin: 5px 0; border-radius: 5px; background-color: #FAFBFF; color: #8290e3; border: 1px dotted #8290e3; cursor: pointer; transition: background-color 0.3s ease;}
+   .jyl_list1_info2_btn1, .jyl_list1_info2_btn2, .jyl_list1_info2_btn3 {font-family: 'Pretendard-Regular', sans-serif; padding: 10px; margin: 5px 0; border-radius: 5px; background-color: #FAFBFF; color: #8290e3; border: 1px dotted #8290e3; cursor: pointer; transition: background-color 0.3s ease;}
    .jyl_content3_list{display: flex; width: 100%; margin-bottom: 50px;}
    .jyl_content3_list1, .jyl_content3_list2, .jyl_content3_list3 {display:flex; width: 30%; font-family: 'Pretendard-Regular', sans-serif; font-weight:bold; padding: 20px; background-color: #fff; border-radius: 8px; border: 1px solid rgb(222, 226, 230);}   
    .jyl_content3_list2, .jyl_content3_list3 {margin-left:15px;}  

@@ -1,6 +1,8 @@
 package com.DongGu.mypage;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyPageDTO {
 
@@ -37,6 +39,7 @@ public class MyPageDTO {
    // 동물 정보 
    private int ai_num;
    private String ai_img;
+   private String an_num_link;
    
    // 동물 성격 
    private int an_num;
@@ -67,6 +70,9 @@ public class MyPageDTO {
    private double likecount;
    private double starcount;
    
+   // 성격 키워드 처리를 위한 멤버변수 선언
+   private ArrayList<String> an_words;
+   
    
    // 0. 기본 생성자 
    public MyPageDTO() {
@@ -83,18 +89,46 @@ public class MyPageDTO {
       this.starcount = starcount;   
    }
    
-   
+   // 1-2. 인자 생성자(마이페이지 메인 section 2)	
+   public MyPageDTO(int a_num, String ai_img, String an_num_link, String m_name, String i_title, Date i_start, Date i_end, ArrayList<String> an_words) {
+	   super();
+	   this.a_num = a_num;
+	   this.ai_img = ai_img;
+	   this.an_num_link = an_num_link;
+	   this.m_name = m_name;
+	   this.i_title = i_title;
+	   this.i_start = i_start;
+	   this.i_end = i_end;
+	   this.an_words = an_words;
+   }
+
    
    
    
    // getter, setter
-   public int getW_num() {
+   public ArrayList<String> getAn_words() {
+		return an_words;
+	}
+
+	public void setAn_words(ArrayList<String> an_words) {
+		this.an_words = an_words;
+	}
+
+   public String getAn_num_link() {
+		return an_num_link;
+	}	
+	
+	public void setAn_num_link(String an_num_link) {
+		this.an_num_link = an_num_link;
+	}
+	
+    public int getW_num() {
       return w_num;
    }
 
-   public void setW_num(int w_num) {
-      this.w_num = w_num;
-   }
+	public void setW_num(int w_num) {
+	      this.w_num = w_num;
+	}
 
    public String getW_id() {
       return w_id;

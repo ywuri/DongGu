@@ -18,7 +18,7 @@ String snickname = (String)session.getAttribute("snickname");
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
-		<a href="Index.jsp"><img src="img/logo.png" alt="logo"></a>
+		<a href="Index.jsp"><img src="/DongGu/img/logo.png" alt="logo"></a>
 	</h1>
 	<nav>
 		<ul>
