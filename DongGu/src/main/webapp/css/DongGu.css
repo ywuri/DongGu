@@ -927,7 +927,13 @@ width:170px;
 	height:300px;
 	padding: 40px 40px;
 }   
-   
+#searchTitle{
+	font-size: 20pt;
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background:white;
+}   
 	/* //	========== 이지현 끝 ============= // */
 	
 	

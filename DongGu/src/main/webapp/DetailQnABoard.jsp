@@ -31,7 +31,8 @@ int cp = Integer.parseInt( request.getParameter("cp"));
 			<div id="WriteFreeBoardContentDiv">
 				<div id="DetailQnABoardContentDiv" ><%=qdto.getQ_content()%></div>
 			</div>
-			<input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="뒤로가기"  onclick="location.href='QnABoard.jsp?cp=<%=cp %>';">
+			<input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="뒤로가기"  onclick="window.history.back();">
+			<%-- QnABoard.jsp?cp=<%=cp %> --%>
 		</div>
 	</div>
 </div>
