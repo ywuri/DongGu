@@ -74,14 +74,18 @@ public class MyPageDAO {
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+         String sql = "SELECT * FROM ( "
+         		+ "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
          		+ "FROM invitation i "
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
          		+ "JOIN animal a ON at.a_num = a.a_num "
          		+ "JOIN application ap ON i.i_id = ap.i_id "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
-         		+ "WHERE ap.p_id = ? ";
+         		+ "WHERE ap.p_id = ? "
+         		+ "order by ap.ap_num desc "
+         		+ ") "
+         		+ "WHERE ROWNUM <= 3 ";
             
          ps=conn.prepareStatement(sql);
          ps.setString(1, m_sid);
@@ -137,6 +141,79 @@ public class MyPageDAO {
       }
    }   
    
+   
+   
+   
+   // 2-1. 마이페이지 지원내역 리스트 
+   public ArrayList<MyPageDTO> mypage_applyList1(String m_sid) {
+      System.out.println("마이페이지 지원내역 매서드1 실행됨!");         
+      MyPageDTO dto = null;
+
+      try {
+         conn = com.DongGu.db.DongGuDB.getConn();
+         String sql = "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+         		+ "FROM invitation i "
+         		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
+         		+ "JOIN animaltype at ON ai.at_num = at.at_num "
+         		+ "JOIN animal a ON at.a_num = a.a_num "
+         		+ "JOIN application ap ON i.i_id = ap.i_id "
+         		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
+         		+ "WHERE ap.p_id = ? "
+         		+ "order by ap.ap_num desc ";
+            
+         ps=conn.prepareStatement(sql);
+         ps.setString(1, m_sid);
+
+            
+         rs = ps.executeQuery();
+         ArrayList<MyPageDTO> malist = new ArrayList<>();
+         while(rs.next()) {          
+        	   int a_num = rs.getInt("a_num");  
+               String ai_img = rs.getString("ai_img");
+               String an_num_link = rs.getString("an_num_link");             
+               String m_name = rs.getString("m_name");        
+               String i_title = rs.getString("i_title");  
+               Date i_start = rs.getDate("i_start");
+               Date i_end = rs.getDate("i_end");
+               
+               String[] an_nums = an_num_link.split("/");
+               ArrayList<String> an_words = new ArrayList<>();
+               
+               for (int i = 0; i < an_nums.length; i++) {
+            	   String an_num = an_nums[i].trim();       
+            	   String sql2 = "SELECT an_word FROM animalnature WHERE an_num = ?";
+            	   
+            	   ps2=conn.prepareStatement(sql2);
+            	   ps2.setString(1, an_num.trim());
+                   
+                   rs2 = ps2.executeQuery();                  
+                   if (rs2.next()) {
+                       an_words.add(rs2.getString("an_word"));
+                   }
+			}
+               
+               dto = new MyPageDTO(a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               malist.add(dto);
+                     
+            }
+
+         return malist;
+            
+            
+      }catch(Exception e) {
+         e.printStackTrace();
+         return null;         
+      }finally {
+         try {
+            if(rs!=null) rs.close();
+            if(ps!=null) ps.close();
+            if(conn!=null) conn.close();
+         }catch (Exception e) {
+            e.printStackTrace();
+               
+         }
+      }
+   }   
    
    
    

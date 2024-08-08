@@ -1034,10 +1034,15 @@ width:170px;
    .jyl_label2{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; font-weight:bold; color:#a7a7a7;}	
    .jyl_label3{font-family: 'Pretendard-Regular', sans-serif; font-size: 14px; font-weight:bold; color: #fdcb08;}
 
-	
+   .jyl_content1{margin-top: 10px; margin-bottom: 50px;}
    .jyl_content2, .jyl_content3{ margin-top: 80px;  margin-bottom: 20px; padding-bottom: 5px;}
    .jyl_content2_title, .jyl_content3_title{ width: 100%; font-family: 'Pretendard-Regular', sans-serif; font-size: 19px; font-weight: bold; color:#4f4f4f; margin-left: 10px;}
+   .jyl_content2_list{font-family: 'Pretendard-Regular', sans-serif; margin-top:43px; background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 250px;}   
    .jyl_content2_list1{font-family: 'Pretendard-Regular', sans-serif; margin-top:25px; background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 250px;}
+   .jyl_content2_list2{font-family: 'Pretendard-Regular', sans-serif; margin-top:25px; background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 250px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+   .jyl_my_arremptyimg{width: 150px; height: 150px;}
+   .jyl_my_arrempty1{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 17px; color:#a7a7a7;}
+   .jyl_my_arrempty2{font-family: 'Pretendard-Regular', sans-serif; font-weight: bold; font-size: 17px; color:#a7a7a7;}
    .jyl_content2_title_bottom{border-bottom : 1px solid rgb(222, 226, 230); display:flex; width: 100%; font-size: 28px;}   
    .jyl_content2_list_title1, .jyl_content2_list_title2 {margin-left:25px;margin-right:25px; padding:15px; font-weight: bold; font-size: 16px; width: 50%}   
    .jyl_content2_list_title2 {margin-right:20px; text-align: right;}   	
@@ -1052,7 +1057,7 @@ width:170px;
    .jyl_list1_info1{width: 85%; padding: 15px; padding-left: 5px;}
    .jyl_list1_info1_1 {padding: 15px; padding-top: 20px; padding-bottom: 10px;}
    .jyl_list1_info1_title { font-size: 19px; font-weight: bold;}
-   .jyl_list1_info2{width: 15%; padding: 15px; display:flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
+   .jyl_list1_info2{width: 15%; padding: 17px; display:flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
    .jyl_list1_info1_nature {font-family: 'Pretendard-Regular', sans-serif; font-size: 16px; color:#8e8e8e; margin-right:10px; padding: 10px; background-color:#fff; border-radius: 20px; border: 1px solid rgb(222, 226, 230);}
    .jyl_list1_info1_3{padding: 10px; padding-left: 15px; padding-top: 5px;}
    .jyl_list1_info1_date {color: #8e8e8e; font-size: 16px;}   

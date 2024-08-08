@@ -4,14 +4,13 @@
 <%@ page import="java.sql.Date" %>    
 <%@ page import="com.DongGu.mypage.MyPageDAO" %>    
 <%@ page import="com.DongGu.mypage.MyPageDTO" %>  
+<jsp:useBean id="dao" class="com.DongGu.mypage.MyPageDAO"></jsp:useBean>
 
 <%
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
-   String m_snickname = (String)session.getAttribute("snickname");
 %>
 
-<jsp:useBean id="dao" class="com.DongGu.mypage.MyPageDAO"></jsp:useBean>
 
 <%
    MyPageDTO dto1 = dao.mypage_section1(m_sid); 
@@ -35,7 +34,6 @@
 <meta charset="UTF-8">
 <title>My Home</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <style>
    .jyl_graph{display: flex; margin-left:10px;}
    .jyl_bar-background {background-color: #e1e1e1; height: 18px; border-radius: 15px; overflow: hidden; position: relative; width: 90%;}   
@@ -53,21 +51,22 @@
      <!------------- 왼쪽 사이드 메뉴 영역 시작 ----------->
     <div class="jyl_sidebar">
       <ul class="jyl_menu">
-        <li><a class="side_title" href="MyPage.jsp">My Home</a></li>
-        <li><a class="side_title" href="MyPage_ApplyList.jsp">나의 이력</a></li>
-          <li><a href="MyPage_ApplyList.jsp">지원 내역</a></li>
+        <li><a class="side_title" href="/DongGu/mypage/MyPage.jsp">My Home</a></li>
+        <li><a class="side_title" href="/DongGu/mypage/MyPage_ApplyList.jsp">나의 이력</a></li>
+        <li><a href="/DongGu/mypage/MyPage_ApplyList.jsp">지원 내역</a></li>
         <li><a href="#">지원서 관리</a></li>     
-        <li><a class="side_title" href="MyPage_Like.jsp">나의 활동</a></li>
-        <li><a href="MyPage_Like.jsp">관심 내역</a></li>
-        <li><a href="MyPage_BoardList.jsp">게시판 활동 내역</a></li>
-        <li><a href="MyPage_ReviewList.jsp">이용 후기 내역</a></li>
-        <li><a class="side_title" href="MyPage_InfoUpdate.jsp"">회원 정보</a></li>
-        <li><a href="MyPage_InfoUpdate.jsp">회원정보 수정</a></li>
-        <li><a href="MyPage_MemberLevel.jsp">나의회원 등급</a></li>
+        <li><a class="side_title" href="/DongGu/mypage/MyPage_Like.jsp">나의 활동</a></li>
+        <li><a href="/DongGu/mypage/MyPage_Like.jsp">관심 내역</a></li>
+        <li><a href="/DongGu/mypage/MyPage_BoardList.jsp">게시판 활동 내역</a></li>
+        <li><a href="/DongGu/mypage/MyPage_ReviewList.jsp">이용 후기 내역</a></li>
+        <li><a class="side_title" href="/DongGu/mypage/MyPage_InfoUpdate.jsp">회원 정보</a></li>
+        <li><a href="/DongGu/mypage/MyPage_InfoUpdate.jsp">회원정보 수정</a></li>
+        <li><a href="/DongGu/mypage/MyPage_MemberLevel.jsp">나의회원 등급</a></li>
         <li><a class="side_title" href="#">1:1 문의</a></li>
       </ul>
     </div>
     <!------------- 왼쪽 사이드 메뉴 영역 끝----------->
+    
     
     
     
@@ -101,7 +100,7 @@
         <!------------- 당월 정보 요약 영역 시작 ----------->  
           <div class="jyl_info_short"> 
               <div id="jyl_info_short1">
-              
+               
                     <div id="jyl_info_short1_summary"><span id="jyl_info_short1_span"> summary</span></div>
                     <div id="jyl_info_short1_month" ><%= m_sname %>님의 8월 현황</div>
                     
@@ -158,6 +157,7 @@
 
   
   
+  
   <!------------- section2 ----------->     
        <!------------- 지원 내역(최신순 3가지만) 영역 시작 ----------->  
        <div class="jyl_content2">   
@@ -167,8 +167,12 @@
        <%
 	    ArrayList<MyPageDTO> arr = dao.mypage_section2(m_sid); 
 	    if (arr == null || arr.isEmpty()) {
-	        out.println("arr null 값임");
-	        return;
+	    %>
+	        <div class="jyl_content2_list2">   
+	        	<div><span class="jyl_my_arrempty1">지원 내역이 없습니다.</span></div>
+	        	<div><span class="jyl_my_arrempty2">얼른 지원해보세요!</span></div>
+	        </div>
+	    <%
 	    } else {
 	        for (int i = 0; i < arr.size(); i++) {
 	            MyPageDTO dto2 = arr.get(i);
@@ -256,9 +260,33 @@
                     </div>
                 </div>
                 <div class="jyl_list1_info2">
-                    <div class="jyl_list1_info2_btn1"><a href="#">상세 내역</a></div>
-                    <div class="jyl_list1_info2_btn2"><a href="#">지원 수정</a></div>
-                    <div class="jyl_list1_info2_btn3"><a href="#">지원 취소</a></div>
+	                <div class="jyl_list1_info2_btn1"><a href="#">상세 내역</a></div> 
+	                <%
+	                	if( m_name.equals("매칭 대기")){
+	                 %>  	                                    	
+	                    <div class="jyl_list1_info2_btn2"><a href="#">지원 수정</a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#">지원 취소</a></div>
+	                 <%
+	                	} else if(m_name.equals("매칭 중")){
+	                 %>  
+	                  <div class="jyl_list1_info2_btn2"><a href="#">매칭 수락</a></div>
+                      <div class="jyl_list1_info2_btn3"><a href="#">매칭 거절</a></div>
+	                  <%
+	                	} else if(m_name.equals("매칭 성공")){
+	                  %>
+	                    <div class="jyl_list1_info2_btn2"><a href="#">매칭 포기</a></div>
+	                  <%
+		                } else if(m_name.equals("케어 완료")){
+		              %>
+		                <div class="jyl_list1_info2_btn2"><a href="#">후기 작성</a></div>
+		                <%
+		                } else if(m_name.equals("후기작성 완료")){
+		                %>
+		                <div class="jyl_list1_info2_btn2"><a href="#">후기 보기</a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#">내 지원서</a></div>
+		                 <%
+		                }
+		                %>           
                 </div>
             </div>    
         </div>
@@ -266,62 +294,11 @@
     <% 
         } 
     }
-%>
-         
-         <div class="jyl_content2_list1">   
-           <div class="jyl_content2_title_bottom">
-              <div class="jyl_content2_list_title1">냥구</div>      
-              <div class="jyl_content2_list_title2"><span class="jyl_content2_list_title2_2">매칭 성공</span></div> 
-           </div>    
-           <div class="jyl_content2_list_area">
-              <div class="jyl_img_div">
-                 <img class="jyl_img" alt="list1" src="/DongGu/img/yel3.jpg">
-              </div>
-              <div class="jyl_list1_info">
-                   <div class="jyl_list1_info1">
-                     <div class ="jyl_list1_info1_1"><span class ="jyl_list1_info1_title">아기고양이 하루 봐주실분~~</span></div>
-                     <div class ="jyl_list1_info1_2">
-                           <div class="jyl_list1_info1_nature">소심함</div>
-                           <div class="jyl_list1_info1_nature">겁많음</div>                  
-                     </div>
-                      <div class ="jyl_list1_info1_3"><span class ="jyl_list1_info1_date">2024-06-11</span></div>
-                    </div>
-                    <div class="jyl_list1_info2">
-                       <div class="jyl_list1_info2_btn1"><a href="#">상세 내역</a></div>
-                       <div class="jyl_list1_info2_btn3"><a href="#">지원 취소</a></div>
-                    </div>
-             </div>    
-          </div>
-         </div>
-         
-         <div class="jyl_content2_list1">   
-           <div class="jyl_content2_title_bottom">
-              <div class="jyl_content2_list_title1">냥구</div>      
-              <div class="jyl_content2_list_title2"><span class="jyl_content2_list_title2_3">후기작성 완료</span></div> 
-           </div>    
-           <div class="jyl_content2_list_area">
-              <div class="jyl_img_div">
-                 <img class="jyl_img" alt="list1" src="/DongGu/img/yel4.jpg">
-              </div>
-              <div class="jyl_list1_info">
-                   <div class="jyl_list1_info1">
-                     <div class ="jyl_list1_info1_1"><span class ="jyl_list1_info1_title">순한 푸들 4월 5일~8일까지 멍구 구해요!</span></div>
-                     <div class ="jyl_list1_info1_2">
-                           <div class="jyl_list1_info1_nature">활발함</div>
-                           <div class="jyl_list1_info1_nature">애교많음</div>        
-                           <div class="jyl_list1_info1_nature">분리불안있음</div>              
-                     </div>
-                      <div class ="jyl_list1_info1_3"><span class ="jyl_list1_info1_date">2024-03-31</span></div>
-                    </div>
-                    <div class="jyl_list1_info2">
-                       <div class="jyl_list1_info2_btn1"><a href="#">상세 내역</a></div>
-                       <div class="jyl_list1_info2_btn3"><a href="#">작성 후기</a></div>
-                    </div>
-             </div>    
-          </div>
-         </div>
+	%>
          <!------------- 지원 내역(최신순 3가지만) 영역 끝 ----------->
   <!------------- section2 ----------->          
+      
+      
       
       
            <!------------- 나의 활동 영역 시작 ----------->
