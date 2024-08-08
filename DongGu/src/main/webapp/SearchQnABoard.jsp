@@ -26,10 +26,26 @@
 	
 	
 	//리스트갖고오기
-	ArrayList<QnABoardDTO> array = new ArrayList<>();
-	array = dao.getQnABoardList(cp,listSize);
+	String search_type=request.getParameter("search_type");
+	String search_word=request.getParameter("search_word");
 	
-	int totalCnt=dao.getQnABoardCnt(); // 총 게시물 수
+	String search_type_kor="";
+	if("q_title".equals(search_type)){
+		search_type_kor="제목";
+	}
+	else if("q_content".equals(search_type)){
+		search_type_kor="내용";
+	}
+	else if("q_nickname".equals(search_type)){
+		search_type_kor="닉네임";
+	}
+	//System.out.println("search_type_kor "+search_type_kor);
+	//System.out.println("search_word "+search_word);
+	
+	ArrayList<QnABoardDTO> array = new ArrayList<>();
+	array = dao.searchQnABoard(search_type, search_word,cp,listSize);
+	
+	int totalCnt=dao.getQnABoardCnt(search_type,search_word); // 총 게시물 수
 	
 	int totalPage = totalCnt%listSize==0 ? (totalCnt/listSize):(totalCnt/listSize)+1;//총 페이지수
 
@@ -48,25 +64,15 @@
 
 <%@include file="Header.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 게 시 판 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 검색결과 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
 <div>
 	<table id="FreeBoardTable">
 		<thead>
 		
 			<tr>
-				<td colspan="4" id="FindDongGuTagButton">
-					<form name="FreeBoardForm" action="SearchQnABoard.jsp" >
-						<div id="FreeBoardFormDiv" class="FreeBoardFormDivCenter">
-							<select name="search_type" id="FreeBoardFormSelect">
-								<option value="q_title">제목</option>
-								<option value="q_content">내용</option>
-								<option value="q_nickname">닉네임</option>
-							</select>
-							<input name="search_word" type="text" id="FreeBoardSearch">
-							<input  class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
-						</div>
-					</form>
+				<td colspan="4" id="searchTitle" >
+					<%=search_type_kor %>으로 <%=search_word %>를 검색한 결과입니다.
 				</td>
 
 			</tr>
@@ -99,8 +105,8 @@
 			if(totalCnt==0){
 				%>
 				<!-- //만약 게시글이 없다면 -->
-				<tr colspan="4">
-					<td>게시글이 없습니다</td>
+				<tr>
+					<td colspan="4">검색결과가 없습니다.</td>
 				</tr>
 				<%
 			}
@@ -111,7 +117,7 @@
 		
 		<tfoot>
 				<tr> 
-					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="글쓰기"  onclick="location.href='WriteQnABoard.jsp';"></td>
+					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="돌아가기"  onclick="location.href='QnABoard.jsp';"></td>
 				</tr>
 				
 				<tr>
@@ -122,17 +128,17 @@
 							if(userGroup>1 ){
 								%>
 									<input class="FreeBoardButton" type="button" value="이전"  
-									onclick="location.href='QnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>';">
+									onclick="location.href='SearchQnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
 								<%
 								}
 							for(int i=(userGroup-1)*pageSize+1;i<=(userGroup-1)*pageSize+pageSize ;i++){
 								if(cp==i){
 									%>
-									&nbsp;&nbsp;<a href="QnABoard.jsp?cp=<%=i %>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}else{
 								%>
-									&nbsp;&nbsp;<a href="QnABoard.jsp?cp=<%=i %>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}
 								if(i==totalPage) break;
@@ -144,7 +150,7 @@
 							if( userGroup != totalPage/pageSize+(totalPage%pageSize==0?0:1)  ){
 								%>
 									<input class="FreeBoardButton" type="button" value="다음"  
-									onclick="location.href='QnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>';">
+									onclick="location.href='SearchQnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
 								<%
 								}
 						}

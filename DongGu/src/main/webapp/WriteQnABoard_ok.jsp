@@ -10,8 +10,8 @@ qdto.setQ_title(request.getParameter("q_title"));
 
 //여기에 현재 세션에서 아이디 가져오기
 //여기에 현재 세션에서 닉네임 가져오기
-qdto.setQ_id("임시아이디");
-qdto.setQ_nickname("임시닉네임");
+qdto.setQ_id((String)session.getAttribute("sid"));
+qdto.setQ_nickname((String)session.getAttribute("snickname"));
 
 int result = qdao.WriteQnABoard(qdto);
 

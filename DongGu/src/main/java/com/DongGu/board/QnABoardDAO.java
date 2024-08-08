@@ -45,6 +45,59 @@ public class QnABoardDAO {
 		
 	}
 	
+	
+	
+	/* 검색결과 게시물 갯수 가져오기*/
+	public int getQnABoardCnt(String search_type,String search_word) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql="";
+			
+			if("q_title".equals(search_type)) {
+				sql="select count(*) "
+						+ "    from qna  "
+						+ "    where q_title like ? "
+						;
+				
+			}else if("q_content".equals(search_type)) {
+				sql="select count(*) "
+						+ "    from qna  "
+						+ "    where q_content like ? "
+						;
+			}else if("q_nickname".equals(search_type)) {
+				sql="select count(*) "
+						+ "    from qna  "
+						+ "    where q_nickname like ? "
+						;
+			}
+			
+			ps =conn.prepareStatement(sql);
+			ps.setString(1, "%"+search_word+"%");
+			rs = ps.executeQuery();
+			int result=0;
+			
+			if(rs.next()) { 
+				result=rs.getInt(1);
+			}
+			
+			
+			//System.out.println(result);
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				if(ps!=null) ps.close();
+				if(conn!=null) conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	/* 글목록 가져오기 */
 	public ArrayList<QnABoardDTO> getQnABoardList(int cp,int listSize){
 		try {
@@ -228,4 +281,80 @@ public class QnABoardDAO {
 	        }
 	    }
 	} 
+	
+	
+	/* 검색하기 */
+	public ArrayList<QnABoardDTO> searchQnABoard(String search_type,String search_word,int cp,int listSize){
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql="";
+			if("q_title".equals(search_type)) {
+				sql="select * "
+						+ "from "
+						+ "(select rownum as rnum, a.* from  "
+						+ "( "
+						+ "    select *  "
+						+ "    from qna  "
+						+ "    where q_title like ? "
+						+ "    order by q_ref desc, q_sunbun)a  "
+						+ ")b "
+						+ "where rnum >=? and rnum <=?";
+				
+			}else if("q_content".equals(search_type)) {
+				sql="select * "
+						+ "from "
+						+ "(select rownum as rnum, a.* from  "
+						+ "( "
+						+ "    select *  "
+						+ "    from qna  "
+						+ "    where q_content like ? "
+						+ "    order by q_ref desc, q_sunbun)a  "
+						+ ")b "
+						+ "where rnum >=? and rnum <=?";
+			}else if("q_nickname".equals(search_type)) {
+				sql="select * "
+						+ "from "
+						+ "(select rownum as rnum, a.* from  "
+						+ "( "
+						+ "    select *  "
+						+ "    from qna  "
+						+ "    where q_nickname like ? "
+						+ "    order by q_ref desc, q_sunbun)a  "
+						+ ")b "
+						+ "where rnum >=? and rnum <=?";
+			}
+			ps =conn.prepareStatement(sql);
+			ps.setString(1, "%"+search_word+"%");
+			
+			ps.setInt(2, cp*listSize-(listSize-1));
+			ps.setInt(3, cp*listSize);
+			
+			//System.out.println("search_type" +search_type);
+			//System.out.println("search_word" +search_word);
+			
+			ArrayList<QnABoardDTO>array = new ArrayList<>();
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				QnABoardDTO dto = new QnABoardDTO(rs.getInt("q_num"),rs.getString("q_id"),rs.getString("q_nickname"),
+						rs.getString("q_title"),rs.getDate("q_date"),rs.getString("q_content"),rs.getInt("q_vcnt"),
+						rs.getInt("q_ref"),rs.getInt("q_lev"),rs.getInt("q_sunbun"));
+				array.add(dto);
+			}
+		
+			return array;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(ps!=null) ps.close();
+				if(conn!=null) conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
