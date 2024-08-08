@@ -10,7 +10,7 @@ public class FriendDTO {
 	private String i_content;	//추가내용
 	private String i_start;	//시작날짜
 	private String i_end; 	//끝날짜
-
+	
 	
 	public FriendDTO() {}
 	

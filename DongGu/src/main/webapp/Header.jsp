@@ -36,6 +36,7 @@ header.dg_hd .util .login {width:80px; height:80px; padding:0; border:0; border-
 </head>
 <body>
 <%
+String sid = (String)session.getAttribute("sid");
 String sname = (String)session.getAttribute("sname");
 String snickname = (String)session.getAttribute("snickname");
 %>

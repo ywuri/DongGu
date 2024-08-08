@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
+<%@page import="java.util.*" %>
+<%@page import="com.DongGu.friend.FriendDTO" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +12,29 @@
 <title>Insert title here</title>
  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
+<jsp:useBean id="fdao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
+
+<script>
+	function animalChange(){
+		alert(this.value);
+	}
+</script>
 </head>
 <body>
 <%@include file="Header.jsp" %>
 
+<%
+	
+	if(sid == "" || sid == null){
+		%>
+			<script>
+				alert("로그인 후 이용가능합니다.");
+				location.href="Index.jsp";
+			</script>
+		<%
+	}
+%>
+    
 	<form name="getWrite" action="GetWrite_ok.jsp">
 	
 		<div class="saveTableOne">
@@ -32,12 +56,28 @@
 				<tr>
 					<th>이름</th>
 					<td>
-						<select name="ai_num" id="" class="saveWS250">
-							<option value="1">콩나</option>
-							<option value="2">숑이</option>
+						<%=sid%>
+						
+						<% 
+							String animalName = fdao.animalName(sid);
+							
+							//if (animalName == null) {
+						    //    animalName = "ttttt"; // 기본값 설정
+						    //}
+						%>
+						<select name="ai_num" id="" class="saveWS250" onchange="animalChange();">
+							<%=animalName%>
 						</select>
 					</td>
 				</tr>
+						
+				<% 
+					//String animalInfo = fdao.animalInfo(sid);
+					
+					//if (animalName == null) {
+				    //    animalName = "ttttt"; // 기본값 설정
+				    //}
+				%>
 				<tr>
 					<th>동물</th>
 					<td>
@@ -54,17 +94,22 @@
 					<th>사진</th>
 					<td>동물이름선택후 동물사진</td>
 				</tr>
+				
+						
+				<%
+					String ownerData2 = fdao.ownerData(sid);
+					String[] owner_arr = ownerData2.split("//");
+
+					String ownerAddr = owner_arr[0];
+					String ownerHouse = owner_arr[1];
+				%>
 				<tr>
 					<th>주소</th>
-					<td>
-						동물이름선택후 고용자의 주소
-					</td>
+					<td><%=ownerAddr %></td>
 				</tr>
 				<tr>
 					<th>자택종류</th>
-					<td>
-						동물이름선택후 고용자의 자택종류
-					</td>
+					<td><%=ownerHouse %></td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
