@@ -14,7 +14,8 @@
 
 <div id="jyl_body">
 <div class="jyl_container">
-     <!------------- 왼쪽 사이드 메뉴 영역 ----------->
+
+     <!------------- 왼쪽 사이드 메뉴 영역 시작 ----------->
     <div class="jyl_sidebar">
       <ul class="jyl_menu">
         <li><a class="side_title" href="MyPage.jsp">My Home</a></li>
@@ -31,12 +32,14 @@
         <li><a class="side_title" href="#">1:1 문의</a></li>
       </ul>
     </div>
-    <!------------- E : 왼쪽 메뉴 영역 ----------->
+    <!------------- 왼쪽 사이드 메뉴 영역 끝----------->
     
-    <!------------- 오른쪽 컨텐츠 영역 ----------->    
+    
+    
+    <!------------- 오른쪽 컨텐츠 영역 시작 ----------->    
     <div class="jyl_content">
     
-      <div class="jyl_content2">   
+      <div class="jyl_content1">   
 	                <span class="jyl_content2_title">나의회원 등급</span>              
 	  </div>
 	  
@@ -88,7 +91,6 @@
 	                <span class="jyl_memberlevel3_title">등급별 혜택보기</span>              
 	  			</div>
 	  </div>
-      
       <div class="jyl_memberlevel"> 
 	  			<div id="jyl_memberlevel4">
 	  					
@@ -176,7 +178,7 @@
       
  
 	</div>
-    <!------------- E : 오른쪽 컨텐츠 영역 ----------->
+    <!------------- 오른쪽 컨텐츠 영역 끝 ----------->
 </div>
 </div>
 </body>
