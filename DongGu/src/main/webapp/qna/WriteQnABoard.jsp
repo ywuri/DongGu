@@ -7,14 +7,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
-
+<%
+//로그인 안했을 시 전 페이지로 돌아가게
+String s_id =(String)session.getAttribute("sid");
+if(s_id==null || s_id.equals("")){
+	%>
+	<script>
+	window.alert('로그인이 필요한 작업입니다.');
+	window.location.href="/DongGu/member/login.jsp";
+	</script>
+<%
+}
+%>
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
-<form name="WriteQnABoard" action="WriteQnABoard_ok.jsp">
+<%@include file="../SubHeader.jsp" %>
+<form name="WriteQnABoard" action="/DongGu/qna/WriteQnABoard_ok.jsp">
 	<div id="FreeBoardDivTitle">
-		<img src="img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 작성 <img src="img/paw-solid.svg" class="FreeBoardTitleImg">
+		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
 		<span style="text-align:right; ">
 			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
 		</span>
@@ -29,6 +40,6 @@
 	</div>
 	
 </form>
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 </body>
 </html>

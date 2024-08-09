@@ -10,10 +10,10 @@
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 <form>
 <div id="FreeBoardDivTitle" style="">
-	<img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 공지사항 작성 <img src="img/paw-solid.svg" class="FreeBoardTitleImg">
+	<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 공지사항 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
 	<span style="text-align:right; ">
 		<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
 	</span>
@@ -29,6 +29,6 @@
 	
 
 </form>
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 </body>
 </html>

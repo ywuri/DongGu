@@ -62,9 +62,9 @@
 	System.out.println("arraysize ="+array.size());  */
 %>
 
-<%@include file="Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 검색결과 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 검색결과 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -91,7 +91,7 @@
 				for(int i=0;i<array.size();i++){
 				%>
 				<tr>
-					<td><a href='DetailQnABoard.jsp?q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getQ_title() %></a><span class="FreeBoardComment"></span></td>
+					<td><a href='/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getQ_title() %></a><span class="FreeBoardComment"></span></td>
 					<td><%=array.get(i).getQ_nickname() %></td>
 					<td><%=array.get(i).getQ_vcnt() %></td>
 					<td><%=array.get(i).getQ_date() %></td>
@@ -117,7 +117,7 @@
 		
 		<tfoot>
 				<tr> 
-					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="돌아가기"  onclick="location.href='QnABoard.jsp';"></td>
+					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="돌아가기"  onclick="location.href='/DongGu/qna/QnABoard.jsp';"></td>
 				</tr>
 				
 				<tr>
@@ -128,17 +128,17 @@
 							if(userGroup>1 ){
 								%>
 									<input class="FreeBoardButton" type="button" value="이전"  
-									onclick="location.href='SearchQnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
+									onclick="location.href='/DongGu/qna/SearchQnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
 								<%
 								}
 							for(int i=(userGroup-1)*pageSize+1;i<=(userGroup-1)*pageSize+pageSize ;i++){
 								if(cp==i){
 									%>
-									&nbsp;&nbsp;<a href="SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="/DongGu/qna/SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}else{
 								%>
-									&nbsp;&nbsp;<a href="SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="/DongGu/qna/SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}
 								if(i==totalPage) break;
@@ -150,7 +150,7 @@
 							if( userGroup != totalPage/pageSize+(totalPage%pageSize==0?0:1)  ){
 								%>
 									<input class="FreeBoardButton" type="button" value="다음"  
-									onclick="location.href='SearchQnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
+									onclick="location.href='/DongGu/qna/SearchQnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
 								<%
 								}
 						}
@@ -166,7 +166,7 @@
 </div>
 	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>

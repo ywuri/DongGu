@@ -8,11 +8,11 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 <div id="BoardMargin">
 	<div>
 		<div id="WriteFreeBoardMainDiv">
-			<div id="DetailBoardSubject" ><a href="Notice.jsp" class="DetailBoardSubject">공지사항 ></a></div>
+			<div id="DetailBoardSubject" ><a href="/DongGu/notice/Notice.jsp" class="DetailBoardSubject">공지사항 ></a></div>
 			<div id="DetailBoardTitle">2024년 8월 5일 공지사항</div>
 			<div id="DetailBoardInfo">작성자 : 관리자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성날짜 : 24.07.08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;조회:3</div>
 			<div id="WriteFreeBoardContentDiv">
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 </div>
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>

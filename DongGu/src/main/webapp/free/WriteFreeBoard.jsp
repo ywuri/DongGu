@@ -36,10 +36,10 @@ function showFreeBoardImg(event){
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 <form>
 <div id="FreeBoardDivTitle" style="">
-	<img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 자유 게시글 작성 <img src="img/paw-solid.svg" class="FreeBoardTitleImg">
+	<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자유 게시글 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
 	<span style="text-align:right; ">
 		<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
 	</span>
@@ -62,6 +62,6 @@ function showFreeBoardImg(event){
 		
 	</div>
 </form>
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 </body>
 </html>

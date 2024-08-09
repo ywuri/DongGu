@@ -21,7 +21,7 @@
 	if(cp_s==null || cp_s.equals("")) cp_s="1";
 	int cp = Integer.parseInt(cp_s);
 
-	int listSize = 5; // 한 페이지에 표시할 게시물 수
+	int listSize = 10; // 한 페이지에 표시할 게시물 수
 	int pageSize =5; // 페이지 버튼을 그룹으로 묶을 수 (예: 1~5 페이지 버튼).
 	
 	
@@ -46,9 +46,9 @@
 	System.out.println("arraysize ="+array.size());  */
 %>
 
-<%@include file="Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 게 시 판 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 게 시 판 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -71,10 +71,10 @@
 
 			</tr>
 			<tr>
-				<th id="FreeBoardTableTitle">제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-				<th>작성날짜</th>
+				<th id="QnABoardWidthTitle">제목</th>
+				<th id="QnABoardWidthWriter">작성자</th>
+				<th id="QnABoardWidthVcnt">조회수</th>
+				<th id="QnABoardWidthDate">작성날짜</th>
 			</tr>
 		</thead>
 		
@@ -83,9 +83,29 @@
 			<%
 			if(array!=null){
 				for(int i=0;i<array.size();i++){
+					
 				%>
 				<tr>
-					<td><a href='DetailQnABoard.jsp?q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getQ_title() %></a><span class="FreeBoardComment"></span></td>
+					<% 
+					if(array.get(i).getQ_id().equals(" ")){
+						%>
+						<td id="QnABoardTitle"><a style="color:#808080" href='/DongGu/qna/DetailQnABoard.jsp?q_id=<%=array.get(i).getQ_id() %>&q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
+						<img style="width:12px;" src="/DongGu/img/icon_trash.svg">
+					<%
+					}
+					else{
+						%>
+						<td id="QnABoardTitle"><a href='/DongGu/qna/DetailQnABoard.jsp?q_id=<%=array.get(i).getQ_id() %>&q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
+						<%
+					}
+					
+						for(int j =0;j<array.get(i).getQ_lev();j++){
+							%>&nbsp;&nbsp;<%
+						}
+						%>
+						<%=array.get(i).getQ_title() %>
+					</a><span class="FreeBoardComment"></span></td>
+					
 					<td><%=array.get(i).getQ_nickname() %></td>
 					<td><%=array.get(i).getQ_vcnt() %></td>
 					<td><%=array.get(i).getQ_date() %></td>
@@ -99,8 +119,8 @@
 			if(totalCnt==0){
 				%>
 				<!-- //만약 게시글이 없다면 -->
-				<tr colspan="4">
-					<td>게시글이 없습니다</td>
+				<tr >
+					<td colspan="4"  style="text-align:center;">게시글이 없습니다</td>
 				</tr>
 				<%
 			}
@@ -111,7 +131,7 @@
 		
 		<tfoot>
 				<tr> 
-					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="글쓰기"  onclick="location.href='WriteQnABoard.jsp';"></td>
+					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="글쓰기"  onclick="location.href='/DongGu/qna/WriteQnABoard.jsp';"></td>
 				</tr>
 				
 				<tr>
@@ -122,17 +142,17 @@
 							if(userGroup>1 ){
 								%>
 									<input class="FreeBoardButton" type="button" value="이전"  
-									onclick="location.href='QnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>';">
+									onclick="location.href='/DongGu/qna/QnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>';">
 								<%
 								}
 							for(int i=(userGroup-1)*pageSize+1;i<=(userGroup-1)*pageSize+pageSize ;i++){
 								if(cp==i){
 									%>
-									&nbsp;&nbsp;<a href="QnABoard.jsp?cp=<%=i %>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="/DongGu/qna/QnABoard.jsp?cp=<%=i %>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}else{
 								%>
-									&nbsp;&nbsp;<a href="QnABoard.jsp?cp=<%=i %>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="/DongGu/qna/QnABoard.jsp?cp=<%=i %>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}
 								if(i==totalPage) break;
@@ -144,7 +164,7 @@
 							if( userGroup != totalPage/pageSize+(totalPage%pageSize==0?0:1)  ){
 								%>
 									<input class="FreeBoardButton" type="button" value="다음"  
-									onclick="location.href='QnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>';">
+									onclick="location.href='/DongGu/qna/QnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>';">
 								<%
 								}
 						}
@@ -160,7 +180,7 @@
 </div>
 	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>
