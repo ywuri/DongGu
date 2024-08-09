@@ -63,7 +63,7 @@
 		<tbody>
 			<tr>
 				<td>동구</td>
-				<td><a href=# class="FreeBoardA">우리 멍멍이 동구해주실 분</a></td>
+				<td><a href="/DongGu/DetailDongGu.jsp" class="FreeBoardA">우리 멍멍이 동구해주실 분</a></td>
 				<td>멍구맹구</td>
 				<td>3</td>
 				<td>24.07.31</td>
@@ -71,7 +71,7 @@
 			
 			<tr>
 				<td>냥구</td>
-				<td><a href=# class="FreeBoardA">고양이 하루만 부탁해요</a></td>
+				<td><a href="/DongGu/DetailDongGu.jsp" class="FreeBoardA">고양이 하루만 부탁해요</a></td>
 				<td>냥냥이</td>
 				<td>15</td>
 				<td>24.07.29</td>
