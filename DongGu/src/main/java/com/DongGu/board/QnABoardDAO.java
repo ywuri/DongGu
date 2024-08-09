@@ -195,6 +195,38 @@ public class QnABoardDAO {
 		}
 	}
 	
+	
+	/* 상세게시글에서 전 / 후 게시글 보여주기 */
+	public ArrayList<QnABoardDTO> getNextQnABoard(int q_num){
+		try {
+			ArrayList<QnABoardDTO> array = new ArrayList<>();
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select q_num,q_title from qna where q_num=? or q_num=? order by q_num";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, q_num-1);
+			ps.setInt(2, q_num+1);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				QnABoardDTO dto = new QnABoardDTO(rs.getInt(1),rs.getString(2));
+				array.add(dto);
+			}
+			return array;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	/* 조회수 늘리기*/
 	public int upVcnt(int q_num) {
 		try {
@@ -220,6 +252,94 @@ public class QnABoardDAO {
 	}
 	
 	
+	/* 해당글에 위시리스트 체크 했는지*/
+	public int isWishList(int q_num,String sid) {
+		try {
+			conn=com.DongGu.db.DongGuDB.getConn();
+			String sql="select count(*) from wishlist where wt_num_value=? and w_id=? and wt_num=?";
+			ps =conn.prepareStatement(sql);
+			ps.setInt(1, q_num);
+			ps.setString(2, sid);
+			ps.setInt(3, 10);
+			/////////////추후수정////////
+			rs = ps.executeQuery();
+			
+			int result=0;
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	/* 위시리스트 추가 또는 삭제*/
+	public int changeWishStatus(String sid,String q_num) {
+		
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql="select count(*) from wishlist where w_id=? and wt_num=? and wt_num_value=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, sid);
+			ps.setInt(2, 10);
+			ps.setString(3, q_num);
+			///////나중에수정///////
+			
+			
+			rs = ps.executeQuery();
+			int isEx=0;
+			if(rs.next()) {
+				isEx = rs.getInt(1);
+			}
+			
+			
+			//위시리스트에 있으면 지우기
+			if(isEx>=1) {
+				sql = "delete from wishlist where w_id=? and wt_num=? and wt_num_value=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, sid);
+				ps.setInt(2, 10);
+				ps.setString(3, q_num );
+			}
+			//위시리스트에 없으면 추가
+			else if(isEx==0) {
+				
+				sql =" insert into wishlist values(seq_wishlist_w_num.nextval, ?, ?, ?,?)";
+				//////////////////////////이거수정////////////////
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, sid);
+				ps.setInt(2, 0);//////////////////////////이거수정////////////////
+				ps.setInt(3, 10);
+				ps.setString(4, q_num);
+			}
+			
+			int result = ps.executeUpdate();
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
 	/* ref 알기 */
@@ -351,6 +471,8 @@ public class QnABoardDAO {
 		}finally {
 			try {
 				
+				ps.close();
+				conn.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -482,31 +604,37 @@ public class QnABoardDAO {
 				ps.setInt(4, dto.getQ_num());
 			}
 			//답글이면, 또는 답글이 안달린 글이면. !!!! 여기서 마지막 답글이 사라진거면 본글도 사라지게!! 
+			
+			//답글이 안달린 원글이면
+			else if(dto.getQ_sunbun()==0 && num==1) {
+				String sql="delete from qna where q_ref=?";
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, dto.getQ_ref());
+			}
+			
+			//답글이면 
 			else {
-				int num2 = hasReWrite(dto.getQ_ref());
+				
 				String sql="";
+				int status =isMainDelete(dto.getQ_ref());
 				
-				System.out.println("num2 "+num2);
-				System.out.println("q_ref "+dto.getQ_ref());
-				System.out.println("q_num "+dto.getQ_num());
 				
-				//마지막 답글이면
-				if(num2==1) {
+				//원글이 삭제된 답글이면
+				if(status==1 && num==2) {
 					sql="delete from qna where q_ref=?";
 					ps=conn.prepareStatement(sql);
 					ps.setInt(1, dto.getQ_ref());
 				}
+				//그냥 답글이면
 				else {
 					sql="delete from qna where q_num=?";
 					ps=conn.prepareStatement(sql);
 					ps.setInt(1, dto.getQ_num());
 				}
 				
-				
 			}
 			int result= ps.executeUpdate();
 			return result;
-			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -521,10 +649,40 @@ public class QnABoardDAO {
 		}
 	}
 	
+	/* 같은 그룹 게시물 갯수 알아오기 */
 	public int hasReWrite(int q_ref) {
 		
 		try {
 			String ssql="select count(*) from qna where q_ref=?";
+			ps = conn.prepareStatement(ssql);
+			ps.setInt(1, q_ref);
+			//ps.setString(2, " ");
+			rs=ps.executeQuery();
+			int num =0;
+			if(rs.next()) {
+				num=rs.getInt(1);
+			}
+			
+			return num;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				ps.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	/* 삭제하는 답글이, 이미 원글이 지워졌는지 알아오기 */
+	public int isMainDelete(int q_ref) {
+		
+		try {
+			String ssql="select count(*) from qna where q_ref=? and q_id=?";
 			ps = conn.prepareStatement(ssql);
 			ps.setInt(1, q_ref);
 			ps.setString(2, " ");

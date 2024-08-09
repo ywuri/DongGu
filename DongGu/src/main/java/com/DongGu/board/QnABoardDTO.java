@@ -17,6 +17,15 @@ public class QnABoardDTO {
 	public QnABoardDTO() {}
 	
 	
+	
+	public QnABoardDTO(int q_num, String q_title) {
+		super();
+		this.q_num = q_num;
+		this.q_title = q_title;
+	}
+
+
+
 	// insert 용 생성자
 	public QnABoardDTO(String q_id, String q_nickname, String q_title, String q_content) {
 		super();

@@ -961,6 +961,10 @@ width:170px;
 #QnABoardWidthDate{
 	width:170px;
 }
+.heartIconSize{
+	width:25px; 
+	cursor:pointer;
+}
 	/* //	========== 이지현 끝 ============= // */
 	
 	
