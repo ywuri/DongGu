@@ -7,27 +7,28 @@
 <%
 qdto.setQ_content(request.getParameter("q_content"));
 qdto.setQ_title(request.getParameter("q_title"));
+qdto.setQ_ref(Integer.parseInt(request.getParameter("q_ref")) );
+qdto.setQ_lev(Integer.parseInt(request.getParameter("q_lev")));
+qdto.setQ_sunbun(Integer.parseInt(request.getParameter("q_sunbun")));
 
-//여기에 현재 세션에서 아이디 가져오기
-//여기에 현재 세션에서 닉네임 가져오기
 qdto.setQ_id((String)session.getAttribute("sid"));
 qdto.setQ_nickname((String)session.getAttribute("snickname"));
 
-int result = qdao.WriteQnABoard(qdto);
+int result = qdao.ReWriteQnABoard(qdto);
 
 //오류
 if(result==0){
 	%>
 	<script>
-	window.alert('[오류] 작성실패');
-	window.location.href="QnABoard.jsp";
+	window.alert('[오류] 답글 작성실패');
+	window.location.href="/DongGu/qna/QnABoard.jsp";
 	</script>
 <%
 }else if(result>=1){
 	%>
 	<script>
-	window.alert('작성완료!');
-	window.location.href="QnABoard.jsp";
+	window.alert('답글 작성완료!');
+	window.location.href="/DongGu/qna/QnABoard.jsp";
 	</script>
 <%
 }

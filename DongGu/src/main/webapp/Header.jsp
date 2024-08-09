@@ -18,7 +18,7 @@ String snickname = (String)session.getAttribute("snickname");
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
 	<h1>
-		<a href="Index.jsp"><img src="img/logo.png" alt="logo"></a>
+		<a href="/DongGu/Index.jsp"><img src="/DongGu/img/logo.png" alt="logo"></a>
 	</h1>
 	<nav>
 		<ul>
@@ -26,19 +26,19 @@ String snickname = (String)session.getAttribute("snickname");
 				<a href="#"><span>초대장</span></a>
 			</li>
 			<li>
-				<a id="board" href="#"><span>게시판  <i style="margin-left: 5px;" class="fa fa-caret-down" aria-hidden="true"></i></span></a>
+				<a id="board" href="/DongGu/free/FreeBoard.jsp"><span>게시판  <i style="margin-left: 5px;" class="fa fa-caret-down" aria-hidden="true"></i></span></a>
 				<div id="s-d" class="dropdown">
-					<p>공지사항<img src="img/icon_dog.png"></p>
-					<p>자유게시판<img src="img/icon_dog.png"></p>
-					<p>QnA<img src="img/icon_dog.png"></p>
+					<p><a href="/DongGu/notice/Notice.jsp">공지사항<img src="/DongGu/img/icon_dog.png"></a></p>
+					<p><a href="/DongGu/free/FreeBoard.jsp">자유게시판<img src="/DongGu/img/icon_dog.png"></a></p>
+					<p><a href="/DongGu/qna/QnABoard.jsp">QnA<img src="/DongGu/img/icon_dog.png"></a></p>
 				</div>
 			</li>
 			<li>
-				<a href="DongGuPlace.jsp"><span>동구의 추천</span></a>
+				<a href="/DongGu/DongGuPlace.jsp"><span>동구의 추천</span></a>
 			</li>
 			</li>
 			<li>
-				<a href="AfterList.jsp"><span>이용후기</span></a>
+				<a href="/DongGu/AfterList.jsp"><span>이용후기</span></a>
 			</li>
 			<li>
 				<a href="#"><span>고객센터</span></a>
@@ -48,7 +48,7 @@ String snickname = (String)session.getAttribute("snickname");
 	<div class="util">
 	<%if(sname == null){
 	%>
-	<a href="member/login.jsp">
+	<a href="/DongGu/member/login.jsp">
 		<button type="button" class="login"></button>
 	</a>
 	<%

@@ -9,9 +9,9 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 자 유 게 시 판 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자 유 게 시 판 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -43,42 +43,42 @@
 		
 		<tbody>
 			<tr>
-				<td><a href='DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">강아지 키우신지 얼마나 됐나요??</a><span class="FreeBoardComment">(1)</span></td>
+				<td><a href='/DongGu/free/DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">강아지 키우신지 얼마나 됐나요??</a><span class="FreeBoardComment">(1)</span></td>
 				<td>멍구맹구</td>
 				<td>3</td>
 				<td>24.07.31</td>
 			</tr>
 			
 			<tr>
-				<td><a href='DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">오늘 고양이 입양받았습니다</a><span class="FreeBoardComment">(55)</span></td>
+				<td><a href='/DongGu/free/DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">오늘 고양이 입양받았습니다</a><span class="FreeBoardComment">(55)</span></td>
 				<td>냥냥이</td>
 				<td>15</td>
 				<td>24.07.29</td>
 			</tr>
 			
 			<tr>
-				<td><a href='DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">우리 초코가 산책을 너무 좋아해요..</a><span class="FreeBoardComment">(3)</span></td>
+				<td><a href='/DongGu/free/DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">우리 초코가 산책을 너무 좋아해요..</a><span class="FreeBoardComment">(3)</span></td>
 				<td>초코촠코</td>
 				<td>5</td>
 				<td>24.07.22</td>
 			</tr>
 			
 			<tr>
-				<td><a href='DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">강아지 키우신지 얼마나 됐나요??</a><span class="FreeBoardComment">(13)</span></td>
+				<td><a href='/DongGu/free/DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">강아지 키우신지 얼마나 됐나요??</a><span class="FreeBoardComment">(13)</span></td>
 				<td>멍구맹구</td>
 				<td>3</td>
 				<td>24.07.31</td>
 			</tr>
 			
 			<tr>
-				<td><a href='DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">오늘 고양이 입양받았습니다</a><span class="FreeBoardComment"></span></td>
+				<td><a href='/DongGu/free/DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">오늘 고양이 입양받았습니다</a><span class="FreeBoardComment"></span></td>
 				<td>냥냥이</td>
 				<td>15</td>
 				<td>24.07.29</td>
 			</tr>
 			
 			<tr>
-				<td><a href='DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">우리 초코가 산책을 너무 좋아해요..</a><span class="FreeBoardComment">(60)</span></td>
+				<td><a href='/DongGu/free/DetailFreeBoard.jsp?q_num=1' class="FreeBoardA">우리 초코가 산책을 너무 좋아해요..</a><span class="FreeBoardComment">(60)</span></td>
 				<td>초코촠코</td>
 				<td>5</td>
 				<td>24.07.22</td>
@@ -118,7 +118,7 @@
 </div>
 	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>

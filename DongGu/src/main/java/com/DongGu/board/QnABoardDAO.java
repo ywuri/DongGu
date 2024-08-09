@@ -154,7 +154,7 @@ public class QnABoardDAO {
 	public QnABoardDTO getQnABoardDetail(int q_num) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "select q_content, q_id, q_nickname, q_date, q_vcnt, q_title from qna where q_num = ?";
+			String sql = "select q_content, q_id, q_nickname, q_date, q_vcnt, q_title,q_ref,q_lev,q_sunbun from qna where q_num = ?";
 			
 			int up = upVcnt(q_num);
 			ps=conn.prepareStatement(sql);
@@ -172,6 +172,9 @@ public class QnABoardDAO {
 				dto.setQ_date(rs.getDate(4));
 				dto.setQ_vcnt(rs.getInt(5));
 				dto.setQ_title(rs.getString(6));
+				dto.setQ_ref(rs.getInt(7));
+				dto.setQ_lev(rs.getInt(8));
+				dto.setQ_sunbun(rs.getInt(9));
 			}
 			return dto;
 			
@@ -242,6 +245,8 @@ public class QnABoardDAO {
         }
         return num;
     }
+	
+	
 
 	/* qna 글 작성하기(답글아님)*/
 	public int WriteQnABoard(QnABoardDTO dto) {
@@ -281,6 +286,76 @@ public class QnABoardDAO {
 	        }
 	    }
 	} 
+	
+	
+	
+	/* 답글 작성 전 sunbun 업데이트*/
+	public int ReWriteQnABoardSunbun(int q_ref,int q_sunbun) {
+		try {
+			String sql="update qna set q_sunbun=q_sunbun+1 where q_ref=? and q_sunbun>=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, q_ref);
+			ps.setInt(2, q_sunbun);
+			
+			int result = ps.executeUpdate();
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				ps.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	/* 답글 작성하기 */
+	public int ReWriteQnABoard(QnABoardDTO dto) {
+		try {
+			conn= com.DongGu.db.DongGuDB.getConn();
+			int updateSunbun = ReWriteQnABoardSunbun(dto.getQ_ref(),dto.getQ_sunbun()+1);
+			
+			String sql="insert into qna(q_num, q_id, q_nickname, q_title, q_date, q_content, q_vcnt,q_ref, q_lev, q_sunbun)  "
+					+ "values(seq_qna_q_num.nextval,?,?,?,sysdate,?,0,?,?,?)";
+			
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, dto.getQ_id());
+			ps.setString(2, dto.getQ_nickname());
+			ps.setString(3,dto.getQ_title());
+			ps.setString(4, dto.getQ_content());
+			ps.setInt(5, dto.getQ_ref());
+			
+			ps.setInt(6, dto.getQ_lev()+1);
+			ps.setInt(7, dto.getQ_sunbun()+1);
+			
+			/*
+			 	ref : 그룹번호 (1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지)
+				lev: 들여쓰기횟수 (0이면 본문,1번이면 본문의 대한 답변)
+				sunbun(step): 본문내에 순서. (1번본문의 답글이 2개 달리면 걔의 순서)
+				
+			 	1. 본문 글쓰기를 할떄는 ref는 1씩 증가하고, level과 sunbun은 무조건 0으로 초기화
+				2. 답변글을 쓸떈(답변의 답변이라도) ref는 동일, level과 순번은 1씩 증가
+				3. 답변글을 쓸때 같은 그룹내의 다른 답변들이 sunbun과 동일하거나 크다면, sunbun 무조건 1씩  증가
+			  */
+			
+			int result = ps.executeUpdate();
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
 	/* 검색하기 */
@@ -356,5 +431,121 @@ public class QnABoardDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/* 수정하기 */
+	public int updateQnABoard(QnABoardDTO dto) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql ="update qna set q_title=?, q_content=? where q_num=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1,dto.getQ_title());
+			ps.setString(2,dto.getQ_content());
+			ps.setInt(3,dto.getQ_num());
+			
+			int result =ps.executeUpdate();
+			
+			return result;
+
+		}catch (SQLException e) {
+	        e.printStackTrace();
+	        return 0;
+	    } finally {
+	        // 자원 정리
+	 
+	        try {
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	} 
+	
+	/* 삭제하기 */
+	public int deleteQnABoard(QnABoardDTO dto) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			
+			//답글이 있는 게시글인지 아닌지 판명하기
+			int num = hasReWrite(dto.getQ_ref());
+			//System.out.println("num ="+num);
+			//System.out.println("dto.getQ_ref() ="+dto.getQ_ref());
+			
+			//만약 삭제할 게시글에 답글이 있다면 게시글 내용만 삭제된 게시글입니다로 변경.작성자도 변경
+			if(dto.getQ_sunbun()==0 && num>=2) {
+				String sql = "update qna set q_content=?,q_id=?,q_nickname=? where q_num=? ";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, "삭제된 게시글입니다.");
+				ps.setString(2," ");
+				ps.setString(3," ");
+				ps.setInt(4, dto.getQ_num());
+			}
+			//답글이면, 또는 답글이 안달린 글이면. !!!! 여기서 마지막 답글이 사라진거면 본글도 사라지게!! 
+			else {
+				int num2 = hasReWrite(dto.getQ_ref());
+				String sql="";
+				
+				System.out.println("num2 "+num2);
+				System.out.println("q_ref "+dto.getQ_ref());
+				System.out.println("q_num "+dto.getQ_num());
+				
+				//마지막 답글이면
+				if(num2==1) {
+					sql="delete from qna where q_ref=?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, dto.getQ_ref());
+				}
+				else {
+					sql="delete from qna where q_num=?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, dto.getQ_num());
+				}
+				
+				
+			}
+			int result= ps.executeUpdate();
+			return result;
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public int hasReWrite(int q_ref) {
+		
+		try {
+			String ssql="select count(*) from qna where q_ref=?";
+			ps = conn.prepareStatement(ssql);
+			ps.setInt(1, q_ref);
+			ps.setString(2, " ");
+			rs=ps.executeQuery();
+			int num =0;
+			if(rs.next()) {
+				num=rs.getInt(1);
+			}
+			
+			return num;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				ps.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

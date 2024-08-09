@@ -610,13 +610,13 @@
 width:500px;
 } */
 #FreeBoardTableTitle{
-	width:500px;
+	width:400px;
+}
+#FreeBoardTable > thead>tr>th:second-child{
+width:200px;
 }
 #FreeBoardTable > thead>tr>th:third-child{
-width:100px;
-}
-#FreeBoardTable > thead>tr>th:third-child{
-width:100px;
+width:200px;
 }
 #FreeBoardTable > thead>tr>th:last-child{
 width:170px;
@@ -934,6 +934,33 @@ width:170px;
     padding-top: 30px;
     background:white;
 }   
+#ReWriteButton{
+	float:left;
+	margin:10px;
+	font-size:12pt;
+	height:27px;
+}
+
+#QnABoardTitle{
+	border-collapse: collapse;
+	width: 800px;
+    margin: 0px auto;
+    text-align: left;
+    margin-bottom:100px;
+}
+.QnABoardMarginleft{
+    margin-left: 30px;
+}
+
+#QnABoardWidthWriter{
+	width:300px;
+}
+#QnABoardWidthVcnt{
+	width:130px;
+}
+#QnABoardWidthDate{
+	width:170px;
+}
 	/* //	========== 이지현 끝 ============= // */
 	
 	

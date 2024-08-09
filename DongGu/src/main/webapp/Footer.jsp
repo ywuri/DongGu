@@ -22,7 +22,7 @@ footer .area div > ul li::marker {content: none;}
 <footer>
 	<div class="area">
 		<div class="ft_img">
-			<img src="img/logo.png" alt="logo">
+			<img src="/DongGu/img/logo.png" alt="logo">
 		</div>
 		<div class="ft01">
 			<ul>
