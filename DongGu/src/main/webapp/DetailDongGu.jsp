@@ -35,7 +35,7 @@
 			
 			<div id="DetailDongGuButton">
 				<span>초대에 응하시겠습니까? </span>
-				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="goPage();">
+				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/DoFriendWrite.jsp'">
 			</div>
 			
 			<div>
