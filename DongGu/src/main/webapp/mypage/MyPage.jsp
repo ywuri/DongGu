@@ -49,23 +49,55 @@
 <div class="jyl_container">
 
      <!------------- 왼쪽 사이드 메뉴 영역 시작 ----------->
-    <div class="jyl_sidebar">
-      <ul class="jyl_menu">
-        <li><a class="side_title" href="/DongGu/mypage/MyPage.jsp">My Home</a></li>
-        <li><a class="side_title" href="/DongGu/mypage/MyPage_ApplyList.jsp">나의 이력</a></li>
-        <li><a href="/DongGu/mypage/MyPage_ApplyList.jsp">지원 내역</a></li>
-        <li><a href="#">지원서 관리</a></li>     
-        <li><a class="side_title" href="/DongGu/mypage/MyPage_Like.jsp">나의 활동</a></li>
-        <li><a href="/DongGu/mypage/MyPage_Like.jsp">관심 내역</a></li>
-        <li><a href="/DongGu/mypage/MyPage_BoardList.jsp">게시판 활동 내역</a></li>
-        <li><a href="/DongGu/mypage/MyPage_ReviewList.jsp">이용 후기 내역</a></li>
-        <li><a class="side_title" href="/DongGu/mypage/MyPage_InfoUpdate.jsp">회원 정보</a></li>
-        <li><a href="/DongGu/mypage/MyPage_InfoUpdate.jsp">회원정보 수정</a></li>
-        <li><a href="/DongGu/mypage/MyPage_MemberLevel.jsp">나의회원 등급</a></li>
-        <li><a class="side_title" href="#">1:1 문의</a></li>
-      </ul>
-    </div>
-    <!------------- 왼쪽 사이드 메뉴 영역 끝----------->
+     <div class="jyl_sidebar">
+     <ul class="jyl_menu">
+        <li class="jyl_menu_check"><a class="side_title" href="/DongGu/mypage/MyPage.jsp"><span>My Home</span></a></li>
+        <li>
+            <a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>                   
+            <ul class="submenu">
+                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
+                <li class="jyl_submenu"><a href="#"><span>지원서 등록</span></a></li>
+                <li id="submenu_last" class="jyl_submenu"><a href="#"><span>지원서 관리</span></a></li>
+             </ul>
+        </li>  
+       
+        <li>
+            <a class="side_title toggle-menu" href="#"><span>나의 활동</span></a>
+            <ul class="submenu">
+                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
+                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_BoardList.jsp"><span>게시판 활동 내역</span></a></li>
+                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ReviewList.jsp"><span>이용 후기 내역</span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="side_title toggle-menu" href="#"><span>회원 정보</span></a>
+            <ul class="submenu">
+                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_InfoUpdate.jsp"><span>회원정보 수정</span></a></li>
+                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_MemberLevel.jsp"><span>나의 회원 등급</span></a></li>
+            </ul>
+        </li>
+        <li><a class="side_title" href="#"><span>1:1 문의</span></a></li>
+    </ul>
+	</div>
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    document.querySelectorAll('.toggle-menu').forEach(function (menu) {
+	        menu.addEventListener('click', function (e) {
+	            e.preventDefault();// 기본 앵커 동작을 방지
+
+	            var submenu = this.nextElementSibling;	          
+	            
+	            if (submenu.style.maxHeight) {
+	                submenu.style.maxHeight = null;  // 서브메뉴 숨기기
+	            } else {
+	                submenu.style.maxHeight = submenu.scrollHeight + 'px'; // Show the submenu
+	            }
+	        });
+	    });
+	});
+	</script>
+	<!------------- 왼쪽 사이드 메뉴 영역 끝----------->
+    
     
     
     
@@ -102,7 +134,7 @@
               <div id="jyl_info_short1">
                
                     <div id="jyl_info_short1_summary"><span id="jyl_info_short1_span"> summary</span></div>
-                    <div id="jyl_info_short1_month" ><%= m_sname %>님의 8월 현황</div>
+                    <div id="jyl_info_short1_month"><span><%= m_sname %>님의 8월 현황</span></div>
                     
                     
                     <div id="jyl_info_short2">
@@ -184,15 +216,15 @@
      	int a_num = dto2.getA_num();
      	if( a_num == 1 ){
      	%>   
-            <div class="jyl_content2_list_title1">멍구</div>     
+            <div class="jyl_content2_list_title1"><span>멍구</span></div>     
         <%
      	}else if ( a_num == 2){
         %>    
-         	<div class="jyl_content2_list_title1">냥구</div> 
+         	<div class="jyl_content2_list_title1"><span>냥구</span></div> 
         <% 
      	}else{
         %>
-        	<div class="jyl_content2_list_title1">칭구</div> 
+        	<div class="jyl_content2_list_title1"><span>칭구</span></div> 
         <%
      	}
         %>
@@ -237,7 +269,7 @@
                          	ArrayList<String> naturesList = dto2.getAn_words(); 
                             for (String nature : naturesList) { 
                         %>
-                        <div class="jyl_list1_info1_nature"><%= nature %></div>
+                        <div class="jyl_list1_info1_nature"><span><%= nature %></span></div>
                         <% 
                         } 
                         %> 
@@ -260,30 +292,30 @@
                     </div>
                 </div>
                 <div class="jyl_list1_info2">
-	                <div class="jyl_list1_info2_btn1"><a href="#">상세 내역</a></div> 
+	                <div class="jyl_list1_info2_btn1"><a href="#"><span>상세 내역</span></a></div> 
 	                <%
 	                	if( m_name.equals("매칭 대기")){
 	                 %>  	                                    	
-	                    <div class="jyl_list1_info2_btn2"><a href="#">지원 수정</a></div>
-	                    <div class="jyl_list1_info2_btn3"><a href="#">지원 취소</a></div>
+	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>지원 수정</span></a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>지원 취소</span></a></div>
 	                 <%
 	                	} else if(m_name.equals("매칭 중")){
 	                 %>  
-	                  <div class="jyl_list1_info2_btn2"><a href="#">매칭 수락</a></div>
-                      <div class="jyl_list1_info2_btn3"><a href="#">매칭 거절</a></div>
+	                  <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 수락</span></a></div>
+                      <div class="jyl_list1_info2_btn3"><a href="#"><span>매칭 거절</span></a></div>
 	                  <%
 	                	} else if(m_name.equals("매칭 성공")){
 	                  %>
-	                    <div class="jyl_list1_info2_btn2"><a href="#">매칭 포기</a></div>
+	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 포기</span></a></div>
 	                  <%
 		                } else if(m_name.equals("케어 완료")){
 		              %>
-		                <div class="jyl_list1_info2_btn2"><a href="#">후기 작성</a></div>
+		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 작성</span></a></div>
 		                <%
 		                } else if(m_name.equals("후기작성 완료")){
 		                %>
-		                <div class="jyl_list1_info2_btn2"><a href="#">후기 보기</a></div>
-	                    <div class="jyl_list1_info2_btn3"><a href="#">내 지원서</a></div>
+		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 보기</span></a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>내 지원서</span></a></div>
 		                 <%
 		                }
 		                %>           

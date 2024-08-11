@@ -13,9 +13,9 @@ public class MyPageDAO {
    private PreparedStatement ps, ps2;
    private ResultSet rs, rs2;
    
-   // 1-1. 마이페이지 메인 section 1
+   // 1-1. 마이페이지 메인 - section 1
    public MyPageDTO mypage_section1(String m_sid) {
-      System.out.println("마이페이지 메인 section 1 매서드 실행됨!");         
+      System.out.println("마이페이지 메인 - section 1 매서드 실행됨!");         
       MyPageDTO dto1 = null;
 
       try {
@@ -67,9 +67,9 @@ public class MyPageDAO {
    
    
    
-   // 1-2. 마이페이지 메인 section 2
+   // 1-2. 마이페이지 메인 - section 2
    public ArrayList<MyPageDTO> mypage_section2(String m_sid) {
-      System.out.println("마이페이지 메인 section 2 매서드 실행됨!");         
+      System.out.println("마이페이지 메인 - section 2 매서드 실행됨!");         
       MyPageDTO dto2 = null;
 
       try {
@@ -144,14 +144,17 @@ public class MyPageDAO {
    
    
    
-   // 2-1. 마이페이지 지원내역 리스트 
-   public ArrayList<MyPageDTO> mypage_applyList1(String m_sid) {
-      System.out.println("마이페이지 지원내역 매서드1 실행됨!");         
+   // 2-1. 마이페이지 지원내역 - 특정 페이지에 해당하는 목록 가져오기 
+   public ArrayList<MyPageDTO> mypage_applyList1(String m_sid,int cp,int listSize) {
+      System.out.println("마이페이지 지원내역 - 특정 페이지에 해당하는 목록 가져오는 매서드 실행됨!");         
       MyPageDTO dto = null;
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+         String sql = "SELECT * "
+         		+ "FROM (SELECT ROWNUM rnum, a.* "
+         		+ "FROM ( "       		 
+         		+ "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
          		+ "FROM invitation i "
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
@@ -159,10 +162,18 @@ public class MyPageDAO {
          		+ "JOIN application ap ON i.i_id = ap.i_id "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
-         		+ "order by ap.ap_num desc ";
-            
+         		+ "order by ap.ap_num desc ) a"
+         		+ ") b "
+         		+ "WHERE rnum BETWEEN ? AND ? ";
+         
+         int start = (cp - 1) * listSize + 1;
+         int end = cp * listSize;
+ 
+         
          ps=conn.prepareStatement(sql);
          ps.setString(1, m_sid);
+         ps.setInt(2, start);
+		 ps.setInt(3, end);
 
             
          rs = ps.executeQuery();
@@ -214,6 +225,44 @@ public class MyPageDAO {
          }
       }
    }   
+   
+   
+   
+   // 2-2. 마이페이지 지원내역 - 페이징 메서드(전체 게시글 카운트)
+   public int getTotal(String m_sid) {
+      System.out.println("마이페이지 지원내역 - 페이징 메서드(전체 게시글 카운트) 실행됨!");         
+      		
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			
+			String sql = "select count(*) "
+					+ "from application "
+					+ "where p_id = ? ";
+			
+			ps=conn.prepareStatement(sql);
+	        ps.setString(1, m_sid);
+			
+			rs = ps.executeQuery();
+			int result = 0;			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}		
+			
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+		        if(ps!=null)ps.close();
+		        if(conn!=null)conn.close();
+			} catch (Exception e2) {
+		
+			}
+		}
+	}
    
    
    
