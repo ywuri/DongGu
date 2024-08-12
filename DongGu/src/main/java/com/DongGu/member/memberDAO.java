@@ -25,98 +25,94 @@ public class memberDAO {
 	
 	/** ID 중복검사 관련 메서드 */
 	public boolean IdCheck(memberDTO dto) {
-		boolean isUnique = true;
-		
-		try {
-			
-			conn = com.DongGu.db.DongGuDB.getConn();
-			
-			String sql = "SELECT * FROM petsitter WHERE p_id=?";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getP_id());
-			rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				isUnique = false;
-			}
-			rs.close();
-			ps.close();
-			
-			if(isUnique) {
-				// owner 테이블 중복검사
-				String sql2 = "SELECT * FROM owner WHERE o_id=?";
-				ps.setString(1, dto.getO_id());
-				rs = ps.executeQuery();
-				
-				if (rs.next()) {
-					isUnique = false;
-				}
-				rs.close();
-				ps.close();
-			}
-			
-			
-			} catch(Exception e) {
-				e.printStackTrace();
-				isUnique = false;
-			} finally {
-				try {
-					 if (rs != null) rs.close();
-		             if (ps != null) ps.close();
-		             if (conn != null) conn.close();
-				} catch(Exception e2) {
-					e2.printStackTrace();
-				}
-			}
-			return isUnique;
+	    boolean isUnique = true;
+
+	    try {
+	        conn = com.DongGu.db.DongGuDB.getConn();
+
+	        // petsitter 테이블 중복검사
+	        String sql1 = "SELECT * FROM petsitter WHERE p_id=?";
+	        try (PreparedStatement ps1 = conn.prepareStatement(sql1)) {
+	            ps1.setString(1, dto.getP_id());
+	            try (ResultSet rs1 = ps1.executeQuery()) {
+	                if (rs1.next()) {
+	                    isUnique = false;
+	                }
+	            }
+	        }
+
+	        if (isUnique) {
+	            // owner 테이블 중복검사
+	            String sql2 = "SELECT * FROM owner WHERE o_id=?";
+	            try (PreparedStatement ps2 = conn.prepareStatement(sql2)) {
+	                ps2.setString(1, dto.getO_id());
+	                try (ResultSet rs2 = ps2.executeQuery()) {
+	                    if (rs2.next()) {
+	                        isUnique = false;
+	                    }
+	                }
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        isUnique = false;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (Exception e2) {
+	            e2.printStackTrace();
+	        }
+	    }
+
+	    return isUnique;
 	}
+
+
 	
 	/** NickName 중복검사 관련 메서드 */
 	public boolean NickNameCheck(memberDTO dto) {
-		boolean isUnique = true;
-		
-		try {
-			
-			conn = com.DongGu.db.DongGuDB.getConn();
-			
-			String sql = "SELECT * FROM petsitter WHERE p_nickname=?";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getP_nickname());
-			rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				isUnique = false;
-			}
-			rs.close();
-			ps.close();
-			
-			if(isUnique) {
-				// owner 테이블 중복검사
-				String sql2 = "SELECT * FROM owner WHERE o_nickname=?";
-				ps.setString(1, dto.getO_nickname());
-				rs = ps.executeQuery();
-				
-				if (rs.next()) {
-					isUnique = false;
-				}
-				rs.close();
-				ps.close();
-			}
-			
-			
-			} catch(Exception e) {
-				e.printStackTrace();
-				isUnique = false;
-			} finally {
-				try {
-					 if (rs != null) rs.close();
-		             if (ps != null) ps.close();
-		             if (conn != null) conn.close();
-				} catch(Exception e2) {
-					e2.printStackTrace();
-				}
-			}
-			return isUnique;
+	    boolean isUnique = true;
+
+	    try {
+	        conn = com.DongGu.db.DongGuDB.getConn();
+
+	        // petsitter 테이블 중복검사
+	        String sql1 = "SELECT * FROM petsitter WHERE p_nickname=?";
+	        try (PreparedStatement ps1 = conn.prepareStatement(sql1)) {
+	            ps1.setString(1, dto.getP_nickname());
+	            try (ResultSet rs1 = ps1.executeQuery()) {
+	                if (rs1.next()) {
+	                    isUnique = false;
+	                }
+	            }
+	        }
+
+	        if (isUnique) {
+	            // owner 테이블 중복검사
+	            String sql2 = "SELECT * FROM owner WHERE o_nickname=?";
+	            try (PreparedStatement ps2 = conn.prepareStatement(sql2)) {
+	                ps2.setString(1, dto.getO_nickname());
+	                try (ResultSet rs2 = ps2.executeQuery()) {
+	                    if (rs2.next()) {
+	                        isUnique = false;
+	                    }
+	                }
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        isUnique = false;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (Exception e2) {
+	            e2.printStackTrace();
+	        }
+	    }
+
+	    return isUnique;
 	}
 	
 	/** 사용자 로그인 검사 메서드 */
@@ -234,7 +230,43 @@ public class memberDAO {
 
 
 	
-	/** 회원가입 관련 메서드 */
+	/** [Owner] 회원가입 관련 메서드 */
+    public int MemberJoinOwner(memberDTO dto) {
+    	try {
+    		conn = com.DongGu.db.DongGuDB.getConn();
+    		
+    		String sql = "INSERT INTO OWNER VALUES(?,?,?,?,?,?,?,?,?,SYSDATE,?,?,?)";
+    		ps  = conn.prepareStatement(sql);
+    		
+    		ps.setString(1, dto.getO_id());
+    		ps.setString(2, dto.getO_pwd());
+    		ps.setString(3, dto.getO_name());
+    		ps.setInt(4, dto.getO_gender());
+    		ps.setString(5, dto.getO_nickname());
+    		ps.setString(6, dto.getO_tel());
+    		ps.setString(7, dto.getO_addr());
+    		ps.setString(8, dto.getO_house());
+    		ps.setString(9, dto.getO_jumin());
+    		ps.setInt(10, dto.getQ_num());
+    		ps.setString(11, dto.getQ_answer());
+    		ps.setInt(12, dto.getL_numl());
+    		
+    		int count = ps.executeUpdate();
+    		return count;
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    		return -1;
+    	} finally {
+    		try {
+    			if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+    		} catch(Exception e2) {
+    			
+    		}
+    	}
+    }
 	
 	
 	//	========== 고유리 끝 ============= //

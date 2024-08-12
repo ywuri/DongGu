@@ -6,9 +6,8 @@
 
 <%
 /* mdto.setO_id() */
-System.out.println(mdto.getO_id());
-boolean result = mdao.IdCheck(mdto);
-String msg = result? "사용할 수 있는 아이디 입니다!":"사용하고 있는 아이디 입니다!";
+boolean result = mdao.NickNameCheck(mdto);
+String msg = result? "사용할 수 있는 닉네임 입니다!":"사용하고 있는 닉네임 입니다!";
 %>
 
 <script>
@@ -16,8 +15,8 @@ String msg = result? "사용할 수 있는 아이디 입니다!":"사용하고 �
 	var result = <%= result %>;
 	
 	if(result){
-		var txt = '<%= mdto.getO_id()%>'
-		opener.document.MemberJoinOwner.o_id.value = txt;
+		var txt = '<%= mdto.getO_nickname()%>'
+		opener.document.MemberJoinOwner.o_nickname.value = txt;
 	}
 	window.self.close();
 </script>

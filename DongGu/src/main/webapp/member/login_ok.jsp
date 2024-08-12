@@ -14,6 +14,7 @@ if(result == mdao.LOGIN_OK){
     session.setAttribute("sid", userid);
     session.setAttribute("sname", username);
     session.setAttribute("snickname", nickname);
+    session.setMaxInactiveInterval(60 * 60); // 세션 유효 시간을 1시간으로 설정
 
     %>
     <script>

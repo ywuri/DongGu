@@ -48,6 +48,12 @@
 	header.dg_hd .util a:hover .login {
 	    width:80px; height:80px; padding:0; border:0; border-radius: 0 8px 8px 0; background: url(../img/icon_login_hv.png) no-repeat center; cursor: pointer;
 	}
+	header.dg_hd .util div {
+		    display: flex; align-items: center;
+	}
+	header.dg_hd .util img {
+		width: 35px; margin-left: 30px; margin-right: 20px;
+	}
 	
 	/** --- 하위 메뉴 --- */
 	header.dg_hd nav > ul > li .dropdown {

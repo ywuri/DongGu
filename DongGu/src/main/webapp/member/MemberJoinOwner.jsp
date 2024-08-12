@@ -12,8 +12,12 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 
 <script>
-	function duplicateCheck(){
+	function id_duplicateCheck(){
 		window.open('IdCheck.jsp','idCheck','width=450,height=300');
+	}
+	
+	function nick_duplicateCheck(){
+		window.open('NickName.jsp','NickName','width=450,height=300');
 	}
 	
 	function pwCheck(){
@@ -47,7 +51,7 @@
 <body>
 <%@include file="/SubHeader.jsp" %>
 
-	<form name="">
+	<form name="MemberJoinOwner" action="MemberJoinOwner_ok.jsp" method="post">
 	
 		<div class="saveTableOne">
 			<h3>고용자 가입하기</h3>
@@ -55,27 +59,27 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="id" id="" value="" class="saveWS250" readonly>
-						<input type="button" name="" id="" value="아이디 중복검사" class="btnType1" onclick="duplicateCheck()">
+						<input type="text" name="o_id" id="" value="" class="saveWS250" readonly>
+						<input type="button" name="" id="" value="아이디 중복검사" class="btnType1" onclick="id_duplicateCheck()">
 					</td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="password" name="" id="pw1" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요.">
+						<input type="password" name="o_pwd" id="pw1" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요.">
 					</td>
 				</tr>
 				<tr>
 					<th>비밀번호확인</th>
 					<td>
-						<input type="password" name="" id="pw2" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요." onkeyup="pwCheck()">
+						<input type="password" name="o_pwd" id="pw2" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요." onkeyup="pwCheck()">
 						<span id="pwText" class="dpib"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>비밀번호 찾기 질문</th>
 					<td>
-						<select name="" class="saveWS260">
+						<select name="q_num" class="saveWS260">
 							<option value="">질문1</option>
 						</select>
 					</td>
@@ -83,48 +87,48 @@
 				<tr>
 					<th>비밀번호 찾기 답</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250">
+						<input type="text" name="q_answer" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 				<tr>
 					<th>이름</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250">
+						<input type="text" name="o_name" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 				<tr>
 					<th>닉네임</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250">
-						<input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="duplicateCheck()">
+						<input type="text" name="o_nickname" id="" value="" class="saveWS250">
+						<input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="nick_duplicateCheck()">
 					</td>
 				</tr>
 				<tr>
 					<th>연락처</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS40"> - 
-						<input type="text" name="" id="" value="" class="saveWS60"> - 
-						<input type="text" name="" id="" value="" class="saveWS60">
+						<input type="text" name="o_tel1" id="" value="" class="saveWS40"> - 
+						<input type="text" name="o_tel2" id="" value="" class="saveWS60"> - 
+						<input type="text" name="o_tel3" id="" value="" class="saveWS60">
 					</td>
 				</tr>
 				<tr>
 					<th>거주지</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250" placeholder="기본주소">
-						<input type="text" name="" id="" value="" class="saveWS250" placeholder="상세주소">
+						<input type="text" name="o_addr" id="" value="" class="saveWS250" placeholder="기본주소">
+						<input type="text" name="o_addr" id="" value="" class="saveWS250" placeholder="상세주소">
 					</td>
 				</tr>
 				<tr>
 					<th>주민번호</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS60"> - 
-						<input type="text" name="" id="" value="" class="saveWS60">
+						<input type="text" name="o_jumin1" id="" value="" class="saveWS60"> - 
+						<input type="text" name="o_jumin2" id="" value="" class="saveWS60">
 					</td>
 				</tr>
 				<tr>
 					<th>자택종류</th>
 					<td>
-						<input type="text" name="" id="" value="" class="saveWS250" placeholder="단독주택, 아파트, 빌라">
+						<input type="text" name="o_house" id="" value="" class="saveWS250" placeholder="단독주택, 아파트, 빌라">
 					</td>
 				</tr>
 			</table>
