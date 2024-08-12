@@ -56,8 +56,7 @@
             <a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>                   
             <ul class="submenu">
                 <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
-                <li class="jyl_submenu"><a href="#"><span>지원서 등록</span></a></li>
-                <li id="submenu_last" class="jyl_submenu"><a href="#"><span>지원서 관리</span></a></li>
+                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a></li>
              </ul>
         </li>  
        

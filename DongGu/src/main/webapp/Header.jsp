@@ -55,7 +55,7 @@ String snickname = (String)session.getAttribute("snickname");
 	}else{
 		%>
 		<div>
-		 <span style="color:blue;"><%= snickname %></span>님 로그인중 | <a href="/DongGu/member/logout.jsp">&nbsp;로그아웃</a><a href="/DongGu/mypage/MyPage.jsp"><img src="img/icon_mypage.png"></a>
+		 <span style="color:blue;"><%= snickname %></span>님 로그인중 | <a href="/DongGu/member/logout.jsp">&nbsp;로그아웃</a><a href="/DongGu/mypage/MyPage.jsp"><img src="/DongGu/img/icon_mypage.png"></a>
 		</div>
 		<%
 	} %>
