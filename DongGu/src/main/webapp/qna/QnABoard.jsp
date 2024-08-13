@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>    
-<%@ page import="java.sql.Date" %>    
+<%@ page import="java.util.*" %>   
+<%@ page import="java.time.format.*" %>   
+<%@ page import="java.time.*" %>  
 <%@ page import="com.DongGu.board.QnABoardDAO" %>    
 <%@ page import="com.DongGu.board.QnABoardDTO" %>        
     
@@ -36,14 +37,8 @@
 	//사용자 현재 위치 그룹(3이면 1쪽)
 	int userGroup = (cp/pageSize)+1;
 	if(cp%pageSize==0)  userGroup = userGroup-1;
-
-
 	
-/*  	System.out.println("totalCnt ="+totalCnt);
-	System.out.println("cp ="+cp);
-	System.out.println("totalPage ="+totalPage);
-	System.out.println("userGroup ="+userGroup); 
-	System.out.println("arraysize ="+array.size());  */
+	
 %>
 
 <%@include file="../SubHeader.jsp" %>
@@ -108,7 +103,36 @@
 					
 					<td><%=array.get(i).getQ_nickname() %></td>
 					<td><%=array.get(i).getQ_vcnt() %></td>
-					<td><%=array.get(i).getQ_date() %></td>
+					<td>
+						<%
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				        LocalDateTime dateTime = LocalDateTime.parse(array.get(i).getQ_date(), formatter);
+				        LocalDateTime now = LocalDateTime.now();
+				        Duration duration = Duration.between(dateTime, now);
+
+				        // 차이 계산
+				        long minutes = duration.toMinutes();
+				        long hours = duration.toHours();
+				        long days = duration.toDays();
+				        long weeks = days / 7;
+
+				        String result;
+
+				        if (weeks > 0) {
+				            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				            result = dateTime.format(dateFormatter);
+				        } else if (days > 0) {
+				            result = days + "일 전";
+				        } else if (hours > 0) {
+				            result = hours + "시간 전";
+				        } else if (minutes > 0) {
+				            result = minutes + "분 전";
+				        } else {
+				            result = "방금 전";
+				        }
+						%>
+						<%=result %>
+					</td>
 				</tr>
 				<%
 				}
@@ -125,7 +149,6 @@
 				<%
 			}
 			%>
-			
 			
 		</tbody>
 		

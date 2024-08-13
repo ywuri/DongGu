@@ -925,6 +925,7 @@ width:170px;
 }
 #DetailBoardImg{
 	height:300px;
+	width:300px;
 	padding: 40px 40px;
 }   
 #searchTitle{
@@ -965,6 +966,36 @@ width:170px;
 	width:25px; 
 	cursor:pointer;
 }
+.QnABoardNextBeforeSpan{
+	color:gray; 
+	padding-right:15px;
+}
+.QnABoardNextBeforeSizeDiv{
+	width: 800px;  
+	margin: 0px auto; 
+	font-size: 17pt;
+}
+
+.QnABoardMarginDiv{
+	margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.QnABoardTopMarginDiv{
+	margin-top: 100px;
+	margin-bottom:10px;
+}
+.QnABoardBottomMarginDiv{
+	margin-bottom: 50px;
+}
+#NoticeTitleCenter{
+	border-collapse: collapse;
+    width: 800px;
+    margin: 0px auto;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
 	/* //	========== 이지현 끝 ============= // */
 	
 	

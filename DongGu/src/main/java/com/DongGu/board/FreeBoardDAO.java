@@ -4,21 +4,21 @@ import java.sql.*;
 import java.util.*;
 import java.sql.Date;
 
-public class QnABoardDAO {
+public class FreeBoardDAO {
 	private Connection conn;
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
 
 	
-	public QnABoardDAO() {}
+	public FreeBoardDAO() {}
 	
 	
 	/* 총 게시물 갯수 가져오기*/
-	public int getQnABoardCnt() {
+	public int getFreeBoardCnt() {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql="select count(*) from qna";
+			String sql="select count(*) from free";
 			ps =conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			int result=0;
@@ -48,26 +48,26 @@ public class QnABoardDAO {
 	
 	
 	/* 검색결과 게시물 갯수 가져오기*/
-	public int getQnABoardCnt(String search_type,String search_word) {
+	public int getFreeBoardCnt(String search_type,String search_word) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			String sql="";
 			
-			if("q_title".equals(search_type)) {
+			if("f_title".equals(search_type)) {
 				sql="select count(*) "
-						+ "    from qna  "
-						+ "    where q_title like ? "
+						+ "    from free  "
+						+ "    where f_title like ? "
 						;
 				
-			}else if("q_content".equals(search_type)) {
+			}else if("f_content".equals(search_type)) {
 				sql="select count(*) "
-						+ "    from qna  "
-						+ "    where q_content like ? "
+						+ "    from free  "
+						+ "    where f_content like ? "
 						;
-			}else if("q_nickname".equals(search_type)) {
+			}else if("f_nickname".equals(search_type)) {
 				sql="select count(*) "
-						+ "    from qna  "
-						+ "    where q_nickname like ? "
+						+ "    from free  "
+						+ "    where f_nickname like ? "
 						;
 			}
 			
@@ -99,17 +99,17 @@ public class QnABoardDAO {
 	}
 	
 	/* 글목록 가져오기 */
-	public ArrayList<QnABoardDTO> getQnABoardList(int cp,int listSize){
+	public ArrayList<FreeBoardDTO> getFreeBoardList(int cp,int listSize){
 		try {
 			conn=com.DongGu.db.DongGuDB.getConn();
-			//String sql="select * from qna order by q_date desc";
+			//String sql="select * from free order by f_date desc";
 			String sql ="select * "
 					+ "from "
 					+ "(select rownum as rnum, a.* from "
 					+ "( "
 					+ "    select *  "
-					+ "    from qna  "
-					+ "    order by q_ref desc, q_sunbun)a "
+					+ "    from free  "
+					+ "    order by f_ref desc, f_sunbun)a "
 					+ ")b "
 					+ "where rnum >= ?and rnum <=?";
 			
@@ -119,12 +119,12 @@ public class QnABoardDAO {
 			ps.setInt(1, cp*listSize-(listSize-1));
 			ps.setInt(2, cp*listSize);
 			
-			ArrayList<QnABoardDTO> array = new ArrayList<>();
+			ArrayList<FreeBoardDTO> array = new ArrayList<>();
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				QnABoardDTO dto = new QnABoardDTO(rs.getInt("q_num"),rs.getString("q_id"),rs.getString("q_nickname"),
-						rs.getString("q_title"),rs.getString("q_date"),rs.getString("q_content"),rs.getInt("q_vcnt"),
-						rs.getInt("q_ref"),rs.getInt("q_lev"),rs.getInt("q_sunbun"));
+				FreeBoardDTO dto = new FreeBoardDTO(rs.getInt("f_num"),rs.getString("f_id"),rs.getString("f_nickname"),
+						rs.getString("f_title"),rs.getString("f_date"),rs.getString("f_content"),rs.getInt("f_vcnt"),
+						rs.getInt("f_ref"),rs.getInt("f_lev"),rs.getInt("f_sunbun"),rs.getString("f_img"));
 				
 				array.add(dto);
 		
@@ -150,31 +150,32 @@ public class QnABoardDAO {
 	}
 	
 	
-	/* qna 상세페이지 */
-	public QnABoardDTO getQnABoardDetail(int q_num) {
+	/* free 상세페이지 */
+	public FreeBoardDTO getFreeBoardDetail(int f_num) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "select q_content, q_id, q_nickname, q_date, q_vcnt, q_title,q_ref,q_lev,q_sunbun from qna where q_num = ?";
+			String sql = "select f_content, f_id, f_nickname, f_date, f_vcnt, f_title,f_ref,f_lev,f_sunbun,f_img from free where f_num = ?";
 			
-			int up = upVcnt(q_num);
+			int up = upVcnt(f_num);
 			ps=conn.prepareStatement(sql);
-			ps.setInt(1, q_num);
+			ps.setInt(1, f_num);
 			rs = ps.executeQuery();
-			QnABoardDTO dto = new QnABoardDTO();
+			FreeBoardDTO dto = new FreeBoardDTO();
 			//System.out.println("check");
-			//System.out.println(q_num);
+			//System.out.println(f_num);
 			
 			if(rs.next()) {
-				dto.setQ_content(rs.getString(1));
+				dto.setF_content(rs.getString(1));
 				
-				dto.setQ_id(rs.getString(2));
-				dto.setQ_nickname(rs.getString(3));
-				dto.setQ_date(rs.getString(4));
-				dto.setQ_vcnt(rs.getInt(5));
-				dto.setQ_title(rs.getString(6));
-				dto.setQ_ref(rs.getInt(7));
-				dto.setQ_lev(rs.getInt(8));
-				dto.setQ_sunbun(rs.getInt(9));
+				dto.setF_id(rs.getString(2));
+				dto.setF_nickname(rs.getString(3));
+				dto.setF_date(rs.getString(4));
+				dto.setF_vcnt(rs.getInt(5));
+				dto.setF_title(rs.getString(6));
+				dto.setF_ref(rs.getInt(7));
+				dto.setF_lev(rs.getInt(8));
+				dto.setF_sunbun(rs.getInt(9));
+				dto.setF_img(rs.getString(10));
 			}
 			return dto;
 			
@@ -197,35 +198,35 @@ public class QnABoardDAO {
 	
 	
 	/* 상세게시글에서 전 / 후 게시글 보여주기 */
-	public ArrayList<QnABoardDTO> getNextQnABoard(int q_num){
+	public ArrayList<FreeBoardDTO> getNextFreeBoard(int f_num){
 		try {
-			ArrayList<QnABoardDTO> array = new ArrayList<>();
+			ArrayList<FreeBoardDTO> array = new ArrayList<>();
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "SELECT q_num, q_title "
+			String sql = "SELECT f_num, f_title "
 					+ "from "
 					+ "( "
-					+ "select q_num,q_title "
-					+ "from qna "
-					+ "where q_num > ?"
-					+ "order by q_num  "
+					+ "select f_num,f_title "
+					+ "from free "
+					+ "where f_num > ?"
+					+ "order by f_num  "
 					+ ") "
 					+ "where rownum=1 "
 					+ "union "
-					+ "SELECT q_num, q_title "
+					+ "SELECT f_num, f_title "
 					+ "from "
 					+ "( "
-					+ "select q_num,q_title "
-					+ "from qna "
-					+ "where q_num < ?  "
-					+ "order by q_num desc "
+					+ "select f_num,f_title "
+					+ "from free "
+					+ "where f_num < ?  "
+					+ "order by f_num desc "
 					+ ") "
 					+ "where rownum=1 ";
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, q_num);
-			ps.setInt(2, q_num);
+			ps.setInt(1, f_num);
+			ps.setInt(2, f_num);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				QnABoardDTO dto = new QnABoardDTO(rs.getInt(1),rs.getString(2));
+				FreeBoardDTO dto = new FreeBoardDTO(rs.getInt(1),rs.getString(2));
 				array.add(dto);
 			}
 			return array;
@@ -246,19 +247,19 @@ public class QnABoardDAO {
 	}
 	
 	/* 조회수 늘리기*/
-	public int upVcnt(int q_num) {
+	public int upVcnt(int f_num) {
 		try {
-			String sql="select q_vcnt from qna where q_num=?";
+			String sql="select f_vcnt from free where f_num=?";
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, q_num);
+			ps.setInt(1, f_num);
 			rs = ps.executeQuery();
 			int cnt=0;
 			if(rs.next()) cnt=rs.getInt(1);
 			
-			String sql2 = "update qna set q_vcnt=? where q_num=?";
+			String sql2 = "update free set f_vcnt=? where f_num=?";
 			ps=conn.prepareStatement(sql2);
 			ps.setInt(1, cnt+1);
-			ps.setInt(2, q_num);
+			ps.setInt(2, f_num);
 			
 			int result = ps.executeUpdate();
 			return result;
@@ -271,14 +272,14 @@ public class QnABoardDAO {
 	
 	
 	/* 해당글에 위시리스트 체크 했는지*/
-	public int isWishList(int q_num,String sid) {
+	public int isWishList(int f_num,String sid) {
 		try {
 			conn=com.DongGu.db.DongGuDB.getConn();
 			String sql="select count(*) from wishlist where wt_num_value=? and w_id=? and wt_num=?";
 			ps =conn.prepareStatement(sql);
-			ps.setInt(1, q_num);
+			ps.setInt(1, f_num);
 			ps.setString(2, sid);
-			ps.setInt(3, 50);
+			ps.setInt(3, 40);
 			/////////////추후수정////////
 			rs = ps.executeQuery();
 			
@@ -303,15 +304,15 @@ public class QnABoardDAO {
 	
 	
 	/* 위시리스트 추가 또는 삭제*/
-	public int changeWishStatus(String sid,String q_num) {
+	public int changeWishStatus(String sid,String f_num) {
 		
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			String sql="select count(*) from wishlist where w_id=? and wt_num=? and wt_num_value=?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, sid);
-			ps.setInt(2, 50);
-			ps.setString(3, q_num);
+			ps.setInt(2, 40);
+			ps.setString(3, f_num);
 			///////나중에수정///////
 			
 			
@@ -327,8 +328,8 @@ public class QnABoardDAO {
 				sql = "delete from wishlist where w_id=? and wt_num=? and wt_num_value=?";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, sid);
-				ps.setInt(2, 50);
-				ps.setString(3, q_num );
+				ps.setInt(2, 40);
+				ps.setString(3, f_num );
 			}
 			//위시리스트에 없으면 추가
 			else if(isEx==0) {
@@ -338,8 +339,8 @@ public class QnABoardDAO {
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, sid);
 				ps.setInt(2, 0);//////////////////////////이거수정////////////////
-				ps.setInt(3, 50);
-				ps.setString(4, q_num);
+				ps.setInt(3, 40);
+				ps.setString(4, f_num);
 			}
 			
 			int result = ps.executeUpdate();
@@ -364,7 +365,7 @@ public class QnABoardDAO {
 	public int getMaxRef() {
 	    int num = 0;
         try {
-            String sql = "SELECT MAX(q_ref) FROM qna";
+            String sql = "SELECT MAX(f_ref) FROM free";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -386,24 +387,25 @@ public class QnABoardDAO {
 	
 	
 
-	/* qna 글 작성하기(답글아님)*/
-	public int WriteQnABoard(QnABoardDTO dto) {
+	/* free 글 작성하기(답글아님)*/
+	public int WriteFreeBoard(FreeBoardDTO dto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			int max = getMaxRef();
-			String sql ="insert into qna(q_num, q_id, q_nickname, q_title, q_date, q_content, q_vcnt,q_ref, q_lev, q_sunbun)  values(seq_qna_q_num.nextval,?,?,?,sysdate,?,0,?,0,0)";
+			String sql ="insert into free(f_num, f_id, f_nickname, f_title, f_date, f_content, f_vcnt,f_ref, f_lev, f_sunbun,f_img)  values(seq_free_f_num.nextval,?,?,?,sysdate,?,0,?,0,0,?)";
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, dto.getQ_id());
-			ps.setString(2, dto.getQ_nickname());
-			ps.setString(3,dto.getQ_title());
-			ps.setString(4, dto.getQ_content());
+			ps.setString(1, dto.getF_id());
+			ps.setString(2, dto.getF_nickname());
+			ps.setString(3,dto.getF_title());
+			ps.setString(4, dto.getF_content());
 			ps.setInt(5, max+1);
+			ps.setString(6, dto.getF_img());
 			//ref??
 
 			/*
-			private int q_ref ;// 그룹번호(1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지) 
-			private int q_lev; //들여쓰기횟수 (0이면 본문,1번이면 본문의 대한 답변) 
-			private int q_sunbun;// 본문내에 순서. (1번본문의 답글이 2개 달리면 걔의 순서) 
+			private int f_ref ;// 그룹번호(1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지) 
+			private int f_lev; //들여쓰기횟수 (0이면 본문,1번이면 본문의 대한 답변) 
+			private int f_sunbun;// 본문내에 순서. (1번본문의 답글이 2개 달리면 걔의 순서) 
 			*/
 			
 			int result = ps.executeUpdate();
@@ -426,14 +428,43 @@ public class QnABoardDAO {
 	} 
 	
 	
+	/* 사진이름 변경을 위해 sequnce번호 가져오기 */
+	public int getSequnceNumForImg() {
+		try {
+			conn =com.DongGu.db.DongGuDB.getConn();
+			String sql="SELECT seq_free_f_img.NEXTVAL FROM dual";
+			ps=conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			int result=0;
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
 	
 	/* 답글 작성 전 sunbun 업데이트*/
-	public int ReWriteQnABoardSunbun(int q_ref,int q_sunbun) {
+	public int ReWriteFreeBoardSunbun(int f_ref,int f_sunbun) {
 		try {
-			String sql="update qna set q_sunbun=q_sunbun+1 where q_ref=? and q_sunbun>=?";
+			String sql="update free set f_sunbun=f_sunbun+1 where f_ref=? and f_sunbun>=?";
 			ps=conn.prepareStatement(sql);
-			ps.setInt(1, q_ref);
-			ps.setInt(2, q_sunbun);
+			ps.setInt(1, f_ref);
+			ps.setInt(2, f_sunbun);
 			
 			int result = ps.executeUpdate();
 			return result;
@@ -452,23 +483,24 @@ public class QnABoardDAO {
 	
 	
 	/* 답글 작성하기 */
-	public int ReWriteQnABoard(QnABoardDTO dto) {
+	public int ReWritefreeBoard(FreeBoardDTO dto) {
 		try {
 			conn= com.DongGu.db.DongGuDB.getConn();
-			int updateSunbun = ReWriteQnABoardSunbun(dto.getQ_ref(),dto.getQ_sunbun()+1);
+			int updateSunbun = ReWriteFreeBoardSunbun(dto.getF_ref(),dto.getF_sunbun()+1);
 			
-			String sql="insert into qna(q_num, q_id, q_nickname, q_title, q_date, q_content, q_vcnt,q_ref, q_lev, q_sunbun)  "
-					+ "values(seq_qna_q_num.nextval,?,?,?,sysdate,?,0,?,?,?)";
+			String sql="insert into free(f_num, f_id, f_nickname, f_title, f_date, f_content, f_vcnt,f_ref, f_lev, f_sunbun,f_img)  "
+					+ "values(seq_free_f_num.nextval,?,?,?,sysdate,?,0,?,?,?,?)";
 			
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, dto.getQ_id());
-			ps.setString(2, dto.getQ_nickname());
-			ps.setString(3,dto.getQ_title());
-			ps.setString(4, dto.getQ_content());
-			ps.setInt(5, dto.getQ_ref());
+			ps.setString(1, dto.getF_id());
+			ps.setString(2, dto.getF_nickname());
+			ps.setString(3,dto.getF_title());
+			ps.setString(4, dto.getF_content());
+			ps.setInt(5, dto.getF_ref());
 			
-			ps.setInt(6, dto.getQ_lev()+1);
-			ps.setInt(7, dto.getQ_sunbun()+1);
+			ps.setInt(6, dto.getF_lev()+1);
+			ps.setInt(7, dto.getF_sunbun()+1);
+			ps.setString(8, dto.getF_img());
 			
 			/*
 			 	ref : 그룹번호 (1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지)
@@ -499,42 +531,42 @@ public class QnABoardDAO {
 	
 	
 	/* 검색하기 */
-	public ArrayList<QnABoardDTO> searchQnABoard(String search_type,String search_word,int cp,int listSize){
+	public ArrayList<FreeBoardDTO> searchFreeBoard(String search_type,String search_word,int cp,int listSize){
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			String sql="";
-			if("q_title".equals(search_type)) {
+			if("f_title".equals(search_type)) {
 				sql="select * "
 						+ "from "
 						+ "(select rownum as rnum, a.* from  "
 						+ "( "
 						+ "    select *  "
-						+ "    from qna  "
-						+ "    where q_title like ? "
-						+ "    order by q_ref desc, q_sunbun)a  "
+						+ "    from free  "
+						+ "    where f_title like ? "
+						+ "    order by f_ref desc, f_sunbun)a  "
 						+ ")b "
 						+ "where rnum >=? and rnum <=?";
 				
-			}else if("q_content".equals(search_type)) {
+			}else if("f_content".equals(search_type)) {
 				sql="select * "
 						+ "from "
 						+ "(select rownum as rnum, a.* from  "
 						+ "( "
 						+ "    select *  "
-						+ "    from qna  "
-						+ "    where q_content like ? "
-						+ "    order by q_ref desc, q_sunbun)a  "
+						+ "    from free  "
+						+ "    where f_content like ? "
+						+ "    order by f_ref desc, f_sunbun)a  "
 						+ ")b "
 						+ "where rnum >=? and rnum <=?";
-			}else if("q_nickname".equals(search_type)) {
+			}else if("f_nickname".equals(search_type)) {
 				sql="select * "
 						+ "from "
 						+ "(select rownum as rnum, a.* from  "
 						+ "( "
 						+ "    select *  "
-						+ "    from qna  "
-						+ "    where q_nickname like ? "
-						+ "    order by q_ref desc, q_sunbun)a  "
+						+ "    from free  "
+						+ "    where f_nickname like ? "
+						+ "    order by f_ref desc, f_sunbun)a  "
 						+ ")b "
 						+ "where rnum >=? and rnum <=?";
 			}
@@ -547,13 +579,13 @@ public class QnABoardDAO {
 			//System.out.println("search_type" +search_type);
 			//System.out.println("search_word" +search_word);
 			
-			ArrayList<QnABoardDTO>array = new ArrayList<>();
+			ArrayList<FreeBoardDTO>array = new ArrayList<>();
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				QnABoardDTO dto = new QnABoardDTO(rs.getInt("q_num"),rs.getString("q_id"),rs.getString("q_nickname"),
-						rs.getString("q_title"),rs.getString("q_date"),rs.getString("q_content"),rs.getInt("q_vcnt"),
-						rs.getInt("q_ref"),rs.getInt("q_lev"),rs.getInt("q_sunbun"));
+				FreeBoardDTO dto = new FreeBoardDTO(rs.getInt("f_num"),rs.getString("f_id"),rs.getString("f_nickname"),
+						rs.getString("f_title"),rs.getString("f_date"),rs.getString("f_content"),rs.getInt("f_vcnt"),
+						rs.getInt("f_ref"),rs.getInt("f_lev"),rs.getInt("f_sunbun"),rs.getString("f_img"));
 				array.add(dto);
 			}
 		
@@ -574,14 +606,14 @@ public class QnABoardDAO {
 	}
 	
 	/* 수정하기 */
-	public int updateQnABoard(QnABoardDTO dto) {
+	public int updatefreeBoard(FreeBoardDTO dto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql ="update qna set q_title=?, q_content=? where q_num=?";
+			String sql ="update free set f_title=?, f_content=? where f_num=?";
 			ps=conn.prepareStatement(sql);
-			ps.setString(1,dto.getQ_title());
-			ps.setString(2,dto.getQ_content());
-			ps.setInt(3,dto.getQ_num());
+			ps.setString(1,dto.getF_title());
+			ps.setString(2,dto.getF_content());
+			ps.setInt(3,dto.getF_num());
 			
 			int result =ps.executeUpdate();
 			
@@ -603,51 +635,51 @@ public class QnABoardDAO {
 	} 
 	
 	/* 삭제하기 */
-	public int deleteQnABoard(QnABoardDTO dto) {
+	public int deleteFreeBoard(FreeBoardDTO dto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			
 			//답글이 있는 게시글인지 아닌지 판명하기
-			int num = hasReWrite(dto.getQ_ref());
+			int num = hasReWrite(dto.getF_ref());
 			//System.out.println("num ="+num);
-			//System.out.println("dto.getQ_ref() ="+dto.getQ_ref());
+			//System.out.println("dto.getF_ref() ="+dto.getF_ref());
 			
 			//만약 삭제할 게시글에 답글이 있다면 게시글 내용만 삭제된 게시글입니다로 변경.작성자도 변경
-			if(dto.getQ_sunbun()==0 && num>=2) {
-				String sql = "update qna set q_content=?,q_id=?,q_nickname=? where q_num=? ";
+			if(dto.getF_sunbun()==0 && num>=2) {
+				String sql = "update free set f_content=?,f_id=?,f_nickname=? where f_num=? ";
 				ps=conn.prepareStatement(sql);
 				ps.setString(1, "삭제된 게시글입니다.");
 				ps.setString(2," ");
 				ps.setString(3," ");
-				ps.setInt(4, dto.getQ_num());
+				ps.setInt(4, dto.getF_num());
 			}
 			//답글이면, 또는 답글이 안달린 글이면. !!!! 여기서 마지막 답글이 사라진거면 본글도 사라지게!! 
 			
 			//답글이 안달린 원글이면
-			else if(dto.getQ_sunbun()==0 && num==1) {
-				String sql="delete from qna where q_ref=?";
+			else if(dto.getF_sunbun()==0 && num==1) {
+				String sql="delete from free where f_ref=?";
 				ps=conn.prepareStatement(sql);
-				ps.setInt(1, dto.getQ_ref());
+				ps.setInt(1, dto.getF_ref());
 			}
 			
 			//답글이면 
 			else {
 				
 				String sql="";
-				int status =isMainDelete(dto.getQ_ref());
+				int status =isMainDelete(dto.getF_ref());
 				
 				
 				//원글이 삭제된 답글이면
 				if(status==1 && num==2) {
-					sql="delete from qna where q_ref=?";
+					sql="delete from free where f_ref=?";
 					ps=conn.prepareStatement(sql);
-					ps.setInt(1, dto.getQ_ref());
+					ps.setInt(1, dto.getF_ref());
 				}
 				//그냥 답글이면
 				else {
-					sql="delete from qna where q_num=?";
+					sql="delete from free where f_num=?";
 					ps=conn.prepareStatement(sql);
-					ps.setInt(1, dto.getQ_num());
+					ps.setInt(1, dto.getF_num());
 				}
 				
 			}
@@ -668,12 +700,12 @@ public class QnABoardDAO {
 	}
 	
 	/* 같은 그룹 게시물 갯수 알아오기 */
-	public int hasReWrite(int q_ref) {
+	public int hasReWrite(int f_ref) {
 		
 		try {
-			String ssql="select count(*) from qna where q_ref=?";
+			String ssql="select count(*) from free where f_ref=?";
 			ps = conn.prepareStatement(ssql);
-			ps.setInt(1, q_ref);
+			ps.setInt(1, f_ref);
 			//ps.setString(2, " ");
 			rs=ps.executeQuery();
 			int num =0;
@@ -697,12 +729,12 @@ public class QnABoardDAO {
 	}
 	
 	/* 삭제하는 답글이, 이미 원글이 지워졌는지 알아오기 */
-	public int isMainDelete(int q_ref) {
+	public int isMainDelete(int f_ref) {
 		
 		try {
-			String ssql="select count(*) from qna where q_ref=? and q_id=?";
+			String ssql="select count(*) from free where f_ref=? and f_id=?";
 			ps = conn.prepareStatement(ssql);
-			ps.setInt(1, q_ref);
+			ps.setInt(1, f_ref);
 			ps.setString(2, " ");
 			rs=ps.executeQuery();
 			int num =0;
