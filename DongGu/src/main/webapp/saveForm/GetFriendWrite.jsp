@@ -3,6 +3,7 @@
     
 
 <%@page import="java.util.*" %>
+<%@page import="java.sql.Date" %>
 <%@page import="com.DongGu.friend.FriendDTO" %>
 
 <!DOCTYPE html>
@@ -49,7 +50,21 @@
             	val_name = options[i].getAttribute('val_name');	//animalinfo테이블의 동물이름
             	val_img = options[i].getAttribute('val_img');
                 val_birth = options[i].getAttribute('val_birth');
+                
                 val_link = options[i].getAttribute('val_link');
+                val_an_nature = options[i].getAttribute('val_an_nature');
+                
+                // 콤마로 문자열 나누기
+                let nature_parts = val_an_nature.split(",");
+                
+                var val_an_nat = "";
+                for(let i=0; i<nature_parts.length; i++){
+                    //val_an_nat += '<input type="button" class="saveBtnTypeClick_2" value="'+nature_parts[i]+'">';
+                    //val_an_nat += "<input type='button' class='saveBtnTypeClick_2' value='"+nature_parts[i]+"'>";
+                    
+	                val_an_nat += '<span class="animal_nature">'+nature_parts[i].trim()+"</span>"; // 공백 제거
+				}
+                
                 val_aler = options[i].getAttribute('val_aler');
                 val_dise = options[i].getAttribute('val_dise');
                 val_caut = options[i].getAttribute('val_caut');
@@ -82,13 +97,19 @@
         data_ani_disea.textContent = val_dise;
         data_ani_caut.textContent = val_caut;
         
+        //data_ani_nature.textContent = val_link;
+       	//data_ani_nature2.textContent = val_an_nature;
+   	
+        data_ani_nature.innerHTML = val_an_nat;
+        //data_ani_nature2.textContent = val_an_nat;
+        
 		//성격
         //val_link = options[i].getAttribute('val_link');
 	}
 </script>
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@ include file="../Header.jsp" %>
     
 	<form name="getWrite" action="GetWrite_ok.jsp">
 	
@@ -172,10 +193,9 @@
 				<tr>
 					<th>성격</th>
 					<td>
-						●★●동물이름선택후 동물의 성격●★● 작업필요
-						<input type="button" class="saveBtnTypeClick_2" value="성격1" onclick="">
-						<input type="button" class="saveBtnTypeClick_2" value="성격3" onclick="">
-						<input type="button" class="saveBtnTypeClick_2" value="성격4" onclick="">
+						<div id="data_ani_nature">
+							**동물이름을 선택해주세요.
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -192,8 +212,8 @@
 				</tr>
 				<tr>
 					<th>주의사항</th>
-					<td id="data_ani_caut">
-						**동물이름을 선택해주세요.
+					<td>
+						<textarea class="saveWS100p saveHS100" id="data_ani_caut" disabled>**동물이름을 선택해주세요.</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -220,7 +240,7 @@
 	</form>
 	 -->	
 	
-<%@include file="Footer.jsp" %>
+<%@ include file="../Footer.jsp" %>
 
 </body>
 </html>

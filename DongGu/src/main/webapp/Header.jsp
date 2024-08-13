@@ -23,7 +23,7 @@ String snickname = (String)session.getAttribute("snickname");
 	<nav>
 		<ul>
 			<li>
-				<a href="/DongGu/GetFriendWrite.jsp"><span>초대장</span></a>
+				<a href="/DongGu/saveForm/GetFriendWrite.jsp"><span>초대장</span></a>
 			</li>
 			<li>
 				<a id="board" href="/DongGu/free/FreeBoard.jsp"><span>게시판  <i style="margin-left: 5px;" class="fa fa-caret-down" aria-hidden="true"></i></span></a>

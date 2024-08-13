@@ -13,5 +13,5 @@
 %>
 <script>
 	window.alert('<%=msg%>');
-	location.href='FindDongGu.jsp';
+	location.href='../FindDongGu.jsp';
 </script>

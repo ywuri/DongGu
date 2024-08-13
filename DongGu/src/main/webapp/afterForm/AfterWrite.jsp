@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../Header.jsp" %>
 
 	<form name="">
 	
@@ -31,7 +31,7 @@
 				<tr>
 					<th>평점</th>
 					<td>
-						<select name="" class="saveWS250">
+						<select name="" class="saveWS260">
 							<option value="">0</option>
 							<option value="">1</option>
 							<option value="">2</option>
@@ -53,7 +53,7 @@
 		
 	</form>	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>
