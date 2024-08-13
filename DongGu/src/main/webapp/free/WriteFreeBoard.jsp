@@ -1,15 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="java.sql.Date" %>  
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
-
-<style>
-
-</style>
+<%
+//로그인 안했을 시 전 페이지로 돌아가게
+String s_id =(String)session.getAttribute("sid");
+if(s_id==null || s_id.equals("")){
+	%>
+	<script>
+	window.alert('로그인이 필요한 작업입니다.');
+	window.location.href="/DongGu/member/login.jsp";
+	</script>
+<%
+}
+%>
 
 <script>
 function showFreeBoardImg(event){
@@ -33,34 +42,34 @@ function showFreeBoardImg(event){
 }
 </script>
 
-
 </head>
 <body>
 <%@include file="../SubHeader.jsp" %>
-<form>
-<div id="FreeBoardDivTitle" style="">
-	<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자유 게시글 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
-	<span style="text-align:right; ">
-		<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
-	</span>
-	
-</div>
+<form name="WriteFreeBoard" action="/DongGu/free/WriteFreeBoard_ok.jsp" method="post" enctype="multipart/form-data">
+	<div id="FreeBoardDivTitle">
+		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자유게시판 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
+		<span style="text-align:right; ">
+			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
+		</span>
+		
+	</div>
 
 	<div id="WriteFreeBoardMainDiv">
-		<input id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." name="title" required>
+		<input name="f_title" id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." required>
 		<div id="WriteFreeBoardContentDiv">
-			<textarea id="WriteFreeBoardContent" name="content" placeholder="내용을 입력하세요." required></textarea>
+			<textarea name="f_content" id="WriteFreeBoardContent" placeholder="내용을 입력하세요." required></textarea>
 		</div>
 	</div>
 	
 	<div id="WriteFreeBoardImgDiv">
 		<div id="WriteFreeBoardImgDiv2" >
-			<input id="WriteFreeBoardInputImg" type="file" name="" accept="image/*" onchange="showFreeBoardImg(event);"/>
+			<input id="WriteFreeBoardInputImg" type="file" name="f_img" accept="image/*" onchange="showFreeBoardImg(event);"/>
 			<div id="showFreeBoardImgDiv" >
 			</div>
 		</div>
 		
 	</div>
+	
 </form>
 <%@include file="../Footer.jsp" %>
 </body>

@@ -11,8 +11,6 @@
 <title>Insert title here</title>  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 
-
-
 </head>
 <body>
 <jsp:useBean id="dao" class="com.DongGu.board.QnABoardDAO"></jsp:useBean>
@@ -68,7 +66,7 @@ array = dao.getNextQnABoard(q_num);
 			<div id="DetailBoardInfo" style="display:flex;">
 				<div style="width:700px;">
 					작성자 : <%=qdto.getQ_nickname()%>(<%=qdto.getQ_id()%>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					작성날짜 : <%=qdto.getQ_date()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					작성날짜 : <%=qdto.getQ_date().substring(0, 16)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					조회:<%=qdto.getQ_vcnt()%>
 				</div>
 				<div >
@@ -95,7 +93,7 @@ array = dao.getNextQnABoard(q_num);
 			</div>
 			
 			<div id="WriteFreeBoardContentDiv">
-				<div id="DetailQnABoardContentDiv" ><%=qdto.getQ_content()%></div>
+				<div id="DetailQnABoardContentDiv" ><%=qdto.getQ_content().replaceAll("\n", "<br>") %></div>
 			</div>
 			<%
 				if(!q_id.equals(" ")){
@@ -119,17 +117,59 @@ array = dao.getNextQnABoard(q_num);
 		</div>
 	</div>
 	
-	<div>
-		
-<%-- 		<div>
-			다음 <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=q_num%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a>
-		</div>
-		<div>
-			이전 <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=q_num%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a>
-		</div> --%>
-	</div>
-	
 </div>
+	<div>
+		<% 
+		// 이 게시물이 유일한거라면 아무것도 안함
+		if(array==null||array.size()==0){
+			
+		}
+		//한 게시글만 있어서 다음 또는 이전글만 있다면
+		else if(array.size()==1){
+			
+			//만약 갖고온글이 다음 글이라면?
+			if(array.get(0).getQ_num()>q_num){
+				%>
+				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
+					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
+				</div>
+				<%
+			}
+			//전글
+			else if(array.get(0).getQ_num()<q_num){
+				%>
+				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
+					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
+				</div>
+				<%
+			}
+		}
+		else if(array.size()==2){
+			
+			if(array.get(0).getQ_num() >array.get(1).getQ_num() ){
+			%>
+			<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
+				<p><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %></a></p> 
+			</div>
+			<div class="QnABoardBottomMarginDiv">
+				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
+			</div>
+			<%
+			}
+			else{
+				%>
+				<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
+					<p><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
+				</div>
+				<div class="QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv ">
+					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
+				</div>
+				<%
+			}
+		}
+		%>
+		
+	</div>
 <%@include file="../Footer.jsp" %>
 
 </body>
