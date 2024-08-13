@@ -22,6 +22,15 @@ public class MyPageDTO {
    private String p_id;
    private String p_name;
    private String p_nickname;
+   private String p_tel;
+   private String p_addr;
+   private String p_img;
+   private String p_jumin;
+   private String p_ex_my;
+   private String p_ex_other;
+   private String p_ex_etc;
+   private String p_update_date;   
+      
    
    // 고용자
    private String o_id;
@@ -89,7 +98,7 @@ public class MyPageDTO {
       this.starcount = starcount;   
    }
    
-   // 1-2. 인자 생성자(마이페이지 메인 section 2)	
+   // 1-2. 인자 생성자(마이페이지 메인 section 2 / 나의 지원 - 지원내역)	
    public MyPageDTO(int a_num, String ai_img, String an_num_link, String m_name, String i_title, Date i_start, Date i_end, ArrayList<String> an_words) {
 	   super();
 	   this.a_num = a_num;
@@ -101,13 +110,98 @@ public class MyPageDTO {
 	   this.i_end = i_end;
 	   this.an_words = an_words;
    }
+   
+   // 1-3. 인자 생성자(마이페이지 나의 지원 - 지원서 관리 메인)	 
+   public MyPageDTO(String p_update_date, String g_name, int g_price) {
+	   super();
+	   this.p_update_date = p_update_date;
+	   this.g_name = g_name;
+	   this.g_price = g_price;
+   }
+   
+   // 1-4. 인자 생성자(마이페이지 나의 지원 - 지원서 관리 수정하기)	 
+   public MyPageDTO(String p_jumin, String p_tel, String p_addr, String p_img, String p_ex_my, String p_ex_oher, String p_ex_etc) {
+	   super();
+	   this.p_jumin = p_jumin;
+	   this.p_tel = p_tel;
+	   this.p_addr = p_addr;
+	   this.p_img = p_img;
+	   this.p_ex_my = p_ex_my;
+	   this.p_ex_other = p_ex_oher;
+	   this.p_ex_etc = p_ex_etc;
+	   
+   }
 
    
    
    
-   // getter, setter
-   public ArrayList<String> getAn_words() {
-		return an_words;
+   // getter, setter 
+   public String getP_update_date() {
+	   return p_update_date;
+   }
+
+   public void setP_update_date(String p_update_date) {
+	   this.p_update_date = p_update_date;
+   }
+   
+   public String getP_tel() {
+	   return p_tel;
+   }
+
+   public void setP_tel(String p_tel) {
+	   this.p_tel = p_tel;
+   }
+
+   public String getP_addr() {
+	   return p_addr;
+   }
+
+   public void setP_addr(String p_addr) {
+	   this.p_addr = p_addr;
+   }
+
+   public String getP_img() {
+	   return p_img;
+   }
+
+   public void setP_img(String p_img) {
+	   this.p_img = p_img;
+   }
+
+   public String getP_jumin() {
+	   return p_jumin;
+   }
+
+   public void setP_jumin(String p_jumin) {
+	   this.p_jumin = p_jumin;
+   }
+
+   public String getP_ex_my() {
+	   return p_ex_my;
+   }
+
+   public void setP_ex_my(String p_ex_my) {
+	   this.p_ex_my = p_ex_my;
+   }
+
+   public String getP_ex_other() {
+	   return p_ex_other;
+   }
+
+   public void setP_ex_other(String p_ex_other) {
+	   this.p_ex_other = p_ex_other;
+   }
+
+   public String getP_ex_etc() {
+	   return p_ex_etc;
+   }
+
+   public void setP_ex_etc(String p_ex_etc) {
+	   this.p_ex_etc = p_ex_etc;
+   }
+
+	public ArrayList<String> getAn_words() {
+	return an_words;
 	}
 
 	public void setAn_words(ArrayList<String> an_words) {

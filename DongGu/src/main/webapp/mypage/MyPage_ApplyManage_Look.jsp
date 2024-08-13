@@ -54,7 +54,6 @@
     String[] parts = phoneNum.split("-");
     String maskedPhoneNum = parts[0] + "-****-" + parts[2];
  %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +61,7 @@
 <title>마이페이지</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
- <script>
+<script>
  	   var check = 0; 	
  	   
        function appear() {
@@ -154,14 +153,15 @@
 		});
     </script>
 	<!------------- 왼쪽 사이드 메뉴 영역 끝----------->
-				
+    
+    
     
     
      <!------------- 오른쪽 컨텐츠 영역 시작 ----------->     
      <div class="jyl_content">
     
       <div class="jyl_content1">   
-                <span class="jyl_content2_title">지원서 수정</span>              
+                <span class="jyl_content2_title">지원서 보기</span>              
       </div>
       
    <div class="jyl_content5_list">   
@@ -185,36 +185,23 @@
    		<form action="/DongGu/mypage/MyPage_ApplyManage_Update_ok.jsp" method="get">
         <div class="jyl_content5_list2">   
                 <div class="jyl_content5_list2_div1"><span class="jyl_content5_list2_title">반려 경험</span></div> 
-                <div class="jyl_content5_list2_div2"><textarea id="jyl_m_applyupdate" name="ta_p_ex_my" autofocus><%= dto.getP_ex_my()%></textarea></div>
+                <div class="jyl_content5_list2_div2"><textarea id="jyl_m_applylook" readonly="readonly" name="ta_p_ex_my"><%= dto.getP_ex_my()%></textarea></div>
         </div>
         <div class="jyl_content5_list2">   
                 <div class="jyl_content5_list2_div1"><span class="jyl_content5_list2_title">동구 경험</span></div> 
-                <div class="jyl_content5_list2_div2"><textarea id="jyl_m_applyupdate" name="ta_p_ex_other"><%= dto.getP_ex_other()%></textarea></div>
+                <div class="jyl_content5_list2_div2"><textarea id="jyl_m_applylook" readonly="readonly" name="ta_p_ex_other"><%= dto.getP_ex_other()%></textarea></div>
         </div>
    		<div class="jyl_content5_list2">   
                 <div class="jyl_content5_list2_div1"><span class="jyl_content5_list2_title">기타 경험</span></div> 
-                <div class="jyl_content5_list2_div2"><textarea id="jyl_m_applyupdate" name="ta_p_ex_etc"><%= dto.getP_ex_etc() %></textarea></div>
+                <div class="jyl_content5_list2_div2"><textarea id="jyl_m_applylook" readonly="readonly" name="ta_p_ex_etc"><%= dto.getP_ex_etc() %></textarea></div>
         </div> 
         <div class="jyl_content5_list3">   
                <a href="MyPage_ApplyManage.jsp"><input type="button" value="뒤로가기" class="jyl_btn" ></a>
-               <input type="submit" value="수정완료" class="jyl_btn">
+               <a href="MyPage_ApplyManage_Update.jsp"><input type="button" value="수정하기" class="jyl_btn"></a>
         </div> 
        </form>	    		
 	</div>
-	
-	 <script>
-        window.onload = function() {
-            // 페이지 로드 시 첫 번째 textarea에 포커스 (왜냐? 수정 페이지임을 알려줄려고)
-            var textarea = document.getElementsByName('ta_p_ex_my')[0];
-            textarea.focus(); // 포커스 설정
-            // textarea.setSelectionRange(start, end) => textarea 내에서 커서 위치와 선택된 텍스트의 범위를 설정
-            // 예시) textarea.setSelectionRange(5, 5) => 커서를 5번째 문자 위치에 놓음
-            // 예시) textarea.setSelectionRange(2, 5) => 2번째부터 5번째 문자까지 선택
-            textarea.setSelectionRange(textarea.value.length, textarea.value.length); // 커서를 텍스트 끝으로 이동
-        }
-    </script>
-	
-	
+				
 </div>
     <!------------- 오른쪽 컨텐츠 영역 끝 ----------->
     

@@ -39,7 +39,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>MyPage</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body >
