@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class MyPageDAO {
@@ -13,7 +13,7 @@ public class MyPageDAO {
    private PreparedStatement ps, ps2;
    private ResultSet rs, rs2;
    
-   // 1-1. 마이페이지 메인 - section 1
+   // 1-1. 마이페이지 메인페이지 - section 1
    public MyPageDTO mypage_section1(String m_sid) {
       System.out.println("마이페이지 메인 - section 1 매서드 실행됨!");         
       MyPageDTO dto1 = null;
@@ -46,8 +46,7 @@ public class MyPageDAO {
                   
              }
 
-         return dto1;
-         
+         return dto1;         
          
       }catch(Exception e) {
          e.printStackTrace();
@@ -67,7 +66,7 @@ public class MyPageDAO {
    
    
    
-   // 1-2. 마이페이지 메인 - section 2
+   // 1-2. 마이페이지 메인페이지 - section 2
    public ArrayList<MyPageDTO> mypage_section2(String m_sid) {
       System.out.println("마이페이지 메인 - section 2 매서드 실행됨!");         
       MyPageDTO dto2 = null;
@@ -83,7 +82,7 @@ public class MyPageDAO {
          		+ "JOIN application ap ON i.i_id = ap.i_id "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
-         		+ "order by ap.ap_num desc "
+         		+ "ORDER BY ap.ap_num desc "
          		+ ") "
          		+ "WHERE ROWNUM <= 3 ";
             
@@ -123,8 +122,7 @@ public class MyPageDAO {
                      
             }
 
-         return mlist;
-            
+         return mlist;           
             
       }catch(Exception e) {
          e.printStackTrace();
@@ -143,8 +141,8 @@ public class MyPageDAO {
    
    
    
-   
-   // 2-1. 마이페이지 지원내역 - 특정 페이지에 해당하는 목록 가져오기 
+     
+   // 2-1. 마이페이지 지원내역 페이지 - 특정 페이지에 해당하는 목록 가져오기 
    public ArrayList<MyPageDTO> mypage_applyList1(String m_sid,int cp,int listSize) {
       System.out.println("마이페이지 지원내역 - 특정 페이지에 해당하는 목록 가져오는 매서드 실행됨!");         
       MyPageDTO dto = null;
@@ -162,7 +160,7 @@ public class MyPageDAO {
          		+ "JOIN application ap ON i.i_id = ap.i_id "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
-         		+ "order by ap.ap_num desc ) a"
+         		+ "ORDER BY ap.ap_num desc ) a"
          		+ ") b "
          		+ "WHERE rnum BETWEEN ? AND ? ";
          
@@ -208,8 +206,7 @@ public class MyPageDAO {
                      
             }
 
-         return malist;
-            
+         return malist;          
             
       }catch(Exception e) {
          e.printStackTrace();
@@ -228,16 +225,16 @@ public class MyPageDAO {
    
    
    
-   // 2-2. 마이페이지 지원내역 - 페이징 메서드(전체 게시글 카운트)
+   // 2-2. 마이페이지 지원내역 페이지 - 페이징 메서드(전체 게시글 카운트)
    public int getTotal(String m_sid) {
       System.out.println("마이페이지 지원내역 - 페이징 메서드(전체 게시글 카운트) 실행됨!");         
       		
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			
-			String sql = "select count(*) "
-					+ "from application "
-					+ "where p_id = ? ";
+			String sql = "SELECT count(*) "
+					+ "FROM application "
+					+ "WHERE p_id = ? ";
 			
 			ps=conn.prepareStatement(sql);
 	        ps.setString(1, m_sid);
@@ -266,5 +263,132 @@ public class MyPageDAO {
    
    
    
+   // 3-1. 마이페이지 지원서 관리 메인페이지 - 정보 가져오기 
+   public MyPageDTO mypage_ApplyManage1(String m_sid) {
+	      System.out.println("마이페이지 지원서 관리 - 메인 매서드 실행됨!");         
+	      MyPageDTO dto = null;
+
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         String sql = "SELECT p.p_update_date,g.g_name, g.g_price "
+	         		+ "FROM petsitter p "
+	         		+ "JOIN grade g ON p.g_num = g.g_num "
+	         		+ "WHERE p.p_id = ? ";
+	         
+	         ps=conn.prepareStatement(sql);
+	         ps.setString(1, m_sid);	      	         
+	         
+	         rs = ps.executeQuery();
+	         while(rs.next()) { 
+	        	 	String p_update_date = rs.getString("p_update_date");
+	                String g_name = rs.getString("g_name");             
+	                int g_price = rs.getInt("g_price");    	           
+	                
+	                dto = new MyPageDTO(p_update_date, g_name, g_price);
+	                  
+	             }
+
+	         return dto;
+	         	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return null;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	            
+	         }
+	      }
+	   }
+
+   
+ 
+   
+   // 3-2. 마이페이지 지원서 관리 수정페이지 -  정보 가져오기 
+   public MyPageDTO mypage_ApplyManage2(String m_sid) {
+	      System.out.println("마이페이지 지원서 관리 - 수정페이지 정보 가져오기 매서드 실행됨!");         
+	      MyPageDTO dto = null;
+
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         String sql = "SELECT p_jumin, p_tel, p_addr, p_img, p_ex_my, p_ex_other, p_ex_etc "
+	         		+ "FROM petsitter "
+	         		+ "WHERE p_id = ? ";
+	         
+	         ps=conn.prepareStatement(sql);
+	         ps.setString(1, m_sid);	      	         
+	         
+	         rs = ps.executeQuery();
+	         while(rs.next()) {          
+	                String p_jumin = rs.getString("p_jumin");	                
+	                String p_tel = rs.getString("p_tel");
+	                String p_addr = rs.getString("p_addr");
+	                String p_img = rs.getString("p_img");
+	                String p_ex_my = rs.getString("p_ex_my");
+	                String p_ex_other = rs.getString("p_ex_other");
+	                String p_ex_etc = rs.getString("p_ex_etc");
+	                	                                 
+	                dto = new MyPageDTO(p_jumin,p_tel,p_addr,p_img,p_ex_my,p_ex_other,p_ex_etc);
+	             }
+
+	         return dto;	         
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return null;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	            
+	         }
+	      }
+	   }   
+
+   
+   
+   // 3-3. 마이페이지 지원서 관리 수정페이지 -  실제 수정 실행 
+   public int mypage_ApplyManage3(MyPageDTO dto, String m_sid) {
+	    System.out.println("마이페이지 지원서 관리 - 수정페이지 실제 수정 매서드 실행됨!");
+	    try {
+	    	 conn = com.DongGu.db.DongGuDB.getConn();
+
+	        String sql = "UPDATE petsitter SET p_ex_my=?, p_ex_other=?, p_ex_etc =?, p_update_date=SYSDATE WHERE p_id = ? ";
+
+	        ps = conn.prepareStatement(sql);
+
+	        // DTO에서 값을 가져와서 PreparedStatement에 설정
+	        ps.setString(1, dto.getP_ex_my());
+	        ps.setString(2, dto.getP_ex_other());	 		      
+	        ps.setString(3, dto.getP_ex_etc());	 
+	        ps.setString(4, m_sid);	 	        
+
+	        // SQL 실행
+	        int count = ps.executeUpdate();
+	        
+	        // 확인용 출력 
+	        System.out.println(count);
+
+	        return count;
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1; // 오류 발생 시 -1 반환
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e2) {
+	            e2.printStackTrace();
+	        }
+	    }
+	}	    
    
 }

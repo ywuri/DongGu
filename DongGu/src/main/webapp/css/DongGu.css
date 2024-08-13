@@ -1152,13 +1152,13 @@ width:170px;
 	
 	
 	
-   .jyl_content5_list{margin-top:43px; background-color: #fffae5;  border-radius: 8px;  border: 1px dotted #fdc009; height: 1550px;}   
+   .jyl_content5_list{margin-top:43px; background-color: #fffae5;  border-radius: 8px;  border: 1px dotted #fdc009; height: 1470px;}   
    .jyl_content5_list1{display: flex; margin-bottom: 30px;}
    .jyl_content5_list1_div1{padding:10px; width:75%; }
    .jyl_content5_list1_div1_1{padding:20px; margin-left: 60px; margin-top: 60px;}
    .jyl_content5_list1_div1_1 span{font-size:19px; font-weight: bold; color:black;}
    .jyl_content5_list1_div1_2, .jyl_content5_list1_div1_4{padding:20px; margin-left: 60px;}
-   .jyl_content5_list1_div1_3{padding:20px; margin-left: 55px;}
+   .jyl_content5_list1_div1_3{padding:17px; margin-left: 55px;}
    .jyl_content5_list1_div1_4 { display: flex;}  
    .jyl_content5_list1_div1_2 span{font-size:18px; font-weight: bold; color:black;}
    .jyl_content5_list1_div1_3_1{width:120px; margin-right: 60px; padding:10px; border: none; text-align: center; border-radius: 5px; background-color: #fedc56; color: #fff; cursor: pointer; transition: background-color 0.3s ease;}  
@@ -1172,9 +1172,13 @@ width:170px;
    .jyl_content5_list2_div1 {margin-top:30px; margin-left:60px; padding: 20px;}
    .jyl_content5_list2_div1 span{font-size:19px; font-weight:bold; color:black;}
    .jyl_content5_list2_div2 {margin-left:60px; padding: 20px;}
-   .jyl_content5_list2_div2 textarea {width: 850px; height:180px; border: 2px solid #fdc009; padding:16px; border-radius: 8px;font-size:18px;  font-family: 'Pretendard'; color:#808080;}
-   .jyl_content5_list2_div2 textarea:focus {border: 3px solid #fdc009;outline: none; padding:16px;}
+   #jyl_m_applyupdate, #jyl_m_applylook {width: 850px; height:150px; border: 2px solid #fdc009; padding:16px; border-radius: 8px;font-size:18px;  font-family: 'Pretendard'; color:#808080;}
+   #jyl_m_applyupdate:focus {border: 4px solid #fdc009;outline: none; padding:16px;}
+   #jyl_m_applylook:focus {border: 1px solid #fdc009;outline: none; padding:16px;}
    .jyl_content5_list3{padding:40px; display:flex; justify-content: center;}   
+   .jyl_btn {font-family: 'TTLaundryGothicB', sans-serif; padding: 10px 20px; border-radius: 5px; background-color: #f0c040; color: #fff; border: none; cursor: pointer; transition: background-color 0.3s ease; margin: 5px; width: 87px; height: 35.5px;}
+   .jyl_btn:hover {background-color: #e0a030;}
+   
    
 	
 	
@@ -1580,21 +1584,7 @@ width:170px;
 	
 	
 
-	.jyl_btn {
-	    font-family: 'TTLaundryGothicB', sans-serif;
-	    padding: 10px 20px;
-	    border-radius: 5px;
-	    background-color: #f0c040;
-	    color: #fff;
-	    border: none;
-	    cursor: pointer;
-	    transition: background-color 0.3s ease;
-	    margin: 5px;
-	}
-
-	.jyl_btn:hover {
-	    background-color: #e0a030;
-	}
+	
 
 
 	.jyl_infoupdate_img{

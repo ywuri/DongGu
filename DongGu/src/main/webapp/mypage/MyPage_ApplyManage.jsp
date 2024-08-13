@@ -2,14 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>    
 <%@ page import="java.sql.Date" %>    
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page import="com.DongGu.mypage.MyPageDAO" %>    
 <%@ page import="com.DongGu.mypage.MyPageDTO" %>  
- <jsp:useBean id="dao" class="com.DongGu.mypage.MyPageDAO"></jsp:useBean>
+<jsp:useBean id="dao" class="com.DongGu.mypage.MyPageDAO"></jsp:useBean>
     
 <%
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
 %>    
+
+<%
+   MyPageDTO dto = dao.mypage_ApplyManage1(m_sid); 
+   int g_price = dto.getG_price();
+   DecimalFormat decimalFormat = new DecimalFormat("#,###");
+   String s_g_price = decimalFormat.format(g_price);
+   
+   MyPageDTO dto1 = dao.mypage_section1(m_sid); 
+   int i_applycount = (int)dto1.getApplycount();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -88,25 +99,25 @@
    <div class="jyl_content4_list">   
    
    		<div class="jyl_content4_list1">
-	   		<div class="jyl_content4_list1_div1"><span class="jyl_content4_list1_span1">진예림님의 지원서</span></div>
-	   		<div class="jyl_content4_list1_div2"><span class="jyl_content4_list1_span2">2024.08.12 11:02 수정</span></div>
+	   		<div class="jyl_content4_list1_div1"><span class="jyl_content4_list1_span1"><%= m_sname %>님의 지원서</span></div>
+	   		<div class="jyl_content4_list1_div2"><span class="jyl_content4_list1_span2"><%= dto.getP_update_date() %> 수정</span></div>
    		</div>
    		<div class="jyl_content4_list2">
 	   		<div class="jyl_content4_list2_div1"><img class="jyl_content4_list2_img" src="/DongGu/img/applymanage1.png"></div>
-	   		<div class="jyl_content4_list2_div2"><span class="jyl_content4_list2_span2">황금메달</span></div>
+	   		<div class="jyl_content4_list2_div2"><span class="jyl_content4_list2_span2"><%= dto.getG_name() %></span></div>
    		</div>
    		<div class="jyl_content4_list3">
 	   		<div class="jyl_content4_list3_div1"><img class="jyl_content4_list3_img" src="/DongGu/img/applymanage2.png"></div>
-	   		<div class="jyl_content4_list3_div2"><span class="jyl_content4_list3_span2">1건당 나의 측정 금액 : 45,000 원</span></div>
+	   		<div class="jyl_content4_list3_div2"><span class="jyl_content4_list3_span2">1건당 나의 측정 금액 : <%= s_g_price %> 원</span></div>
    		</div>
    		<div class="jyl_content4_list4">
 	   		<div class="jyl_content4_list4_div1">
 	   			<div class="jyl_content4_list4_div1_1">
-	   				<div><a href="#"><span>상세보기</span></a></div>
+	   				<div><a href="/DongGu/mypage/MyPage_ApplyManage_Look.jsp"><span>상세보기</span></a></div>
 	   			</div>
 	   			<div class="jyl_content4_list4_div1_1">
 	   				<div><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></div>
-	   				<div class="jyl_overlay"><span>6</span></div>
+	   				<div class="jyl_overlay"><span><%= i_applycount %></span></div>
 	   			</div>  			
 	   		</div>
 	   		<div class="jyl_content4_list4_div2">
