@@ -193,7 +193,7 @@
         <span class="jyl_link">&nbsp; | &nbsp;</span>
         <a class="jyl_link" href="#">비밀번호 찾기</a>
         <span class="jyl_link">&nbsp; | &nbsp;</span>
-        <a class="jyl_link" href="#">회원가입</a>
+        <a class="jyl_link" href="../member/MemberJoinType.jsp">회원가입</a>
         </li>
         </ul>
     </form>

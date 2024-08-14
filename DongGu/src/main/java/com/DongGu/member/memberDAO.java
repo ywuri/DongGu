@@ -5,6 +5,8 @@ import javax.naming.*;
 import javax.servlet.http.HttpSession;
 import javax.sql.*;
 
+import oracle.net.aso.p;
+
 public class memberDAO {
 	
 	private Connection conn;
@@ -187,6 +189,7 @@ public class memberDAO {
             if (rs.next()) {
                 userInfo = rs.getString("p_name");
                 session.setAttribute("snickname", rs.getString("p_nickname"));
+                session.setAttribute("usertype", 0);
                 rs.close();
                 ps.close();
                 return userInfo;
@@ -203,6 +206,7 @@ public class memberDAO {
             if (rs.next()) {
                 userInfo = rs.getString("o_name");
                 session.setAttribute("snickname", rs.getString("o_nickname"));
+                session.setAttribute("usertype", 1);
                 rs.close();
                 ps.close();
                 return userInfo;
@@ -226,16 +230,13 @@ public class memberDAO {
         return userInfo;
     }
 
-
-
-
 	
 	/** [Owner] 회원가입 관련 메서드 */
     public int MemberJoinOwner(memberDTO dto) {
     	try {
     		conn = com.DongGu.db.DongGuDB.getConn();
     		
-    		String sql = "INSERT INTO OWNER VALUES(?,?,?,?,?,?,?,?,?,SYSDATE,?,?,?)";
+    		String sql = "INSERT INTO owner VALUES(?,?,?,?,?,?,?,?,?,SYSDATE,?,?,?)";
     		ps  = conn.prepareStatement(sql);
     		
     		ps.setString(1, dto.getO_id());
@@ -267,7 +268,8 @@ public class memberDAO {
     		}
     	}
     }
-	
+    
+    
 	
 	//	========== 고유리 끝 ============= //
 	

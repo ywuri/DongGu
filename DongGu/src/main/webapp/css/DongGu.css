@@ -1,21 +1,13 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-   
-   body{
-   font-family: '"Pretendard', sans-serif;
-   }
-   
-   input, button, textarea, select ,select > option, span{
-    font-family: '"Pretendard', sans-serif;
-	}
-
+ 
 
 	/* //	========== 고유리 시작 ============= // */
 
 	/* ---  공통 css --- */
 	* {margin: 0; padding: 0;}
-	body {overflow-x:hidden;}
-	p, span, li, label {font-family: 'Pretendard';}
+	body {overflow-x:hidden;  font-family: 'Pretendard';}
+	p, span, li, label, input, button, textarea, select , option, span, h1, h2, h3, tr, th, td {font-family: 'Pretendard';}
 	li::marker {content: none;}
 	a {text-decoration: none; color: unset;}
 	
@@ -386,7 +378,7 @@
 	.saveTableOne h3 {border-bottom:1px solid #fdcb08; text-align:center; padding:10px; margin:0;}
 	.saveTableOne table {width:100%; border:0px solid #fdcb08;}
 	.saveTableOne table tr th {width:30%; text-align:right; border:0px solid gray;}
-	.saveTableOne table tr td {width:70%; padding:10px 0 10px 1%; border:0px solid blue;}
+	.saveTableOne table tr td {/*width:70%;*/ padding:10px 0 10px 1%; border:0px solid blue;}
 	.saveTableOne table tr td input {border:1px solid #fdcb08; padding:3px;}
 	.saveTableOne table tr td textarea {border:1px solid #fdcb08;}
 	.saveTableOne table tr td select {border:1px solid #fdcb08;}

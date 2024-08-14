@@ -10,10 +10,13 @@ int result = mdao.loginCheck(userid, userpwd);
 if(result == mdao.LOGIN_OK){
     String username = mdao.getUserInfo(userid, session);
     String nickname = (String) session.getAttribute("snickname");
+    Integer usertype = (Integer) session.getAttribute("usertype"); // usertype을 세션에서 가져옴
     
     session.setAttribute("sid", userid);
+    session.setAttribute("o_id", "owner_" + userid); // 오너 ID (예시로 owner_ 접두사를 추가, 실제 로직에 맞게 수정 필요)
     session.setAttribute("sname", username);
     session.setAttribute("snickname", nickname);
+    session.setAttribute("usertype", usertype); // usertype 값을 세션에 저장
     session.setMaxInactiveInterval(60 * 60); // 세션 유효 시간을 1시간으로 설정
 
     %>

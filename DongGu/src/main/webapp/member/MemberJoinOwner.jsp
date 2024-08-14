@@ -97,9 +97,16 @@
 					</td>
 				</tr>
 				<tr>
+					<th>성별</th>
+					<td>
+						<input type="radio" name="o_gender" id="o_gender1" value="1" class=""><label for="o_gender1">남자</label>
+						<input type="radio" name="o_gender" id="o_gender2" value="2" class=""><label for="o_gender2">여자</label>
+					</td>
+				</tr>
+				<tr>
 					<th>닉네임</th>
 					<td>
-						<input type="text" name="o_nickname" id="" value="" class="saveWS250">
+						<input type="text" name="o_nickname" id="" value="" class="saveWS250" readonly>
 						<input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="nick_duplicateCheck()">
 					</td>
 				</tr>
@@ -114,8 +121,8 @@
 				<tr>
 					<th>거주지</th>
 					<td>
-						<input type="text" name="o_addr" id="" value="" class="saveWS250" placeholder="기본주소">
-						<input type="text" name="o_addr" id="" value="" class="saveWS250" placeholder="상세주소">
+						<input type="text" name="o_addr1" id="" value="" class="saveWS250" placeholder="기본주소">
+						<input type="text" name="o_addr2" id="" value="" class="saveWS250" placeholder="상세주소">
 					</td>
 				</tr>
 				<tr>
