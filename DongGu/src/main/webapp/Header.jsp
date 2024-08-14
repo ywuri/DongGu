@@ -28,14 +28,13 @@ String snickname = (String)session.getAttribute("snickname");
 			<li>
 				<a id="board" href="/DongGu/free/FreeBoard.jsp"><span>게시판  <i style="margin-left: 5px;" class="fa fa-caret-down" aria-hidden="true"></i></span></a>
 				<div id="s-d" class="dropdown">
-					<p><a href="/DongGu/notice/Notice.jsp">공지사항<img src="/DongGu/img/icon_dog.png"></a></p>
-					<p><a href="/DongGu/free/FreeBoard.jsp">자유게시판<img src="/DongGu/img/icon_dog.png"></a></p>
-					<p><a href="/DongGu/qna/QnABoard.jsp">QnA<img src="/DongGu/img/icon_dog.png"></a></p>
+					<p><a href="/DongGu/notice/Notice.jsp">공지사항</a><img src="/DongGu/img/icon_dog.png"></p>
+					<p><a href="/DongGu/free/FreeBoard.jsp">자유게시판</a><img src="/DongGu/img/icon_dog.png"></p>
+					<p><a href="/DongGu/qna/QnABoard.jsp">QnA</a><img src="/DongGu/img/icon_dog.png"></p>
 				</div>
 			</li>
 			<li>
 				<a href="/DongGu/DongGuPlace.jsp"><span>동구의 추천</span></a>
-			</li>
 			</li>
 			<li>
 				<a href="/DongGu/AfterList.jsp"><span>이용후기</span></a>

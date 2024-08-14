@@ -4,7 +4,24 @@ import java.sql.Date;
 
 public class memberDTO {
 	
-	/* 구직자 */
+	/* --- 사용자 유형 --- */
+	private int usertype; // 0:고용자 , 1:구직자
+	
+	public memberDTO(int usertype) {
+		super();
+		this.usertype = usertype;
+	}
+
+	public int getUsertype() {
+		return usertype;
+	}
+
+	public void setUsertype(int usertype) {
+		this.usertype = usertype;
+	}
+
+
+	/* --- 구직자 --- */
 	private String p_id;
 	private String p_pwd;
 	private String name;
@@ -22,13 +39,10 @@ public class memberDTO {
 	private int q_num;
 	private String q_answer;
 	
-	public memberDTO() {
-		System.out.println("memberDTO 생성자 호출됨!");
-	}
-
+	
 	public memberDTO(String p_id, String p_pwd, String name, int p_gender, int p_smoke, String p_nickname, String p_img,
 			String p_tel, String p_jumin, String p_ex_my, String p_ex_other, String p_ex_etc, Date p_date, int l_numl,
-			int q_num, String q_answer) {
+			int q_num, String q_answer,int usertype) {
 		super();
 		this.p_id = p_id;
 		this.p_pwd = p_pwd;
@@ -46,6 +60,7 @@ public class memberDTO {
 		this.l_numl = l_numl;
 		this.q_num = q_num;
 		this.q_answer = q_answer;
+		this.usertype = usertype;
 	}
 
 	public String getP_id() {
@@ -176,7 +191,8 @@ public class memberDTO {
 		this.q_answer = q_answer;
 	}
 	
-	/* 고용자 */
+	
+	/* --- 고용자 --- */
 	private String o_id;
 	private String o_pwd;
 	private String o_name;
@@ -187,9 +203,14 @@ public class memberDTO {
 	private String o_house;
 	private String o_jumin;
 	private Date o_date;
+	
+	
+	public memberDTO() {
+		System.out.println("memberDTO 생성자 호출됨!");
+	}
 
 	public memberDTO(String o_id, String o_pwd, String o_name, int o_gender, String o_nickname, String o_tel,
-			String o_addr, String o_house, String o_jumin, Date o_date) {
+			String o_addr, String o_house, String o_jumin, Date o_date,int usertype) {
 		super();
 		this.o_id = o_id;
 		this.o_pwd = o_pwd;
@@ -201,6 +222,7 @@ public class memberDTO {
 		this.o_house = o_house;
 		this.o_jumin = o_jumin;
 		this.o_date = o_date;
+		this.usertype = usertype;
 	}
 
 	public String getO_id() {
@@ -282,7 +304,6 @@ public class memberDTO {
 	public void setO_date(Date o_date) {
 		this.o_date = o_date;
 	}
-	
 	
 	
 }
