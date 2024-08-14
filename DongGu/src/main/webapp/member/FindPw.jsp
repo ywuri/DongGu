@@ -18,7 +18,9 @@
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
+	<h1 class="mt100">
+		<a href="/DongGu/Index.jsp"><img src="/DongGu/img/logo.png" alt="logo"></a>
+	</h1>
 
 	<div class="saveTableOne margin_tbtype1">
 		<h3>비밀번호 찾기</h3>
@@ -27,7 +29,7 @@
 				<tr>
 					<th>비밀번호 찾기 질문</th>
 					<td>
-						<select name="" class="saveWS250">
+						<select name="" class="saveWS260">
 							<option value="">질문1</option>
 						</select>
 					</td>
@@ -47,13 +49,11 @@
 			</table>
 			<input type="button" name="" id="" value="비밀번호 찾기" class="saveBtnOne" onclick="findAct()">
 		</form>	
+		<span class="span_go_page" onclick="location.href='login.jsp'">로그인하러 가기</span>
 	</div>
 	
 	<div class="findTableOne" id="findActBox">
 	</div>
-		
-	
-<%@include file="Footer.jsp" %>
 
 </body>
 </html>

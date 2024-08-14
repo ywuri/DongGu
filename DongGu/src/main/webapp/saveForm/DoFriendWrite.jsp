@@ -31,11 +31,11 @@
 
 	<form name="DoWrite" action="DoWrite_ok.jsp">
 	
-		<input type="text" name="i_num" id="" value="1" class="saveWS250" placeholder="초대장번호">
+		<input type="hidden" name="i_num" id="" value="1" class="saveWS250" placeholder="초대장번호">
 		<% 
 			if(s_id != null && !s_id.equals("")){
 		%>
-		<input type="text" name="p_id" id="" value="<%=s_id %>" class="saveWS250" placeholder="구직자아이디">
+		<input type="hidden" name="p_id" id="" value="<%=s_id %>" class="saveWS250" placeholder="구직자아이디">
 		
 		<%
 			}
@@ -87,7 +87,7 @@
 				<tr>
 					<th>사진</th>
 					<td>
-						<%=sImg %>
+						<img src='/DongGu/img/webFolder/upload/<%=sImg %>' class='writeImgSize'>
 					</td>
 				</tr>
 				<tr>

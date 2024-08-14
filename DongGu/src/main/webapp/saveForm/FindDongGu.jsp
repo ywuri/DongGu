@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../Header.jsp" %>
 
 <div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 동 구 구 해 요 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
@@ -63,7 +63,7 @@
 		<tbody>
 			<tr>
 				<td>동구</td>
-				<td><a href="/DongGu/DetailDongGu.jsp" class="FreeBoardA">우리 멍멍이 동구해주실 분</a></td>
+				<td><a href="/DongGu/saveForm/DetailDongGu.jsp" class="FreeBoardA">우리 멍멍이 동구해주실 분</a></td>
 				<td>멍구맹구</td>
 				<td>3</td>
 				<td>24.07.31</td>
@@ -71,7 +71,7 @@
 			
 			<tr>
 				<td>냥구</td>
-				<td><a href="/DongGu/DetailDongGu.jsp" class="FreeBoardA">고양이 하루만 부탁해요</a></td>
+				<td><a href="/DongGu/saveForm/DetailDongGu.jsp" class="FreeBoardA">고양이 하루만 부탁해요</a></td>
 				<td>냥냥이</td>
 				<td>15</td>
 				<td>24.07.29</td>
@@ -141,7 +141,7 @@
 </div>
 	
 	
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>

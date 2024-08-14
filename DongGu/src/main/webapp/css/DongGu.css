@@ -393,9 +393,11 @@
 	
 	.animal_nature {display:inline-block; padding:5px; margin-left:5px; background: #fdcb08; color: white; border: 1px solid #fdcb08; border-radius: 5px; font-size:12px;}
 	
-	.margin_tbtype1 {margin:250px auto 50px;}
+	.margin_tbtype1 {margin:50px auto 50px;}
 	
 	.findTableOne {width:600px; margin:0px auto 100px; color:darkorange; }
+	.span_go_page {width:100%; display:inline-block; text-align:center; margin-top:20px; cursor:pointer;}
+	.writeImgSize {width:100%;}
 	
 	.saveWS40 {width:40px;}
 	.saveWS60 {width:60px;}
@@ -405,6 +407,8 @@
 	.saveWS100p {width:100%;}
 	
 	.saveHS100 {height:100px;}
+	
+	.mt100 {margin-top:100px;}
 	/*
 	.saveWS200 {width:200px;}
 	.saveWS400 {width:400px;}

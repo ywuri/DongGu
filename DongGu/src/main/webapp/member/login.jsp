@@ -189,9 +189,9 @@
         <input type="submit" value="로그인" class="btn">       
         </li>       
         <li>
-        <a class="jyl_link" href="#">아이디 찾기</a>
+        <a class="jyl_link" href="FindId.jsp">아이디 찾기</a>
         <span class="jyl_link">&nbsp; | &nbsp;</span>
-        <a class="jyl_link" href="#">비밀번호 찾기</a>
+        <a class="jyl_link" href="FindPw.jsp">비밀번호 찾기</a>
         <span class="jyl_link">&nbsp; | &nbsp;</span>
         <a class="jyl_link" href="../member/MemberJoinType.jsp">회원가입</a>
         </li>

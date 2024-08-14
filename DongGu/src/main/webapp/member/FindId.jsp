@@ -19,8 +19,9 @@
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
-
+	<h1 class="mt100">
+		<a href="/DongGu/Index.jsp"><img src="/DongGu/img/logo.png" alt="logo"></a>
+	</h1>
 
 	<div class="saveTableOne margin_tbtype1">
 		<h3>아이디 찾기</h3>
@@ -41,12 +42,14 @@
 			</table>
 			<input type="button" name="" id="" value="아이디 찾기" class="saveBtnOne" onclick="findAct()">
 		</form>	
+		<span class="span_go_page" onclick="location.href='login.jsp'">로그인하러 가기</span>
+		<span class="span_go_page" onclick="location.href='FindPw.jsp'">비밀번호 찾기</span>
 	</div>
 	
 	<div class="findTableOne" id="findActBox">
+	
 	</div>
 	
-<%@include file="Footer.jsp" %>
 
 </body>
 </html>

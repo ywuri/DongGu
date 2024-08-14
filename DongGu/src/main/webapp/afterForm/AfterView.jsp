@@ -27,7 +27,7 @@
 </style>
 </head>
 <body>
-<%@include file="SubHeader.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 <section class="view_after">
 	<div>
 		<div class="after_box">
@@ -68,6 +68,6 @@
 		</div>
 	</div>
 </section>
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 </body>
 </html>
