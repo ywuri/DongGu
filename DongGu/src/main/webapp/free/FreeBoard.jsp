@@ -38,6 +38,14 @@
 	int userGroup = (cp/pageSize)+1;
 	if(cp%pageSize==0)  userGroup = userGroup-1;
 	
+	// 댓글 갯수 가져와서 매칭하기
+	HashMap<Integer,Integer> map = new HashMap<>();
+	map = dao.getCommentCnt();
+	
+	//키값	
+	Set<Integer> keySets = map.keySet();
+
+	
 	
 %>
 
@@ -86,19 +94,39 @@
 						%>
 						<td id="QnABoardTitle"><a style="color:#808080" href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
 						<img style="width:12px;" src="/DongGu/img/icon_trash.svg">
+						<%=array.get(i).getF_title() %>
 					<%
 					}
 					else{
-						%>
-						<td id="QnABoardTitle"><a href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
-						<%
+						if(array.get(i).getF_img()==null){
+							%>
+							<td id="QnABoardTitle"><a href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
+							<%=array.get(i).getF_title() %>
+							<%for(Integer key: keySets){
+								if(array.get(i).getF_num() ==key){
+									%><span class="FreeBoardComment">[<%=map.get(key) %>]</span><%
+								}
+							} %>
+							<%
+						}
+						else{
+							%>
+							<td id="QnABoardTitle"><a href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
+							<%=array.get(i).getF_title() %>
+							<%for(Integer key: keySets){
+								if(array.get(i).getF_num() ==key){
+									%><span class="FreeBoardComment">[<%=map.get(key) %>]</span><%
+								}
+							} %>
+							
+							
+							<img src="/DongGu/img/icon_img_free.svg" style="width:15px;  padding-left: 8px;">
+							<%
+						}
+						
 					}
 					
-						for(int j =0;j<array.get(i).getF_lev();j++){
-							%>&nbsp;&nbsp;<%
-						}
 						%>
-						<%=array.get(i).getF_title() %>
 					</a><span class="FreeBoardComment"></span></td>
 					
 					<td><%=array.get(i).getF_nickname() %></td>

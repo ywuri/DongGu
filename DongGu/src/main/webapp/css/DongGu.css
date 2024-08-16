@@ -596,7 +596,7 @@
 #FreeBoardDivTitle{
 	text-align: center;
     font-weight: bold;
-    font-size: 30pt;
+    font-size: 21pt;
   	margin:40px 0;
   	margin-top:190px;
 }
@@ -751,16 +751,17 @@ width:170px;
 }
 
 .DeTailDongGuMainDiv{
-	/* background-color:lightyellow; */
+	background-color:#fffae5 ; 
 	border-radius:10px;
 	margin-top:50px;
 	width: 1100px;
     margin: 0px auto;
     margin-bottom:50px;
     
-    background-image: url('../img/detailDongGuBackGround.jpg'); 
+    background-image: url('../img/DetailDongGuBG.png'); 
+    /* url('../img/detailDongGuBackGround.jpg');  */
     background-size: cover;
-    background-position: center;/* 배경 이미지가 중앙에 위치하도록 */
+    background-position: bottom;/* 배경 이미지가 중앙에 위치하도록 */
     padding: 20px; /* 요소들이 배경 이미지와 떨어지도록 패딩 추가 */
     position: relative; /* 배경 이미지 위에 요소들이 위치하도록 */
 }
@@ -1002,6 +1003,54 @@ width:170px;
     margin-bottom: 100px;
 }
 
+#commentAddStyle{
+	border: none; 
+	resize: none; 
+	outline: none; 
+	width: 100%;  
+	height: 100px;
+	margin-top: 13px;
+    font-size: 12pt;
+}
+
+#showFreeBoardImgDiv2 img {
+  width: 100px;
+  height: 100px;
+  margin-top:20px;
+}
+
+.commentTopDiv{
+	border:2px #e5e5e5 solid; 
+	padding: 20px; 
+	border-radius: 6px; 
+	margin: 30px;
+}
+
+#commentTitleSpan{
+	font-size:13pt;
+	margin-bottom: 10px; 
+	font-weight: 700;
+}
+
+#commentLabel{
+	cursor: pointer; 
+	display: inline-block; 
+	margin-top: 10px;
+}
+
+#commentBachiDiv{
+	display: flex; 
+	justify-content: 
+	space-between; 
+	align-items: center; 
+	margin-top: 10px;
+}
+
+#commetAddButton{
+	margin-left: auto;
+	width: 46px; 
+	height: 30px;
+}
 	/* //	========== 이지현 끝 ============= // */
 	
 	
