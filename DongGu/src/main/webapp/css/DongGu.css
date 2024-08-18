@@ -1206,7 +1206,6 @@ width:170px;
    .jyl_paging_btn_active {background-color: #fbbd02;}
     
   
- 
    .jyl_content4_list{margin-top:43px; background-color: #fffae5;  border-radius: 8px;  border: 1px dotted #fdc009; height: 270px;}   
    .jyl_content4_list1, .jyl_content4_list2, .jyl_content4_list3, .jyl_content4_list4{display: flex;}
    .jyl_content4_list1_div1{padding:20px; padding-top: 35px; margin-left:20px;}
@@ -1226,7 +1225,6 @@ width:170px;
    .jyl_content4_list4_div2_btn {width:85px; text-align:center; font-size:15px; padding: 10px; margin-top:10px; border-radius: 5px; background-color: #fedc56; color: #fff; border: none; cursor: pointer; transition: background-color 0.3s ease;}
    .jyl_content4_list4_div2_btn span {font-weight: bold;}
    .jyl_content4_list4_div2_btn:hover {background-color: #e0a030;}
-	
 	
 	
    .jyl_content5_list{margin-top:43px; background-color: #fffae5;  border-radius: 8px;  border: 1px dotted #fdc009; height: 1470px;}   
@@ -1257,6 +1255,36 @@ width:170px;
    .jyl_btn:hover {background-color: #e0a030;}
    
    
+	.jyl_content1_1{margin-top: 10px; margin-bottom: 30px;}
+	.like_category{display: flex;}
+    .like_category_list {font-family: 'Pretendard-Regular', sans-serif; font-size: 15px; color:#8e8e8e; margin-right:15px; margin-bottom: 30px; padding: 10px; background-color: #fff; border-radius: 20px; border: 1px solid rgb(222, 226, 230);}
+	.like_array{display: flex;width: 100%;flex-wrap: wrap; box-sizing: border-box;}
+	.jyl_like_list{width: calc(33.33% - 12px); font-family: 'Pretendard-Regular', sans-serif; box-sizing: border-box; padding: 5px;}
+    .jyl_like_list:not(:nth-child(3n)) {margin-right: 18px;}
+    .jyl_likeimg_margin {position: relative; display: flex; justify-content: center; width: 100%;}	
+    .jyl_likeimg_heart {position: absolute; top: 12px;  right: 30px;  width: 25px;  height: 25px;}
+	.jyl_likeimg {display: block; border-radius: 10px;margin-bottom:20px;width: 310px;  height: 350px;}
+	.jyl_like_list1_info {font-family: 'Pretendard-Regular', sans-serif; font-size: 15px; margin-bottom: 50px; padding-left: 15px; padding-right: 13px;}  
+    .jyl_like_info1{margin-bottom: 7px;}
+    .jyl_like_info_title {font-size: 17px; font-weight: bold;}
+    .jyl_like_info_date, .jyl_like_info_star, .jyl_like_info_invitation, .jyl_like_info_application, .jyl_like_info_name{font-size: 16px; color: #8e8e8e;}
+    .jyl_likestar_img, .jyl_likeinvitation_img, .jyl_likeapplication_img{width: 15px; height: 15px;}
+	.jyl_likeownerimg, .jyl_likepetsitterimg {display: block; border-radius: 10px; margin-bottom:20px; width: 280px;  height: 280px; border: 1px dotted #d5dadf; border-radius: 10px; padding: 15px;}
+	.jyl_likeimg_margin10, .jyl_likeimg_margin20 {position: relative; display: flex; justify-content: center; width: 100%;}	
+	.jyl_like_list1_info_10, .jyl_like_list1_info_20 {font-family: 'Pretendard-Regular', sans-serif; font-size: 15px; margin-bottom: 50px; padding-left: 20px; padding-right: 13px;}  
+	.jyl_like_content{margin-top:25px; background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 550px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+    .jyl_like_list2{width:100%; display:flex; gap: 18px; font-family: 'Pretendard-Regular', sans-serif; box-sizing: border-box; padding: 5px;}
+	.jyl_like_border{ position: relative; display:flex; width: calc(50% - 9px); background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 180px;}	
+	.jyl_like_freeinfo{padding: 25px; padding-left: 0px; display: flex; flex-direction: column; justify-content: center;}
+	.jyl_like_freeinfo_noimg{padding: 25px; padding-left: 35px; width: 100%; display: flex; flex-direction: column; justify-content: center;}
+	.jyl_like_freeinfo ul li {padding: 3px;}
+	.jyl_like_freeinfo_noimg ul li {padding: 3px;}
+	.jyl_likeimg_boardheart {position: absolute; top: 14px; right: 14px; width: 25px; height: 25px;}
+	.category_selected {background-color: #eee;}	
+	.jyl_like_freeinfo1{margin-top: 7px; margin-bottom: 7px;}
+	.jyl_like_freeinfo1_noimg{margin-top: 7px; margin-bottom: 7px;}	
+	.jyl_freelikeimg_margin {padding: 25px; position: relative; display: flex; flex-direction: column; justify-content: center;}	
+	.jyl_freelikeimg {border: 1px solid rgb(222, 226, 230); display: block; border-radius: 10px; width: 130px; height: 135px;}
 	
 	
 	#jyl_memberlevel1, 
@@ -1298,20 +1326,9 @@ width:170px;
    
   
 
-	.jyl_likeimg{
-		border-radius: 10px; 
-      margin-bottom:20px;
-      margin-right:18px;
-       float: left; 
-       width: 310px;
-       height: 350px;
-   }
+
    
-    .jyl_likestar_img{
-      margin-right:5px; 
-       width: 15px;
-       height: 15px;
-   }
+    
    
    .jyl_boardlist_img{
        float: right; 
@@ -1339,61 +1356,19 @@ width:170px;
    
 
    
-   .like_array{
-   		display: flex;
-   		width: 100%;
-   		flex-wrap: wrap;
-   }
-   
-   .jyl_like_list{
-   width: 33.33%;
-    font-family: 'Pretendard-Regular', sans-serif;   
-    box-sizing: border-box;
-    padding: 5px;
-   }
    
    
-   .jyl_like_list1_info {
-   		font-family: 'Pretendard-Regular', sans-serif;
-   		font-size: 15px;
-   		margin-bottom: 50px;
-   }
+  
    
-   .jyl_like_info1{
-   		margin-bottom: 5px;
-   }
    
-   .jyl_like_info_title {
-   		font-size: 17px;
-   		font-weight: bold;
-   }
    
-   .jyl_like_info_date, 
-   .jyl_like_info_star{
-         color: #8e8e8e;
-   }
    
    .like_point {
 	   font-weight: bold;
 	   color: #7a7a7a;
    }
    
-   .like_category{
-   	display: flex;
-   
-   }
-   
-   .like_category_list {
-       font-family: 'Pretendard-Regular', sans-serif;
-       font-size: 15px;
-       color:#8e8e8e;
-       margin-right:15px;
-       margin-bottom: 20px;
-       padding: 10px;
-       background-color: #fff; 
-       border-radius: 20px; 
-       border: 1px solid rgb(222, 226, 230);
-   }
+  
    
     .like_category2{
    	display: flex;
@@ -1442,22 +1417,8 @@ width:170px;
    }
    
    
-   .jyl_likeimg_margin {
-    position: relative; 
-    display: inline-block; 
-	}
+  
 	
-	.jyl_likeimg {
-	    display: block;
-	}
-	
-	.jyl_likeimg_heart {
-	    position: absolute;
-	    top: 12px; 
-	    right: 30px; 
-	    width: 25px; 
-	    height: 25px;
-	}
 	
 	  
    .jyl_boardList {

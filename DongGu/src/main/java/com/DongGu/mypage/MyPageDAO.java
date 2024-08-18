@@ -389,6 +389,206 @@ public class MyPageDAO {
 	            e2.printStackTrace();
 	        }
 	    }
-	}	    
+	}	  
+   
+   
+   // 4-1. 마이페이지 관심내역 관심초대장 페이지 -  정보 가져오기 
+   public ArrayList<MyPageDTO> mypage_Like1(String m_sid, String likeValue) {
+	      System.out.println("마이페이지 관심내역 관심초대장 페이지 - 정보 가져오기 매서드 실행됨!");         
+	      MyPageDTO dto = null;
+	      ArrayList<MyPageDTO> mlist = new ArrayList<>(); 
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         
+	         String sql10 = "SELECT o.o_name, o.o_nickname, "
+	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
+	         		+ "(SELECT COUNT(r.r_num) FROM review r  WHERE r.r_receive_id = o.o_id) AS reviewcount, "
+	         		+ "(SELECT COUNT(i.i_id) FROM invitation i JOIN animalinfo ai ON ai.ai_num = i.ai_num WHERE ai.o_id = o.o_id) AS invitationcount, "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = o.o_id) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = o.o_id) AS wt_num_value "
+	         		+ "FROM owner o "
+	         		+ "WHERE o.o_id IN ( "
+	         		+ "SELECT w.wt_num_value "
+	         		+ "FROM wishlist w "
+	         		+ "WHERE w.w_id = ? "
+	         		+ "AND w.wt_num = ? ) ";
+	         
+	         String sql20 = "SELECT p.p_name, p.p_nickname, p.p_img, "
+	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = p.p_id) AS starcount, "
+	         		+ "(SELECT COUNT(r.r_num) FROM review r WHERE r.r_receive_id = p.p_id) AS reviewcount, "
+	         		+ "(SELECT COUNT(*) FROM application a WHERE a.p_id = p.p_id) AS applycount, "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = p.p_id ) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = p.p_id ) AS wt_num_value "
+	         		+ "FROM petsitter p "
+	         		+ "WHERE p.p_id IN ( "
+	         		+ "SELECT w.wt_num_value "
+	         		+ "FROM wishlist w "
+	         		+ "WHERE w.w_id = ? "
+	         		+ "AND w.wt_num = ? )"; 
+	         
+	         String sql30 = "select ai.ai_img, i.i_title, i.i_start, i.i_end, "
+	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
+	         		+ "(SELECT count(r.r_num) FROM review r WHERE r.r_receive_id = o.o_id) AS reviewcount, "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_id ) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_id ) AS wt_num_value "
+	         		+ "from invitation i "
+	         		+ "JOIN animalinfo ai on i.ai_num = ai.ai_num "
+	         		+ "JOIN owner o on ai.o_id = o.o_id "
+	         		+ "where i.i_id IN (select wt_num_value "
+	         		+ "from wishlist "
+	         		+ "where w_id = ? and wt_num = ? ) ";
+	         
+	         
+	         
+	         if ("10".equals(likeValue)) {
+	        	 ps=conn.prepareStatement(sql10);
+	        	 ps.setString(1, m_sid);	      	 
+		         ps.setString(2, likeValue);	 
+		         ps.setString(3, m_sid);	      	 
+		         ps.setString(4, likeValue);	 
+		         ps.setString(5, m_sid);	      	 
+		         ps.setString(6, likeValue);	 
+		         
+		         rs = ps.executeQuery();
+		         
+		         
+		         while(rs.next()) {          
+		                String o_name = rs.getString("o_name");	                
+		                String o_nickname = rs.getString("o_nickname");
+		                double starcount = rs.getDouble("starcount"); 
+		                int reviewcount = rs.getInt("reviewcount");
+		                int invitationcount = rs.getInt("invitationcount");
+		                int w_num = rs.getInt("w_num");
+		                String wt_num_value = rs.getString("wt_num_value");
+		                	                                 
+		                dto = new MyPageDTO(o_name,o_nickname,starcount,reviewcount,invitationcount,w_num,wt_num_value);
+		                mlist.add(dto);
+		             }		     
+		         
+	         }else if ("20".equals(likeValue)) {
+	        	 ps=conn.prepareStatement(sql20);
+	        	 ps.setString(1, m_sid);	      	 
+		         ps.setString(2, likeValue);	  
+		         ps.setString(3, m_sid);	      	 
+		         ps.setString(4, likeValue);	
+		         ps.setString(5, m_sid);	      	 
+		         ps.setString(6, likeValue);	
+		         
+		         rs = ps.executeQuery();
+		         
+		         
+		         while(rs.next()) {          
+		                String p_name = rs.getString("p_name");	                
+		                String p_nickname = rs.getString("p_nickname");
+		                String p_img = rs.getString("p_img");
+		                double starcount = rs.getDouble("starcount"); 
+		                int reviewcount = rs.getInt("reviewcount");
+		                int applycount = rs.getInt("applycount"); 
+		                int w_num = rs.getInt("w_num");
+		                String wt_num_value = rs.getString("wt_num_value");
+		                	                                 
+		                dto = new MyPageDTO(p_name,p_nickname,p_img,starcount,reviewcount,applycount,w_num,wt_num_value);
+		                mlist.add(dto);
+		             }		    
+	         
+	      	 }else if ("30".equals(likeValue)) {
+	        	 ps=conn.prepareStatement(sql30);
+	        	 ps.setString(1, m_sid);	      	 
+		         ps.setString(2, likeValue);	
+		         ps.setString(3, m_sid);	      	 
+		         ps.setString(4, likeValue);	
+		         ps.setString(5, m_sid);	      	 
+		         ps.setString(6, likeValue);	
+		         
+		         
+		         rs = ps.executeQuery();		      
+		         		         
+		         while(rs.next()) {          
+		                String ai_img = rs.getString("ai_img");	                
+		                String i_title = rs.getString("i_title");
+		                Date i_start = rs.getDate("i_start");
+		                Date i_end = rs.getDate("i_end");		
+		                double starcount = rs.getDouble("starcount"); 
+		                int reviewcount = rs.getInt("reviewcount");
+		                int w_num = rs.getInt("w_num");
+		                String wt_num_value = rs.getString("wt_num_value");
+		                	                                 
+		                dto = new MyPageDTO(ai_img,i_title,i_start,i_end,starcount,reviewcount,w_num,wt_num_value);
+		                mlist.add(dto);
+		             }
+       
+			 }else if ("40".equals(likeValue)) {
+				 ps=conn.prepareStatement(sql30);
+	        	 ps.setString(1, m_sid);	      	 
+		         ps.setString(2, likeValue);	 
+		         ps.setString(3, m_sid);	      	 
+		         ps.setString(4, likeValue);	
+		         ps.setString(5, m_sid);	      	 
+		         ps.setString(6, likeValue);
+		         
+		         rs = ps.executeQuery();		      
+		         		         
+		         while(rs.next()) {          
+		                String ai_img = rs.getString("ai_img");	                
+		                String i_title = rs.getString("i_title");
+		                Date i_start = rs.getDate("i_start");
+		                Date i_end = rs.getDate("i_end");		
+		                double starcount = rs.getDouble("starcount"); 
+		                int reviewcount = rs.getInt("reviewcount");
+		                int w_num = rs.getInt("w_num");
+		                String wt_num_value = rs.getString("wt_num_value");
+		                	                                 
+		                dto = new MyPageDTO(ai_img,i_title,i_start,i_end,starcount,reviewcount,w_num,wt_num_value);
+		                mlist.add(dto);
+		             }
+		         
+			 }else if ("50".equals(likeValue)) {
+				 
+			 }
+	                       
+	         return mlist;	  
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return null;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	            
+	         }
+	      }
+	   }
+
+   
+   
+   	// 4-2. 마이페이지 관심내역 관심고용자 페이지 -  위시리스트 삭제하기
+	public int deleteWishlist(int removeHeartValue) {			
+		System.out.println("마이페이지 관심내역 관심고용자 페이지 - 위시리스트 삭제 매서드 실행됨!");
+	    try {
+	    	 conn = com.DongGu.db.DongGuDB.getConn();
+
+	        String sql = "DELETE FROM wishlist WHERE w_num = ?";
+	        ps = conn.prepareStatement(sql);	
+	        ps.setInt(1, removeHeartValue);	 
+			int count = ps.executeUpdate();
+				
+			return count;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			} finally {
+				try {
+					if(ps!=null) ps.close();
+		            if(conn!=null) conn.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+	
+   
    
 }

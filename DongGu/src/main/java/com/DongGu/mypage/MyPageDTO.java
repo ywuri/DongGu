@@ -11,6 +11,7 @@ public class MyPageDTO {
    private int w_num;
    private String w_id;
    private int w_id_check;
+   private String wt_num_value;
    
    // 등급 
    private int g_num;
@@ -74,10 +75,18 @@ public class MyPageDTO {
    private int r_type;
    private int r_star;
    
+   // 자유게시판 
+   private String f_nickname;
+   private String f_title;
+   private Date f_date;
+   private String f_img;
+   
    // 알리아스 
    private double applycount;
    private double likecount;
    private double starcount;
+   private int reviewcount;
+   private int invitationcount;
    
    // 성격 키워드 처리를 위한 멤버변수 선언
    private ArrayList<String> an_words;
@@ -131,11 +140,71 @@ public class MyPageDTO {
 	   this.p_ex_etc = p_ex_etc;
 	   
    }
+   
+   // 1-5. 인자 생성자(마이페이지 관심내역 - 관심 초대장 정보 불러오기)
+   public MyPageDTO(String ai_img, String i_title, Date i_start, Date i_end, double starcount, int reviewcount, int w_num, String wt_num_value) {
+	  super();
+	  this.ai_img = ai_img;
+	  this.i_title = i_title;
+	  this.i_start = i_start;
+	  this.i_end = i_end;
+	  this.starcount = starcount;
+	  this.reviewcount = reviewcount;
+  }
+  
+   // 1-6. 인자 생성자(마이페이지 관심내역 - 관심 고용자 정보 불러오기)
+   public MyPageDTO(String o_name,String o_nickname,double starcount,int reviewcount,int invitationcount, int w_num, String wt_num_value) {
+	  super();  
+	  this.o_name = o_name;
+	  this.o_nickname = o_nickname;
+	  this.starcount = starcount;
+	  this.reviewcount = reviewcount;
+	  this.invitationcount = invitationcount;
+	  this.w_num =  w_num;
+	  this.wt_num_value =  wt_num_value;
+   } 
 
-   
-   
-   
-   // getter, setter 
+    //1-7. 인자 생성자(마이페이지 관심내역 - 관심 구직자 정보 불러오기)
+  	public MyPageDTO(String p_name, String p_nickname, String p_img, double starcount, int reviewcount, int applycount,  int w_num, String wt_num_value) {
+  	  super();
+  	  this.p_name = p_name;
+  	  this.p_nickname = p_nickname;
+  	  this.p_img = p_img;
+  	  this.starcount = starcount;
+  	  this.reviewcount = reviewcount;
+  	  this.applycount = applycount;
+  	  this.w_num =  w_num;
+	  this.wt_num_value =  wt_num_value;
+    }
+  	
+  	//1-8. 인자 생성자(마이페이지 관심내역 - 관심 자유게시판 정보 불러오기)
+  	public MyPageDTO(String p_name, String o_name, String f_nickname, String f_title, Date f_date, String f_img) {
+  	  super();
+  	  this.p_name = p_name;
+  	  this.o_name = o_name;
+  	  this.f_nickname = f_nickname;
+  	  this.f_title = f_title;
+  	  this.f_date = f_date;
+  	  this.f_img = f_img;
+    }
+
+	// getter, setter 
+  	public int getInvitationcount() {
+		return invitationcount;
+	}
+
+	public void setInvitationcount(int invitationcount) {
+		this.invitationcount = invitationcount;
+	}
+  
+  	public int getReviewcount() {
+  		return reviewcount;
+  	}
+
+	public void setReviewcount(int reviewcount) {
+  		this.reviewcount = reviewcount;
+  	}
+
    public String getP_update_date() {
 	   return p_update_date;
    }
@@ -216,7 +285,15 @@ public class MyPageDTO {
 		this.an_num_link = an_num_link;
 	}
 	
-    public int getW_num() {
+    public String getWt_num_value() {
+		return wt_num_value;
+	}
+
+	public void setWt_num_value(String wt_num_value) {
+		this.wt_num_value = wt_num_value;
+	}
+
+	public int getW_num() {
       return w_num;
    }
 
