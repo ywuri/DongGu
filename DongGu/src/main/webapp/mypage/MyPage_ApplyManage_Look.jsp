@@ -48,11 +48,34 @@
 	System.out.println("만나이 : " + man_age);
 %>
 <%
-    String phoneNum = dto.getP_tel(); // 원본 전화번호
-    
+	//원본 전화번호
+    String phoneNum = dto.getP_tel();     
     // 전화번호를 '-'로 분리
     String[] parts = phoneNum.split("-");
-    String maskedPhoneNum = parts[0] + "-****-" + parts[2];
+    String maskedPhoneNum = parts[0] + "-****-" + parts[2]; 
+    
+    
+ 	// 원본 주소
+    String addr = dto.getP_addr();    
+	// 주소를 공백으로 분리
+    String[] parts2 = addr.split(" ");    
+   
+    // 첫 두 부분
+    String firstPart = parts2[0];
+    String secondPart = parts2[1];
+        
+    // 세 번째 부분을 마스킹
+    String thirdPart = parts2[2];
+    StringBuilder maskedThirdPart = new StringBuilder();
+    maskedThirdPart.append("*"); // 첫 번째 문자는 원본 유지
+        for (int i = 1; i < thirdPart.length(); i++) {
+            maskedThirdPart.append("*");
+        }
+        
+    // 결합된 주소
+    String MaskedAddr = firstPart + " " + secondPart + " " + maskedThirdPart.toString();
+        
+ 
  %>
 <!DOCTYPE html>
 <html>
@@ -77,6 +100,7 @@
 
            // 전화번호 표시 업데이트 함수 호출
            updatePhoneNumber();
+           updateAddress();
        	}
        
        
@@ -91,10 +115,24 @@
            }
        }
        
+   	   // 주소 표시 업데이트 함수
+       function updateAddress() {
+           // 아이디가 address인 span 요소를 가져옴 
+           var addrSpan = document.getElementById('address');
+           if (check === 0) { 
+        	   addrSpan.textContent = "<%= MaskedAddr %>"; // 마스킹된 주소 표시
+           } else {
+        	   addrSpan.textContent = "<%= addr %>"; // 원본 주소 표시
+           }
+       }
+       
 	   // 페이지가 로드된 후, updatePhoneNumber() 함수가 호출되어 초기 전화번호를 설정
+	   // 페이지가 로드된 후, updateAddress() 함수가 호출되어 초기 주소를 설정
        document.addEventListener('DOMContentLoaded', function () {
            // 페이지 로드 시 전화번호 표시 업데이트
            updatePhoneNumber();
+           // 페이지 로드 시 주소 표시 업데이트
+           updateAddress();
        });
 </script>
 <body>
@@ -175,7 +213,7 @@
 	   			</div>
 	   			<div class="jyl_content5_list1_div1_4">
 	   				<div class="jyl_content5_list1_div4_1"><span id="phoneNumber"></span></div>
-	   				<div class="jyl_content5_list1_div4_2"><span><%= dto.getP_addr() %></span></div>
+	   				<div class="jyl_content5_list1_div4_2"><span id="address"></span></div>
 	   			</div>
 	   		</div>   		
 	   		<div class="jyl_content5_list1_div2">
