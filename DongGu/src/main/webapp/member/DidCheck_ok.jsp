@@ -6,8 +6,7 @@
 <jsp:setProperty property="*" name="mdto"/>
 <jsp:setProperty property="*" name="odto"/>
 <%
-/* mdto.setO_id() */
-System.out.println(odto.getO_id());
+System.out.println(mdto.getP_id());
 boolean result = mdao.IdCheck(mdto, odto);
 String msg = result? "사용할 수 있는 아이디 입니다!":"사용하고 있는 아이디 입니다!";
 %>
@@ -17,8 +16,8 @@ String msg = result? "사용할 수 있는 아이디 입니다!":"사용하고 �
 	var result = <%= result %>;
 	
 	if(result){
-		var txt = '<%= odto.getO_id()%>'
-		opener.document.MemberJoinOwner.o_id.value = txt;
+		var txt = '<%= mdto.getP_id()%>'
+		opener.document.MemberJoinDonggu.p_id.value = txt;
 	}
 	window.self.close();
 </script>
