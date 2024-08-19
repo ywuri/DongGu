@@ -1,12 +1,13 @@
 package com.DongGu.animal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.DongGu.member.memberDTO;
+import com.DongGu.member.ownermemberDTO;
 
 public class animalDAO {
 	
@@ -110,64 +111,65 @@ public class animalDAO {
 		return natureList; 
 	}
 	
-	/** 동물성격 DB전송 관련 메서드 
-	public void animalNatureSave(String[] checkNature) {
-		 Connection conn = null;
-	     PreparedStatement ps = null;
-	     
-	     try {
-	    	 conn = com.DongGu.db.DongGuDB.getConn();
-	    	 
-	    	 String sql = "";
-	    	 ps = conn.prepareStatement(sql);
-	    	 rs = ps.executeQuery();
-	    	 
-	     } catch() {
-	    	 
-	     } finally {
-	    	 try {
-	    		 
-	    	 } catch() {
-	    		 
-	    	 }
-	     }
-		
-	}*/
+	/** 동물성격 DB전송 관련 메서드 */
+	public int saveAnimalNature(String o_id, String natureString) {
+    try {
+        conn = com.DongGu.db.DongGuDB.getConn();
+        
+        String sql = "UPDATE ANIMALINFO SET an_num_link = ? WHERE o_id = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, natureString);
+        ps.setString(2, o_id);
+
+        return ps.executeUpdate();
+        
+    } catch(Exception e) {
+        e.printStackTrace();
+        return -1;
+    } finally {
+        try {
+            if (ps != null) ps.close();
+            if (conn != null) conn.close();
+        } catch(Exception e2) {}
+    }
+}
 	
 	
 	/** 동물정보 입력 관련 메서드 */
-	public int MemberJoinOwnerAnimal (animalDTO adto, memberDTO dto) {
-		try {
-			conn = com.DongGu.db.DongGuDB.getConn();
-			
-			String sql = "INSERT INTO ANIMALINFO VALUES(MemberJoinOwnerAnimal_IDX.NEXTVAL,?,?,?,?,?,?,?,?,?)";
-			ps = conn.prepareStatement(sql);
-			
-			ps.setInt(1, adto.getA_num());
-			ps.setString(2, dto.getO_id());
-			ps.setInt(3, adto.getAt_num());
-			ps.setString(4, adto.getAi_name());
-			ps.setString(5, adto.getAi_img());
-			ps.setDate(6, adto.getAi_birth());
-			ps.setString(7, adto.getAn_num_link());
-			ps.setString(8, adto.getAi_alergy());
-			ps.setString(9, adto.getAi_disease());
-			ps.setString(10, adto.getAi_caution());
-			
-			int count = ps.executeUpdate();
-    		return count;
-		} catch(Exception e) {
-			e.printStackTrace();
-    		return -1;
-		} finally {
-			try {
-				if (ps != null)
-					ps.close();
-				if (conn != null)
-					conn.close();
-			} catch(Exception e2) {}
-		}
+	public int MemberJoinOwnerAnimal(animalDTO adto) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    try {
+	        conn = com.DongGu.db.DongGuDB.getConn();
+	        
+	        String sql = "INSERT INTO ANIMALINFO (ai_num, o_id, at_num, ai_name, ai_gender, ai_img, ai_birth, an_num_link, ai_alergy, ai_disease, ai_caution) " +
+	                     "VALUES (animal_seq.NEXTVAL, ?, ?, ?, ?, ?, to_date(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
+	        ps = conn.prepareStatement(sql);
+	        
+	        ps.setString(1, adto.getO_id());
+	        ps.setInt(2, adto.getAt_num());
+	        ps.setString(3, adto.getAi_name());
+	        ps.setInt(4, adto.getAi_gender());
+	        ps.setString(5, adto.getAi_img());
+	        ps.setString(6, adto.getAi_birth()); // ai_birth는 "YYYY-MM-DD" 형식의 문자열이어야 함
+	        ps.setString(7, adto.getAn_num_link());
+	        ps.setString(8, adto.getAi_alergy());
+	        ps.setString(9, adto.getAi_disease());
+	        ps.setString(10, adto.getAi_caution());
+	        
+	        int count = ps.executeUpdate();
+	        return count;
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	        return -1;
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch(Exception e2) {
+	            e2.printStackTrace();
+	        }
+	    }
 	}
-	
 	
 }

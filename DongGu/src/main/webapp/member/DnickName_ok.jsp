@@ -5,11 +5,10 @@
 <jsp:useBean id="odto" class="com.DongGu.member.ownermemberDTO"></jsp:useBean>
 <jsp:setProperty property="*" name="mdto"/>
 <jsp:setProperty property="*" name="odto"/>
+
 <%
-/* mdto.setO_id() */
-System.out.println(odto.getO_id());
-boolean result = mdao.IdCheck(mdto, odto);
-String msg = result? "사용할 수 있는 아이디 입니다!":"사용하고 있는 아이디 입니다!";
+boolean result = mdao.NickNameCheck(mdto, odto);
+String msg = result? "사용할 수 있는 닉네임 입니다!":"사용하고 있는 닉네임 입니다!";
 %>
 
 <script>
@@ -17,8 +16,8 @@ String msg = result? "사용할 수 있는 아이디 입니다!":"사용하고 �
 	var result = <%= result %>;
 	
 	if(result){
-		var txt = '<%= odto.getO_id()%>'
-		opener.document.MemberJoinOwner.o_id.value = txt;
+		var txt = '<%= mdto.getP_nickname()%>'
+		opener.document.MemberJoinDonggu.p_nickname.value = txt;
 	}
 	window.self.close();
 </script>
