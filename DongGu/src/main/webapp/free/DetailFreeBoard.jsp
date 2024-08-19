@@ -26,6 +26,24 @@ FreeBoardDTO qdto = dao.getFreeBoardDetail(f_num);
 ArrayList<FreeCommentDTO> commentArray = null;
 commentArray = dao.getCommentList(qdto.getF_num() );
 
+//댓글을 계층에 맞게 만들기
+HashMap<Integer, FreeCommentDTO> commentMap = new HashMap<>();
+for (FreeCommentDTO comment : commentArray) {
+  commentMap.put(comment.getFc_num(), comment);
+}
+//
+List<FreeCommentDTO> commentList = new ArrayList<>();
+
+for (FreeCommentDTO comment : commentArray) {
+  if (comment.getFc_renum() == 0) {
+      // 해당 댓글에 대한 대댓글을 찾습니다.
+      for (FreeCommentDTO commentDTO : commentArray) {
+          if (commentDTO.getFc_ref() == comment.getFc_num()) {
+          	commentList.add(commentDTO);
+          }
+      }
+  }
+}
 
 int cp;
 if(request.getParameter("cp")==null){
@@ -44,9 +62,17 @@ if(sid!=null ){
 	isWishList = dao.isWishList(f_num,sid);
 }
 
+//다음,전글 가져오기
 ArrayList<FreeBoardDTO> array = null;
 array = dao.getNextFreeBoard(f_num);
 
+
+//이게 댓글수정이라면
+String update_fc_num = request.getParameter("update_fc_num");
+int update_fc_num_int=0;
+if(update_fc_num!=null && update_fc_num.length()!=0){
+	update_fc_num_int = Integer.parseInt(update_fc_num) ;
+}
 
 
 %>
@@ -113,9 +139,8 @@ array = dao.getNextFreeBoard(f_num);
 				
 				
 				<!-- 댓글창 -->
-				
 				<%
-				    boolean hasComments = (commentArray != null && commentArray.size() > 0);
+				    boolean hasComments = (commentList != null && commentList.size() > 0);
 				    boolean isLoggedIn = (sid != null && !sid.equals(""));
     
 				    //댓글이 있고 없고 --> 있을떄 반복문 돌아감
@@ -125,74 +150,165 @@ array = dao.getNextFreeBoard(f_num);
 				    if(hasComments){
 				    	
 				    	//댓글보여주기 반복문
-				    	for(int i =0;i<commentArray.size();i++){
+				    	for(int i =0;i<commentList.size();i++){
 				    	%>
 			
 						<!-- 댓글보여주는 형식 만들기 -->
 						<hr style="border:1px solid #f2f2f2; ">
-						<div id="commentDiv<%=commentArray.get(i).getFc_num() %>"style="margin:30px; margin-left:<%=30*(commentArray.get(i).getFc_lev()+1) %>px;">
-							<div style="font-size: 14pt; font-weight: 600;"><img src="/DongGu/img/icon_dove.svg" style="width:30px; margin-right:5px;">
-								<%=commentArray.get(i).getFc_nickname() %>
-								<%
-									if(commentArray.get(i).getFc_nickname().equals(qdto.getF_nickname())){
-								%>
-									<span style="background-color: #fffae5; color: #ffa500">작성자</span>
-								<%
-									}
-								%>
-							</div>
-							<div style="padding-left: 30px; padding-top: 10px; font-size: 13pt;"><%=commentArray.get(i).getFc_content() %></div>
-								<%
-									if(commentArray.get(i).getFc_img()!=null && !commentArray.get(i).getFc_img().equals("")) { 
-									%>
-										<div style=" width: 300px; height: 300px; padding-left: 30px; padding-top: 10px;">
-											<img src="/DongGu/img/free/<%=commentArray.get(i).getFc_img() %>" style="border-radius:6px; width:300px; height:300px;">
-										</div>
-									<%
-									}
-									if(isLoggedIn){
-										//답글쓰기
-									%>
-				
-									<div style="color:#979797; padding-left:30px;padding-top:10px;">
-										<%=commentArray.get(i).getFc_date() %>&nbsp;&nbsp;&nbsp;
-										<a href="javascript:void(0)" onclick="openReCommentAdd(<%=i%>)">답글쓰기</a>
-									<%
-									}
-									//댓글 작성자와 로그인한사람이 같으면 수정,삭제버튼
-									if(commentArray.get(i).getFc_id().equals(sid)){
-										%>
-											&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="updateComment(<%=commentArray.get(i).getFc_num()%>)">수정</a>
-											&nbsp;<a href="javascript:void(0)" onclick="deleteComment(<%=commentArray.get(i).getFc_num()%>)">삭제</a>
-										<%
-										}
-									%>
-									</div>
-						</div>
-						<%
-    		
-			    		//댓글이 o 로그인o
-			    		if(isLoggedIn){
+						
+						<% 
+						//만약수정중인 글이라면
+						if(update_fc_num_int==commentList.get(i).getFc_num()){
 							%>
-							<!-- 대댓글쓰고싶으면 -->
-							<div class="commentTopDiv" id="reCommentAdd<%=i %>" style="display:none; margin-left:<%=30*(commentArray.get(i).getFc_lev()+2) %>px;">
+							<div class="commentTopDiv" id="" >
 								<span id="commentTitleSpan"><%=snickname %></span>
-									<form action="ReWriteFreeBoard.jsp"  name="freeCommentForm" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">
-										<input type="hidden" name="fc_ref" value="<%=commentArray.get(i).getFc_ref()%>">
-										<input type="hidden" name="fc_lev" value="<%=commentArray.get(i).getFc_lev()%>">
-										<input type="hidden" name="fc_sunbun" value="<%=commentArray.get(i).getFc_sunbun()%>">
-										<input type="hidden" name="f_num" value="<%=qdto.getF_num()%>">
+									<form action="/DongGu/free/UpdateFreeComment.jsp"  name="updateCommentForm" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="fc_num" value="<%=update_fc_num_int%>">
+										<textarea name="fc_content"  id="commentAddStyle" required><%=commentList.get(i).getFc_content() %></textarea>
 										
-										<textarea name="f_content" placeholder="대댓글을 남겨보세요" id="commentAddStyle" required></textarea>
+										<div   class="showFreeBoardImg" id="showFreeBoardImgDivUp" >
 										
-										<div id="showFreeBoardImgDiv2<%=i %>" >
+											<%
+												if(commentList.get(i).getFc_img()!=null && !("").equals(commentList.get(i).getFc_img().trim())){	
+												%>
+													<img src="/DongGu/img/free/<%=commentList.get(i).getFc_img() %>">
+												<%
+											}  %>
 										</div>
 										
 										<div id="commentBachiDiv">
 											<label for="commentImg" id="commentLabel" >
 									            <img src="/DongGu/img/icon_camera.svg" style="width: 22px;">
 									        </label>
-									        <input name="f_img" type="file" accept="image/*" style="display: none;" id="commentImg" onchange="showFreeBoardImg(event);">
+									        <input name="fc_img" type="file" accept="image/*" style="display: none;" id="commentImg" onchange="showFreeBoardImg(event,'Up');">
+											
+											<input type="submit" class="FreeBoardButton" value="수정" id="commetAddButton" >
+										</div>
+								</form>
+							</div>
+							<%
+						}
+						//수정중인 글이 아니면
+						else{
+							%>
+							
+							<div id="commentDiv<%=commentList.get(i).getFc_num() %>"style="margin:30px; margin-left:<%= commentList.get(i).getFc_renum()==0?30:60 %>px;">
+								<div style="font-size: 14pt; font-weight: 600;"><img src="/DongGu/img/icon_dove.svg" style="width:25px; margin-right:5px;">
+								
+								<%
+								//삭제된 댓글이면 닉네임 없게
+								if(commentList.get(i).getFc_id()==null||("").equals(commentList.get(i).getFc_id().trim())){
+									%><%=commentList.get(i).getFc_content() %><%
+								}
+								//삭제된 댓글이 아니면
+								else{
+									%>
+									<%= commentList.get(i).getFc_nickname()%>
+									<%
+									if(commentList.get(i).getFc_nickname().equals(qdto.getF_nickname())){
+										%>
+											<span style="background-color: #fffae5; color: #ffa500">작성자</span>
+										<%
+									}
+								
+								}//삭제된 댓글이 아니면
+								%>
+							</div>
+							
+							<!-- 대댓글인 경우 누구한테 보내는지 -->
+							<%
+							if(commentList.get(i).getFc_renum_nick()!=null && !commentList.get(i).getFc_renum_nick().equals(commentList.get(i).getFc_nickname())){
+								%>
+								<div style="padding-left: 30px; padding-top: 10px; font-size: 13pt;">
+									<span style="font-weight: 700;  color: orange;"><%=commentList.get(i).getFc_renum_nick() %></span>
+									
+									<%
+									if(!(commentList.get(i).getFc_id()==null||("").equals(commentList.get(i).getFc_id().trim()))){
+										%>
+										<%=commentList.get(i).getFc_content() %>
+										<%
+									}%>
+									
+									</div>
+								<%
+							}
+							else{
+								%>
+								<div style="padding-left: 30px; padding-top: 10px; font-size: 13pt;">
+									<%
+									if(!(commentList.get(i).getFc_id()==null||("").equals(commentList.get(i).getFc_id().trim()))){
+										%>
+										<%=commentList.get(i).getFc_content() %>
+										<%
+									}%>
+									</div>
+								<%
+							}
+							
+							if(commentList.get(i).getFc_img()!=null && !commentList.get(i).getFc_img().trim().equals("")) { 
+							%>
+								<div style=" width: 300px; height: 300px; padding-left: 30px; padding-top: 10px;">
+									<img src="/DongGu/img/free/<%=commentList.get(i).getFc_img() %>" style="border-radius:6px; width:300px; height:300px;">
+								</div>
+							<%
+							}
+							%>
+							<div style="color:#979797; padding-left:30px;padding-top:10px;">
+							<%=commentList.get(i).getFc_date() %>&nbsp;&nbsp;&nbsp;
+							
+							<% 
+							//로그인했으면
+							if(isLoggedIn){
+								//답글쓰기
+							
+								if(!(commentList.get(i).getFc_id()==null||("").equals(commentList.get(i).getFc_id().trim()))){
+									%>
+									<a href="javascript:void(0)" onclick="openReCommentAdd(<%=i%>)">답글쓰기</a>
+									<%
+								}
+								%>
+								
+							
+								<%
+								//댓글 작성자와 로그인한사람이 같으면 수정,삭제버튼
+								if( commentList.get(i).getFc_id().equals(sid)){
+									%>
+										&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="updateComment(<%=commentList.get(i).getFc_num()%>)">수정</a>
+										&nbsp;<a href="javascript:void(0)" onclick="deleteComment(<%=commentList.get(i).getFc_num()%>)">삭제</a>
+								
+								<%
+								} 
+								
+								//로그인을 했으나 작성자가 아니라면
+								else{
+									%>
+										
+									<%
+									}
+								
+								}//로그인했으면
+							%></div><% 
+						//댓글이 o 로그인o
+			    		if(isLoggedIn){
+							%>
+							<!-- 대댓글쓰고싶으면 -->
+							<div class="commentTopDiv" id="reCommentAdd<%=i %>" style="display:none; margin-left:30px;">
+								<span id="commentTitleSpan"><%=snickname %></span>
+									<form action="/DongGu/free/ReWriteFreeBoard.jsp"  name="freeReCommentForm" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">
+										
+										<input type="hidden" name="fc_renum" value="<%=commentList.get(i).getFc_num()  %>">
+										<input type="hidden" name="f_num" value="<%=qdto.getF_num()%>">
+										
+										<textarea name="fc_content" placeholder="대댓글을 남겨보세요" id="commentAddStyle" required></textarea>
+										
+										<div  class="showFreeBoardImg" id="showFreeBoardImgDiv<%=commentList.get(i).getFc_num() %>" >
+										</div>
+										
+										<div id="commentBachiDiv">
+											<label for="commentImg<%=commentList.get(i).getFc_num() %>" id="commentLabel" >
+									            <img src="/DongGu/img/icon_camera.svg" style="width: 22px;">
+									        </label>
+									        <input name="fc_img" type="file" accept="image/*" style="display: none;" id="commentImg<%=commentList.get(i).getFc_num() %>" onchange="showFreeBoardImg(event,<%=commentList.get(i).getFc_num() %>);">
 											
 											<input type="submit" class="FreeBoardButton" value="등록" id="commetAddButton" >
 										</div>
@@ -200,93 +316,106 @@ array = dao.getNextFreeBoard(f_num);
 							</div>
 							<%
 			    		}//댓글이 o 로그인o
-    		
+			    		
+			    		
 			    		//댓글이 o 로그인x
 			    		else{
 			    			
 			    		}//댓글이 o 로그인x
-    		
-    				}//댓글보여주기 반복문
-    	
-				    //로그인이 됐으면 댓글입력폼 보여지게
-			    	if(isLoggedIn){
-			    		%>
-			    		<!-- 댓글 폼 -->
-						<div class="commentTopDiv" id="" >
-							<span id="commentTitleSpan"><%=snickname %></span>
-								<form action="ReWriteFreeBoard.jsp"  name="freeCommentForm" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="f_num" value="<%=qdto.getF_num()%>">
-									<textarea name="f_content" placeholder="댓글을 남겨보세요" id="commentAddStyle" required></textarea>
-									
-									<div id="showFreeBoardImgDiv2" >
-									</div>
-									
-									<div id="commentBachiDiv">
-										<label for="commentImg" id="commentLabel" >
-								            <img src="/DongGu/img/icon_camera.svg" style="width: 22px;">
-								        </label>
-								        <input name="f_img" type="file" accept="image/*" style="display: none;" id="commentImg" onchange="showFreeBoardImg(event);">
+						%>		
+							
+				</div>
+		
+				<%
+	    		
+	    				}//수정중인 글이 아니면
+					}//댓글보여주기 반복문	
+
+				    	
+				    	 //로그인이 됐으면 댓글입력폼 보여지게
+				    	if(isLoggedIn){
+				    		%>
+				    		<!-- 댓글 폼 -->
+							<div class="commentTopDiv" id="" >
+								<span id="commentTitleSpan"><%=snickname %></span>
+									<form action="/DongGu/free/ReWriteFreeBoard.jsp"  name="freeCommentFormMain" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="f_num" value="<%=qdto.getF_num()%>">
+										<textarea name="fc_content" placeholder="댓글을 남겨보세요" id="commentAddStyle" required></textarea>
 										
-										<input type="submit" class="FreeBoardButton" value="등록" id="commetAddButton" >
-									</div>
-							</form>
-						</div>
+										<div id="showFreeBoardImgDivMain" class="showFreeBoardImg" >
+										</div>
+										
+										<div id="commentBachiDiv">
+											<label for="commentImg" id="commentLabel" >
+									            <img src="/DongGu/img/icon_camera.svg" style="width: 22px;">
+									        </label>
+									        <input name="fc_img" type="file" accept="image/*" style="display: none;" id="commentImg" onchange="showFreeBoardImg(event,'Main');">
+											
+											<input type="submit" class="FreeBoardButton" value="등록" id="commetAddButton" >
+										</div>
+								</form>
+							</div>
 						<% 
     				} //로그인이 됐으면 댓글폼 보여지게
-    			}//댓글이 있으면
-    
+				    	
+				    }//댓글이있으면
 				    
-			    //댓글이 없으면
-			    else{
-			    	//댓글이 x 로그인o
-					if(isLoggedIn){
-						%>
-						<!-- 댓글 폼 -->
-						<div class="commentTopDiv" id="" >
-							<span id="commentTitleSpan"><%=snickname %></span>
-								<form action="ReWriteFreeBoard.jsp"  name="freeCommentForm" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">				
-									<input type="hidden" name="f_num" value="<%=qdto.getF_num()%>">
-									<textarea name="f_content" placeholder="댓글을 남겨보세요" id="commentAddStyle" required></textarea>
-									
-									<div id="showFreeBoardImgDiv2" >
-									</div>
-									
-									<div id="commentBachiDiv">
-										<label for="commentImg" id="commentLabel" >
-								            <img src="/DongGu/img/icon_camera.svg" style="width: 22px;">
-								        </label>
-								        <input name="f_img" type="file" accept="image/*" style="display: none;" id="commentImg" onchange="showFreeBoardImg(event);">
+				    
+				    
+				    //댓글이 없으면
+				    else{
+				    	//댓글이 x 로그인o
+						if(isLoggedIn){
+							%>
+							<!-- 댓글 폼 -->
+							<div class="commentTopDiv" id="" >
+								<span id="commentTitleSpan"><%=snickname %></span>
+									<form action="/DongGu/free/ReWriteFreeBoard.jsp"  name="freeCommentForm" style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data">				
+										<input type="hidden" name="f_num" value="<%=qdto.getF_num()%>">
+										<textarea name="fc_content" placeholder="댓글을 남겨보세요" id="commentAddStyle" required></textarea>
 										
-										<input type="submit" class="FreeBoardButton" value="등록" id="commetAddButton" >
-									</div>
-							</form>
-						</div>
+										<div id="showFreeBoardImgDiv" >
+										</div>
+										
+										<div id="commentBachiDiv">
+											<label for="commentImg" id="commentLabel" >
+									            <img src="/DongGu/img/icon_camera.svg" style="width: 22px;">
+									        </label>
+									        <input name="fc_img" type="file" accept="image/*" style="display: none;" id="commentImg" onchange="showFreeBoardImg(event,'');">
+											
+											<input type="submit" class="FreeBoardButton" value="등록" id="commetAddButton" >
+										</div>
+								</form>
+							</div>
+							<%
+						}//댓글이 x 로그인o
+			
+						//댓글이 x 로그인x
+						else{
+							
+						}//댓글이 x 로그인x
+				    }//댓글이없으면
+				%>
+					
+
+			
+				<!-- 댓글창 끝-->
+				</div><!-- WriteFreeBoardContentDiv 끝-->
+				<%
+					if(f_id.equals(sid)){
+						%>
+						<input class="FreeBoardButton" id="ReWriteButton" type="button" value="수정하기"  onclick="location.href='/DongGu/free/UpdateFreeBoard.jsp?f_num=<%=f_num %>';">
+						<input class="FreeBoardButton" id="ReWriteButton" type="button" value="삭제하기"  onclick="location.href='/DongGu/free/DeleteFreeBoard.jsp?f_num=<%=f_num %>';">
 						<%
-					}//댓글이 x 로그인o
-		
-					//댓글이 x 로그인x
-					else{
-						
-					}//댓글이 x 로그인x
-			    }//댓글이없으면
-			%>
+					}
+				%>
+				
+				<input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="뒤로가기"  onclick="location.href='/DongGu/free/FreeBoard.jsp?cp=<%=cp %>';">
+				<%-- QnABoard.jsp?cp=<%=cp %> --%>
+			
 			</div>
 
-			<%
-				if(f_id.equals(sid)){
-					%>
-					<input class="FreeBoardButton" id="ReWriteButton" type="button" value="수정하기"  onclick="location.href='/DongGu/free/UpdateFreeBoard.jsp?f_num=<%=f_num %>';">
-					<input class="FreeBoardButton" id="ReWriteButton" type="button" value="삭제하기"  onclick="location.href='/DongGu/free/DeleteFreeBoard.jsp?f_num=<%=f_num %>';">
-					<%
-				}
-			%>
-			
-			<input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="뒤로가기"  onclick="location.href='/DongGu/free/FreeBoard.jsp?cp=<%=cp %>';">
-			<%-- QnABoard.jsp?cp=<%=cp %> --%>
-		
-		</div>
-
-	<div>
+		<div>
 		<% 
 		// 이 게시물이 유일한거라면 아무것도 안함
 		if(array==null||array.size()==0){
@@ -298,6 +427,11 @@ array = dao.getNextFreeBoard(f_num);
 			//만약 갖고온글이 다음 글이라면?
 			if(array.get(0).getF_num()>f_num){
 				%>
+				
+				<div style="martin-top:20px;" class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDivText">
+					<span>다음 글</span>
+				</div>
+			
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
 					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
 				</div>
@@ -306,6 +440,10 @@ array = dao.getNextFreeBoard(f_num);
 			//전글
 			else if(array.get(0).getF_num()<f_num){
 				%>
+				<div style="martin-top:20px;" class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDivText">
+					<span>이전 글</span>
+				</div>
+				
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
 					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
 				</div>
@@ -314,12 +452,22 @@ array = dao.getNextFreeBoard(f_num);
 		}
 		else if(array.size()==2){
 			
+			%>
+			<div style="martin-top:20px;" class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDivText">
+				<span>이전 글 | 다음 글</span>
+			</div>
+			<%
+			
+			
 			if(array.get(0).getF_num() >array.get(1).getF_num() ){
 			%>
+			
 			<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-				<p><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?q_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %></a></p> 
+				<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?q_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %></a></p> 
+			<hr style="border:1px solid #f2f2f2; margin:5px;">
 			</div>
-			<div class="QnABoardBottomMarginDiv">
+			
+			<div class=" QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv">
 				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?q_id=<%=f_id%>&f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
 			</div>
 			<%
@@ -327,7 +475,8 @@ array = dao.getNextFreeBoard(f_num);
 			else{
 				%>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-					<p><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
+					<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
+				<hr style="border:1px solid #f2f2f2; ">
 				</div>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv ">
 					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
@@ -337,7 +486,6 @@ array = dao.getNextFreeBoard(f_num);
 		}
 		%>
 		
-	</div>
 	</div>
 	</div>
 <%@include file="../Footer.jsp" %>
@@ -361,9 +509,9 @@ document.getElementById('wishHeart').addEventListener('click', function(event) {
 });
 
 //사진첨부시 미리보기
-function showFreeBoardImg(event){
+function showFreeBoardImg(event,index){
 	const input = event.target;
-    const previewContainer = document.getElementById('showFreeBoardImgDiv2');
+    const previewContainer = document.getElementById('showFreeBoardImgDiv' + index);
     const file = input.files[0];
     const reader = new FileReader();
 
@@ -396,13 +544,22 @@ function openReCommentAdd(index){
 
 //수정
 function updateComment(num){
-	window.alert("수정"+num);
+	//window.location.href현재주소
+	
+	//location.href = '/DongGu/free/DeleteFreeComment.jsp?fc_num='+num
+	location.href =window.location.href+ "&update_fc_num="+num;
 }
 
 //삭제
 function deleteComment(num){
-	window.alert("삭제" +num);
+	if (window.confirm("정말 삭제하시겠습니까?")) {
+		 location.href = '/DongGu/free/DeleteFreeComment.jsp?fc_num='+num
+				 ; // 이동할 URL을 입력
+	} else {
+	    
+	}
 }
+
 
 </script>
 

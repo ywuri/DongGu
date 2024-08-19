@@ -18,8 +18,9 @@ String savepath = request.getRealPath("/")+"img/free/";
 
 //System.out.println(savepath);
 MultipartRequest mr = new MultipartRequest(request,uploadPath,10*1024*1024,"utf-8");
-String originalFileName = mr.getFilesystemName("f_img");
+String originalFileName = mr.getFilesystemName("fc_img");
 String newFileName="";
+
 
 //사진이 첨부됐으면
 if (originalFileName != null) {
@@ -54,24 +55,16 @@ if (originalFileName != null) {
 }
 
 
-cdto.setFc_content(mr.getParameter("f_content"));
+cdto.setFc_content(mr.getParameter("fc_content"));
 
-String ref = mr.getParameter("fc_ref");
-String lev = mr.getParameter("fc_lev");
-String sunbun = mr.getParameter("fc_sunbun");
+String renum = mr.getParameter("fc_renum");
 
-if(ref!=null && ref.length()!=0){
-	cdto.setFc_ref(Integer.parseInt(ref) );
+if(renum!=null && renum.length()!=0){
+	cdto.setFc_renum(Integer.parseInt(renum) );
 }
-if(lev!=null &&  lev.length()!=0){
-	cdto.setFc_lev(Integer.parseInt(lev) );
-}
-if(sunbun!=null &&  sunbun.length()!=0){
-	cdto.setFc_sunbun(Integer.parseInt(sunbun) );
-}
+
 
 cdto.setFc_img(newFileName);
-System.out.println();
 cdto.setF_num(Integer.parseInt(mr.getParameter("f_num")));
 
 
@@ -79,12 +72,9 @@ cdto.setFc_id((String)session.getAttribute("sid"));
 cdto.setFc_nickname((String)session.getAttribute("snickname"));
 
 int result=0;
-if(ref==null || ref.length()==0){
-	result=	fdao.ReWriteFreeBoard(cdto);
-}
-else{
-	result =fdao.ReReWriteFreeBoard(cdto);
-}
+
+result=	fdao.ReWriteFreeBoard(cdto);
+
 
 //오류
 if(result==0){

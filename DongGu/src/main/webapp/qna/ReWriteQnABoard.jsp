@@ -29,13 +29,16 @@ String q_title = request.getParameter("q_title");
 <body>
 <%@include file="../SubHeader.jsp" %>
 <form name="WriteQnABoard" action="/DongGu/qna/ReWriteQnABoard_ok.jsp">
-	<div id="FreeBoardDivTitle">
-		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 답글 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
-		<span style="text-align:right; ">
-			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
-		</span>
-		
+
+	<div id="FreeBoardDivTitle2">
+	    <div style="width:90%; left: 50%; text-align:center; "><span>QnA 답글 작성 </span></div>
+	    <div style="width:10%;">
+	    	<span style="text-align: right;">
+	        <input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
+	    </span>
+	    </div>
 	</div>
+	    
 	<input type="hidden" name="q_ref" value="<%=q_ref%>">
 	<input type="hidden" name="q_lev" value="<%=q_lev%>">
 	<input type="hidden" name="q_sunbun" value="<%=q_sunbun%>">

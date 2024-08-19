@@ -51,7 +51,7 @@
 
 <%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자 유 게 시 판 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle">자 유 게 시 판</div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -77,7 +77,7 @@
 				<th id="QnABoardWidthTitle">제목</th>
 				<th id="QnABoardWidthWriter">작성자</th>
 				<th id="QnABoardWidthVcnt">조회수</th>
-				<th id="QnABoardWidthDate">작성날짜</th>
+				<th id="QnABoardWidthDate" style="width:20%;">작성날짜</th>
 			</tr>
 		</thead>
 		
@@ -95,6 +95,7 @@
 						<td id="QnABoardTitle"><a style="color:#808080" href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
 						<img style="width:12px;" src="/DongGu/img/icon_trash.svg">
 						<%=array.get(i).getF_title() %>
+						</a>
 					<%
 					}
 					else{
@@ -107,6 +108,7 @@
 									%><span class="FreeBoardComment">[<%=map.get(key) %>]</span><%
 								}
 							} %>
+							</a>
 							<%
 						}
 						else{
@@ -117,17 +119,19 @@
 								if(array.get(i).getF_num() ==key){
 									%><span class="FreeBoardComment">[<%=map.get(key) %>]</span><%
 								}
-							} %>
+							} 
+							%>
 							
 							
 							<img src="/DongGu/img/icon_img_free.svg" style="width:15px;  padding-left: 8px;">
+							</a>
 							<%
 						}
 						
 					}
 					
 						%>
-					</a><span class="FreeBoardComment"></span></td>
+					<span class="FreeBoardComment"></span></td>
 					
 					<td><%=array.get(i).getF_nickname() %></td>
 					<td><%=array.get(i).getF_vcnt() %></td>

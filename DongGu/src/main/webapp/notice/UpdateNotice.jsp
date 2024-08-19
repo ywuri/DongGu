@@ -35,13 +35,17 @@ NoticeDTO dto =dao.getNoticeDetail(Integer.parseInt(n_num));
 <body>
 <%@include file="../SubHeader.jsp" %>
 <form name="WriteQnABoard" action="/DongGu/notice/UpdateNotice_ok.jsp">
-	<div id="FreeBoardDivTitle">
-		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 수정 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
-		<span style="text-align:right; ">
-			<input type="submit" value="수정" id="WriteFreeBoardSubmitButton">
-		</span>
 		
-	</div>
+	<div id="FreeBoardDivTitle2">
+	    <div style="width:90%; left: 50%; text-align:center; "><span>공지사항 수정</span></div>
+	    <div style="width:10%;">
+	    	<span style="text-align: right;">
+	        <input type="submit" value="수정" id="WriteFreeBoardSubmitButton">
+	    </span>
+	    </div>
+	    
+	</div>	
+		
 	<input type="hidden" name="n_num" value="<%=n_num %>">
 	<div id="WriteFreeBoardMainDiv">
 		<input name="n_title" id="WriteFreeBoardTitleInput"  autofocus type="text" value="<%=dto.getN_title() %>" required>

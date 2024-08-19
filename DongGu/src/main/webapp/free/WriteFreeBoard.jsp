@@ -23,7 +23,7 @@ if(s_id==null || s_id.equals("")){
 <script>
 function showFreeBoardImg(event){
 	const input = event.target;
-    const previewContainer = document.getElementById('showFreeBoardImgDiv');
+    const previewContainer = document.getElementById('showFreeBoardImgDiv3');
     const file = input.files[0];
     const reader = new FileReader();
 
@@ -46,26 +46,38 @@ function showFreeBoardImg(event){
 <body>
 <%@include file="../SubHeader.jsp" %>
 <form name="WriteFreeBoard" action="/DongGu/free/WriteFreeBoard_ok.jsp" method="post" enctype="multipart/form-data">
-	<div id="FreeBoardDivTitle">
-		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자유게시판 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
-		<span style="text-align:right; ">
-			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
-		</span>
-		
-	</div>
-
-	<div id="WriteFreeBoardMainDiv">
-		<input name="f_title" id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." required>
-		<div id="WriteFreeBoardContentDiv">
-			<textarea name="f_content" id="WriteFreeBoardContent" placeholder="내용을 입력하세요." required></textarea>
-		</div>
+	<div id="FreeBoardDivTitle2">
+	    <div style="width:90%; left: 50%; text-align:center; "><span>자유게시판 작성</span></div>
+	    <div style="width:10%;">
+	    	<span style="text-align: right;">
+	        <input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
+	    </span>
+	    </div>
+	    
 	</div>
 	
-	<div id="WriteFreeBoardImgDiv">
-		<div id="WriteFreeBoardImgDiv2" >
-			<input id="WriteFreeBoardInputImg" type="file" name="f_img" accept="image/*" onchange="showFreeBoardImg(event);"/>
-			<div id="showFreeBoardImgDiv" >
+	
+
+	<div id="WriteFreeBoardMainDiv">
+		<div style="display: flex; align-items: center;">
+			<input name="f_title" id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." required>
+			<label for="labelImg" id="commentLabel" style="" >
+		           <img src="/DongGu/img/icon_camera.svg" style="width: 40px; padding-right: 17px;">
+		     </label>
+		</div>
+		
+		
+		<div id="WriteFreeBoardContentDiv">
+			<textarea name="f_content" id="WriteFreeBoardContent" placeholder="내용을 입력하세요." required></textarea>
+			<input id="labelImg" style="display:none;" class="WriteFreeBoardInputImg" type="file" name="f_img" accept="image/*" onchange="showFreeBoardImg(event);"/>
+			<div id="showFreeBoardImgDiv3" >
 			</div>
+		</div>
+	</div>
+
+	
+	<div id="WriteFreeBoardImgDiv" >
+		<div style="    margin-top: 10px; border-radius: 10px;text-align:center;" >
 		</div>
 		
 	</div>

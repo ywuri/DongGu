@@ -596,6 +596,21 @@
     font-size: 21pt;
   	margin:40px 0;
   	margin-top:190px;
+  	
+}
+
+#FreeBoardDivTitle2{
+	width: 800px; 
+  	display: flex; 
+  	align-items: center; 
+  	margin: 0 auto; 
+  	margin-top: 220px; 
+  	position: relative; 
+  	margin-bottom: 20px; 
+  	justify-content:  space-between;
+  	font-weight: bold;
+    font-size: 21pt;
+	
 }
 #FreeBoardTable{
 	border-collapse: collapse;
@@ -868,12 +883,22 @@ width:170px;
 	border-radius: 10px;
 }
 
-#WriteFreeBoardInputImg{
+.WriteFreeBoardInputImg{
 	font-size:12pt;
 }
 
 #showFreeBoardImgDiv img {
   width: 300px;
+  height: 300px;
+  margin-top:20px;
+}
+#showFreeBoardImgDiv3 >img{
+	  width: 300px;
+  height: 300px;
+  padding:10px 10px;
+}
+.showFreeBoardImg >img{
+	 width: 300px;
   height: 300px;
   margin-top:20px;
 }
@@ -977,17 +1002,25 @@ width:170px;
 .QnABoardNextBeforeSizeDiv{
 	width: 800px;  
 	margin: 0px auto; 
-	font-size: 17pt;
+	font-size: 15pt;
+	
 }
 
 .QnABoardMarginDiv{
-	margin-top: 100px;
+	margin-top: 30px;
     margin-bottom: 50px;
 }
 
 .QnABoardTopMarginDiv{
-	margin-top: 100px;
+	margin-top: 30px;
 	margin-bottom:10px;
+}
+
+.QnABoardTopMarginDivText{
+	margin-top: 90px;
+	margin-bottom:10px;
+	font-size: 17pt;
+	font-weight: 500;
 }
 .QnABoardBottomMarginDiv{
 	margin-bottom: 50px;
@@ -1047,6 +1080,14 @@ width:170px;
 	margin-left: auto;
 	width: 46px; 
 	height: 30px;
+}
+
+#FreeBoardTable >tbody > tr > td{
+	padding:7px;
+}
+
+.delete_icon{
+	
 }
 	/* //	========== 이지현 끝 ============= // */
 	
