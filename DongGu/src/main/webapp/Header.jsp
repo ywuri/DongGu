@@ -14,6 +14,9 @@
 String sid = (String)session.getAttribute("sid");
 String sname = (String)session.getAttribute("sname");
 String snickname = (String)session.getAttribute("snickname");
+Integer usertype = (Integer)session.getAttribute("usertype");
+
+
 %>
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">
@@ -23,7 +26,23 @@ String snickname = (String)session.getAttribute("snickname");
 	<nav>
 		<ul>
 			<li>
-				<a href="/DongGu/saveForm/GetFriendWrite.jsp"><span>초대장</span></a>
+				<% 	
+					if(usertype != null){
+						if(usertype == 0){	//구직자(동구)는 초대장 클릭시 초대장 리스트로
+					%>
+						<a href="/DongGu/saveForm/FindDongGu.jsp"><span>초대장</span></a>
+					<%
+						}else {	//고용자는 초대장 클릭시 초대장 입력폼으로
+					%>
+						<a href="/DongGu/saveForm/GetFriendWrite.jsp"><span>초대장</span></a>
+					<%
+						}
+					}else {
+					%>
+						<a href="/DongGu/saveForm/GetFriendWrite.jsp"><span>초대장</span></a>
+					<%						
+					}
+				%>
 			</li>
 			<li>
 				<a id="board" href="/DongGu/free/FreeBoard.jsp"><span>게시판  <i style="margin-left: 5px;" class="fa fa-caret-down" aria-hidden="true"></i></span></a>
@@ -37,7 +56,7 @@ String snickname = (String)session.getAttribute("snickname");
 				<a href="/DongGu/DongGuPlace.jsp"><span>동구의 추천</span></a>
 			</li>
 			<li>
-				<a href="/DongGu/AfterList.jsp"><span>이용후기</span></a>
+				<a href="/DongGu/afterForm/AfterList.jsp"><span>이용후기</span></a>
 			</li>
 			<li>
 				<a href="#"><span>고객센터</span></a>

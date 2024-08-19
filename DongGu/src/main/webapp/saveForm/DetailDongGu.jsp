@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../Header.jsp" %>
 
 <div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 초 대 장 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 <div class="DeTailDongGuMainDiv">
@@ -35,7 +35,7 @@
 			
 			<div id="DetailDongGuButton">
 				<span>초대에 응하시겠습니까? </span>
-				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/DoFriendWrite.jsp'">
+				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/saveForm/DoFriendWrite.jsp'">
 			</div>
 			
 			<div>
@@ -47,7 +47,7 @@
 </div>
 
 
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 
 </body>
 </html>

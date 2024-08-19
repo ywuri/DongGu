@@ -8,45 +8,52 @@
  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 
-
 <script>
 	
 	function findAct(){
-		var pwCheckText = "아이디찾기완료";
+		var pwCheckText = "비번찾기완료";
 		document.getElementById('findActBox').innerHTML = pwCheckText;
 	}
 </script>
 
 </head>
 <body>
-<%@include file="Header.jsp" %>
-
+	<h1 class="mt100">
+		<a href="/DongGu/Index.jsp"><img src="/DongGu/img/logo.png" alt="logo"></a>
+	</h1>
 
 	<div class="saveTableOne margin_tbtype1">
-		<h3>아이디 찾기</h3>
+		<h3>비밀번호 찾기</h3>
 		<form name="">
 			<table>
 				<tr>
-					<th>이름</th>
+					<th>비밀번호 찾기 질문</th>
+					<td>
+						<select name="" class="saveWS260">
+							<option value="">질문1</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호 찾기 답</th>
 					<td>
 						<input type="text" name="" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 				<tr>
-					<th>전화번호</th>
+					<th>아이디</th>
 					<td>
 						<input type="text" name="" id="" value="" class="saveWS250">
 					</td>
 				</tr>
 			</table>
-			<input type="button" name="" id="" value="아이디 찾기" class="saveBtnOne" onclick="findAct()">
+			<input type="button" name="" id="" value="비밀번호 찾기" class="saveBtnOne" onclick="findAct()">
 		</form>	
+		<span class="span_go_page" onclick="location.href='login.jsp'">로그인하러 가기</span>
 	</div>
 	
 	<div class="findTableOne" id="findActBox">
 	</div>
-	
-<%@include file="Footer.jsp" %>
 
 </body>
 </html>

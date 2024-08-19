@@ -10,8 +10,7 @@
 <%
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
-%>    
-
+%>
 <%
    MyPageDTO dto = dao.mypage_ApplyManage1(m_sid); 
    int g_price = dto.getG_price();
@@ -100,7 +99,9 @@
    
    		<div class="jyl_content4_list1">
 	   		<div class="jyl_content4_list1_div1"><span class="jyl_content4_list1_span1"><%= m_sname %>님의 지원서</span></div>
+	   		<% if( dto.getP_update_date() != null ){%>
 	   		<div class="jyl_content4_list1_div2"><span class="jyl_content4_list1_span2"><%= dto.getP_update_date() %> 수정</span></div>
+	   		<%}%>
    		</div>
    		<div class="jyl_content4_list2">
 	   		<div class="jyl_content4_list2_div1"><img class="jyl_content4_list2_img" src="/DongGu/img/applymanage1.png"></div>

@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>    
 <%@ page import="java.sql.Date" %>    
-<%@ page import="com.DongGu.board.QnABoardDAO" %>    
-<%@ page import="com.DongGu.board.QnABoardDTO" %>        
+<%@ page import="com.DongGu.board.FreeBoardDAO" %>    
+<%@ page import="com.DongGu.board.FreeBoardDTO" %>        
     
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<jsp:useBean id="dao" class="com.DongGu.board.QnABoardDAO"></jsp:useBean>
+<jsp:useBean id="dao" class="com.DongGu.board.FreeBoardDAO"></jsp:useBean>
 <%
 
 	String cp_s = request.getParameter("cp");//현재 페이지 
@@ -42,10 +42,10 @@
 	//System.out.println("search_type_kor "+search_type_kor);
 	//System.out.println("search_word "+search_word);
 	
-	ArrayList<QnABoardDTO> array = new ArrayList<>();
-	array = dao.searchQnABoard(search_type, search_word,cp,listSize);
+	ArrayList<FreeBoardDTO> array = new ArrayList<>();
+	array = dao.searchFreeBoard(search_type, search_word,cp,listSize);
 	
-	int totalCnt=dao.getQnABoardCnt(search_type,search_word); // 총 게시물 수
+	int totalCnt=dao.getFreeBoardCnt(search_type,search_word); // 총 게시물 수
 	
 	int totalPage = totalCnt%listSize==0 ? (totalCnt/listSize):(totalCnt/listSize)+1;//총 페이지수
 
@@ -64,7 +64,7 @@
 
 <%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> Q n A 검색결과 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 자유게시판 검색결과 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -91,10 +91,10 @@
 				for(int i=0;i<array.size();i++){
 				%>
 				<tr>
-					<td><a href='/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getQ_title() %></a><span class="FreeBoardComment"></span></td>
-					<td><%=array.get(i).getQ_nickname() %></td>
-					<td><%=array.get(i).getQ_vcnt() %></td>
-					<td><%=array.get(i).getQ_date() %></td>
+					<td><a href='/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getF_title() %></a><span class="FreeBoardComment"></span></td>
+					<td><%=array.get(i).getF_nickname() %></td>
+					<td><%=array.get(i).getF_vcnt() %></td>
+					<td><%=array.get(i).getF_date() %></td>
 				</tr>
 				<%
 				}
@@ -117,7 +117,7 @@
 		
 		<tfoot>
 				<tr> 
-					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="돌아가기"  onclick="location.href='/DongGu/qna/QnABoard.jsp';"></td>
+					<td colspan="4"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="돌아가기"  onclick="location.href='/DongGu/free/FreeBoard.jsp';"></td>
 				</tr>
 				
 				<tr>
@@ -128,17 +128,17 @@
 							if(userGroup>1 ){
 								%>
 									<input class="FreeBoardButton" type="button" value="이전"  
-									onclick="location.href='/DongGu/qna/SearchQnABoard.jsp?cp=<%=(userGroup-1)*pageSize  %>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
+									onclick="location.href='/DongGu/free/SearchFreeBoard.jsp?cp=<%=(userGroup-1)*pageSize  %>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
 								<%
 								}
 							for(int i=(userGroup-1)*pageSize+1;i<=(userGroup-1)*pageSize+pageSize ;i++){
 								if(cp==i){
 									%>
-									&nbsp;&nbsp;<a href="/DongGu/qna/SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="/DongGu/free/SearchFreeBoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}else{
 								%>
-									&nbsp;&nbsp;<a href="/DongGu/qna/SearchQnABoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
+									&nbsp;&nbsp;<a href="/DongGu/free/SearchFreeBoard.jsp?cp=<%=i %>&search_word=<%=search_word%>&search_type=<%=search_type%>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
 								<%
 								}
 								if(i==totalPage) break;
@@ -150,7 +150,7 @@
 							if( userGroup != totalPage/pageSize+(totalPage%pageSize==0?0:1)  ){
 								%>
 									<input class="FreeBoardButton" type="button" value="다음"  
-									onclick="location.href='/DongGu/qna/SearchQnABoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
+									onclick="location.href='/DongGu/free/SearchFreeBoard.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>&search_word=<%=search_word%>&search_type=<%=search_type%>';">
 								<%
 								}
 						}

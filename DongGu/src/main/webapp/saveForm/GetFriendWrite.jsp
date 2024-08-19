@@ -91,7 +91,7 @@
         data_ani_name.textContent = val_ani_name;
         data_anitype_name.textContent = val_anitype_name;
 
-        data_ani_img.textContent = val_img;
+        data_ani_img.innerHTML = "<img src='/DongGu/img/webFolder/upload/"+val_img+"' class='writeImgSize'>";
         data_ani_birth.textContent = val_birth;
         data_ani_alerg.textContent = val_aler;
         data_ani_disea.textContent = val_dise;

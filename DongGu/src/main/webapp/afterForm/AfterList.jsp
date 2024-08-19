@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/DongGu.css">
+<link rel="stylesheet" type="text/css" href="../css/DongGu.css">
 <style>
 .rivew {padding-top:200px;}
 .rivew .box {
@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<%@include file="SubHeader.jsp" %>
+<%@include file="../SubHeader.jsp" %>
 <section class="rivew" style="padding-top:200px;">
 	<h3>실시간 동구</h3>
 	<div class="radio-checked">
@@ -237,7 +237,7 @@
 		</ul>
 	</div>
 </section>
-<%@include file="Footer.jsp" %>
+<%@include file="../Footer.jsp" %>
 <script>
   const radioInputs = document.querySelectorAll('.radio-checked_input');
   const highlight = document.querySelector('.radio-checked_highlight');
