@@ -44,7 +44,7 @@
 
 <%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 공 지 사 항 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"> 공 지 사 항 </div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -69,7 +69,7 @@
 				<th id="QnABoardWidthTitle">제목</th>
 				<th id="QnABoardWidthWriter">작성자</th>
 				<th id="QnABoardWidthVcnt">조회수</th>
-				<th id="QnABoardWidthDate">작성날짜</th>
+				<th id="QnABoardWidthDate" style="width: 20%;">작성날짜</th>
 			</tr>
 		</thead>
 		

@@ -24,12 +24,13 @@ if(s_id==null || s_id.equals("")){
 <body>
 <%@include file="../SubHeader.jsp" %>
 <form name="WriteQnABoard" action="/DongGu/qna/WriteQnABoard_ok.jsp">
-	<div id="FreeBoardDivTitle">
-		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> QnA 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
-		<span style="text-align:right; ">
-			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
-		</span>
-		
+	<div id="FreeBoardDivTitle2">
+	    <div style="width:90%; left: 50%; text-align:center; "><span>QnA  작성 </span></div>
+	    <div style="width:10%;">
+	    	<span style="text-align: right;">
+	        <input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
+	    </span>
+	    </div>
 	</div>
 
 	<div id="WriteFreeBoardMainDiv">

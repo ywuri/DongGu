@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
-<%@page import ="java.io.*"%>
-<jsp:useBean id="dto" class="com.DongGu.board.FreeBoardDTO"></jsp:useBean>
-<jsp:useBean id="dao" class="com.DongGu.board.FreeBoardDAO"></jsp:useBean>
+<%@page import ="java.io.*"%>    
+<%@ page import="com.DongGu.board.FreeBoardDAO" %>    
+<%@ page import="com.DongGu.board.FreeCommentDTO" %>       
 
+
+<jsp:useBean id="dao" class="com.DongGu.board.FreeBoardDAO"></jsp:useBean>
+<jsp:useBean id="dto" class="com.DongGu.board.FreeCommentDTO"></jsp:useBean>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -12,10 +15,15 @@ request.setCharacterEncoding("utf-8");
 String uploadPath = request.getRealPath("/") + "img/free/temp"; // 임시 저장 경로
 String savepath = request.getRealPath("/")+"img/free/";
 
+//System.out.println("Temp 경로: " + uploadPath);
+//System.out.println("저장 경로: " + savepath);
+
 //System.out.println(savepath);
 MultipartRequest mr = new MultipartRequest(request,uploadPath,10*1024*1024,"utf-8");
-String originalFileName = mr.getFilesystemName("f_img");
+String originalFileName = mr.getFilesystemName("fc_img");
+
 String newFileName="";
+
 //사진이 첨부됐으면
 if (originalFileName != null) {
 	String jpgType = "";//확장자 추출
@@ -24,9 +32,10 @@ if (originalFileName != null) {
 		jpgType = originalFileName.substring(lastDotIndex); // 예: ".jpg"
 	}
 
-	//새 파일 이름 생성 (확장자 유지)
-	newFileName = "free"+dao.getSequnceNumForImg() + jpgType; // 예: "free1.jpg"
 
+	//새 파일 이름 생성 (확장자 유지)
+	newFileName = "freeC"+dao.getSequnceNumForImgComment() + jpgType; // 예: "free1.jpg"
+	
 	// 파일 경로 객체 생성
 	File tempFile = new File(uploadPath, originalFileName);
 	File finalFile = new File(savepath, newFileName);
@@ -46,33 +55,32 @@ if (originalFileName != null) {
         //System.out.println("파일 이동에 실패했습니다: " + originalFileName);
     }
 }
-%>
 
 
-<%
-//System.out.println(request.getParameter("q_num"));
-dto.setF_content(mr.getParameter("f_content"));
-dto.setF_title(mr.getParameter("f_title"));
-dto.setF_num(Integer.parseInt(mr.getParameter("f_num")));
-dto.setF_img(newFileName);
+dto.setFc_content(mr.getParameter("fc_content"));
+dto.setFc_num(Integer.parseInt(mr.getParameter("fc_num")) );
+dto.setFc_img(newFileName);
 
+int result=0;
 
-int result = dao.updateFreeBoard(dto);
+result=	dao.UpdateComment(dto);
+
 
 //오류
 if(result==0){
 	%>
 	<script>
-	window.alert('[오류] 수정실패');
+	window.alert('[오류] 댓글 수정실패');
 	window.location.href="/DongGu/free/FreeBoard.jsp";
 	</script>
 <%
 }else if(result>=1){
 	%>
 	<script>
-	window.alert('수정완료!');
+	window.alert('댓글 수정완료!');
 	window.location.href="/DongGu/free/FreeBoard.jsp";
 	</script>
 <%
 }
 %>
+

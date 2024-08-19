@@ -11,14 +11,8 @@
 댓글이 달린 댓글은 삭제된 댓글입니다. 나머지 전부 지움	 -->
 <%
 String f_num = request.getParameter("f_num");
-String f_ref = request.getParameter("f_ref");
-String f_lev = request.getParameter("f_lev");
-String f_sunbun = request.getParameter("f_sunbun");
 
 dto.setF_num(Integer.parseInt(f_num) );
-dto.setF_ref(Integer.parseInt(f_ref));
-dto.setF_lev(Integer.parseInt(f_lev));
-dto.setF_sunbun(Integer.parseInt(f_sunbun));
 
 int result =dao.deleteFreeBoard(dto);
 if(result>=1){

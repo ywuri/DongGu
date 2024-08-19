@@ -25,14 +25,15 @@ if(s_id==null || s_id.equals("")){
 <body>
 <%@include file="../SubHeader.jsp" %>
 <form name="WriteQnABoard" action="/DongGu/notice/WriteNotice_ok.jsp">
-	<div id="FreeBoardDivTitle">
-		<img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 공지사항 작성 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg">
-		<span style="text-align:right; ">
-			<input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
-		</span>
-		
-	</div>
-
+	<div id="FreeBoardDivTitle2">
+	    <div style="width:90%; left: 50%; text-align:center; "><span>공지사항 등록</span></div>
+	    <div style="width:10%;">
+	    	<span style="text-align: right;">
+	        <input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
+	    </span>
+	    </div>
+	 </div>
+	 
 	<div id="WriteFreeBoardMainDiv">
 		<input name="n_title" id="WriteFreeBoardTitleInput"  autofocus type="text" placeholder="제목을 입력해 주세요." required>
 		<div id="WriteFreeBoardContentDiv">

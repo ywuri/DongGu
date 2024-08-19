@@ -62,7 +62,7 @@
 
 <%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"> 공지사항 검색결과 <img src="/DongGu/img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"> 공지사항 검색결과 </div>
 
 <div>
 	<table id="FreeBoardTable">
