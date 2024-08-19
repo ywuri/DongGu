@@ -150,6 +150,8 @@ public class MyPageDTO {
 	  this.i_end = i_end;
 	  this.starcount = starcount;
 	  this.reviewcount = reviewcount;
+	  this.w_num =  w_num;
+	  this.wt_num_value =  wt_num_value;
   }
   
    // 1-6. 인자 생성자(마이페이지 관심내역 - 관심 고용자 정보 불러오기)
@@ -178,17 +180,50 @@ public class MyPageDTO {
     }
   	
   	//1-8. 인자 생성자(마이페이지 관심내역 - 관심 자유게시판 정보 불러오기)
-  	public MyPageDTO(String p_name, String o_name, String f_nickname, String f_title, Date f_date, String f_img) {
-  	  super();
-  	  this.p_name = p_name;
-  	  this.o_name = o_name;
-  	  this.f_nickname = f_nickname;
-  	  this.f_title = f_title;
-  	  this.f_date = f_date;
-  	  this.f_img = f_img;
+  	public MyPageDTO(String f_img, String f_title, Date f_date, String f_nickname, String o_name,  int w_num, String wt_num_value ) {
+  		super();
+  		this.f_img = f_img;
+  		this.f_title = f_title;
+  		this.f_date = f_date;
+  		this.f_nickname = f_nickname;
+    	this.o_name = o_name;
+    	this.w_num =  w_num;
+  	    this.wt_num_value =  wt_num_value;
     }
 
 	// getter, setter 
+  	public String getF_nickname() {
+		return f_nickname;
+	}
+
+	public void setF_nickname(String f_nickname) {
+		this.f_nickname = f_nickname;
+	}
+
+	public String getF_title() {
+		return f_title;
+	}
+
+	public void setF_title(String f_title) {
+		this.f_title = f_title;
+	}
+
+	public Date getF_date() {
+		return f_date;
+	}
+
+	public void setF_date(Date f_date) {
+		this.f_date = f_date;
+	}
+
+	public String getF_img() {
+		return f_img;
+	}
+
+	public void setF_img(String f_img) {
+		this.f_img = f_img;
+	}
+  	
   	public int getInvitationcount() {
 		return invitationcount;
 	}

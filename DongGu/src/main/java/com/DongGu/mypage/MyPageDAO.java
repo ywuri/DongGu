@@ -393,7 +393,7 @@ public class MyPageDAO {
    
    
    // 4-1. 마이페이지 관심내역 관심초대장 페이지 -  정보 가져오기 
-   public ArrayList<MyPageDTO> mypage_Like1(String m_sid, String likeValue) {
+   public ArrayList<MyPageDTO> mypage_Like1(String m_sid, String likeValue, int usertype) {
 	      System.out.println("마이페이지 관심내역 관심초대장 페이지 - 정보 가져오기 매서드 실행됨!");         
 	      MyPageDTO dto = null;
 	      ArrayList<MyPageDTO> mlist = new ArrayList<>(); 
@@ -438,6 +438,14 @@ public class MyPageDAO {
 	         		+ "from wishlist "
 	         		+ "where w_id = ? and wt_num = ? ) ";
 	         
+	         String sql40_owner = "select f.f_img, f.f_title,f.f_date, f.f_nickname, "
+	         		+ "(SELECT o.o_name FROM owner o WHERE o.o_id = f.f_id) AS o_name, "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = f.f_num ) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = f.f_num ) AS wt_num_value "
+	         		+ "from free f 	"
+	         		+ "where f.f_num IN (select w.wt_num_value "
+	         		+ "from wishlist w "
+	         		+ "where w.w_id = ? and wt_num = ? ) ";
 	         
 	         
 	         if ("10".equals(likeValue)) {
@@ -499,11 +507,10 @@ public class MyPageDAO {
 		         ps.setString(4, likeValue);	
 		         ps.setString(5, m_sid);	      	 
 		         ps.setString(6, likeValue);	
-		         
-		         
+         
 		         rs = ps.executeQuery();		      
 		         		         
-		         while(rs.next()) {          
+		         while(rs.next()) { 
 		                String ai_img = rs.getString("ai_img");	                
 		                String i_title = rs.getString("i_title");
 		                Date i_start = rs.getDate("i_start");
@@ -518,29 +525,37 @@ public class MyPageDAO {
 		             }
        
 			 }else if ("40".equals(likeValue)) {
-				 ps=conn.prepareStatement(sql30);
-	        	 ps.setString(1, m_sid);	      	 
-		         ps.setString(2, likeValue);	 
-		         ps.setString(3, m_sid);	      	 
-		         ps.setString(4, likeValue);	
-		         ps.setString(5, m_sid);	      	 
-		         ps.setString(6, likeValue);
-		         
-		         rs = ps.executeQuery();		      
-		         		         
-		         while(rs.next()) {          
-		                String ai_img = rs.getString("ai_img");	                
-		                String i_title = rs.getString("i_title");
-		                Date i_start = rs.getDate("i_start");
-		                Date i_end = rs.getDate("i_end");		
-		                double starcount = rs.getDouble("starcount"); 
-		                int reviewcount = rs.getInt("reviewcount");
-		                int w_num = rs.getInt("w_num");
-		                String wt_num_value = rs.getString("wt_num_value");
-		                	                                 
-		                dto = new MyPageDTO(ai_img,i_title,i_start,i_end,starcount,reviewcount,w_num,wt_num_value);
-		                mlist.add(dto);
-		             }
+				 
+				 if (usertype == 0) {
+					 
+					 ps=conn.prepareStatement(sql40_owner);
+		        	 ps.setString(1, m_sid);	      	 
+			         ps.setString(2, likeValue);
+			         ps.setString(3, m_sid);	      	 
+			         ps.setString(4, likeValue);	
+			         ps.setString(5, m_sid);	      	 
+			         ps.setString(6, likeValue);
+
+			         rs = ps.executeQuery();		   
+	 		         
+			         while(rs.next()) { 
+			                String f_img = rs.getString("f_img");	                
+			                String f_title = rs.getString("f_title");
+			                Date f_date = rs.getDate("f_date");
+			                String f_nickname = rs.getString("f_nickname");
+			                String o_name = rs.getString("o_name");
+			                int w_num = rs.getInt("w_num");
+			                String wt_num_value = rs.getString("wt_num_value");
+			                	                                 
+			                dto = new MyPageDTO(f_img,f_title,f_date,f_nickname,o_name,w_num,wt_num_value);
+			                mlist.add(dto);
+			             }
+			         
+				}else if (usertype == 1) {
+					
+				} 
+				 
+				
 		         
 			 }else if ("50".equals(likeValue)) {
 				 
@@ -588,6 +603,9 @@ public class MyPageDAO {
 				}
 			}
 		}
+	
+	
+	
 	
    
    
