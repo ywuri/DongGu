@@ -98,22 +98,20 @@ public class FreeBoardDAO {
 		
 	}
 	
-	/* 글목록 가져오기 */
+	/* 글목록 가져오기, 댓글 말고 본글만 */
 	public ArrayList<FreeBoardDTO> getFreeBoardList(int cp,int listSize){
 		try {
 			conn=com.DongGu.db.DongGuDB.getConn();
 			//String sql="select * from free order by f_date desc";
 			String sql ="select * "
-					+ "from "
-					+ "(select rownum as rnum, a.* from "
+					+ "from  "
+					+ "(select rownum as rnum, a.* from  "
 					+ "( "
-					+ "    select *  "
-					+ "    from free  "
-					+ "    order by f_ref desc, f_sunbun)a "
+					+ "		select * "
+					+ "		from free "
+					+ "		order by f_num desc )a "
 					+ ")b "
-					+ "where rnum >= ?and rnum <=?";
-			
-			
+					+ "where rnum >=? and rnum <=?";
 			
 			ps=conn.prepareStatement(sql);
 			ps.setInt(1, cp*listSize-(listSize-1));
@@ -122,17 +120,13 @@ public class FreeBoardDAO {
 			ArrayList<FreeBoardDTO> array = new ArrayList<>();
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				FreeBoardDTO dto = new FreeBoardDTO(rs.getInt("f_num"),rs.getString("f_id"),rs.getString("f_nickname"),
-						rs.getString("f_title"),rs.getString("f_date"),rs.getString("f_content"),rs.getInt("f_vcnt"),
-						rs.getInt("f_ref"),rs.getInt("f_lev"),rs.getInt("f_sunbun"),rs.getString("f_img"));
-				
+				FreeBoardDTO dto = new FreeBoardDTO( rs.getInt("f_num"),rs.getString("f_id"),
+						rs.getString("f_nickname"),rs.getString("f_title"),rs.getString("f_date"),
+						rs.getString("f_content"),rs.getInt("f_vcnt"),rs.getString("f_img"));
 				array.add(dto);
 		
 			}
 			return array;
-			
-			
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -149,12 +143,45 @@ public class FreeBoardDAO {
 		}
 	}
 	
+	/* 댓글갯수가 몇개인지 */
+	public HashMap<Integer,Integer> getCommentCnt() {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql="select f_num, count(*) from freecomment group by f_num";
+			
+			ps=conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			HashMap<Integer,Integer> map = new HashMap<>();
+			
+			while(rs.next()) {
+				
+				//댓글이없으면 아무것도 하지말아라
+				map.put(rs.getInt(1), rs.getInt(2));
+				
+			}
+			return map;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	/* free 상세페이지 */
 	public FreeBoardDTO getFreeBoardDetail(int f_num) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "select f_content, f_id, f_nickname, f_date, f_vcnt, f_title,f_ref,f_lev,f_sunbun,f_img from free where f_num = ?";
+			String sql = "select * from free where f_num = ?";
 			
 			int up = upVcnt(f_num);
 			ps=conn.prepareStatement(sql);
@@ -165,17 +192,10 @@ public class FreeBoardDAO {
 			//System.out.println(f_num);
 			
 			if(rs.next()) {
-				dto.setF_content(rs.getString(1));
+				 dto = new FreeBoardDTO( rs.getInt("f_num"),rs.getString("f_id"),
+						rs.getString("f_nickname"),rs.getString("f_title"),rs.getString("f_date"),
+						rs.getString("f_content"),rs.getInt("f_vcnt"),rs.getString("f_img"));
 				
-				dto.setF_id(rs.getString(2));
-				dto.setF_nickname(rs.getString(3));
-				dto.setF_date(rs.getString(4));
-				dto.setF_vcnt(rs.getInt(5));
-				dto.setF_title(rs.getString(6));
-				dto.setF_ref(rs.getInt(7));
-				dto.setF_lev(rs.getInt(8));
-				dto.setF_sunbun(rs.getInt(9));
-				dto.setF_img(rs.getString(10));
 			}
 			return dto;
 			
@@ -196,6 +216,45 @@ public class FreeBoardDAO {
 		}
 	}
 	
+	
+	/* 상세에서 댓글 가져오기 */
+	public ArrayList<FreeCommentDTO> getCommentList(int f_ref){
+		try {
+			conn=com.DongGu.db.DongGuDB.getConn();
+			String sql="select * "
+					+ "from freecomment "
+					+ "where f_num = ? "
+					+ " order by fc_ref desc, fc_sunbun ";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, f_ref);
+			rs =ps.executeQuery();
+			
+			ArrayList<FreeCommentDTO> array2 =new ArrayList<>();
+			while(rs.next()) {
+				
+				FreeCommentDTO dto = new FreeCommentDTO(
+						rs.getInt("fc_num"),rs.getInt("f_num"),rs.getString("fc_id"),rs.getString("fc_nickname"),
+						rs.getString("fc_content"),rs.getString("fc_date"),rs.getInt("fc_ref"),rs.getInt("fc_lev"),
+						rs.getInt("fc_sunbun") ,rs.getString("fc_img"));
+				array2.add(dto);
+			}
+			
+			return array2;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	/* 상세게시글에서 전 / 후 게시글 보여주기 */
 	public ArrayList<FreeBoardDTO> getNextFreeBoard(int f_num){
@@ -365,7 +424,7 @@ public class FreeBoardDAO {
 	public int getMaxRef() {
 	    int num = 0;
         try {
-            String sql = "SELECT MAX(f_ref) FROM free";
+            String sql = "SELECT MAX(fc_ref) FROM freecomment";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -391,22 +450,19 @@ public class FreeBoardDAO {
 	public int WriteFreeBoard(FreeBoardDTO dto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			int max = getMaxRef();
-			String sql ="insert into free(f_num, f_id, f_nickname, f_title, f_date, f_content, f_vcnt,f_ref, f_lev, f_sunbun,f_img)  values(seq_free_f_num.nextval,?,?,?,sysdate,?,0,?,0,0,?)";
+			
+			String sql ="insert into free(f_num, f_id, f_nickname, f_title, f_date, f_content, f_vcnt, f_img) "
+					+ " values(seq_free_f_num.nextval,?,?,?,sysdate,?,?,?)";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, dto.getF_id());
 			ps.setString(2, dto.getF_nickname());
 			ps.setString(3,dto.getF_title());
 			ps.setString(4, dto.getF_content());
-			ps.setInt(5, max+1);
+			ps.setInt(5, 0);
 			ps.setString(6, dto.getF_img());
-			//ref??
+			
+			
 
-			/*
-			private int f_ref ;// 그룹번호(1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지) 
-			private int f_lev; //들여쓰기횟수 (0이면 본문,1번이면 본문의 대한 답변) 
-			private int f_sunbun;// 본문내에 순서. (1번본문의 답글이 2개 달리면 걔의 순서) 
-			*/
 			
 			int result = ps.executeUpdate();
 			return result;
@@ -456,15 +512,83 @@ public class FreeBoardDAO {
 	}
 	
 	
-	
-	
-	/* 답글 작성 전 sunbun 업데이트*/
-	public int ReWriteFreeBoardSunbun(int f_ref,int f_sunbun) {
+	/* 사진이름 변경을 위해 sequnce번호 가져오기 (댓글) */
+	public int getSequnceNumForImgComment() {
 		try {
-			String sql="update free set f_sunbun=f_sunbun+1 where f_ref=? and f_sunbun>=?";
+			conn =com.DongGu.db.DongGuDB.getConn();
+			String sql="SELECT seq_freecomment_fc_img.NEXTVAL FROM dual";
 			ps=conn.prepareStatement(sql);
-			ps.setInt(1, f_ref);
-			ps.setInt(2, f_sunbun);
+			rs = ps.executeQuery();
+			int result=0;
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	/* 댓글 작성하기(대댓아님) */
+	public int ReWriteFreeBoard(FreeCommentDTO dto) {
+		try {
+			conn= com.DongGu.db.DongGuDB.getConn();
+			int max = getMaxRef();
+			String sql="insert into freecomment  "
+					+ "values(seq_freecomment_fc_num.nextval,?,?,?,?,sysdate,?,?,?,?)";
+			
+						
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, dto.getF_num());
+			ps.setString(2, dto.getFc_id());
+			ps.setString(3, dto.getFc_nickname());
+			ps.setString(4, dto.getFc_content());
+			ps.setInt(5, max+1);
+			ps.setInt(6, 0);
+			ps.setInt(7, 0);
+			ps.setString(8, dto.getFc_img());
+			
+			
+			int result = ps.executeUpdate();
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+
+	
+	
+	/* 댓글 작성 전 sunbun 업데이트*/
+	public int ReWriteFreeCommentSunbun(int fc_ref,int fc_sunbun) {
+		try {
+			String sql="update freecomment set fc_sunbun=fc_sunbun+1 where fc_ref=? and fc_sunbun>=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, fc_ref);
+			ps.setInt(2, fc_sunbun);
 			
 			int result = ps.executeUpdate();
 			return result;
@@ -481,26 +605,25 @@ public class FreeBoardDAO {
 		}
 	}
 	
-	
-	/* 답글 작성하기 */
-	public int ReWritefreeBoard(FreeBoardDTO dto) {
+	/* 댓글 작성하기(대댓) */
+	public int ReReWriteFreeBoard(FreeCommentDTO dto) {
 		try {
 			conn= com.DongGu.db.DongGuDB.getConn();
-			int updateSunbun = ReWriteFreeBoardSunbun(dto.getF_ref(),dto.getF_sunbun()+1);
+			int updateSunbun = ReWriteFreeCommentSunbun(dto.getFc_ref(),dto.getFc_sunbun()+1);
+			int max = getMaxRef();
+			String sql="insert into freecomment  "
+					+ "values(seq_freecomment_fc_num.nextval,?,?,?,?,sysdate,?,?,?,?)";
 			
-			String sql="insert into free(f_num, f_id, f_nickname, f_title, f_date, f_content, f_vcnt,f_ref, f_lev, f_sunbun,f_img)  "
-					+ "values(seq_free_f_num.nextval,?,?,?,sysdate,?,0,?,?,?,?)";
-			
+
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, dto.getF_id());
-			ps.setString(2, dto.getF_nickname());
-			ps.setString(3,dto.getF_title());
-			ps.setString(4, dto.getF_content());
-			ps.setInt(5, dto.getF_ref());
-			
-			ps.setInt(6, dto.getF_lev()+1);
-			ps.setInt(7, dto.getF_sunbun()+1);
-			ps.setString(8, dto.getF_img());
+			ps.setInt(1, dto.getF_num());
+			ps.setString(2, dto.getFc_id());
+			ps.setString(3, dto.getFc_nickname());
+			ps.setString(4, dto.getFc_content());
+			ps.setInt(5, dto.getFc_ref());
+			ps.setInt(6, dto.getFc_lev()+1);
+			ps.setInt(7, dto.getFc_sunbun()+1);
+			ps.setString(8, dto.getFc_img());
 			
 			/*
 			 	ref : 그룹번호 (1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지)
@@ -583,9 +706,7 @@ public class FreeBoardDAO {
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				FreeBoardDTO dto = new FreeBoardDTO(rs.getInt("f_num"),rs.getString("f_id"),rs.getString("f_nickname"),
-						rs.getString("f_title"),rs.getString("f_date"),rs.getString("f_content"),rs.getInt("f_vcnt"),
-						rs.getInt("f_ref"),rs.getInt("f_lev"),rs.getInt("f_sunbun"),rs.getString("f_img"));
+				FreeBoardDTO dto = new FreeBoardDTO();
 				array.add(dto);
 			}
 		
@@ -606,7 +727,7 @@ public class FreeBoardDAO {
 	}
 	
 	/* 수정하기 */
-	public int updatefreeBoard(FreeBoardDTO dto) {
+	public int updateFreeBoard(FreeBoardDTO dto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			String sql ="update free set f_title=?, f_content=? where f_num=?";
@@ -634,7 +755,7 @@ public class FreeBoardDAO {
 	    }
 	} 
 	
-	/* 삭제하기 */
+	/* 삭제하기
 	public int deleteFreeBoard(FreeBoardDTO dto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
@@ -698,8 +819,8 @@ public class FreeBoardDAO {
 			}
 		}
 	}
-	
-	/* 같은 그룹 게시물 갯수 알아오기 */
+	 */
+	/* 같은 그룹 게시물 갯수 알아오기 
 	public int hasReWrite(int f_ref) {
 		
 		try {
@@ -727,8 +848,8 @@ public class FreeBoardDAO {
 		}
 		
 	}
-	
-	/* 삭제하는 답글이, 이미 원글이 지워졌는지 알아오기 */
+	*/
+	/* 삭제하는 답글이, 이미 원글이 지워졌는지 알아오기
 	public int isMainDelete(int f_ref) {
 		
 		try {
@@ -756,4 +877,5 @@ public class FreeBoardDAO {
 		}
 		
 	}
+	 */
 }

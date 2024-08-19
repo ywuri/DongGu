@@ -8,7 +8,7 @@
 <script>
 //닉네임 유효성 검사
 function NicknameCheck() {
-	var NickCheckValue = document.getElementById('o_nickname').value;
+	var NickCheckValue = document.getElementById('p_nickname').value;
 	var NickText = document.getElementById('NickText');
 	
 	// 정규 표현식: 닉네임은 특수문자를 사용할 수 없고 2자에서 8자 사이여야 한다.
@@ -27,11 +27,11 @@ function NicknameCheck() {
 </script>
 </head>
 <body>
-<form name="zipform" action="NickName_ok.jsp">
+<form name="zipform" action="DnickName_ok.jsp">
 	<fieldset>
 		<h2>닉네임 중복검사</h2>
 		<label>닉네임</label>
-		<input type="text" name="o_nickname" id="o_nickname" required="required" onkeyup="NicknameCheck()">
+		<input type="text" name="p_nickname" id="p_nickname" required="required" onkeyup="NicknameCheck()">
 		<input type="submit" value="중복확인" id="submitButton" disabled>
 		<span id="NickText" class="dpib" style="display: inline-block;"></span>
 	</fieldset>

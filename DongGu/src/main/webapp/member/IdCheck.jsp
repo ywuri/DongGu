@@ -5,14 +5,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+//아이디 유효성 검사
+function idCheck() {
+	var idCheckValue = document.getElementById('o_id').value;
+	var idText = document.getElementById('idText');
+	
+	// 정규 표현식: 아이디는 영어 대소문자와 숫자를 포함하고, 4자에서 10자 사이여야 한다.
+	var idWordRegex = /^[a-zA-Z0-9]{4,10}$/;
+
+	if (idWordRegex.test(idCheckValue)) {
+		idText.innerHTML = '올바른 아이디 구성입니다.';
+		idText.style.color = 'green';
+		submitButton.disabled = false;
+	} else {
+		idText.innerHTML = '아이디에는 한글과 특수문자가 포함될 수 없습니다.<br>(최소 4~10글자)';
+		idText.style.color = 'red';
+		submitButton.disabled = true;
+	}
+}
+</script>
 </head>
 <body>
 <form name="zipform" action="IdCheck_ok.jsp">
 	<fieldset>
 		<h2>ID 중복검사</h2>
 		<label>ID</label>
-		<input type="text" name="o_id" required="required">
-		<input type="submit" value="중복확인">
+		<input type="text" name="o_id" id="o_id" value="" required="required" onkeyup="idCheck()">
+		<input type="submit" value="중복확인" id="submitButton" disabled> <!-- 초기엔 비활성화 -->
+		<span id="idText" class="dpib" style="display: inline-block;"></span>
 	</fieldset>
 </form>
 </body>
