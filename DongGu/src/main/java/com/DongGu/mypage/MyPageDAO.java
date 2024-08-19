@@ -393,7 +393,7 @@ public class MyPageDAO {
    
    
    // 4-1. 마이페이지 관심내역 관심초대장 페이지 -  정보 가져오기 
-   public ArrayList<MyPageDTO> mypage_Like1(String m_sid, String likeValue, int usertype) {
+   public ArrayList<MyPageDTO> mypage_Like1(String m_sid, String likeValue) {
 	      System.out.println("마이페이지 관심내역 관심초대장 페이지 - 정보 가져오기 매서드 실행됨!");         
 	      MyPageDTO dto = null;
 	      ArrayList<MyPageDTO> mlist = new ArrayList<>(); 
@@ -438,12 +438,23 @@ public class MyPageDAO {
 	         		+ "from wishlist "
 	         		+ "where w_id = ? and wt_num = ? ) ";
 	         
-	         String sql40_owner = "select f.f_img, f.f_title,f.f_date, f.f_nickname, "
+	         String sql40 = "select f.f_img, f.f_title,f.f_date, f.f_nickname, "
 	         		+ "(SELECT o.o_name FROM owner o WHERE o.o_id = f.f_id) AS o_name, "
+	         		+ "(SELECT p.p_name FROM petsitter p WHERE p.p_id = f.f_id) AS p_name, "
 	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = f.f_num ) AS w_num, "
 	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = f.f_num ) AS wt_num_value "
 	         		+ "from free f 	"
 	         		+ "where f.f_num IN (select w.wt_num_value "
+	         		+ "from wishlist w "
+	         		+ "where w.w_id = ? and wt_num = ? ) ";
+	         
+	         String sql50 = "select q.q_title,q.q_date, q.q_nickname, "
+	         		+ "(SELECT o.o_name FROM owner o WHERE o.o_id = q.q_id) AS o_name, "
+	         		+ "(SELECT p.p_name FROM petsitter p WHERE p.p_id = q.q_id) AS p_name, "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = q.q_num ) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = q.q_num ) AS wt_num_value "
+	         		+ "from qna q "
+	         		+ "where q.q_num IN (select w.wt_num_value "
 	         		+ "from wishlist w "
 	         		+ "where w.w_id = ? and wt_num = ? ) ";
 	         
@@ -525,10 +536,7 @@ public class MyPageDAO {
 		             }
        
 			 }else if ("40".equals(likeValue)) {
-				 
-				 if (usertype == 0) {
-					 
-					 ps=conn.prepareStatement(sql40_owner);
+					 ps=conn.prepareStatement(sql40);
 		        	 ps.setString(1, m_sid);	      	 
 			         ps.setString(2, likeValue);
 			         ps.setString(3, m_sid);	      	 
@@ -544,21 +552,37 @@ public class MyPageDAO {
 			                Date f_date = rs.getDate("f_date");
 			                String f_nickname = rs.getString("f_nickname");
 			                String o_name = rs.getString("o_name");
+			                String p_name = rs.getString("p_name");
 			                int w_num = rs.getInt("w_num");
 			                String wt_num_value = rs.getString("wt_num_value");
 			                	                                 
-			                dto = new MyPageDTO(f_img,f_title,f_date,f_nickname,o_name,w_num,wt_num_value);
+			                dto = new MyPageDTO(f_img,f_title,f_date,f_nickname,o_name,p_name,w_num,wt_num_value);
 			                mlist.add(dto);
 			             }
 			         
-				}else if (usertype == 1) {
-					
-				} 
-				 
-				
-		         
 			 }else if ("50".equals(likeValue)) {
-				 
+					 ps=conn.prepareStatement(sql50);
+		        	 ps.setString(1, m_sid);	      	 
+			         ps.setString(2, likeValue);
+			         ps.setString(3, m_sid);	      	 
+			         ps.setString(4, likeValue);	
+			         ps.setString(5, m_sid);	      	 
+			         ps.setString(6, likeValue);
+	
+			         rs = ps.executeQuery();		   
+	 		         
+			         while(rs.next()) { 	                
+			                String q_title = rs.getString("q_title");
+			                Date q_date = rs.getDate("q_date");
+			                String q_nickname = rs.getString("q_nickname");
+			                String o_name = rs.getString("o_name");
+			                String p_name = rs.getString("p_name");
+			                int w_num = rs.getInt("w_num");
+			                String wt_num_value = rs.getString("wt_num_value");
+			                	                                 
+			                dto = new MyPageDTO(q_title,q_date,q_nickname,o_name,p_name,w_num,wt_num_value);
+			                mlist.add(dto);
+			             }
 			 }
 	                       
 	         return mlist;	  
@@ -586,7 +610,7 @@ public class MyPageDAO {
 	    try {
 	    	 conn = com.DongGu.db.DongGuDB.getConn();
 
-	        String sql = "DELETE FROM wishlist WHERE w_num = ?";
+	        String sql = "DELETE FROM wishlist WHERE w_num = ? ";
 	        ps = conn.prepareStatement(sql);	
 	        ps.setInt(1, removeHeartValue);	 
 			int count = ps.executeUpdate();
@@ -605,8 +629,228 @@ public class MyPageDAO {
 		}
 	
 	
+	// 4-3. 마이페이지 관심내역 관심고용자 페이지 - 성별에 따른 사진 랜덤으로 설정하기 
+	public ArrayList<String> mypage_Like2(String gendercheck_nickname) {
+	      System.out.println("마이페이지 관심내역 관심고용자 페이지 - 성별에 따른 사진 랜덤으로 설정하기 매서드 실행됨!");         	   
+	      ArrayList<String> mlist = new ArrayList<>(); 
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         
+	         String sql = "SELECT o_jumin FROM owner WHERE o_nickname = ? ";        
+	         ps = conn.prepareStatement(sql);	
+		     ps.setString(1, gendercheck_nickname);
+		         
+		     rs = ps.executeQuery();
+		         
+		     while(rs.next()) {          
+		          String o_jumin = rs.getString("o_jumin");	                
+		          mlist.add(o_jumin);
+		     }		     		       
+	                       
+	         return mlist;	  
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return null;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	            
+	         }
+	      }
+	   }	
+
+
+
+	// 5-1. 마이페이지 회원 정보 수정페이지 -  정보 가져오기 
+	public MyPageDTO mypage_InfoUpdate1(String m_sid, int m_usertype) {
+		      System.out.println("마이페이지 회원 정보 - 수정페이지 정보 가져오기 매서드 실행됨!");         
+		      MyPageDTO dto = null;
+
+		      try {
+		         conn = com.DongGu.db.DongGuDB.getConn();
+		         String sql_owner = "select o_id, o_pwd,o_name,o_gender,o_nickname,o_tel,o_addr "
+		         		+ "from owner "
+		         		+ "where o_id = ? ";
+		         
+		         String sql_petsitter = "select p_id, p_pwd,p_name,p_gender,p_smoke,p_nickname,p_img,p_tel,p_addr "
+		         		+ "from petsitter "
+		         		+ "where p_id = ? ";
+		         
+		         if (m_usertype == 0) {
+		        	 ps=conn.prepareStatement(sql_owner);
+		        	 ps.setString(1, m_sid);	      	 
+	
+			         rs = ps.executeQuery();		   
+	 		         
+			         while(rs.next()) { 	                
+			                String o_id = rs.getString("o_id");	
+			                String o_pwd = rs.getString("o_pwd");
+			                String o_name = rs.getString("o_name");
+			                int o_gender = rs.getInt("o_gender");
+			                String o_nickname = rs.getString("o_nickname");
+			                String o_tel = rs.getString("o_tel");
+			                String o_addr = rs.getString("o_addr");
+			                	                                 
+			                dto = new MyPageDTO(o_id,o_pwd,o_name,o_gender,o_nickname,o_tel,o_addr);
+			         }
+				} else if (m_usertype == 1) {
+					 ps=conn.prepareStatement(sql_petsitter);
+		        	 ps.setString(1, m_sid);	      	 
+	
+			         rs = ps.executeQuery();		   
+	 		         
+			         while(rs.next()) { 	                
+			                String p_id = rs.getString("p_id");	
+			                String p_pwd = rs.getString("p_pwd");
+			                String p_name = rs.getString("p_name");
+			                int p_gender = rs.getInt("p_gender");
+			                int p_smoke = rs.getInt("p_smoke");
+			                String p_nickname = rs.getString("p_nickname");
+			                String p_img = rs.getString("p_img");
+			                String p_tel = rs.getString("p_tel");
+			                String p_addr = rs.getString("p_addr");
+			                	                                 
+			                dto = new MyPageDTO(p_id,p_pwd,p_name,p_gender,p_smoke,p_nickname,p_img,p_tel,p_addr);
+			         } 		         
+				} 
+
+		         return dto;	         
+		         
+		      }catch(Exception e) {
+		         e.printStackTrace();
+		         return null;         
+		      }finally {
+		         try {
+		            if(rs!=null) rs.close();
+		            if(ps!=null) ps.close();
+		            if(conn!=null) conn.close();
+		         }catch (Exception e) {
+		            e.printStackTrace();
+		            
+		         }
+		      }
+		   }   
 	
 	
-   
+	
+	// 5-2. 마이페이지 회원 정보 수정페이지 -  비밀번호 맞는지 확인하기 
+	public boolean mypage_InfoUpdate2(String m_sid, int m_usertype, String pwd) {
+		System.out.println("마이페이지 회원 정보 - 수정페이지 정보 가져오기 매서드 실행됨!");         
+	    boolean check = false;
+
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         String sql_owner = "select * "
+	         		+ "from owner "
+	         		+ "where o_id = ? and o_pwd = ? ";
+	         
+	         String sql_petsitter =  "select * "
+		         	+ "from petsitter "
+		         	+ "where p_id = ? and p_pwd = ? ";
+	         
+	         if (m_usertype == 0) {
+	        	 ps=conn.prepareStatement(sql_owner);
+	        	 ps.setString(1, m_sid);	      	
+	        	 ps.setString(2, pwd);
+
+		         rs = ps.executeQuery();		   
+		         
+		         while(rs.next()) { 	                
+		             check = true;
+		         }
+		         
+			} else if (m_usertype == 1) {
+				 ps=conn.prepareStatement(sql_petsitter);
+				 ps.setString(1, m_sid);	      	
+	        	 ps.setString(2, pwd);      	 
+
+		         rs = ps.executeQuery();		   
+		         
+		         while(rs.next()) { 	                
+		        	 check = true;
+		         } 		         
+			} 
+
+	         return check;	         
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return false;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	            
+	         }
+	      }
+	   }   
+	   
+	   
+	
+	// 5-3. 마이페이지 회원 정보 수정페이지 -  실제 수정 실행 
+	public int mypage_InfoUpdate3(MyPageDTO dto, String m_sid, int m_usertype) {
+		    System.out.println("마이페이지 회원 정보 - 수정페이지 실제 수정 매서드 실행됨!");
+		    int count = 0;
+		    try {
+		    	 conn = com.DongGu.db.DongGuDB.getConn();
+
+		        String sql_owner = "UPDATE owner SET o_nickname = ?, o_tel = ?, o_addr = ? WHERE o_id = ? ";
+		        String sql_petsitter = "UPDATE petsitter SET p_smoke = ?, p_nickname = ?, p_tel = ?, p_addr = ? WHERE p_id = ? ";
+
+		        if (m_usertype == 0) {
+			        ps = conn.prepareStatement(sql_owner);
+	
+			        // DTO에서 값을 가져와서 PreparedStatement에 설정
+			        ps.setString(1, dto.getO_nickname());
+			        ps.setString(2, dto.getO_tel());	 		      
+			        ps.setString(3, dto.getO_addr());	 	
+			        ps.setString(4, m_sid);	
+	
+			        // SQL 실행
+			        count = ps.executeUpdate();
+			        
+			        // 확인용 출력 
+			        System.out.println(count);
+
+		        } else if (m_usertype == 1) {
+		        	ps = conn.prepareStatement(sql_petsitter);
+		        	
+			        // DTO에서 값을 가져와서 PreparedStatement에 설정
+		        	ps.setInt(1, dto.getP_smoke());
+			        ps.setString(2, dto.getP_nickname());
+			        ps.setString(3, dto.getP_tel());	 		      
+			        ps.setString(4, dto.getP_addr());	 
+			        ps.setString(5, m_sid);	
+	
+			        // SQL 실행
+			        count = ps.executeUpdate();
+			        
+			        // 확인용 출력 
+			        System.out.println(count);
+		        }
+		        return count;
+		        
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        return -1; // 오류 발생 시 -1 반환
+		    } finally {
+		        try {
+		            if (ps != null) ps.close();
+		            if (conn != null) conn.close();
+		        } catch (Exception e2) {
+		            e2.printStackTrace();
+		        }
+		    }
+		}	  
+	
+	
    
 }

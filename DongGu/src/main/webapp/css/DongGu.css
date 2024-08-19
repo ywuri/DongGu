@@ -1303,7 +1303,7 @@ width:170px;
 	.jyl_like_list{width: calc(33.33% - 12px); font-family: 'Pretendard-Regular', sans-serif; box-sizing: border-box; padding: 5px;}
     .jyl_like_list:not(:nth-child(3n)) {margin-right: 18px;}
     .jyl_likeimg_margin {position: relative; display: flex; justify-content: center; width: 100%;}	
-    .jyl_likeimg_heart {position: absolute; top: 12px;  right: 30px;  width: 25px;  height: 25px;}
+    .jyl_likeimg_heart {position: absolute; top: 18px;  right: 25px;  width: 25px;  height: 25px;}
 	.jyl_likeimg {display: block; border-radius: 10px;margin-bottom:20px;width: 310px;  height: 350px;}
 	.jyl_like_list1_info {font-family: 'Pretendard-Regular', sans-serif; font-size: 15px; margin-bottom: 50px; padding-left: 15px; padding-right: 13px;}  
     .jyl_like_info1{margin-bottom: 7px;}
@@ -1314,15 +1314,54 @@ width:170px;
 	.jyl_likeimg_margin10, .jyl_likeimg_margin20 {position: relative; display: flex; justify-content: center; width: 100%;}	
 	.jyl_like_list1_info_10, .jyl_like_list1_info_20 {font-family: 'Pretendard-Regular', sans-serif; font-size: 15px; margin-bottom: 50px; padding-left: 20px; padding-right: 13px;}  
 	.jyl_like_content{margin-top:25px; background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 550px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
-    .jyl_like_list2{width:100%; display:flex; gap: 18px; font-family: 'Pretendard-Regular', sans-serif; box-sizing: border-box; padding: 5px;}
-	.jyl_like_border{ position: relative; display:flex; width: calc(50% - 9px); background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 180px;}	
-	.jyl_like_freeinfo{padding: 25px; display: flex; flex-direction: column; justify-content: center;}
+    .jyl_like_border{box-sizing: border-box; position: relative; display:flex; width: calc(50% - 11px); background-color: #fff;  border-radius: 8px;  border: 1px solid rgb(222, 226, 230); height: 180px; margin-bottom: 22px;}	
+	.jyl_like_border:nth-of-type(odd) {margin-right: 22px;}
+	.jyl_like_border:nth-of-type(even) {margin-right: 0;}
+	.jyl_like_freeinfo{padding: 30px; display: flex; flex-direction: column; justify-content: center;}
 	.jyl_like_freeinfo ul li {padding: 3px;}
-	.jyl_likeimg_boardheart {position: absolute; top: 14px; right: 14px; width: 25px; height: 25px;}
+	.jyl_likeimg_boardheart {position: absolute; top: 17px; right: 17px; width: 25px; height: 25px;}
 	.category_selected {background-color: #eee;}	
 	.jyl_like_freeinfo1{margin-top: 7px; margin-bottom: 7px;}
 	.jyl_freelikeimg_margin {padding: 25px; padding-right:0px; position: relative; display: flex; flex-direction: column; justify-content: center;}	
 	.jyl_freelikeimg {border: 1px solid rgb(222, 226, 230); display: block; border-radius: 10px; width: 130px; height: 135px;}
+	
+	
+	.jyl_infoupdate{margin-top: 30px; text-align: center;}
+	#jyl_joinul {list-style: none; padding: 0; text-align: center; display: flex; flex-direction: column; justify-content: space-around;}
+	.jyl_inputlist {margin-bottom: 20px;display: flex;align-items: center;justify-content: center;}
+	.jyl_inputlist i {font-family: 'TTLaundryGothicB', sans-serif; width: 100px; text-align: left; margin-right: 1px;}
+    @font-face {font-family: 'TTLaundryGothicB'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2'); font-weight: 700; font-style: normal;}
+    .jyl_inputlist input[type="text"], .jyl_inputlist input[type="password"]{ width: 250px;}
+    .jyl_inputlist input[type="text"], .jyl_inputlist input[type="password"], .jyl_inputlist input[type="radio"] { font-family: 'TTLaundryGothicB', sans-serif; padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid #ccc;}
+	.jyl_inputlist input[type="text"]:focus {border: 3px solid #fedc56; outline: none; }
+	.jyl_inputlist_readonly{background-color: #e8e8e8;}
+	.jyl_inputlist input[type="button"], .jyl_inputlist input[type="submit"] {background-color: #f0c040; color: white; border: none; cursor: pointer; transition: background-color 0.3s ease;}
+	.jyl_inputlist input[type="button"]:hover, .jyl_inputlist input[type="submit"]:hover { background-color: #e0a030;}
+	.jyl_radio_group {display: flex; align-items: center; width: 275.33px; height: 37px;}
+	.jyl_radio_group label {font-family: 'TTLaundryGothicB', sans-serif; font-size: 14px;}
+	#jyl_radio_male, #jyl_radio_nosmoke{font-family: 'TTLaundryGothicB', sans-serif; font-size: 14px; margin-left: 10px;}
+	.jyl_infoupdate_img{border-radius: 50%; margin-bottom:30px; width: 280px;	height: 280px; border: 1px solid rgb(222, 226, 230);}
+	.jyl_infoupdate_img2{width: 30px;	height: 30px;	position: absolute; bottom: 35px;  right: 5px; cursor: pointer;}
+	.jyl_resign{font-family: 'TTLaundryGothicB', sans-serif; font-size: 13px; font-weight: 100; color: #a8a8a8; text-decoration: underline;}
+	
+	
+	
+	#jyl_check{
+    font-family: 'TTLaundryGothicB', sans-serif;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+	}
+
+
+	
+
+	
+	
+	
+	
+	
 	
 	
 	#jyl_memberlevel1, 
@@ -1580,132 +1619,15 @@ width:170px;
 		color: #77766f;
 	}
 	
-	.jyl_infoupdate{
-		margin-top: 30px;
-		text-align: center;
-	}
-	
-	#jyl_joinul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-	}
-
-	.jyl_inputlist {
-	    margin-bottom: 20px;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center; /* 가운데 정렬 추가 */
-	}
-	
-	.jyl_inputlist i {
-	font-family: 'TTLaundryGothicB', sans-serif;
-    width: 100px;
-    text-align: left;
-    margin-right: 1px; /* 여기서 간격을 줄임 */ 
-    }
-    
-    @font-face {
-    font-family: 'TTLaundryGothicB';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-	}
-    
-    
-    .jyl_inputlist input[type="text"],
-	.jyl_inputlist input[type="password"],
-	.jyl_inputlist input[type="radio"] {
-    font-family: 'TTLaundryGothicB', sans-serif;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-	}
-	
-	.jyl_inputlist input[type="text"]:focus {
-    border: 2px solid #fedc56; 
-    outline: none; 
-	}
-
-	.jyl_inputlist_readonly{
-	background-color: #e8e8e8;
-	}
-	
-	#jyl_check{
-    font-family: 'TTLaundryGothicB', sans-serif;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
-    border: none;
-	}
-
-
-	.jyl_inputlist input[type="button"],
-	.jyl_inputlist input[type="submit"] {
-    background-color: #f0c040;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-	}
-
-	.jyl_inputlist input[type="button"]:hover,
-	.jyl_inputlist input[type="submit"]:hover {
-	 background-color: #e0a030;
-	}
 	
 	
 
 	
 
 
-	.jyl_infoupdate_img{
-		border-radius: 50%;
-      	margin-bottom:30px;
-       	width: 250px;
-       	height: 250px;
-       	border: 1px solid rgb(222, 226, 230);
-	}
 	
-	.jyl_infoupdate_img2{ 	
-       	width: 30px;
-       	height: 30px;
-       	position: absolute;
-	    bottom: 35px; 
-	    right: 5px;
-	    cursor: pointer;
-	}
 	
-	.jyl_radio_group {
-	    display: flex;
-	    align-items: center;
-	  	width: 195.5px;
-	  	height: 37px;
-	}
 	
-	.jyl_radio_group label {
-	    font-family: 'TTLaundryGothicB', sans-serif;
-	    font-size: 14px;
-	}
-	
-	#jyl_radio_male, 
-	#jyl_radio_nosmoke{
-		font-family: 'TTLaundryGothicB', sans-serif;
-	    font-size: 14px;
-	    margin-left: 10px;
-	}
-	
-	.jyl_resign{
-		font-family: 'TTLaundryGothicB', sans-serif;
-	    font-size: 13px;
-	    font-weight: 100;
-	    color: #a8a8a8;
-	    text-decoration: underline;
-	}
 	
 	
 	.jyl_memberlevel_moreInfo {

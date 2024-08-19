@@ -34,20 +34,20 @@
 <script>
 function Removeheart(element) { 
     alert("클릭됨!");
+    var formId = element.getAttribute("data-form-id"); 
     var value = element.getAttribute("data-value");
     console.log("Data-value:", value);
 
-    // 각 폼을 동적으로 생성할 필요 없이, 폼의 id를 동적으로 생성해 참조합니다
-    var formId = "removeheart_" + Array.from(element.parentElement.parentElement.children).indexOf(element.parentElement);
-    var form = document.getElementById(formId);
+    // 각 폼을 동적으로 생성할 필요 없이, 폼의 id를 동적으로 생성해 참조
+    var form = document.getElementById("removeheart_" + formId);
     
     if (form) {
         form.elements["removeheart"].value = value;
         form.submit();
     } else {
-        console.error("에러~");
+        console.error("에러: 폼을 찾을 수 없습니다.");
     }
-    console.log("Form ID:", formId);
+    console.log("Form ID:", "removeheart_" + formId);
     console.log("Data-value:", value);
 }
 </script>
@@ -63,7 +63,7 @@ function Removeheart(element) {
 	     <div class="jyl_sidebar">
 	     <ul class="jyl_menu">
 	        <li><a class="side_title" href="/DongGu/mypage/MyPage.jsp"><span>My Home</span></a></li>
-	        <li >
+	        <li>
 	            <a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>                   
 	            <ul class="submenu1">
 	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
@@ -167,7 +167,8 @@ function Removeheart(element) {
 	  
 	      
 	 <%   
-	ArrayList<MyPageDTO> arr = dao.mypage_Like1(m_sid, likeValue,usertype);
+	ArrayList<MyPageDTO> arr = dao.mypage_Like1(m_sid, likeValue);	
+	
 	
 	// 관심 고용자 내역 처리 (10)
 	if ("10".equals(likeValue)) {
@@ -184,6 +185,24 @@ function Removeheart(element) {
      	<%
             for (int i = 0; i < arr.size(); i++) {
                 MyPageDTO dto = arr.get(i);
+                String gendercheck_nickname  = dto.getO_nickname();
+                ArrayList<String> juminList = dao.mypage_Like2(gendercheck_nickname);
+                
+                String imageSrc = "/DongGu/img/random.png"; // 기본 이미지
+                for (String jumin : juminList) {
+                    // 주민번호가 null일 경우를 대비
+                    if (jumin != null && jumin.length() > 7) {
+                        String secondBlock = jumin.split("-")[1].substring(0, 1); // 주민번호의 두 번째 블록의 첫 번째 문자
+
+                        if ("1".equals(secondBlock)) {
+                            int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
+                            imageSrc = "/DongGu/img/random1_" + randomIndex + ".png";
+                        } else if ("2".equals(secondBlock)) {
+                            int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
+                            imageSrc = "/DongGu/img/random2_" + randomIndex + ".png";
+                        }
+                    }
+                }
 		%>
 					<form id="removeheart_<%= i %>" action="MyPage_Like.jsp" method="post">
                     <input type="hidden" name="removeheart" value="<%= dto.getW_num() %>" />
@@ -192,10 +211,10 @@ function Removeheart(element) {
 		
                     <div class="jyl_like_list">
                         <div class="jyl_likeimg_margin10">
-                            <a href="#" onclick="Removeheart(this);" data-value="<%= dto.getW_num() %>">
+                            <a href="#" onclick="Removeheart(this);" data-form-id="<%= i %>" data-value="<%= dto.getW_num() %>">
                             <img class="jyl_likeimg_heart" alt="likelist1" src="/DongGu/img/yel13.png">
                         	</a>
-                        <img class="jyl_likeownerimg" alt="likelist1" src="/DongGu/img/random2.png">
+                        <img class="jyl_likeownerimg" alt="likelist1" src="<%= imageSrc %>">
 
                         </div>
                         <div class="jyl_like_list1_info_10">
@@ -243,7 +262,7 @@ function Removeheart(element) {
 	        
 	        <div class="jyl_like_list">
 	            <div class="jyl_likeimg_margin20">
-	                <a href="#" onclick="Removeheart(this);" data-value="<%= dto.getW_num() %>">
+	                <a href="#" onclick="Removeheart(this);" data-form-id="<%= i %>" data-value="<%= dto.getW_num() %>">
                             <img class="jyl_likeimg_heart" alt="likelist1" src="/DongGu/img/yel13.png">
                     </a>	                
                     <img class="jyl_likepetsitterimg" alt="likelist1" src="/DongGu/img/<%= dto.getP_img()%>">
@@ -293,7 +312,7 @@ function Removeheart(element) {
 
         <div class="jyl_like_list">
             <div class="jyl_likeimg_margin">
-                <a href="#" onclick="Removeheart(this);" data-value="<%= dto.getW_num() %>">
+                <a href="#" onclick="Removeheart(this);"  data-form-id="<%= i %>" data-value="<%= dto.getW_num() %>">
                             <img class="jyl_likeimg_heart" alt="likelist1" src="/DongGu/img/yel13.png">
                </a>	  
                 <img class="jyl_likeimg" alt="likelist1" src="/DongGu/img/<%= dto.getAi_img() %>">
@@ -330,7 +349,6 @@ function Removeheart(element) {
     }
 } else if ("40".equals(likeValue)) {      
 	if (arr == null || arr.isEmpty()) { 
-		out.println(m_usertype);
 		%>
 		        <div class="jyl_like_content">   
 		            <div><span class="jyl_my_arrempty1">관심 자유게시판 내역이 없습니다.</span></div>
@@ -340,20 +358,20 @@ function Removeheart(element) {
 		    } else { 
 		%>
 		        <div class="like_array">
-		            <div class="jyl_like_list2">
+		         
 		                <% 
 		                for (int i = 0; i < arr.size(); i++) {
 		                    MyPageDTO dto = arr.get(i); 
 		                %>        
 		                    <form id="removeheart_<%= i %>" action="MyPage_Like.jsp" method="post">
-		                    <input type="hidden" name="removeheart" value="<%= dto.getW_num() %>" />
-		                    <input type="hidden" name="likevalue" value="40" />
-		        			</form>
-                 
-                        <div class="jyl_like_border">        
-                        <a href="#" onclick="Removeheart(this);" data-value="<%= dto.getW_num() %>">
-                            <img class="jyl_likeimg_boardheart" alt="likelist1" src="/DongGu/img/yel13.png">   
-               			</a>
+						        <input type="hidden" name="removeheart" value="<%= dto.getW_num() %>" />
+						        <input type="hidden" name="likevalue" value="40" />
+						    </form>
+						 
+						    <div class="jyl_like_border">        
+						        <a href="#" onclick="Removeheart(this);" data-form-id="<%= i %>" data-value="<%= dto.getW_num() %>">
+						            <img class="jyl_likeimg_boardheart" alt="likelist1" src="/DongGu/img/yel13.png">   
+						        </a>
                           <%
                           if(dto.getF_img()!=null){
                           %>
@@ -365,8 +383,18 @@ function Removeheart(element) {
 				          %>   
 	                        <div class="jyl_like_freeinfo">      
 		                         <ul>
-	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_title"><%= dto.getF_title() %></span></li>	                              
+	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_title"><%= dto.getF_title() %></span></li>	      
+	                                <%
+			                          if(dto.getO_name()!=null){
+			                          %>                        
 	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_name"><%= dto.getF_nickname()%><span> ( </span><%= dto.getO_name()%> <span>) </span></span></li>                                                                                    	 
+	                                <%
+			                          } else if(dto.getP_name()!=null){
+							          %> 
+							          <li class="jyl_like_freeinfo1"><span class="jyl_like_info_name"><%= dto.getF_nickname()%><span> ( </span><%= dto.getP_name()%> <span>) </span></span></li>                                                                                    	 
+							          <%
+			                          } 
+							          %>  
 	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_date"><%= dto.getF_date()%></span></li>                   			 
 	                            </ul>                   
 	                        </div> 		                               
@@ -375,7 +403,7 @@ function Removeheart(element) {
 		         <%		                			
 		         }
 		          %>      
-		 </div>
+		 
 	</div>	
 <%
         }
@@ -390,44 +418,48 @@ function Removeheart(element) {
         } else {
         %>
         <div class="like_array">
-        <div class="jyl_like_list2">
-        <%
-            for (int i = 0; i < arr.size(); i++) {
-                MyPageDTO dto = arr.get(i);
-		%>  
-                        <div class="jyl_like_border">           
-                        <img class="jyl_likeimg_boardheart" alt="likelist1" src="/DongGu/img/yel13.png">            
-	                         <div class="jyl_like_freeinfo_noimg">      
+		         
+		                <% 
+		                for (int i = 0; i < arr.size(); i++) {
+		                    MyPageDTO dto = arr.get(i); 
+		                %>        
+		                    <form id="removeheart_<%= i %>" action="MyPage_Like.jsp" method="post">
+						        <input type="hidden" name="removeheart" value="<%= dto.getW_num() %>" />
+						        <input type="hidden" name="likevalue" value="50" />
+						    </form>
+						 
+						    <div class="jyl_like_border">        
+						        <a href="#" onclick="Removeheart(this);" data-form-id="<%= i %>" data-value="<%= dto.getW_num() %>">
+						            <img class="jyl_likeimg_boardheart" alt="likelist1" src="/DongGu/img/yel13.png">   
+						        </a>
+                          
+	                        <div class="jyl_like_freeinfo">      
 		                         <ul>
-	                                <li class="jyl_like_freeinfo1_noimg"><span class="jyl_like_info_title"><%= dto.getI_title() %></span></li>	                              
-	                                <li class="jyl_like_freeinfo1_noimg"><span class="jyl_like_info_name"> <%= dto.getStarcount()%><span> ( </span><%= dto.getReviewcount()%> <span>) </span></span></li>                                                                                    	 
-	                                <li class="jyl_like_freeinfo1_noimg"><span class="jyl_like_info_date"><%= dto.getI_start() %></span></li>                   			 
+	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_title"><%= dto.getQ_title() %></span></li>	      
+	                                <%
+			                          if(dto.getO_name()!=null){
+			                          %>                        
+	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_name"><%= dto.getQ_nickname()%><span> ( </span><%= dto.getO_name()%> <span>) </span></span></li>                                                                                    	 
+	                                <%
+			                          } else if(dto.getP_name()!=null){
+							          %> 
+							          <li class="jyl_like_freeinfo1"><span class="jyl_like_info_name"><%= dto.getQ_nickname()%><span> ( </span><%= dto.getP_name()%> <span>) </span></span></li>                                                                                    	 
+							          <%
+			                          } 
+							          %>  
+	                                <li class="jyl_like_freeinfo1"><span class="jyl_like_info_date"><%= dto.getQ_date()%></span></li>                   			 
 	                            </ul>                   
-	                        </div>                        
+	                        </div> 		                               
                         </div>
-                        
-                        <div class="jyl_like_border">           
-                        <img class="jyl_likeimg_boardheart" alt="likelist1" src="/DongGu/img/yel13.png">            
-	                         <div class="jyl_like_freeinfo_noimg">      
-		                         <ul>
-	                                <li class="jyl_like_freeinfo1_noimg"><span class="jyl_like_info_title"><%= dto.getI_title() %></span></li>	                              
-	                                <li class="jyl_like_freeinfo1_noimg"><span class="jyl_like_info_name"> <%= dto.getStarcount()%><span> ( </span><%= dto.getReviewcount()%> <span>) </span></span></li>                                                                                    	 
-	                                <li class="jyl_like_freeinfo1_noimg"><span class="jyl_like_info_date"><%= dto.getI_start() %></span></li>                   			 
-	                            </ul>                   
-	                        </div>                        
-                        </div>
-	 	<%
-	        } 
-		%>                       
-                                       
-                    </div>
-                </div>	
-<%
-            
+		                
+		         <%		                			
+		         }
+		          %>      	 
+	</div>	
+	<%
         }
-    }
-%>   
-		
+    }   
+	%>		
 		
 </div>	            
 	    <!------------- 오른쪽 컨텐츠 영역 끝 ----------->

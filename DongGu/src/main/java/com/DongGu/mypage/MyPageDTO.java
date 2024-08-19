@@ -21,8 +21,11 @@ public class MyPageDTO {
    
    // 구직자
    private String p_id;
+   private String p_pwd;
    private String p_name;
    private String p_nickname;
+   private int p_gender;
+   private int p_smoke;
    private String p_tel;
    private String p_addr;
    private String p_img;
@@ -35,8 +38,12 @@ public class MyPageDTO {
    
    // 고용자
    private String o_id;
+   private String o_pwd;   
    private String o_name;
+   private int o_gender;
    private String o_nickname;
+   private String o_tel;
+   private String o_addr;
    
    // 동물 종류
    private int a_num;
@@ -80,6 +87,11 @@ public class MyPageDTO {
    private String f_title;
    private Date f_date;
    private String f_img;
+   
+   // QnA게시판 
+   private String q_nickname;
+   private String q_title;
+   private Date q_date;
    
    // 알리아스 
    private double applycount;
@@ -180,18 +192,137 @@ public class MyPageDTO {
     }
   	
   	//1-8. 인자 생성자(마이페이지 관심내역 - 관심 자유게시판 정보 불러오기)
-  	public MyPageDTO(String f_img, String f_title, Date f_date, String f_nickname, String o_name,  int w_num, String wt_num_value ) {
+  	public MyPageDTO(String f_img, String f_title, Date f_date, String f_nickname, String o_name, String p_name, int w_num, String wt_num_value ) {
   		super();
   		this.f_img = f_img;
   		this.f_title = f_title;
   		this.f_date = f_date;
   		this.f_nickname = f_nickname;
     	this.o_name = o_name;
+    	this.p_name = p_name;
     	this.w_num =  w_num;
   	    this.wt_num_value =  wt_num_value;
     }
+  	
+  	//1-9. 인자 생성자(마이페이지 관심내역 - 관심 QnA게시판 정보 불러오기)
+  	public MyPageDTO(String q_title, Date q_date, String q_nickname, String o_name, String p_name, int w_num, String wt_num_value ) {
+  		super();
+  		this.q_title = q_title;
+  		this.q_date = q_date;
+  		this.q_nickname = q_nickname;
+    	this.o_name = o_name;
+    	this.p_name = p_name;
+    	this.w_num =  w_num;
+  	    this.wt_num_value =  wt_num_value;
+    }
+  	
+  	//1-10. 인자 생성자(마이페이지 회원정보 - 고용자일때 정보 불러오기)
+  	public MyPageDTO(String o_id, String o_pwd, String o_name, int o_gender, String o_nickname, String o_tel, String o_addr ) {
+  		super();
+  		this.o_id = o_id;
+  		this.o_pwd = o_pwd;
+  		this.o_name = o_name;
+  		this.o_gender = o_gender;
+  		this.o_nickname = o_nickname;
+  		this.o_tel = o_tel;  	
+    	this.o_addr = o_addr;
+    }
+  	
+  	//1-11. 인자 생성자(마이페이지 회원정보 - 구직자일때 정보 불러오기)
+  	public MyPageDTO(String p_id, String p_pwd, String p_name, int p_gender, int p_smoke, String p_nickname, String p_img, String p_tel, String p_addr ) {
+  		super();
+  		this.p_id = p_id;
+  		this.p_pwd = p_pwd;
+  		this.p_name = p_name;
+  		this.p_gender = p_gender;
+  		this.p_smoke= p_smoke;
+  		this.p_nickname = p_nickname;
+  		this.p_img = p_img;
+  		this.p_tel = p_tel;  	
+    	this.p_addr = p_addr;
+    }
 
 	// getter, setter 
+  	public String getP_pwd() {
+		return p_pwd;
+	}
+
+	public void setP_pwd(String p_pwd) {
+		this.p_pwd = p_pwd;
+	}
+
+	public int getP_gender() {
+		return p_gender;
+	}
+
+	public void setP_gender(int p_gender) {
+		this.p_gender = p_gender;
+	}
+
+	public int getP_smoke() {
+		return p_smoke;
+	}
+
+	public void setP_smoke(int p_smoke) {
+		this.p_smoke = p_smoke;
+	}
+  	  	
+  	public String getQ_nickname() {
+		return q_nickname;
+	}
+
+	public String getO_pwd() {
+		return o_pwd;
+	}
+
+	public void setO_pwd(String o_pwd) {
+		this.o_pwd = o_pwd;
+	}
+
+	public int getO_gender() {
+		return o_gender;
+	}
+
+	public void setO_gender(int o_gender) {
+		this.o_gender = o_gender;
+	}
+
+	public String getO_tel() {
+		return o_tel;
+	}
+
+	public void setO_tel(String o_tel) {
+		this.o_tel = o_tel;
+	}
+
+	public String getO_addr() {
+		return o_addr;
+	}
+
+	public void setO_addr(String o_addr) {
+		this.o_addr = o_addr;
+	}
+
+	public void setQ_nickname(String q_nickname) {
+		this.q_nickname = q_nickname;
+	}
+
+	public String getQ_title() {
+		return q_title;
+	}
+
+	public void setQ_title(String q_title) {
+		this.q_title = q_title;
+	}
+
+	public Date getQ_date() {
+		return q_date;
+	}
+
+	public void setQ_date(Date q_date) {
+		this.q_date = q_date;
+	}
+  	
   	public String getF_nickname() {
 		return f_nickname;
 	}
