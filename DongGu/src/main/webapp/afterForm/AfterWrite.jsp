@@ -52,7 +52,7 @@
 <%
 	String ut_text = "";
 	String site_title = "";
-	if(usertype == 1){
+	if(usertype == 0){
 		ut_text = "고용자";
 		site_title = "동구이용후기";
 	}else {
