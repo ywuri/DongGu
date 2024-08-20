@@ -15,13 +15,13 @@
 <body>
 <%@include file="../Header.jsp" %>
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 초 대 장 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+<div id="FreeBoardDivTitle"> 초 대 장 </div>
 <div class="DeTailDongGuMainDiv">
 	
 	<div id="DetailDongGuTitleDiv">제 초코좀 봐주세요</div>
 	<div id="DetailDongGuInfoDiv">
 		<div>
-			<img class="DetailDongGuImg" src="img/rivew_img02.png" >
+			<img class="DetailDongGuImg" src="/DongGu/img/철수.jpg" >
 		</div>
 		<div id="DetailDongGuContentDiv" >
 			<div>[닉네임]이</div>
