@@ -26,7 +26,7 @@ Integer usertype = (Integer)session.getAttribute("usertype");
 			<li>
 				<% 	
 					if(usertype != null){
-						if(usertype == 0){	//구직자(동구)는 초대장 클릭시 초대장 리스트로
+						if(usertype == 1){	//구직자(동구)는 초대장 클릭시 초대장 리스트로
 					%>
 						<a href="/DongGu/saveForm/FindDongGu.jsp"><span>초대장</span></a>
 					<%

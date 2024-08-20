@@ -24,10 +24,9 @@
 	}
 %>
 
-
 <script>
 	function star_click(star_num){
-		alert(star_num);
+		//alert(star_num);
 		
 		//클릭시 초기화 먼저 시켜주고
 		for(var jj=1; jj<=5; jj++){
@@ -52,7 +51,7 @@
 <%
 	String ut_text = "";
 	String site_title = "";
-	if(usertype == 1){
+	if(usertype == 0){
 		ut_text = "고용자";
 		site_title = "동구이용후기";
 	}else {
@@ -95,7 +94,7 @@
 						<%	
 							}
 						%>
-						<input type="text" name="r_star" id="r_star" class="saveWS250">
+						<input type="hidden" name="r_star" id="r_star" class="saveWS250">
 						<!-- 
 						<select name="r_star" class="saveWS260">
 							<option value="0">0</option>
