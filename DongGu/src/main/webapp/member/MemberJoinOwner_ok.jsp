@@ -38,6 +38,7 @@ odto.setO_gender(o_gender);
 int result = mdao.MemberJoinOwner(odto);
 String msg=result>0?"회원가입 성공!":"회원가입 실패!";
 
+System.out.println("세션에 저장된 o_id: " + session.getAttribute("o_id"));
 
 %>
 
