@@ -795,7 +795,7 @@ public class MyPageDAO {
 	   
 	   
 	
-	// 5-3. 마이페이지 회원 정보 수정페이지 -  실제 수정 실행 
+	// 5-3. 마이페이지 회원 정보 수정페이지 - 실제 수정 실행 
 	public int mypage_InfoUpdate3(MyPageDTO dto, String m_sid, int m_usertype) {
 		    System.out.println("마이페이지 회원 정보 - 수정페이지 실제 수정 매서드 실행됨!");
 		    int count = 0;
@@ -803,7 +803,7 @@ public class MyPageDAO {
 		    	 conn = com.DongGu.db.DongGuDB.getConn();
 
 		        String sql_owner = "UPDATE owner SET o_nickname = ?, o_tel = ?, o_addr = ? WHERE o_id = ? ";
-		        String sql_petsitter = "UPDATE petsitter SET p_smoke = ?, p_nickname = ?, p_tel = ?, p_addr = ? WHERE p_id = ? ";
+		        String sql_petsitter = "UPDATE petsitter SET p_smoke = ?, p_nickname = ?, p_tel = ?, p_addr = ?, p_img = ? WHERE p_id = ? ";
 
 		        if (m_usertype == 0) {
 			        ps = conn.prepareStatement(sql_owner);
@@ -828,7 +828,8 @@ public class MyPageDAO {
 			        ps.setString(2, dto.getP_nickname());
 			        ps.setString(3, dto.getP_tel());	 		      
 			        ps.setString(4, dto.getP_addr());	 
-			        ps.setString(5, m_sid);	
+			        ps.setString(5, dto.getP_img());	
+			        ps.setString(6, m_sid);	
 	
 			        // SQL 실행
 			        count = ps.executeUpdate();
@@ -849,7 +850,34 @@ public class MyPageDAO {
 		            e2.printStackTrace();
 		        }
 		    }
-		}	  
+		}	 
+	
+	// 5-4. 마이페이지 회원 정보 수정페이지 - 이미지명 변경을 위해 sequnce번호 가져오기 
+	public int getSequnceNumForImg() {
+		try {
+			conn =com.DongGu.db.DongGuDB.getConn();
+			String sql="SELECT petsitter_img_SEQ.NEXTVAL FROM dual";
+			ps=conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			int result=0;
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
    
