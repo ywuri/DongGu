@@ -24,10 +24,9 @@
 	}
 %>
 
-
 <script>
 	function star_click(star_num){
-		alert(star_num);
+		//alert(star_num);
 		
 		//클릭시 초기화 먼저 시켜주고
 		for(var jj=1; jj<=5; jj++){
@@ -95,7 +94,7 @@
 						<%	
 							}
 						%>
-						<input type="text" name="r_star" id="r_star" class="saveWS250">
+						<input type="hidden" name="r_star" id="r_star" class="saveWS250">
 						<!-- 
 						<select name="r_star" class="saveWS260">
 							<option value="0">0</option>

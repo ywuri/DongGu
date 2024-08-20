@@ -27,7 +27,7 @@
 .place ul {display: flex; flex-direction: column; gap: 80px;}
 p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 600;}
 .place .place_box {display: flex; gap: 30px; padding-bottom: 30px; flex-wrap: wrap; justify-content: center;}
-.place .box {    width: 400px;
+.place .box {width: 400px;
     height: 381px;
     cursor: pointer;
     overflow: hidden;
@@ -38,7 +38,7 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
 .place .box .txt_box .big_txt {font-size: 20px; margin-bottom: 15px; font-weight:600;}
 .place .box .txt_box .small_txt {font-size: 15px; margin-bottom: 20px;  color: #777; font-weight: 600;
     letter-spacing: 1px;}
-.place .box .txt_box .tag {    height: 26px;
+.place .box .txt_box .tag {height: 26px;
     display: flex;
     width: -moz-fit-content;
     width: fit-content;
@@ -101,7 +101,7 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
 					<div class="box">
 						<a href="DongGuPlaceView.jsp?idx=<%=arr.get(i).getC_num() %>">
 							<div class="img_box"> 
-								<img src="img/cafe/<%=arr.get(i).getC_img() %>" >
+								<img src="/DongGu/img/cafe/<%=arr.get(i).getC_img() %>" >
 							</div>
 							<div class="txt_box">
 								<p class="big_txt"><%=arr.get(i).getC_name() %></p>
