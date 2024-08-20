@@ -14,5 +14,5 @@
 <script>
 	//alert('1234');
 	window.alert('<%=msg%>');
-	location.href='DetailDongGu.jsp';
+	location.href='/DongGu/saveForm/DetailDongGu.jsp';
 </script>
