@@ -68,6 +68,7 @@ FreeBoardDTO dto =dao.getFreeBoardDetail(Integer.parseInt(f_num));
 					}
 					else{
 					%>
+					<img  id="existingImage" src="/DongGu/img/free/<%=dto.getF_img() %>" style="display: none;">
 					<img id="delete_icon" class="delete_icon" onclick="deleteImage();" src="/DongGu/img/icon_x_red.svg"  style="width:40px;height: 40px; position: absolute; top: -1px; right: 482px; display:none;">					
 					<% 
 					}
@@ -91,27 +92,28 @@ function showFreeBoardImg(event){
     const file = input.files[0];
     const reader = new FileReader();
 
-    // 기존 이미지 요소만 제거 (삭제 버튼은 유지)
-    const existingImage = previewContainer.querySelector('img:not(.delete_icon)');
-    if (existingImage) {
-        previewContainer.removeChild(existingImage);
-    }
-
     reader.onload = function(e) {
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      previewContainer.appendChild(img);
-      
-      // 삭제 버튼 보이게 하기
-      var deleteIcon = document.getElementById('delete_icon');
-      if (deleteIcon) {
-          deleteIcon.style.display = 'block'; // 삭제 버튼을 보이게 함
-      }
+        const existingImage = document.getElementById('existingImage');
+        const deleteIcon = document.getElementById('delete_icon');
+
+        if (existingImage) {
+            existingImage.src = e.target.result;
+            existingImage.style.display = 'block'; // Display the new image
+        } else {
+            const img = document.createElement('img');
+            img.id = 'existingImage';
+            img.src = e.target.result;
+            previewContainer.appendChild(img);
+        }
+
+        if (deleteIcon) {
+            deleteIcon.style.display = 'block'; // Show the delete icon
+        }
     };
 
     if (file) {
-      reader.readAsDataURL(file);
-    } 
+        reader.readAsDataURL(file);
+    }
 }
 
 //x를 누르면 사진 지워지면서 x자 display : none으로

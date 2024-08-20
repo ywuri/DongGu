@@ -701,7 +701,6 @@ public class FreeBoardDAO {
 			ps.setString(2, dto.getFc_img());
 			ps.setInt(3, dto.getFc_num());
 			
-			System.out.println(dto.getFc_img());
 			int result = ps.executeUpdate();
 			return result;
 			

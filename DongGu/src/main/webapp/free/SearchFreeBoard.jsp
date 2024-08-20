@@ -64,7 +64,7 @@
 
 <%@include file="../SubHeader.jsp" %>
 
-<div id="FreeBoardDivTitle"> QnA 검색결과 </div>
+<div id="FreeBoardDivTitle"> 자유게시판 검색결과 </div>
 
 <div>
 	<table id="FreeBoardTable">
@@ -91,7 +91,7 @@
 				for(int i=0;i<array.size();i++){
 				%>
 				<tr>
-					<td><a href='/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getF_title() %></a><span class="FreeBoardComment"></span></td>
+					<td><a href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%= array.get(i).getF_id()%>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getF_title() %></a><span class="FreeBoardComment"></span></td>
 					<td><%=array.get(i).getF_nickname() %></td>
 					<td><%=array.get(i).getF_vcnt() %></td>
 					<td><%=array.get(i).getF_date() %></td>
