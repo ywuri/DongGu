@@ -187,22 +187,24 @@
 	}
 	
 	// 비밀번호 찾기 답 유효성 검사
-	function qanswerCheck(){
-		var qanswerCheckValue = document.getElementById('q_answer').value;
-		var qanswerText = document.getElementById('qanswerText');
-
-		var qanswerRegex = /^[a-zA-Z가-힣\s]{2,10}$/;
-
-		if (qanswerRegex.test(qanswerCheckValue)) {
-			qanswerText.innerHTML = '유효한 답변입니다.';
-			qanswerText.style.color = 'green';
-			return true;
-		} else{
-			qanswerText.innerHTML = '답변을 입력해주세요.(특수문자 사용불가)';
-			qanswerText.style.color = 'red';
-			return false;
-		}
+	function qanswerCheck() {
+	    var qanswerCheckValue = document.getElementById('q_answer').value;
+	    var qanswerText = document.getElementById('qanswerText');
+	
+	    // 숫자, 영문자, 한글, 공백을 포함하는 2-10글자 정규식
+	    var qanswerRegex = /^[a-zA-Z가-힣0-9\s]{2,10}$/;
+	
+	    if (qanswerRegex.test(qanswerCheckValue)) {
+	        qanswerText.innerHTML = '유효한 답변입니다.';
+	        qanswerText.style.color = 'green';
+	        return true;
+	    } else {
+	        qanswerText.innerHTML = '답변을 입력해주세요.(특수문자 사용불가)';
+	        qanswerText.style.color = 'red';
+	        return false;
+	    }
 	}
+
 	
 	
 	// 이름 유효성 검사

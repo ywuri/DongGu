@@ -295,7 +295,7 @@ function panswerCheck(){
    var panswerCheckValue = document.getElementById('p_answer').value;
    var panswerText = document.getElementById('panswerText');
 
-   var panswerRegex = /^[a-zA-Z가-힣\s]{2,10}$/;
+   var panswerRegex = /^[a-zA-Z가-힣0-9\s]{2,10}$/;
 
    if (panswerRegex.test(panswerCheckValue)) {
       panswerText.innerHTML = '유효한 답변입니다.';

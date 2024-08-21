@@ -10,11 +10,6 @@ public class AfterDAO {
 	private PreparedStatement ps;
 	private ResultSet rs;
 
-	public static final int NOT_ID = 1;
-	public static final int NOT_PWD = 2;
-	public static final int LOGIN_OK = 3;
-	public static final int ERROR = -1;
-
 	public AfterDAO() {
 		System.out.println("AfterDAO 객체 생성됨!");
 	}
