@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/DongGu.css">
+<link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 <style>
 .view_after {width: 100%; display: flex; padding: 200px 0 100px 0; flex-direction: column; align-items: center; justify-content: space-around;}
 .after_box {display: flex; position: relative; flex-direction: column; vertical-align: top; align-items: flex-end; width: 640px; padding: 30px 40px;
@@ -27,13 +27,13 @@
 </style>
 </head>
 <body>
-<%@include file="../SubHeader.jsp" %>
+<%@include file="/SubHeader.jsp" %>
 <section class="view_after">
 	<div>
 		<div class="after_box">
 			<div class="animal_after">
 				<div class="after_img">
-					<img src="img/rivew_img02.png">
+					<img src="/DongGu/img/rivew_img02.png">
 				</div>
 				<div class="after_txt">
 					<div class="after_title">
@@ -41,7 +41,7 @@
 						<span class="addr">13살</span>
 						<span class="date">(경북 구미시)</span>
 					</div>
-					<img src="img/star.png">
+					<img src="/DongGu/img/star.png">
 					<p>노견이라서 걱정 많이 했는데 우리 초코가 조금 활력을 찾은 것 같아서 기뻐요!
 					 예전에는 간식 던져주면 잘 받아먹고 그랬는데 요즘은 머리에 통 떨어져도 모르고 속상했거든요..
 					 나이가 들어 어쩔 수 없지만 그래도 다른쪽으로 초코에게 도움을 줄 수 있어서 행복했어요!
@@ -51,7 +51,7 @@
 			<div class="donggu_info">
 				<div>
 					<div class="donggu_info_box">
-						<p class="donggu_info_p">담당 동구 정보<img src="img/magnifier.png"></p>
+						<p class="donggu_info_p">담당 동구 정보<img src="/DongGu/img/magnifier.png"></p>
 						
 						<div  class="info_box_detail">
 							<div >
@@ -60,7 +60,7 @@
 									<p>새싹 등급</p> | <p>5.0</p> | <p>후기 50개</p>
 								</div>
 							</div>
-							<img src="img/sinyou.jpg">
+							<img src="/DongGu/img/sinyou.jpg">
 						</div>
 					</div>
 				</div>

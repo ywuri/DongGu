@@ -100,7 +100,8 @@
             %>
             <script>
                 window.alert('<%=msg%>');
-                location.href='AfterList.jsp'; 
+                location.href='/DongGu/afterForm/AfterList.jsp'; 
+
             </script>
             <%
         }

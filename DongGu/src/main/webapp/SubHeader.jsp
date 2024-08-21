@@ -42,7 +42,7 @@ String snickname = (String)session.getAttribute("snickname");
 			</li>
 			</li>
 			<li>
-				<a href="/DongGu/AfterList.jsp"><span>이용후기</span></a>
+				<a href="/DongGu/afterForm/AfterList.jsp"><span>이용후기</span></a>
 			</li>
 			<li>
 				<a href="#"><span>고객센터</span></a>
