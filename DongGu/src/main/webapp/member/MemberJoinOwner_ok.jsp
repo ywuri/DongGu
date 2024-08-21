@@ -44,5 +44,9 @@ System.out.println("세션에 저장된 o_id: " + session.getAttribute("o_id"));
 
 <script>
 window.alert('<%=msg%>');
-location.href='MemberJoinOwnerAnimal.jsp';
+<% if (result > 0) { %>
+    location.href = 'MemberJoinOwnerAnimal.jsp';
+<% } else { %>
+	location.href = 'MemberJoinOwner.jsp';
+<% } %>
 </script>

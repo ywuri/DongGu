@@ -133,7 +133,7 @@
 						%>
 					<span class="FreeBoardComment"></span></td>
 					
-					<td><%=array.get(i).getF_nickname() %></td>
+					<td><a href="/DongGu/member/MemberDetail.jsp?" class="linkDeco"><%=array.get(i).getF_nickname() %></a></td>
 					<td><%=array.get(i).getF_vcnt() %></td>
 					<td>
 						<%

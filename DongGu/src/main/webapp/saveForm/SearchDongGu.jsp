@@ -95,7 +95,8 @@
 				<tr>
 					<td><%=array.get(i).getDongNang() %></td>
 					<td id="NoticeTitleCenter">
-						<a href='/DongGu/saveForm/DetailDongGu.jsp?i_num=<%=array.get(i).getI_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
+						<a href='/DongGu/saveForm/DetailDongGu.jsp?i_num=<%=array.get(i).getI_num() %>&cp=<%=cp %>&o_id=<%=array.get(i).getO_id()%>' class="FreeBoardA QnABoardMarginleft" >
+						 
 						<%=array.get(i).getI_title() %>
 						</a><span class="FreeBoardComment"></span>
 					</td>

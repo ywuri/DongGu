@@ -3,7 +3,10 @@
     
 
 <%@page import="java.util.*" %>
-<%@page import="java.sql.Date" %>
+
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
 <%@page import="com.DongGu.friend.FriendDTO" %>
 
 <!DOCTYPE html>
@@ -25,11 +28,15 @@
 		</script>
 <%
 	}
-	
+
+    // 현재 날짜를 가져와서 "yyyy-MM-dd" 형식으로 포맷
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String today = sdf.format(new Date());
+        
 	String a_num = "";
 	String w_title = "";
-	String w_start = "";
-	String w_end = "";
+	//String w_start = today;
+	//String w_end = today;
 	String w_content = "";
 %>
 <script>
@@ -106,12 +113,59 @@
 		//성격
         //val_link = options[i].getAttribute('val_link');
 	}
+	
+	
+	
+	
+	// 현재 날짜를 YYYY-MM-DD 형식으로 가져오기
+	function getCurrentDate() {
+	    const today = new Date();
+	    const year = today.getFullYear();
+	    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+	    const day = String(today.getDate()).padStart(2, '0');
+	    return `${year}-${month}-${day}`;
+	}
+	
+	// 현재 날짜를 min 속성으로 설정
+	document.getElementById('i_start').setAttribute('min', getCurrentDate());
+	document.getElementById('i_end').setAttribute('min', getCurrentDate());
+	
+	
+	function datacheck(){
+		if(document.getElementById('i_title').value.trim() === ""){
+			alert("초대제목을 입력해주세요.");
+			document.getElementById('i_title').focus();
+			return false; // 폼 제출을 막습니다.
+			
+		}else if(document.getElementById('i_start').value.trim() === ""){
+			alert("시작일을 입력해주세요.");
+			document.getElementById('i_start').focus();
+			return false;
+			
+		}else if(document.getElementById('i_end').value.trim() === ""){
+			alert("종료일을 입력해주세요.");
+			document.getElementById('i_end').focus();
+			return false;
+			
+		}else if(document.getElementById('ai_num').value.trim() === ""){
+			alert("동물명을 선택해주세요.");
+			document.getElementById('ai_num').focus();
+			return false;
+			
+		}else if(document.getElementById('i_content').value.trim() === ""){
+			alert("추가내용을 입력해주세요.");
+			document.getElementById('i_content').focus();
+			return false;
+		}
+	}
 </script>
+
+
 </head>
 <body>
 <%@ include file="../Header.jsp" %>
     
-	<form name="getWrite" action="GetWrite_ok.jsp">
+	<form name="getWrite" action="GetWrite_ok.jsp" onsubmit="return datacheck();">
 	
 		<div class="saveTableOne">
 			<h3>초 대 장</h3>
@@ -125,8 +179,8 @@
 				<tr>
 					<th>날짜</th>
 					<td>
-						<input type="date" name="i_start" id="i_start" value="<%=w_start%>" class="saveWS100"> ~ 
-						<input type="date" name="i_end" id="i_end" value="<%=w_end%>" class="saveWS100">
+						<input type="date" name="i_start" id="i_start" value="<%=today%>" class="saveWS100" min="<%= today %>"> ~ 
+						<input type="date" name="i_end" id="i_end" value="<%=today%>" class="saveWS100" min="<%= today %>">
 					</td>
 				</tr>
 				<tr>

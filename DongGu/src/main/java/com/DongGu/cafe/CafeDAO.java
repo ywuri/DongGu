@@ -104,5 +104,131 @@ public class CafeDAO {
 			}
 		}
 	}
+	
+
+	/** 동구의 추천 리스트 > 상세 */
+	public ArrayList<CafeDTO> cafeData(int idx){
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select * from cafe where c_num = ? ";
+			ps = conn.prepareStatement(sql);			
+
+			ps.setInt(1, idx);
+			rs=ps.executeQuery();
+			
+			
+			ArrayList<CafeDTO> arr = new ArrayList<CafeDTO>();
+			while(rs.next()) {
+				int c_num  = rs.getInt("c_num");
+				String c_name = rs.getString("c_name");
+				String c_img = rs.getString("c_img");
+				String c_addr = rs.getString("c_addr");
+				String c_time = rs.getString("c_time");
+				String c_url = rs.getString("c_url");
+				String c_info = rs.getString("c_info");
+				String c_vtag = rs.getString("c_vtag");
+				String c_ltag = rs.getString("c_ltag");
+				
+				CafeDTO dto = new CafeDTO(c_num, c_name, c_img, c_addr, c_time, c_url, c_info, c_vtag, c_ltag);
+				
+				arr.add(dto);
+			}
+			return arr;
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {
+
+			}
+		}
+	}
+
+	/** 동구의 추천 리스트 > 상세 > 태그 데이터3 */
+	public String detailTag3(String vtag) {
+		try {
+
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select * from cafetype ";
+
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			
+			String vtag_print = "";
+			//int arr_no = 0;
+			
+			String[] vtag_arr = vtag.split(",");
+			int[] int_arr = new int[vtag_arr.length];
+			
+			//boolean test = false;
+			
+			while (rs.next()) {
+				int ct_num = rs.getInt("ct_num");
+				String ct_word = rs.getString("ct_word");
+				
+				//체크 여부 기본 설정 false로 설정
+				boolean checkYN = false;
+
+				for (int i = 0; i < vtag_arr.length; i++) {
+					int_arr[i] = Integer.parseInt(vtag_arr[i].trim()); // trim()으로 공백 제거
+					//System.out.println(ct_num+"////"+int_arr[i]);
+					
+					//cafetype테이블(코드)값과 cafe테이블에 콤마로 담아놓은 값이 일치하면 체크로 표시
+					if(ct_num == int_arr[i]) {
+						checkYN = true;
+						//vtag += "<li><input type='checkbox' checked>" + ct_word + "oooo</li>";
+						vtag_print += "<li><img src='/DongGu/img/check.png' class='tag_img'><span>" + ct_word + "</span></li>";
+					}
+	            }
+				//System.out.println("for끝");
+				
+				//바로 위 for에서 true가 아닌 경우 체크안함으로 표시
+				if(checkYN == false) {
+					//vtag += "<li><input type='checkbox' disabled>" + ct_word + "xxxx</li>";
+					vtag_print += "<li><img src='/DongGu/img/checkno.png' class='tag_img'><span>" + ct_word + "</span></li>";
+				}
+	            
+				
+				
+				
+				
+				//vtag += "<li><input type='checkbox' checked>" + ct_word + "//" + ct_num + "</li>";
+				
+				
+			}
+
+			return vtag_print;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				return null;
+			}
+		}
+	}
 
 }

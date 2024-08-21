@@ -1,5 +1,6 @@
 package com.DongGu.friend;
 
+//지원할래요
 public class FriendDTO2 {
 
 	private int i_num;	//초대장번호
