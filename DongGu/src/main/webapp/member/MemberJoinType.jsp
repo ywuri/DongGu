@@ -15,12 +15,12 @@
 	
 		<div class="s_joinTableOne">
 			<div class="jto_left" onclick="location.href='MemberJoinOwner.jsp'">
-				<img src="img/f_clean.png">
+				<img src="/DongGu/img/f_clean.png">
 				<br />
 				<span>동구구해요!</span>
 			</div>
 			<div class="jto_right" onclick="location.href='MemberJoinDonggu.jsp'">
-				<img src="img/f_yellow.png">
+				<img src="/DongGu/img/f_yellow.png">
 				<br />
 				<span>동구할래요!</span>
 			</div>

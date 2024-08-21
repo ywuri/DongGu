@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import com.DongGu.board.NoticeDTO;
+import com.DongGu.cafe.CafeDTO;
 
 public class FriendDAO {
 
@@ -36,15 +37,8 @@ public class FriendDAO {
 			ps.setString(5, fto.getI_start());
 			ps.setString(6, fto.getI_end());
 			
-			//System.out.println(fto.getI_title()+"//"+fto.getAi_num()+"//"+1+"//"+fto.getI_content()+"//"+fto.getI_start()+"//"+fto.getI_end());
-
-			//System.out.println(fto.getAi_num());
-			//System.out.println("////");
 			int count = ps.executeUpdate();
 			return count;
-			//return sql;
-			
-			//return fto.getI_title()+"//"+fto.getAi_num()+"//"+1+"//"+fto.getI_content()+"//"+fto.getI_start()+"//"+fto.getI_end();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,7 +97,7 @@ public class FriendDAO {
 	}
 
 	/** 초대장(고용자글쓰기) > 동물정보 select box > 동물정보 select box > option 에 담기 */
-	public String animalName(String s_id) {
+	public String animalName(String s_id, int update_val) {
 		try {
 
 			conn = com.DongGu.db.DongGuDB.getConn();
@@ -121,25 +115,16 @@ public class FriendDAO {
 			while (rs.next()) {
 				int ai_num = rs.getInt("ai_num");
 				String ai_name = rs.getString("ai_name");
-
 				String ai_img = rs.getString("ai_img");
-
-				// String ai_birth = rs.getString("ai_birth");
-				// String ai_birth = rs.getString("ai_birth").split(" ")[0];
 				Date ai_birth = rs.getDate("ai_birth");
 
 				String an_num_link = rs.getString("an_num_link");
-
 				String link_text = "";
 				String[] link_arr = an_num_link.split("\\|");	//올바른 구분자를 사용하여 문자열을 분리하려면 "\\|"를 사용해야돼
 				String an_word = "";
-				//int an_word = link_arr.length;
 				
-
-
 				for (int i = 0; i < link_arr.length; i++) {
 					String secondQuery = "SELECT an_word FROM animalnature WHERE an_num = ?";
-					// link_text = link_arr[i]+",";
 
 					PreparedStatement ps2;
 					ResultSet rs2;
@@ -157,7 +142,6 @@ public class FriendDAO {
 					rs2.close();
 					ps2.close();
 				}
-				
 
 				//an_word가 콤마로 끝날 때 실행
 				if (an_word.endsWith(",")) {
@@ -165,9 +149,6 @@ public class FriendDAO {
 					
 				    an_word = an_word.substring(0, an_word.length() - 1); // 마지막 콤마를 제거합니다.
 				}
-
-
-				// String an_word = rs.getString("an_word");
 
 				String ai_alergy = rs.getString("ai_alergy");
 				String ai_disease = rs.getString("ai_disease");
@@ -177,12 +158,23 @@ public class FriendDAO {
 				String at_name = rs.getString("at_name");
 				int a_num = rs.getInt("a_num");
 				String a_name = rs.getString("a_name");
+				
+				//마이페이지에서 넘어와서 수정모드에서 열었을 경우 update_val은 ai_num				
+				//등록모드는 update_val은 0
+				
+				//넘어온 ai_num(=update_val)과 
+				//반복문으로 돌리고 있는 데이터의 ai_num이 같은경우
+				//selected 시켜라
+				String selected = "";
+				if(update_val == ai_num) {
+					selected = "selected";
+				}
 
 				animal_select += "<option value=" + ai_num + " val_name='" + ai_name + "' val_img='" + ai_img
 						+ "' val_birth='" + ai_birth + "' val_link='" + an_num_link + "' val_aler='" + ai_alergy
 						+ "' val_dise='" + ai_disease + "' val_caut='" + ai_caution + "' val_anitype_num=" + at_num
 						+ " val_anitype_name='" + at_name + "' val_ani_num=" + a_num + " val_ani_name='" + a_name
-						+ "'  val_an_nature='" + an_word + "' >" + ai_name + "</option>";
+						+ "'  val_an_nature='" + an_word + "' "+selected+" >" + ai_name + "</option>";
 			}
 			return animal_select;
 
@@ -206,7 +198,7 @@ public class FriendDAO {
 		}
 	}
 
-	/** 초대장(고용자글쓰기) > 동물정보 selectbox > 선택에 따른 동물데이터(성격) 불러오기 <작업필요> */
+	/** 초대장(고용자글쓰기) > 동물정보 selectbox > 선택에 따른 동물데이터(성격) 불러오기 */
 	public String animalInfo(int at_num_val) {
 		try {
 
@@ -346,8 +338,100 @@ public class FriendDAO {
 		}
 	}
 	
+	/** 마이페이지>초대장 수정하기(데이터 불러오기) */
+	public ArrayList<FriendDTO> getFriendData(int i_nums) {
+
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select * from invitation where i_num = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, i_nums);
+			rs = ps.executeQuery();
+			
+			ArrayList<FriendDTO> arr = new ArrayList<FriendDTO>();
+			
+			int i_num = 0;
+			int ai_num = 0;
+			int m_num = 0;
+			String i_title = "";
+			String i_content = "";
+			String i_start = "";
+			String i_end = "";
+			Date i_date = null;
+
+			if (rs.next()) {
+				i_num = rs.getInt("i_num");
+				ai_num = rs.getInt("ai_num");
+				m_num = rs.getInt("m_num");
+				i_title = rs.getString("i_title");
+				i_content = rs.getString("i_content");
+				i_start = rs.getString("i_start");
+				i_end = rs.getString("i_end");
+				i_date = rs.getDate("i_date");
+				
+				FriendDTO dto = new FriendDTO(i_num, ai_num, m_num, i_title, i_content, i_start, i_end, i_date);
+				arr.add(dto);
+			}
+
+			return arr;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {
+
+			}
+		}
+	}
 	
-	
+
+
+	/** 마이페이지>초대장(고용자수정하기) */
+	public int FriendOwnerUpdate(int idx, FriendDTO fto) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "update invitation set i_title=?, ai_num=?, i_content=?, i_start=?, i_end=? where i_num=?";
+			
+
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, fto.getI_title());
+			ps.setInt(2, fto.getAi_num());
+			ps.setString(3, fto.getI_content());
+			ps.setString(4, fto.getI_start());
+			ps.setString(5, fto.getI_end());
+			
+			ps.setInt(6, idx);
+			int count = ps.executeUpdate();
+			
+			return count;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+			//return "nono";
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+
+			}
+		}
+	}
 	
 	
 	
