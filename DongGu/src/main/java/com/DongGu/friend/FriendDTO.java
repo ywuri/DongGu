@@ -1,5 +1,6 @@
 package com.DongGu.friend;
 
+//초대장
 public class FriendDTO {
 
 	private int i_num;	//초대장번호
@@ -10,11 +11,12 @@ public class FriendDTO {
 	
 	private String i_start;	//시작날짜
 	private String i_end; 	//끝날짜
+	private String i_date; 	//저장일
 	
 	
 	public FriendDTO() {}
 	
-	public FriendDTO(int i_num, String i_title, int ai_num, int m_num, String i_content, String i_start, String i_end) {
+	public FriendDTO(int i_num, String i_title, int ai_num, int m_num, String i_content, String i_start, String i_end, String i_date) {
 		super();
 		this.i_num = i_num;
 		this.i_title = i_title;
@@ -23,6 +25,7 @@ public class FriendDTO {
 		this.i_content = i_content;
 		this.i_start = i_start;
 		this.i_end = i_end;
+		this.i_date = i_date;
 	}
 
 	public int getI_num() {
@@ -80,4 +83,14 @@ public class FriendDTO {
 	public void setI_end(String i_end) {
 		this.i_end = i_end;
 	}
+
+	public String getI_date() {
+		return i_date;
+	}
+
+	public void setI_date(String i_date) {
+		this.i_date = i_date;
+	}
+	
+	
 }

@@ -24,7 +24,7 @@ public class FriendDAO {
 	public int FriendOwnerWrite(FriendDTO fto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "insert into invitation values(PK_invitation.nextval, ?,?,?, ?,?,?)";
+			String sql = "insert into invitation values(PK_invitation.nextval, ?,?,?, ?,?,?, sysdate)";
 
 			ps = conn.prepareStatement(sql);
 
@@ -38,6 +38,8 @@ public class FriendDAO {
 			
 			//System.out.println(fto.getI_title()+"//"+fto.getAi_num()+"//"+1+"//"+fto.getI_content()+"//"+fto.getI_start()+"//"+fto.getI_end());
 
+			//System.out.println(fto.getAi_num());
+			//System.out.println("////");
 			int count = ps.executeUpdate();
 			return count;
 			//return sql;

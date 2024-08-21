@@ -31,7 +31,7 @@
 	*/
 	
 	// 설정 경로
-	String savepath = uploadPath + "img/webFolder/upload/";
+	String savepath = uploadPath + "img/after/";
 	MultipartRequest mr = new MultipartRequest(request, savepath, maxPostSize, "utf-8");
 
 	//MultipartRequest이게있으면 request대신에 MultipartRequest 변수명(mr)로 써야함
@@ -100,7 +100,7 @@
             %>
             <script>
                 window.alert('<%=msg%>');
-                location.href='../AfterList.jsp'; 
+                location.href='AfterList.jsp'; 
             </script>
             <%
         }
