@@ -107,14 +107,15 @@
 	    </div>
             
       <div class="jyl_infoupdate">
-      	<form action="/DongGu/mypage/MyPage_InfoUpdate_ok.jsp" method="post">
+	      	<form action="/DongGu/mypage/MyPage_InfoUpdate_ok.jsp" method="post" enctype="multipart/form-data">
                 <ul id="jyl_joinul">
                     <li class="jyl_inputlist">
                     <div class="image-container">
                     			<% if (m_usertype==1){%>
-                                <img class="jyl_infoupdate_img" alt="list1" src="/DongGu/img/<%= dto.getP_img()%>">
+                                <img class="jyl_infoupdate_img" alt="list1" src="/DongGu/img/petsitter_profile/<%= dto.getP_img()%>">
+                                <input type="hidden" name="p_img" value="<%= dto.getP_img()%>">
                                 <a onclick="open_file();"><img id="jyl_upload_click" class="jyl_infoupdate_img2" alt="list1" src="/DongGu/img/m_camera.png"></a>
-                                <input id="file-upload" type="file" style="display:none;" accept="image/*">
+                                <input id="file-upload" name="profileImage" type="file" style="display:none;" accept="image/*">
                                 <% } else if (m_usertype==0){
                                 	String gendercheck_nickname  = dto.getO_nickname();
                                     ArrayList<String> juminList = dao.mypage_Like2(gendercheck_nickname);
@@ -145,83 +146,94 @@
                         <input type="text" name="id" class="jyl_inputlist_readonly" readonly="readonly" value="<%= dto.getP_id()%>">   
                         <% }else if (m_usertype==0){%> 
                         <input type="text" name="id" class="jyl_inputlist_readonly" readonly="readonly" value="<%= dto.getO_id()%>">   
-                        <% }%>                     
+                        <% }%> 
+                        <i class="jyl_infoupdate_hidden"></i>                    
                     </li> 
                     <li class="jyl_inputlist">
                         <i>비밀번호</i>
                         <input type="text" name="pwd" placeholder="비밀번호를 입력하세요">
+                        <i class="jyl_infoupdate_hidden"></i>
                     </li>
                     <li class="jyl_inputlist">
                         <i>비번확인</i>
                         <input type="text" name="pwdcheck" placeholder="비밀번호를 다시 입력하세요">
+                        <i class="jyl_infoupdate_hidden"></i>
                     </li>
                     <li class="jyl_inputlist">
                         <i>이름</i>
                         <% if (m_usertype==1){%>
-                        <input type="text" name="name" class="jyl_inputlist_readonly" readonly="readonly" value="<%= dto.getP_name()%>">
+                        <input type="text" name="p_name" class="jyl_inputlist_readonly" readonly="readonly" value="<%= dto.getP_name()%>">
                         <% }else if (m_usertype==0){%>
-                        <input type="text" name="name" class="jyl_inputlist_readonly" readonly="readonly" value="<%= dto.getO_name()%>">                       
+                        <input type="text" name="o_name" class="jyl_inputlist_readonly" readonly="readonly" value="<%= dto.getO_name()%>">                       
                         <% }%> 
+                        <i class="jyl_infoupdate_hidden"></i>
                     </li>
                      <li class="jyl_inputlist">
                         <i>성별</i>
                         <div class="jyl_radio_group">
                          <% if (m_usertype==1){%>
 	                         	<% if (dto.getP_gender()==1){%>
-					            <label><input type="radio" name="gender" value="female" disabled="disabled">여자</label>
-					            <label id="jyl_radio_male"><input type="radio" name="gender" value="male" checked="checked">남자</label>
+					            <label><input type="radio" name="p_gender" value="female" disabled="disabled">여자</label>
+					            <label id="jyl_radio_male"><input type="radio" name="p_gender" value="male" checked="checked">남자</label>
 					            <% }else if (dto.getP_gender()==2){%>
-					            <label><input type="radio" name="gender" value="female" checked="checked">여자</label>
-					            <label id="jyl_radio_male"><input type="radio" name="gender" value="male" disabled="disabled">남자</label>
+					            <label><input type="radio" name="p_gender" value="female" checked="checked">여자</label>
+					            <label id="jyl_radio_male"><input type="radio" name="p_gender" value="male" disabled="disabled">남자</label>
 					            <% }%>
 					     <% }else if (m_usertype==0){%>
 					     		<% if (dto.getO_gender()==1){%>
-					            <label><input type="radio" name="gender" value="female" disabled="disabled">여자</label>
-					            <label id="jyl_radio_male"><input type="radio" name="gender" value="male" checked="checked">남자</label>
+					            <label><input type="radio" name="o_gender" value="female" disabled="disabled">여자</label>
+					            <label id="jyl_radio_male"><input type="radio" name="o_gender" value="male" checked="checked">남자</label>
 					            <% }else if (dto.getO_gender()==2){%>
-					            <label><input type="radio" name="gender" value="female" checked="checked">여자</label>
-					            <label id="jyl_radio_male"><input type="radio" name="gender" value="male" disabled="disabled">남자</label>
+					            <label><input type="radio" name="o_gender" value="female" checked="checked">여자</label>
+					            <label id="jyl_radio_male"><input type="radio" name="o_gender" value="male" disabled="disabled">남자</label>
 					            <% }%>
-				         <% }%>
+				         <% }%>				         
 				        </div>
+				        <i class="jyl_infoupdate_hidden"></i>
 					</li>
 					<% if (m_usertype==1){%>
 					<li class="jyl_inputlist">
                         <i>흡연여부</i>
                         <div class="jyl_radio_group">
                         	<% if (dto.getP_smoke()==0){%>
-				            <label><input type="radio" name="smoking" value="1">흡연</label>
-				            <label id="jyl_radio_nosmoke"><input type="radio" name="smoking" value="0" checked="checked">비흡연</label>
+				            <label><input type="radio" name="p_smoke" value="1">흡연</label>
+				            <label id="jyl_radio_nosmoke"><input type="radio" name="p_smoke" value="0" checked="checked">비흡연</label>
 				            <% }else if (dto.getP_smoke()==1){%>
-				            <label><input type="radio" name="smoking" value="1" checked="checked">흡연</label>
-				            <label id="jyl_radio_nosmoke"><input type="radio" name="smoking" value="0" >비흡연</label>
-				            <% }%>
+				            <label><input type="radio" name="p_smoke" value="1" checked="checked">흡연</label>
+				            <label id="jyl_radio_nosmoke"><input type="radio" name="p_smoke" value="0" >비흡연</label>
+				            <% }%>				            
 				        </div>
+				        <i class="jyl_infoupdate_hidden"></i>
 					</li>
 					<% }%>
                     <li class="jyl_inputlist">
-                        <i>닉네임</i>
-                        <% if (m_usertype==1){%>
-                        <input type="text" name="nickname" placeholder="닉네임을 입력하세요" value="<%= dto.getP_nickname()%>">
-                        <% }else if (m_usertype==0){%>
-                        <input type="text" name="nickname" placeholder="닉네임을 입력하세요" value="<%= dto.getO_nickname()%>">                        
-                        <% }%>
-                    </li>
+				    <i>닉네임</i>
+				    <% 
+				        String nicknameName = (m_usertype == 1) ? "p_nickname" : "o_nickname";
+				        String nicknameValue = (m_usertype == 1) ? dto.getP_nickname() : dto.getO_nickname();
+				    %>
+				    <input type="text" id="nicknameInput" name="<%= nicknameName %>" placeholder="닉네임을 입력하세요" value="<%= nicknameValue %>">
+				    <input type="button" value="중복확인" class="jyl_btn" onclick="validateNickname()">    
+				</li>
+
+
                     <li class="jyl_inputlist">
                         <i>전화번호</i>
                         <% if (m_usertype==1){%>
-                        <input type="text" name="tel" placeholder="전화번호를 입력하세요" value="<%= dto.getP_tel()%>">
+                        <input type="text" name="p_tel" placeholder="전화번호를 입력하세요" value="<%= dto.getP_tel()%>">
                         <% }else if (m_usertype==0){%>
-                        <input type="text" name="tel" placeholder="전화번호를 입력하세요" value="<%= dto.getO_tel()%>">
+                        <input type="text" name="o_tel" placeholder="전화번호를 입력하세요" value="<%= dto.getO_tel()%>">
                         <% }%>
+                        <i class="jyl_infoupdate_hidden"></i>
                     </li>
                     <li class="jyl_inputlist">
                         <i>주소</i>
                         <% if (m_usertype==1){%>
-                        <input type="text" name="addr" placeholder="주소를 입력하세요" value="<%= dto.getP_addr()%>">
+                        <input type="text" name="p_addr" placeholder="주소를 입력하세요" value="<%= dto.getP_addr()%>">
                         <% }else if (m_usertype==0){%>
-                        <input type="text" name="addr" placeholder="주소를 입력하세요" value="<%= dto.getO_addr()%>">
+                        <input type="text" name="o_addr" placeholder="주소를 입력하세요" value="<%= dto.getO_addr()%>">
                         <% }%>
+                        <i class="jyl_infoupdate_hidden"></i>
                     </li>                
                     <li class="jyl_inputlist">
                     <input type="submit" value="수정" class="jyl_btn">

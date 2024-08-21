@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>   
+<%@ page import="java.sql.Date.*" %>   
+<%@ page import="java.time.format.*" %>   
+<%@ page import="java.time.*" %>  
+<%@ page import="com.DongGu.friend.FriendDAO" %>    
+<%@ page import="com.DongGu.friend.InviteDTO" %>         
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
-
+<jsp:useBean id="dao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
 
 <style>
 
@@ -15,125 +21,209 @@
 
 </head>
 <body>
-<%@include file="../Header.jsp" %>
+<%
 
-<div id="FreeBoardDivTitle"><img src="img/paw-solid.svg" class="FreeBoardTitleImg"> 동 구 구 해 요 <img src="img/paw-solid.svg" class="FreeBoardTitleImg"></div>
+	String cp_s = request.getParameter("cp");//현재 페이지 
+	if(cp_s==null || cp_s.equals("")) cp_s="1";
+	int cp = Integer.parseInt(cp_s);
+
+	int listSize = 5; // 한 페이지에 표시할 게시물 수
+	int pageSize =5; // 페이지 버튼을 그룹으로 묶을 수 (예: 1~5 페이지 버튼).
+	
+	
+	//동구냥구칭구 버튼 눌렀는지
+	int int_dongNang=0;
+	if(request.getParameter("int_dongNang")!=null && !("").equals(request.getParameter("int_dongNang").trim())){
+		int_dongNang=Integer.parseInt(request.getParameter("int_dongNang"));
+	}
+	
+	//리스트갖고오기
+	ArrayList<InviteDTO> array = new ArrayList<>();
+	array = dao.getInviteList(cp,listSize,int_dongNang);
+	
+	int totalCnt=-1;
+	if(int_dongNang==0){
+		totalCnt = dao.getInviteCnt(); // 총 게시물 수
+	}
+	else{
+		totalCnt=array.size();
+	}
+	//int totalCnt=array.size(); // 총 게시물 수
+	
+	
+	
+	int totalPage = totalCnt%listSize==0 ? (totalCnt/listSize):(totalCnt/listSize)+1;//총 페이지수
+	//int totalPage = totalCnt%listSize==0 ? (totalCnt/listSize):(totalCnt/listSize)+1;//총 페이지수
+
+	//사용자 현재 위치 그룹(3이면 1쪽)
+	int userGroup = (cp/pageSize)+1;
+	if(cp%pageSize==0)  userGroup = userGroup-1;
+	
+	
+
+%>
+
+<%@include file="../SubHeader.jsp" %>
+
+<div id="FreeBoardDivTitle">
+<%
+if(int_dongNang==0){
+	%> 동 구 구 해 요 <%	
+}
+else if(int_dongNang==1){
+	%> 멍 구 해 요 <%	
+}
+else if(int_dongNang==2){
+	%> 냥 구 해 요 <%	
+}
+else if(int_dongNang==3){
+	%> 칭 구 해 요 <%	
+}
+%>
+</div>
 
 <div>
-	
 	
 	<table id="FreeBoardTable">
 		<thead>
 			<tr>
 				<td colspan="5" id="FindDongGuTagButton" >
 					<div class="FindDongGuSearchDiv">
-						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="동구" onclick="location.href='#;">
-						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="냥구" onclick="location.href='#;">
-						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="칭구" onclick="location.href='#;">
+						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="멍구" onclick="location.href='/DongGu/saveForm/FindDongGu.jsp?int_dongNang=1';">
+						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="냥구" onclick="location.href='/DongGu/saveForm/FindDongGu.jsp?int_dongNang=2';">
+						<input type="button" class="FreeBoardButton FindDongGuTagButton" value="칭구" onclick="location.href='/DongGu/saveForm/FindDongGu.jsp?int_dongNang=3';">
 					
-						<form name="FreeBoardForm" class="FreeBoardForm">
+						<form name="FreeBoardForm" class="FreeBoardForm" action="/DongGu/saveForm/SearchDongGu.jsp">
 							<div id="FreeBoardFormDiv">
-								<select name="" id="FreeBoardFormSelect">
-									<option value="">제목</option>
-									<option value="">내용</option>
-									<option value="">작성자</option>
+								<select name="search_type" id="FreeBoardFormSelect">
+									<option value="i_title">제목</option>
+									<option value="o_nickname">작성자</option>
 								</select>
-								<input type="text" id="FreeBoardSearch">
+								<input type="text" id="FreeBoardSearch" name="search_word">
 								<input class="FreeBoardButton" id="FreeBoardFormSubmit" type="submit" value="검색">
 							</div>
 						</form>
+						
+					
 					</div>
 				</td>
-				
-		<!-- 		<td colspan="3" id="FreeBoardFormTd">
-					
-				</td> -->
-
 			</tr>
 			
 			<tr>
-				<th>동구들</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>지원자수</th>
-				<th>작성날짜</th>
+				<th style="width:10%;">동구들</th>
+				<th id="QnABoardWidthTitle">제목</th>
+				<th id="QnABoardWidthWriter">작성자</th>
+				<th id="QnABoardWidthVcnt">지원자수</th>
+				<th id="QnABoardWidthDate" style="width:20%;">작성날짜</th>
 			</tr>
 		</thead>
 		
 		<tbody>
-			<tr>
-				<td>동구</td>
-				<td><a href="/DongGu/saveForm/DetailDongGu.jsp" class="FreeBoardA">우리 멍멍이 동구해주실 분</a></td>
-				<td>멍구맹구</td>
-				<td>3</td>
-				<td>24.07.31</td>
-			</tr>
 			
-			<tr>
-				<td>냥구</td>
-				<td><a href="/DongGu/saveForm/DetailDongGu.jsp" class="FreeBoardA">고양이 하루만 부탁해요</a></td>
-				<td>냥냥이</td>
-				<td>15</td>
-				<td>24.07.29</td>
-			</tr>
+					
+			<%
 			
-			<tr>
-				<td>동구</td>
-				<td><a href=# class="FreeBoardA">우리 초코 1시간 산책해주실분</a></td>
-				<td>초코촠코</td>
-				<td>5</td>
-				<td>24.07.22</td>
-			</tr>
-			
-			<tr>
-				<td>냥구</td>
-				<td><a href=# class="FreeBoardA">고양이 간식좀 챙겨주세요</a></td>
-				<td>멍구맹구</td>
-				<td>3</td>
-				<td>24.07.31</td>
-			</tr>
-			
-			<tr>
-				<td>멍구</td>
-				<td><a href=# class="FreeBoardA">강아지 일주일 맡아주실분</a></td>
-				<td>냥냥이</td>
-				<td>15</td>
-				<td>24.07.29</td>
-			</tr>
-			
-			<tr>
-				<td>칭구</td>
-				<td><a href=# class="FreeBoardA">앵무새 밥만 주세요ㅠㅠㅠ</a></td>
-				<td>초코촠코</td>
-				<td>5</td>
-				<td>24.07.22</td>
-			</tr>
-			
-		
-			
-			<!-- //만약 게시글이 없다면
-			<tr>
-				<td>게시글이 없습니다</td>
-			</tr>
-			 -->
-		</tbody>
-		
-		<tfoot>
-				<tr> 
-					<td colspan="5"><input class="FreeBoardButton" id="FreeBoardTableButton" type="button" value="글쓰기"  onclick="location.href='#;"></td>
-				</tr>
-				
+			if(array!=null){
+				for(int i=0;i<array.size();i++){
+					
+				%>
 				<tr>
-					<td colspan="5" align="center">
-							<input class="FreeBoardButton" type="button" value="이전"  onclick="location.href='#;">
-							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">1</a>&nbsp;&nbsp;
-							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">2</a>&nbsp;&nbsp;
-							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">3</a>&nbsp;&nbsp;
-							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">4</a>&nbsp;&nbsp;
-							&nbsp;&nbsp;<a href="#" class="FreeBoardPageNum">5</a>&nbsp;&nbsp;
-							<input class="FreeBoardButton" type="button" value="다음"  onclick="location.href='#;">
+					<td><%=array.get(i).getDongNang() %></td>
+					<td id="NoticeTitleCenter">
+						<a href='/DongGu/saveForm/DetailDongGu.jsp?i_num=<%=array.get(i).getI_num() %>' class="FreeBoardA QnABoardMarginleft" >
+						<%=array.get(i).getI_title() %>
+						</a><span class="FreeBoardComment"></span>
+					</td>
+					
+					<td><%=array.get(i).getO_nickname() %></td>
+					<td><%=array.get(i).getDoCnt() %>명</td>
+					<td><%
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				        LocalDateTime dateTime = LocalDateTime.parse(array.get(i).getI_date(), formatter);
+				        LocalDateTime now = LocalDateTime.now();
+				        Duration duration = Duration.between(dateTime, now);
+
+				        // 차이 계산
+				        long minutes = duration.toMinutes();
+				        long hours = duration.toHours();
+				        long days = duration.toDays();
+				        long weeks = days / 7;
+
+				        String result;
+
+				        if (weeks > 0) {
+				            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				            result = dateTime.format(dateFormatter);
+				        } else if (days > 0) {
+				            result = days + "일 전";
+				        } else if (hours > 0) {
+				            result = hours + "시간 전";
+				        } else if (minutes > 0) {
+				            result = minutes + "분 전";
+				        } else {
+				            result = "방금 전";
+				        }
+						%>
+						<%=result %>
 					</td>
 				</tr>
+				<%
+				}
+			}
+			%>
+		
+			<%
+			if(totalCnt==0){
+				%>
+				<!-- //만약 게시글이 없다면 -->
+				<tr >
+					<td colspan="5"  style="text-align:center;">초대장이 없습니다</td>
+				</tr>
+				<%
+			}
+			%>
+			
+		</tbody>
+		
+		
+		<tfoot>
+			<tr>
+				<td colspan="5" align="center" style="padding-top:15px;">
+				<%
+				if(totalCnt!=0){
+					if(userGroup>1 ){
+						%>
+							<input class="FreeBoardButton" type="button" value="이전"  
+							onclick="location.href='/DongGu/saveForm/FindDongGu.jsp?cp=<%=(userGroup-1)*pageSize  %>';">
+						<%
+						}
+					for(int i=(userGroup-1)*pageSize+1;i<=(userGroup-1)*pageSize+pageSize ;i++){
+						if(cp==i){
+							%>
+							&nbsp;&nbsp;<a href="/DongGu/saveForm/FindDongGu.jsp?cp=<%=i %>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
+						<%
+						}else{
+						%>
+							&nbsp;&nbsp;<a href="/DongGu/saveForm/FindDongGu.jsp?cp=<%=i %>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
+						<%
+						}
+						if(i==totalPage) break;
+						
+					}
+					%>
+					
+					<%
+					if( userGroup != totalPage/pageSize+(totalPage%pageSize==0?0:1)  ){
+						%>
+							<input class="FreeBoardButton" type="button" value="다음"  
+							onclick="location.href='/DongGu/saveForm/FindDongGu.jsp?cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>';">
+						<%
+						}
+				}
+				
+				%>
+				</td>
+			</tr>
 		</tfoot>
 	</table>
 	

@@ -63,7 +63,11 @@ function deleteFile() {
 // 파일 업로드
 if (request.getMethod().equalsIgnoreCase("POST")) {
     // 파일 업로드 설정 및 저장 경로 생성
-    String savepath = application.getRealPath("/") + "uploaded_files"; // 저장할 경로 설정
+    /**String savepath = application.getRealPath("/") + "uploaded_files"; // 저장할 경로 설정
+    File saveDir = new File(savepath);*/
+  	//사진이 있다면 사진 처리
+    String uploadPath = request.getRealPath("/") + "img/Donggu/temp"; // 임시 저장 경로
+    String savepath = request.getRealPath("/")+"img/Donggu/";
     File saveDir = new File(savepath);
 
     // 경로가 존재하지 않으면 폴더 생성
@@ -174,7 +178,42 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
 					<th>주민번호</th>
 					<td>
 						<input type="text" name="p_jumin1" id="" value="" class="saveWS60"> - 
-						<input type="text" name="p_jumin" id="" value="" class="saveWS60">
+						<input type="text" name="p_jumin2" id="" value="" class="saveWS60">
+					</td>
+				</tr>
+				<tr>
+					<th>은행명</th>
+					<td>
+						<select name="p_bank_name" class="saveWS250">
+							<option value="1">KB국민은행</option>
+							<option value="2">신한은행</option>
+							<option value="3">하나은행</option>
+							<option value="4">우리은행</option>
+							<option value="5">SC제일은행</option>
+							<option value="6">한국씨티은행</option>
+							<option value="7">부산은행</option>
+							<option value="8">대구은행</option>
+							<option value="9">광주은행</option>
+							<option value="10">전북은행</option>
+							<option value="11">경남은행</option>
+							<option value="12">제주은행</option>
+							<option value="13">산업은행 (KDB)</option>
+							<option value="14">IBK기업은행</option>
+							<option value="15">NH농협은행</option>
+							<option value="16">수협은행</option>
+							<option value="17">Sh수협은행</option>
+							<option value="18">우체국</option>
+							<option value="19">카카오뱅크</option>
+							<option value="20">케이뱅크</option>
+							<option value="21">토스뱅크</option>
+							<option value="22">기타(계좌번호 옆에 써주세요.)</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>계좌번호</th>
+					<td>
+						<input type="text" name="p_bank_num" id="" value="" class="saveWS250" placeholder="-를 포함해서 입력해주세요.">
 					</td>
 				</tr>
 				<tr>

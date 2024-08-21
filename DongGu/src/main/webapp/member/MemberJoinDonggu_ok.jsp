@@ -38,6 +38,8 @@ String p_ex_other = mr.getParameter("p_ex_other");
 String p_ex_etc = mr.getParameter("p_ex_etc");
 String q_num = mr.getParameter("q_num");
 String p_answer = mr.getParameter("p_answer");
+String p_bank_name = mr.getParameter("p_bank_name");
+String p_bank_num = mr.getParameter("p_bank_num");
 
 // DTO에 값 설정
 mdto.setP_img(uploadedFileName);
@@ -56,9 +58,11 @@ mdto.setP_ex_etc(p_ex_etc);
 mdto.setQ_num(q_num != null && !q_num.trim().isEmpty() ? Integer.parseInt(q_num) : 0);
 mdto.setP_answer(p_answer);
 mdto.setP_date(p_date);  // java.sql.Date를 명시적으로 사용
+mdto.setP_bank_name(p_bank_name);
+mdto.setP_bank_num(p_bank_name);
 
-// 여기에 L_NUM을 0으로 설정
-mdto.setL_num(0);  // 등급번호를 0으로 설정
+// 여기에 L_NUM을 5으로 설정
+mdto.setG_num(5);  // 등급번호를 5으로 설정
 
 System.out.println("p_date: " + p_date); // p_date 값 확인
 

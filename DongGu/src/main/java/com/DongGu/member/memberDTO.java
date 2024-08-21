@@ -36,9 +36,11 @@ public class memberDTO {
 	private String p_ex_other;
 	private String p_ex_etc;
 	private java.sql.Date p_date;
-	private int l_num;
+	private int g_num;
 	private int q_num;
 	private String p_answer;
+	private String p_bank_name;
+	private String p_bank_num;
 	
 	
 	public memberDTO() {
@@ -48,7 +50,7 @@ public class memberDTO {
 	
 	public memberDTO(int usertype, String p_id, String p_pwd, String p_name, int p_gender, int p_smoke,
 			String p_nickname, String p_img, String p_tel, String p_addr, String p_jumin, String p_ex_my,
-			String p_ex_other, String p_ex_etc, Date p_date, int l_num, int q_num, String p_answer) {
+			String p_ex_other, String p_ex_etc, Date p_date, int g_num, int q_num, String p_answer, String p_bank_name, String p_bank_num) {
 		super();
 		this.usertype = usertype;
 		this.p_id = p_id;
@@ -65,9 +67,11 @@ public class memberDTO {
 		this.p_ex_other = p_ex_other;
 		this.p_ex_etc = p_ex_etc;
 		this.p_date = p_date;
-		this.l_num = l_num;
+		this.g_num = g_num;
 		this.q_num = q_num;
 		this.p_answer = p_answer;
+		this.p_bank_name = p_bank_name;
+		this.p_bank_num = p_bank_num;
 	}
 
 	public String getP_id() {
@@ -182,12 +186,12 @@ public class memberDTO {
         this.p_date = p_date;
     }
 
-	public int getL_num() {
-		return l_num;
+	public int getG_num() {
+		return g_num;
 	}
 
-	public void setL_num(int l_num) {
-		this.l_num = l_num;
+	public void setG_num(int g_num) {
+		this.g_num = g_num;
 	}
 
 	public int getQ_num() {
@@ -206,5 +210,20 @@ public class memberDTO {
 		this.p_answer = p_answer;
 	}
 
+	public String getP_bank_name() {
+		return p_bank_name;
+	}
+
+	public void setP_bank_name(String p_bank_name) {
+		this.p_bank_name = p_bank_name;
+	}
+
+	public String getP_bank_num() {
+		return p_bank_num;
+	}
+
+	public void setP_bank_num(String p_bank_num) {
+		this.p_bank_num = p_bank_num;
+	}
 	
 }

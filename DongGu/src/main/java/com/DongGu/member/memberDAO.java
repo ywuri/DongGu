@@ -312,8 +312,8 @@ public class memberDAO {
             conn = com.DongGu.db.DongGuDB.getConn();
             System.out.println("Database connection established");
 
-            String sql = "INSERT INTO petsitter (p_id, p_pwd, p_name, p_gender, p_smoke, p_nickname, p_img, p_tel, p_addr, p_jumin, p_ex_my, p_ex_other, p_ex_etc, p_date, q_num, p_answer, l_num) " +
-                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO petsitter (p_id, p_pwd, p_name, p_gender, p_smoke, p_nickname, p_img, p_tel, p_addr, p_jumin, p_ex_my, p_ex_other, p_ex_etc, p_date, q_num, p_answer, g_num, p_bank_name, p_bank_num) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?)";
             ps = conn.prepareStatement(sql);
 
             // 각 파라미터 설정 시점에 로그 출력
@@ -333,7 +333,9 @@ public class memberDAO {
             ps.setDate(14, dto.getP_date());
             ps.setInt(15, dto.getQ_num());
             ps.setString(16, dto.getP_answer());
-            ps.setInt(17, dto.getL_num());  // L_NUM 값 설정
+            ps.setInt(17, dto.getG_num());  // L_NUM 값 설정
+            ps.setString(18, dto.getP_bank_name());  
+            ps.setString(19, dto.getP_bank_num());  
             
             int count = ps.executeUpdate();
             return count;
