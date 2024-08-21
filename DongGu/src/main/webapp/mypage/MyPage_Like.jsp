@@ -116,7 +116,7 @@ function Removeheart(element) {
 	    
 	    <div class="jyl_content">
 	    
-	    <div class="jyl_content1_1">   
+	    <div class="jyl_content1">   
 	                <span class="jyl_content2_title">관심 내역</span>              
 	    </div>
 	    
