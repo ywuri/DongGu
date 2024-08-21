@@ -852,32 +852,7 @@ public class MyPageDAO {
 		    }
 		}	 
 	
-	// 5-4. 마이페이지 회원 정보 수정페이지 - 이미지명 변경을 위해 sequnce번호 가져오기 
-	public int getSequnceNumForImg() {
-		try {
-			conn =com.DongGu.db.DongGuDB.getConn();
-			String sql="SELECT petsitter_img_SEQ.NEXTVAL FROM dual";
-			ps=conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			int result=0;
-			if(rs.next()) {
-				result=rs.getInt(1);
-			}
-			return result;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			return -1;
-		}finally {
-			try {
-				rs.close();
-				ps.close();
-				conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	
 	
 	
    
