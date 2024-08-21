@@ -35,6 +35,7 @@ Integer usertype = (Integer)session.getAttribute("usertype");
 						<a href="/DongGu/saveForm/GetFriendWrite.jsp"><span>초대장</span></a>
 					<%
 						}
+					//로그인 안했을 경우 고용자 초대장으로 보내서 로그인 할 수 있도록 처리
 					}else {
 					%>
 						<a href="/DongGu/saveForm/GetFriendWrite.jsp"><span>초대장</span></a>
