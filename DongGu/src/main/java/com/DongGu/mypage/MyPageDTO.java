@@ -99,6 +99,7 @@ public class MyPageDTO {
    private double starcount;
    private int reviewcount;
    private int invitationcount;
+   private String nextlevel;
    
    // 성격 키워드 처리를 위한 멤버변수 선언
    private ArrayList<String> an_words;
@@ -241,12 +242,29 @@ public class MyPageDTO {
   		this.p_tel = p_tel;  	
     	this.p_addr = p_addr;
     }
+  	
+  	// 1-12. 인자 생성자(마이페이지 회원등급 - 정보 불러오기 )
+    public MyPageDTO (String g_img,String g_name, String nextlevel) {
+       super();
+       this.g_img = g_img;
+       this.g_name = g_name;
+       this.nextlevel = nextlevel;
+    }
 
+    
 	// getter, setter 
+  	public String getNextlevel() {
+		return nextlevel;
+	}
+
+	public void setNextlevel(String nextlevel) {
+		this.nextlevel = nextlevel;
+	}
+	
   	public String getP_pwd() {
 		return p_pwd;
 	}
-
+	
 	public void setP_pwd(String p_pwd) {
 		this.p_pwd = p_pwd;
 	}
