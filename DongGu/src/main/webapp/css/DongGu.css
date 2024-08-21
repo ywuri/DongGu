@@ -1218,6 +1218,7 @@ width:170px;
   
 
    .jyl_content {width: 75%; padding: 50px; background-color: #fff;  border-radius: 8px;}  
+   .jyl_content1_1 {width: 100%; padding: 50px; background-color: #fff;  border-radius: 8px;}  
    .jyl_memberlevel{margin-top:40px; display: flex; justify-content: center; text-align: center;}
    .jyl_memberlevellist {list-style-type: none; display: flex; justify-content: center;}
    .image-container {position: relative;display: inline-block;}
@@ -1337,9 +1338,10 @@ width:170px;
    .jyl_content5_list3{padding:40px; display:flex; justify-content: center;}   
    .jyl_btn {font-family: 'TTLaundryGothicB', sans-serif; padding: 10px 20px; border-radius: 5px; background-color: #f0c040; color: #fff; border: none; cursor: pointer; transition: background-color 0.3s ease; margin: 5px; width: 87px; height: 35.5px;}
    .jyl_btn:hover {background-color: #e0a030;}
+   .jyl_btn_md {font-family: 'TTLaundryGothicB', sans-serif; padding: 10px 20px; border-radius: 5px; background-color: #f0c040; color: #fff; border: none; cursor: pointer; transition: background-color 0.3s ease; margin: 5px; width: 87px; height: 35.5px;}
+   .jyl_btn_md:hover {background-color: #e0a030;}
    
    
-	.jyl_content1_1{margin-top: 10px; margin-bottom: 30px;}
 	.like_category{display: flex;}
     .like_category_list {font-family: 'Pretendard-Regular', sans-serif; font-size: 15px; color:#8e8e8e; margin-right:15px; margin-bottom: 30px; padding: 10px; background-color: #fff; border-radius: 20px; border: 1px solid rgb(222, 226, 230);}
 	.like_array{display: flex;width: 100%;flex-wrap: wrap; box-sizing: border-box;}
@@ -1390,6 +1392,38 @@ width:170px;
 	.jyl_infoupdate_hidden{width: 8wndqh0px;}
 	
 	
+	
+	.jyl_content5_list_mp{margin-top:43px; background-color: #fffae5;  border-radius: 8px;  border: 1px dotted #fdc009; height: auto; width: 1200px;}   	
+	.jyl_content_mp {width: 100%; padding: 50px; background-color: #fff;  border-radius: 8px; display: flex; flex-direction: column;justify-content: center;align-items: center;height: 1850px}  
+	.jyl_content5_list1_div2_mp{padding:10px; width:30%; margin-top:120px; margin-left: 125px;}   
+    .jyl_content5_list1_div2_1_img_mp{width:330px; height: 350px;  border: 1px dotted #fdc009; border-radius: 20px; background-color: white;}
+	.jyl_content5_list1_div1_mp{padding:10px; width:70%; }
+    .jyl_content5_list1_div1_1_mp{padding:25px; margin-left: 60px; margin-top: 140px;}
+    .jyl_content5_list1_div1_1_mp span{font-size:24px; font-weight: bold; color:black;}
+    .jyl_content5_list1_div1_2_mp, .jyl_content5_list1_div1_4_mp{padding:25px; margin-left: 60px;}
+    .jyl_content5_list1_div1_3_mp{padding:25px; margin-left: 60px;}
+    .jyl_content5_list1_div1_4_mp { display: flex;}  
+    .jyl_content5_list1_div1_2_mp span{font-size:19px; font-weight: bold; color:black;}
+    .jyl_content5_list1_div1_3_1_mp{width:120px; margin-right: 60px; padding:10px; border: none; text-align: center; border-radius: 5px; background-color: #fedc56; color: #fff; cursor: pointer; transition: background-color 0.3s ease;}  
+    .jyl_content5_list1_div1_3_1_mp:hover {background-color: #e2a743;}     
+    .jyl_content5_list1_div1_3_1_mp span{font-size:16px; font-weight:bold; color:#6b6b6b;}
+    .jyl_content5_list1_div1_4_mp span{font-size:17px; color:black;}
+	.jyl_like_info_star_mp {font-size: 18px; color: #8e8e8e;}
+	.jyl_likestar_img_mp{width: 15px; height: 15px;}
+	.like_point_mp {font-weight: bold;color: #7a7a7a;}
+    .jyl_content5_list1_div4_1_mp{ margin-right: 60px;}
+    .jyl_content5_list1_div4_1_mp span, .jyl_content5_list1_div4_2_mp span{font-weight: bold; font-size:16px;}
+	.jyl_content1_mp{margin-top: 10px; margin-bottom: 25px;}
+	
+	
+	
+	#jyl_memberlevel1, #jyl_memberlevel2{list-style: none; padding: 0; text-align: center;}
+	
+	
+	
+	
+	
+	
 	#jyl_check{
     font-family: 'TTLaundryGothicB', sans-serif;
     padding: 10px;
@@ -1408,12 +1442,7 @@ width:170px;
 	
 	
 	
-	#jyl_memberlevel1, 
-	#jyl_memberlevel2{
-    list-style: none;
-    padding: 0;
-    text-align: center;
-	}
+	
  
     .jyl_content2_list5{
        font-family: 'Pretendard-Regular', sans-serif;
@@ -1724,7 +1753,7 @@ width:170px;
 	.jyl_memberlevel_span3{
 		font-family: 'Pretendard-Regular', sans-serif;
        	font-size: 14px;
-       	color:black;
+       	color:#77766f;
        	font-weight: bold;
 	}
 	

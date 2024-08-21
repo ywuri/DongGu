@@ -853,6 +853,50 @@ public class MyPageDAO {
 		}	 
 	
 	
+
+	// 6-1. 마이페이지 회원 정보 페이지 - 회원등급 정보 뿌리기
+	public MyPageDTO mypage_memberLevel(String m_sid) {
+	      System.out.println("마이페이지 회원 정보 페이지 - 회원등급 정보 뿌리기 매서드 실행됨!");         
+	      MyPageDTO dto = null;
+
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         String sql = "SELECT g.g_img, g.g_name, next_grade.g_name AS nextlevel "
+	         		+ "FROM petsitter p "
+	         		+ "JOIN grade g ON p.g_num = g.g_num "
+	         		+ "LEFT JOIN grade next_grade ON g.g_num  = next_grade.g_num + 1 "
+	         		+ "WHERE p.p_id = ? ";
+	         
+	         ps=conn.prepareStatement(sql);
+	         ps.setString(1, m_sid);	         
+	         
+	         rs = ps.executeQuery();
+	         while(rs.next()) {          
+	                String g_img = rs.getString("g_img");
+	                String g_name = rs.getString("g_name");             
+	                String nextlevel = rs.getString("nextlevel");  
+	                
+	                dto = new MyPageDTO(g_img, g_name, nextlevel);
+	                  
+	             }
+
+	         return dto;         
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return null;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	            
+	         }
+	      }
+	   }
+
 	
 	
    
