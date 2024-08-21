@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ page import="com.DongGu.friend.AfterDTO" %>
+<%@ page import="com.DongGu.review.ReviewDTO" %>
 
-<jsp:useBean id="afdao" class="com.DongGu.friend.AfterDAO"></jsp:useBean>
+<jsp:useBean id="rdao" class="com.DongGu.review.ReviewDAO"></jsp:useBean>
 <%
     String uploadPath = "/DongGu/";  // 실제 프로젝트의 경로로 수정해야 함
     String savepath = uploadPath + "img/webFolder/upload/";
@@ -59,77 +59,72 @@
         }
     </script>
     <div id='Tabid1' class="rivew_cont">
-        <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <%
-                List<AfterDTO> oreview = afdao.AfterList(0); // R_ID_CHECK가 0인 후기만 가져오기
-                if (oreview != null && !oreview.isEmpty()) {
-                    for (AfterDTO dto : oreview) {
-                        System.out.println("DTO 내용 확인: " + dto.getR_content());
-
-            %>
-            <li>
-                <a href="/DongGu/afterForm/AfterView.jsp">
-                    <div class="box">
-                        <div class="left_box" style="background-image: url('<%= dto.getR_img_name() != null && !dto.getR_img_name().isEmpty() ? savepath + dto.getR_img_name() : "/DongGu/img/default.png" %>');">
+    <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <%
+            List<ReviewDTO> oreview = rdao.AfterList(0);
+            if (oreview != null && !oreview.isEmpty()) {
+                for (ReviewDTO dto : oreview) {
+                    System.out.println("DTO 내용 확인: " + dto.getR_content());
+        %>
+        <li>
+            <a href="/DongGu/afterForm/AfterView.jsp">
+                <div class="box">
+                    <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
+                    <div class="right_box">
+                        <div class="rb_title">
+                            <span class="best">Best</span>
+                            <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[고용자]</a></span>
+                            <span class="date"><%= dto.getR_date() %></span>
                         </div>
-                        <div class="right_box">
-                            <div class="rb_title">
-                                <span class="best">Best</span>
-                                <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[고용자]</a></span>
-                                <span class="date"><%= dto.getR_date() %></span>
-                            </div>
-                            <img src="/DongGu/img/star.png" alt="별점">
-                            <p><%= dto.getR_content() %></p>
-                        </div>
+                        <img src="/DongGu/img/star.png" alt="별점">
+                        <p><%= dto.getR_content() %></p>
                     </div>
-                </a>
-            </li>
-            <%
-                    }
-                } else {
-            %>
-            <p>No reviews available.</p>
-            <%
+                </div>
+            </a>
+        </li>
+        <%
                 }
-            %>
-        </ul>
-    </div>
-    <div id='Tabid2' class="rivew_cont" style="display:none;">
-        <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <%
-                List<AfterDTO> preview = afdao.AfterList(1); // R_ID_CHECK가 1인 후기만 가져오기
-                if (preview != null && !preview.isEmpty()) {
-                    for (AfterDTO dto : preview) {
-                        System.out.println("DTO 내용 확인: " + dto.getR_content());
+            } else {
+                out.println("No reviews available.");
+            }
+        %>
+    </ul>
+</div>
 
-            %>
-            <li>
-                <a href="/DongGu/afterForm/AfterView.jsp">
-                    <div class="box">
-                        <div class="left_box" style="background-image: url('<%= dto.getR_img_name() != null && !dto.getR_img_name().isEmpty() ? savepath + dto.getR_img_name() : "/DongGu/img/default.png" %>');">
+<div id='Tabid2' class="rivew_cont" style="display:none;">
+    <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <%
+        // 변수명을 변경하여 중복 선언 문제를 피합니다.
+        List<ReviewDTO> preview = rdao.AfterList(1);
+        if (preview != null && !preview.isEmpty()) {
+            for (ReviewDTO dto : preview) {
+                System.out.println("DTO 내용 확인: " + dto.getR_content());
+        %>
+        <li>
+            <a href="/DongGu/afterForm/AfterView.jsp">
+                <div class="box">
+                    <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
+                    <div class="right_box">
+                        <div class="rb_title">
+                            <span class="best">Best</span>
+                            <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[동구]</a></span>
+                            <span class="date"><%= dto.getR_date() %></span>
                         </div>
-                        <div class="right_box">
-                            <div class="rb_title">
-                                <span class="best">Best</span>
-                                <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[동구]</a></span>
-                                <span class="date"><%= dto.getR_date() %></span>
-                            </div>
-                            <img src="/DongGu/img/star.png" alt="별점">
-                            <p><%= dto.getR_content() %></p>
-                        </div>
+                        <img src="/DongGu/img/star.png" alt="별점">
+                        <p><%= dto.getR_content() %></p>
                     </div>
-                </a>
-            </li>
-            <%
-                    }
-                } else {
-            %>
-            <p>No reviews available.</p>
-            <%
+                </div>
+            </a>
+        </li>
+        <%
                 }
-            %>
-        </ul>
-    </div>
+            } else {
+                out.println("No reviews available.");
+            }
+        %>
+    </ul>
+</div>
+
 </section>
 <%@include file="../Footer.jsp" %>
 <script>
