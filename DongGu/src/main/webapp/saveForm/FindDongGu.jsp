@@ -60,7 +60,9 @@
 	if(cp%pageSize==0)  userGroup = userGroup-1;
 	
 	
-
+	//이름 눌렀을 때 마이페이지로 이동시키게
+	//필요한것, 이게 고용자인기 구직인지(usertype), 그리고 해당 아이디(id),그리고 매칭을 위해 i_num번호
+	//(cp,listSize,int_dongNang)
 %>
 
 <%@include file="../SubHeader.jsp" %>
@@ -129,13 +131,13 @@ else if(int_dongNang==3){
 				%>
 				<tr>
 					<td><%=array.get(i).getDongNang() %></td>
-					<td id="NoticeTitleCenter">
-						<a href='/DongGu/saveForm/DetailDongGu.jsp?i_num=<%=array.get(i).getI_num() %>' class="FreeBoardA QnABoardMarginleft" >
+					<td id="NoticeTitleCenter"> 
+						<a href='/DongGu/saveForm/DetailDongGu.jsp?i_num=<%=array.get(i).getI_num() %>&cp=<%=cp %>&o_id=<%=array.get(i).getO_id() %>' class="FreeBoardA QnABoardMarginleft" >
 						<%=array.get(i).getI_title() %>
 						</a><span class="FreeBoardComment"></span>
 					</td>
 					
-					<td><%=array.get(i).getO_nickname() %></td>
+					<td><a href="/DongGu/member/MemberDetail.jsp?usertype=0&o_id=<%=array.get(i).getO_id() %>" class="linkDeco"><%=array.get(i).getO_nickname() %></a></td>
 					<td><%=array.get(i).getDoCnt() %>명</td>
 					<td><%
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

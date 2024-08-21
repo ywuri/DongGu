@@ -785,7 +785,7 @@ width:170px;
     font-weight: 600;
 }
 .DetailDongGuImg{
-	/* width: 300px; */
+	width: 350px; 
     height: 350px;
     border-radius: 43px;
 }
@@ -798,9 +798,9 @@ width:170px;
 	margin-left: 50px;
 }
 #DetailDongGuContentDiv{
-	padding-left:100px; 
+	margin-left: 100px;
 	font-size:15pt;
-	color:#555;
+	color:#333;
 }
 #DetailDongGuContentDiv>div{
 	margin-bottom:10px;
@@ -814,13 +814,14 @@ width:170px;
 }
 .DetailDongGuJoinButton{
 	font-size:17pt;
-	background: green;
+	background: #fdc408;
     border: 0px;
     border-radius: 6px;
     text-align: center;
     padding: 5px 5px;
     color : white;
     cursor: pointer;
+    margin-left: 10px;
 }
 #DetailDongGuCountNum{
 	color:#6600ff;
@@ -1089,6 +1090,48 @@ width:170px;
 .delete_icon{
 	
 }
+
+.linkDeco{
+	text-decoration:none;
+}
+.linkDeco:hover{
+	cursor: pointer;
+	color:orange!important;
+	/* font-size:13pt; */
+	font-weight:500;
+}
+
+#DetailDongGuInfoDiv2{
+	margin-top: 70px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    margin-left: 50px;
+    background: #fff;
+    padding: 30px;
+}
+
+.spanColor{
+	color: white;
+    background: skyblue;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#DetailDongGuButton2{
+	margin-top: 30px;
+    margin-bottom: 25px;
+}
+#spanSizeDe{
+	font-size: 18pt;
+    font-weight: 500;
+}
+#DetailDongGuContentDiv li{
+	margin-bottom:10px;
+	
+}
+
 	/* //	========== 이지현 끝 ============= // */
 	
 	

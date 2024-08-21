@@ -44,10 +44,17 @@ public class memberDTO {
 	
 	
 	public memberDTO() {
-		System.out.println("memberDTO 생성자 호출됨!");
+		/* System.out.println("memberDTO 생성자 호출됨!"); */
 	}
 	
 	
+	/* 상세페이지 가기위한 dto*/
+	public memberDTO(int usertype, String p_id) {
+		super();
+		this.usertype = usertype;
+		this.p_id = p_id;
+	}
+
 	public memberDTO(int usertype, String p_id, String p_pwd, String p_name, int p_gender, int p_smoke,
 			String p_nickname, String p_img, String p_tel, String p_addr, String p_jumin, String p_ex_my,
 			String p_ex_other, String p_ex_etc, Date p_date, int g_num, int q_num, String p_answer, String p_bank_name, String p_bank_num) {
