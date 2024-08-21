@@ -202,15 +202,15 @@
 	.rivew .rivew_cont ul li {
 	    margin-bottom: 40px;
 	}
-	.rivew .rivew_cont ul li .left_box {
-	    background: url(../img/rivew_img01.png) no-repeat top right; background-position: 0; background-size: cover;
+	.rivew .rivew_cont ul li:nth-child(1) .left_box {
+	    background: url(../img/rivew_img01.png) no-repeat top right; background-position: right -25px; background-size: cover;
 	}
-	/**.rivew .rivew_cont ul li:nth-child(2) .left_box {
+	.rivew .rivew_cont ul li:nth-child(2) .left_box {
 	    background: url(../img/rivew_img02.png) no-repeat top right; background-position: right -65px; background-size: cover;
 	}
 	.rivew .rivew_cont ul li:nth-child(3) .left_box {
 	    background: url(../img/rivew_img03.png) no-repeat top right; background-position: right -80px; background-size: cover;
-	}*/
+	}
 	.rivew .rivew_cont ul li:last-child {
 	    margin-bottom: 0px;
 	}
@@ -785,7 +785,7 @@ width:170px;
     font-weight: 600;
 }
 .DetailDongGuImg{
-	width: 350px; 
+	/* width: 300px; */
     height: 350px;
     border-radius: 43px;
 }
@@ -798,9 +798,9 @@ width:170px;
 	margin-left: 50px;
 }
 #DetailDongGuContentDiv{
-	margin-left: 100px;
+	padding-left:100px; 
 	font-size:15pt;
-	color:#333;
+	color:#555;
 }
 #DetailDongGuContentDiv>div{
 	margin-bottom:10px;
@@ -814,14 +814,13 @@ width:170px;
 }
 .DetailDongGuJoinButton{
 	font-size:17pt;
-	background: #fdc408;
+	background: green;
     border: 0px;
     border-radius: 6px;
     text-align: center;
     padding: 5px 5px;
     color : white;
     cursor: pointer;
-    margin-left: 10px;
 }
 #DetailDongGuCountNum{
 	color:#6600ff;
@@ -1090,48 +1089,6 @@ width:170px;
 .delete_icon{
 	
 }
-
-.linkDeco{
-	text-decoration:none;
-}
-.linkDeco:hover{
-	cursor: pointer;
-	color:orange!important;
-	/* font-size:13pt; */
-	font-weight:500;
-}
-
-#DetailDongGuInfoDiv2{
-	margin-top: 70px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 50px;
-    padding-bottom: 50px;
-    margin-left: 50px;
-    background: #fff;
-    padding: 30px;
-}
-
-.spanColor{
-	color: white;
-    background: skyblue;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 16px;
-}
-#DetailDongGuButton2{
-	margin-top: 30px;
-    margin-bottom: 25px;
-}
-#spanSizeDe{
-	font-size: 18pt;
-    font-weight: 500;
-}
-#DetailDongGuContentDiv li{
-	margin-bottom:10px;
-	
-}
-
 	/* //	========== 이지현 끝 ============= // */
 	
 	
@@ -1851,11 +1808,13 @@ width:170px;
 	
 	.jyl_memberlevel_more2_1{		
 			padding: 20px;
+			padding-top:37px;
 			width:30%;
 	}
 	
 	.jyl_memberlevel_more2_2{		
-			padding: 10px;
+			padding: 15px;
+			padding-bottom:25px;
 			width:70%;
 			font-family: 'Pretendard-Regular', sans-serif;
 			font-size: 13px;
@@ -1883,6 +1842,7 @@ width:170px;
 	
 	.jyl_memberlevel_more2_2_1{
 		padding: 10px;
+		padding-bottom: 15px;
 	}
 	
 	.jyl_memberlevel_more2_2_1 span{
@@ -1895,6 +1855,10 @@ width:170px;
 	.jyl_memberlevel_more2_2_2,
 	.jyl_memberlevel_more2_2_3{
 		padding: 5px;
+	}
+	
+	.jyl_memberlevel_more2_2_2{
+		padding-top: 15px;
 	}
 	
 	.jyl_memberlevel_more2_2_2 span,
