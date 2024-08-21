@@ -202,15 +202,15 @@
 	.rivew .rivew_cont ul li {
 	    margin-bottom: 40px;
 	}
-	.rivew .rivew_cont ul li:nth-child(1) .left_box {
-	    background: url(../img/rivew_img01.png) no-repeat top right; background-position: right -25px; background-size: cover;
+	.rivew .rivew_cont ul li .left_box {
+	    background: url(../img/rivew_img01.png) no-repeat top right; background-position: 0; background-size: cover;
 	}
-	.rivew .rivew_cont ul li:nth-child(2) .left_box {
+	/**.rivew .rivew_cont ul li:nth-child(2) .left_box {
 	    background: url(../img/rivew_img02.png) no-repeat top right; background-position: right -65px; background-size: cover;
 	}
 	.rivew .rivew_cont ul li:nth-child(3) .left_box {
 	    background: url(../img/rivew_img03.png) no-repeat top right; background-position: right -80px; background-size: cover;
-	}
+	}*/
 	.rivew .rivew_cont ul li:last-child {
 	    margin-bottom: 0px;
 	}
