@@ -32,6 +32,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
+<style>
+	.rivew {
+		padding-top:200px;
+	}
+	.rivew .box {
+	    flex-direction: column;
+	}
+	.rivew .rivew_cont ul li {
+	    width: 48%;
+	}
+	.rivew .left_box {
+	    width: 100% !important;
+	    height: 200px !important;
+	    overflow: hidden;
+	}
+	.rivew .left_box img {
+	    width: 100%;
+	}
+</style>
 </head>
 <body>
 <%@include file="/SubHeader.jsp" %>
