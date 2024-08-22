@@ -64,58 +64,58 @@
             List<ReviewDTO> oreview = rdao.AfterList(0);
             if (oreview != null && !oreview.isEmpty()) {
                 for (ReviewDTO dto : oreview) {
-                    System.out.println("DTO 내용 확인: " + dto.getR_content());
+                    //System.out.println("DTO 내용 확인: " + dto.getR_content());
         %>
         <li>
-            <a href="/DongGu/afterForm/AfterView.jsp">
-                <div class="box">
-                    <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
-                    <div class="right_box">
-                        <div class="rb_title">
-                            <span class="best">Best</span>
-                            <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[고용자]</a></span>
-                            <span class="date"><%= dto.getR_date() %></span>
-                        </div>
-                        <img src="/DongGu/img/star.png" alt="별점">
-                        <p><%= dto.getR_content() %></p>
-                    </div>
-                </div>
-            </a>
-        </li>
+			<a href="/DongGu/afterForm/AfterView.jsp?r_num=<%= dto.getR_num() %>">
+		        <div class="box">
+		            <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
+		            <div class="right_box">
+		                <div class="rb_title">
+		                    <span class="best">Best</span>
+		                    <span class="addr"><%= dto.getNickname() %>[고용자]</span>
+		                    <span class="date"><%= dto.getR_date() %></span>
+		                </div>
+		                <img src="/DongGu/img/star.png" alt="별점">
+		                <p><%= dto.getR_content() %></p>
+		            </div>
+		        </div>
+		    </a>
+		</li>
         <%
                 }
             } else {
                 out.println("No reviews available.");
             }
         %>
-    </ul>
-</div>
+    	</ul>
+	</div>
 
-<div id='Tabid2' class="rivew_cont" style="display:none;">
+	<div id='Tabid2' class="rivew_cont" style="display:none;">
     <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
         <%
         // 변수명을 변경하여 중복 선언 문제를 피합니다.
         List<ReviewDTO> preview = rdao.AfterList(1);
         if (preview != null && !preview.isEmpty()) {
             for (ReviewDTO dto : preview) {
-                System.out.println("DTO 내용 확인: " + dto.getR_content());
+                //System.out.println("DTO 내용 확인: " + dto.getR_content());
         %>
         <li>
-            <a href="/DongGu/afterForm/AfterView.jsp">
-                <div class="box">
-                    <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
-                    <div class="right_box">
-                        <div class="rb_title">
-                            <span class="best">Best</span>
-                            <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[동구]</a></span>
-                            <span class="date"><%= dto.getR_date() %></span>
-                        </div>
-                        <img src="/DongGu/img/star.png" alt="별점">
-                        <p><%= dto.getR_content() %></p>
-                    </div>
-                </div>
-            </a>
-        </li>
+		    <a href="/DongGu/afterForm/AfterView.jsp">
+		        <div class="box">
+		            <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
+		            <div class="right_box">
+		                <div class="rb_title">
+		                    <span class="best">Best</span>
+		                    <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[고용자]</a></span>
+		                    <span class="date"><%= dto.getR_date() %></span>
+		                </div>
+		                <img src="/DongGu/img/star.png" alt="별점">
+		                <p><%= dto.getR_content() %></p>
+		            </div>
+		        </div>
+		    </a>
+		</li>
         <%
                 }
             } else {
@@ -123,7 +123,7 @@
             }
         %>
     </ul>
-</div>
+	</div>
 
 </section>
 <%@include file="../Footer.jsp" %>

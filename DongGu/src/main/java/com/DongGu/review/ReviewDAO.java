@@ -10,7 +10,7 @@ public class ReviewDAO {
     private ResultSet rs;
 
     public ReviewDAO() {
-        System.out.println("AfterDAO 객체 생성됨!");
+        System.out.println("ReviewDAO 객체 생성됨!");
     }
 
     // 후기 뿌리기
@@ -61,5 +61,7 @@ public class ReviewDAO {
 
         return arr;
     }
+    
 }
+
 
