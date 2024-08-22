@@ -58,31 +58,7 @@ function deleteFile() {
 </head>
 <body>
 <%@include file="/Header.jsp" %>
-<%
 
-// 파일 업로드
-if (request.getMethod().equalsIgnoreCase("POST")) {
-    // 파일 업로드 설정 및 저장 경로 생성
-    /**String savepath = application.getRealPath("/") + "uploaded_files"; // 저장할 경로 설정
-    File saveDir = new File(savepath);*/
-  	//사진이 있다면 사진 처리
-    String uploadPath = request.getRealPath("/") + "img/Donggu/temp"; // 임시 저장 경로
-    String savepath = request.getRealPath("/")+"img/Donggu/";
-    File saveDir = new File(savepath);
-
-    // 경로가 존재하지 않으면 폴더 생성
-    if (!saveDir.exists()) {
-        saveDir.mkdirs();
-    }
-
-    // MultipartRequest 객체 생성하여 파일 업로드 처리
-    MultipartRequest mr = new MultipartRequest(request, savepath, 10 * 1024 * 1024, "utf-8"); // 최대 10MB 파일 업로드 설정
-
-    // 업로드된 파일 이름 가져오기
-    String uploadedFileName = mr.getFilesystemName("p_img"); // "p_img"는 form의 input name
-    
-}
-%> 
 	<form name="MemberJoinDonggu" action="MemberJoinDonggu_ok.jsp" method="post" enctype="multipart/form-data">
 	
 		<div class="saveTableOne">
@@ -153,7 +129,7 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
                 <th>사진</th>
                 <td style="display: flex; align-items: baseline; gap: 10px;">
                 <div>
-                    <input type="file" name="p_img"  id="ai_img" accept=".jpg,.jpeg,.png,.gif" class="saveWS250">
+                    <input type="file" name="p_img"  id="_img" accept="image/*" class="saveWS250">
                     <p style="color: #b2b2b2; font-size: 14px; margin-top: 5px;">사진첨부는 jpg,png,gif 파일만 가능합니다.</p>
                 </div>
                     <button type="button" onclick="deleteFile()">삭제</button>

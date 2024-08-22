@@ -3,6 +3,8 @@
 <%@ page import="java.sql.Date"%> 
 <%@ page import="java.io.StringWriter"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import ="java.io.*"%>
 
 <%
 request.setCharacterEncoding("utf-8");
@@ -14,9 +16,33 @@ request.setCharacterEncoding("utf-8");
 <%
 
 // 파일 업로드 처리
-String savePath = application.getRealPath("/") + "uploaded_files";
-MultipartRequest mr = new MultipartRequest(request, savePath, 10 * 1024 * 1024, "utf-8");
-String uploadedFileName = mr.getFilesystemName("p_img");
+String savepath = request.getRealPath("/")+"img/petsitter_profile/";
+MultipartRequest mr = new MultipartRequest(request, savepath, 10 * 1024 * 1024, "utf-8");
+String originalFileName = mr.getFilesystemName("p_img");
+String newFileName="";
+//사진이 첨부됐으면
+if (originalFileName != null) {
+   String jpgType = "";//확장자 추출
+   int lastDotIndex = originalFileName.lastIndexOf(".");
+   if (lastDotIndex > 0) {
+      jpgType = originalFileName.substring(lastDotIndex); // 예: ".jpg"
+   }
+
+   //새 파일 이름 생성 (확장자 유지)
+   newFileName = generateUniqueFileName( savepath, "profile", jpgType); // 예: "free1.jpg"
+
+   // 파일 경로 객체 생성
+   File finalFile = new File(savepath, newFileName);
+
+   // 파일이 존재하면 삭제
+  if (finalFile.exists()) {
+      if (!finalFile.delete()) {
+          throw new IOException("기존 파일 삭제에 실패했습니다: " + finalFile.getName());
+      }
+      //System.out.println("기존 파일 삭제 완료: " + finalFile.getName());
+  }
+
+}
 
 // 현재 날짜로 p_date 설정
 java.sql.Date p_date = new java.sql.Date(System.currentTimeMillis());  // java.sql.Date를 명시적으로 사용
@@ -42,7 +68,7 @@ String p_bank_name = mr.getParameter("p_bank_name");
 String p_bank_num = mr.getParameter("p_bank_num");
 
 // DTO에 값 설정
-mdto.setP_img(uploadedFileName);
+mdto.setP_img(newFileName);
 mdto.setP_id(p_id);
 mdto.setP_pwd(p_pwd);
 mdto.setP_name(p_name);
@@ -92,3 +118,38 @@ String msg = result > 0 ? "회원가입 성공!" : "회원가입 실패!";
 window.alert('<%=msg%>');
 location.href='MemberJoinDonggu.jsp';
 </script>
+
+<%!
+    // 파일명 생성 메소드
+    String generateUniqueFileName(String dirPath, String prefix, String extension) {
+       //C:\student_java\semiTeam2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DongGu\img\petsitter_profile    
+      File dir = new File(dirPath); // 위의 경로를 사용해 파일 객체 생성 
+        File[] files = dir.listFiles(); // 디렉토리 내의 모든 파일과 디렉토리 목록을 배열로 가져옴
+        int maxNumber = 0; // 최대 번호 초기화
+
+        if (files != null) { // 디렉토리가 존재하고 파일이 있는 경우
+            for (File file : files) {
+               // 파일이 실제 파일인지(file.isFile()), 접두사(profile)로 시작하는지, 지정된 확장자로 끝나는지 확인
+                if (file.isFile() && file.getName().startsWith(prefix) && file.getName().endsWith("." + extension)) {
+                    String fileName = file.getName();
+                    String numberPart = fileName.substring(prefix.length(), fileName.length() - extension.length() - 1); // 파일명에서 숫자 부분 추출
+                    // prefix.length() - profile(7), fileName.length() - profile5.png(12), extension.length() - png(3) 
+                    // fileName.substring(7, 8) - (숫자부분)
+                    try {
+                        int number = Integer.parseInt(numberPart);
+                        if (number > maxNumber) {
+                            maxNumber = number;
+                        }
+                    } catch (NumberFormatException e) {
+                        // 파일명에서 숫자 부분이 없을 경우
+                    }
+                }
+            }
+        }
+
+        // 새로운 파일명 생성
+        int newNumber = maxNumber + 1; // 5 + 1 = 6
+        return prefix + newNumber + "." + extension;
+}
+%>
+
