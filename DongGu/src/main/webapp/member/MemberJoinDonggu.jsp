@@ -59,75 +59,6 @@ function deleteFile() {
 <body>
 <%@include file="/Header.jsp" %>
 
-<<<<<<< HEAD
-	<form name="MemberJoinDonggu" action="MemberJoinDonggu_ok.jsp" method="post" enctype="multipart/form-data">
-	
-		<div class="saveTableOne">
-			<h3>구직자 가입하기</h3>
-			<table>
-				<tr>
-					<th>아이디</th>
-					<td>
-						<input type="text" name="p_id" id="" value="" class="saveWS250" readonly>
-						<input type="button" name="" id="" value="아이디 중복검사" class="btnType1" onclick="id_duplicateCheck()">
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td>
-						<input type="password" name="p_pwd" id="pw1" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요.">
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호확인</th>
-					<td>
-						<input type="password" name="p_pwd" id="pw2" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요." onkeyup="pwCheck()">
-						<span id="pwText" class="dpib"></span>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호 찾기 질문</th>
-					<td>
-						<select name="q_num" class="saveWS250">
-							<option value="">질문1</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호 찾기 답</th>
-					<td>
-						<input type="text" name="p_answer" id="" value="" class="saveWS250">
-					</td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td>
-						<input type="text" name="p_name" id="" value="" class="saveWS250">
-					</td>
-				</tr>
-				<tr>
-					<th>성별</th>
-					<td>
-						<input type="radio" name="p_gender" id="p_gender1" value="1" class=""><label for="p_gender1">남자</label>
-						<input type="radio" name="p_gender" id="p_gender2" value="2" class=""><label for="p_gender2">여자</label>
-					</td>
-				</tr>
-				<tr>
-					<th>흡연여부</th>
-					<td>
-						<input type="radio" name="p_smoke" id="p_smoke1" value="1" class=""><label for="p_smoke1">흡연</label>
-						<input type="radio" name="p_smoke" id="p_smoke2" value="0" class=""><label for="p_smoke2">비흡연</label>
-					</td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
-					<td>
-						<input type="text" name="p_nickname" id="" value="" class="saveWS250">
-						<input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="nick_duplicateCheck()">
-					</td>
-				</tr>
-				<tr>
-=======
    <form name="MemberJoinDonggu"  method="post" enctype="multipart/form-data"  action="MemberJoinDonggu_ok.jsp" onsubmit="return checkForm()">
    
       <div class="saveTableOne">
@@ -203,15 +134,10 @@ function deleteFile() {
                </td>
             </tr>
             <tr>
->>>>>>> branch 'main' of https://github.com/Zeeehy/DongGu.git
                 <th>사진</th>
                 <td style="display: flex; align-items: baseline; gap: 10px;">
                 <div>
-<<<<<<< HEAD
-                    <input type="file" name="p_img"  id="_img" accept="image/*" class="saveWS250">
-=======
                     <input type="file" name="p_img" accept="image/*" id="p_img" class="saveWS250">
->>>>>>> branch 'main' of https://github.com/Zeeehy/DongGu.git
                     <p style="color: #b2b2b2; font-size: 14px; margin-top: 5px;">사진첨부는 jpg,png,gif 파일만 가능합니다.</p>
                     <span id="imageText" class="dpib"></span>
                 </div>
