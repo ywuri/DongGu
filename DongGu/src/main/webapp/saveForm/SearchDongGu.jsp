@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<jsp:useBean id="dao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
+<jsp:useBean id="dao" class="com.DongGu.friend.InviteDAO"></jsp:useBean>
 <%
 
 	String cp_s = request.getParameter("cp");//현재 페이지 
