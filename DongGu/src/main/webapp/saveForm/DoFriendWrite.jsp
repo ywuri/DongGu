@@ -25,6 +25,8 @@
 <%
 	}
 	
+	
+	
 	//어떤 초대장인지 파라미터로 받음 //string형식의 send_id변수로 설정해줌
 	String i_num_value = request.getParameter("i_num");
 	if(i_num_value==null || i_num_value.equals("")){
@@ -55,12 +57,30 @@
 </head>
 <body>
 <%@ include file="../Header.jsp" %>
+<%
+
+	if(usertype == 0){
+	%>
+		<script>
+			window.alert('고용자는 접근하실 수 없습니다.');
+			history.back(); // 이전 페이지로 돌아가기
+		</script>
+	<%		
+	//}else {
+	%>
+		<script>
+			//window.alert(<%=usertype%>);
+		</script>
+	<%		
+		
+	}
+%>
 
 	<form name="DoWrite" action="DoWrite_ok.jsp" onsubmit="return datacheck();">
 	
 		<input type="hidden" name="i_num" id="" value="<%=i_num_value %>" class="saveWS250" placeholder="초대장번호">
 		<% 
-			if(s_id != null && !s_id.equals("")){
+			if(s_id != null && !s_id.equals("") && usertype == 1){
 		%>
 		<input type="hidden" name="p_id" id="" value="<%=s_id %>" class="saveWS250" placeholder="구직자아이디">
 		
@@ -79,7 +99,7 @@
 				</tr>
 				
 				<% 
-					if(s_id != null && !s_id.equals("")){
+					if(s_id != null && !s_id.equals("") && usertype == 1){
 						String sData = fdao.sitterData(s_id);
 						
 						String[] sdata_arr = sData.split("//");
@@ -114,7 +134,7 @@
 				<tr>
 					<th>사진</th>
 					<td>
-						<img src='/DongGu/img/Donggu/<%=sImg %>' class='writeImgSize'>
+						<img src='/DongGu/img/petsitter_profile/<%=sImg %>' class='writeImgSize'>
 					</td>
 				</tr>
 				<tr>

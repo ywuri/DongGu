@@ -103,9 +103,21 @@
 
         data_ani_img.innerHTML = "<img src='/DongGu/img/Animal/"+val_img+"' class='writeImgSize'>";
         data_ani_birth.textContent = val_birth;
+
         data_ani_alerg.textContent = val_aler;
+        if(val_aler == "null" || val_aler == "" ){
+            data_ani_alerg.textContent = "없음";
+		}
+        
         data_ani_disea.textContent = val_dise;
+        if(val_dise == "null" || val_dise == "" ){
+        	data_ani_disea.textContent = "없음";
+		}
+        
         data_ani_caut.textContent = val_caut;
+        if(val_caut == "null" || val_caut == "" ){
+        	data_ani_caut.textContent = "없음";
+		}
    	
         data_ani_nature.innerHTML = val_an_nat;
 	}
@@ -166,6 +178,7 @@
 	
 	String iNumStr = request.getParameter("i_num");
 	String btnValue = "초대하기";
+	int btnValue_int = 0;
 
 	int i_nums = 0;
 	//마이페이지에서 넘어온 경우 iNumStr(  request.getParameter("i_num")  ) 값 존재
@@ -173,6 +186,7 @@
 	if (iNumStr != null && !iNumStr.isEmpty()) {
 
 		btnValue = "초대장 수정하기";
+		btnValue_int = 1;
 
 	    i_nums = Integer.parseInt(iNumStr);
 	    //int i_nums = Integer.parseInt(request.getParameter("i_num"));
@@ -234,7 +248,7 @@
 			<h3>초 대 장</h3>
 			
 			<!-- ok파일에서 필요 -->
-			<input type="hidden" name="update_yn" id="update_yn" value="<%=btnValue%>"><!-- 수정모드인지 등록모드인지 파악하기 위함 -->
+			<input type="hidden" name="update_yn" id="update_yn" value="<%=btnValue_int%>"><!-- 수정모드인지 등록모드인지 파악하기 위함 -->
 			<input type="hidden" name="i_nums" id="i_nums" value="<%=i_nums%>"><!-- 초대장의 기본키값 -->
 			<table>
 				<tr>
