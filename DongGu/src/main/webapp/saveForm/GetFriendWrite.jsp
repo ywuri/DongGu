@@ -123,6 +123,7 @@
 	document.getElementById('i_start').setAttribute('min', getCurrentDate());
 	document.getElementById('i_end').setAttribute('min', getCurrentDate());
 	
+	//저장전 데이터 존재여부파악
 	function datacheck(){
 		if(document.getElementById('i_title').value.trim() === ""){
 			alert("초대제목을 입력해주세요.");
@@ -226,7 +227,7 @@
 %>
 </head>
 <body>
-<%@ include file="../Header.jsp" %>
+<%@include file="../SubHeader.jsp" %>
     
 	<form name="getWrite" action="GetWrite_ok.jsp" onsubmit="return datacheck();">
 		<div class="saveTableOne">

@@ -19,16 +19,17 @@ public class AfterDAO {
 	public int AfterWrite(AfterDTO ato) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "insert into review values(PK_review.nextval, ?,?,?, ?,?)";
+			String sql = "insert into review values(PK_review.nextval, ?,?,?, ?,?,?)";
 
 			ps = conn.prepareStatement(sql);
 
 			ps.setString(1, ato.getR_write_id());
 			ps.setInt(2, ato.getR_id_check());
-			ps.setInt(3, ato.getR_star()); 
-
-			ps.setString(4, ato.getR_content());
-			ps.setString(5, ato.getR_img_name());	//확장자명을 담은 파일명으로 저장
+			ps.setString(3, ato.getR_receive_id());
+			
+			ps.setInt(4, ato.getR_star()); 
+			ps.setString(5, ato.getR_content());
+			ps.setString(6, ato.getR_img_name());	//확장자명을 담은 파일명으로 저장
 
 			int count = ps.executeUpdate();
 			return count;

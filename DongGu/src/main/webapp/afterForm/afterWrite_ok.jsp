@@ -36,12 +36,15 @@
 
 	//MultipartRequest이게있으면 request대신에 MultipartRequest 변수명(mr)로 써야함
 	
-    adto.setR_write_id(mr.getParameter("r_write_id"));
+    adto.setR_write_id(mr.getParameter("r_id"));
     
     String r_id_check = mr.getParameter("r_id_check");
     int param_r_idc = Integer.parseInt(r_id_check);
     
     adto.setR_id_check(param_r_idc);
+    
+
+    adto.setR_receive_id(mr.getParameter("r_receive_id"));
     
     String r_star = mr.getParameter("r_star");
     int param_r_star = Integer.parseInt(r_star);

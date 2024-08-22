@@ -8,21 +8,23 @@ public class AfterDTO {
    /* --- 수아언니 --- */
    private int r_num;   //후기번호
    private String r_write_id;   //저장아이디
-   private int r_id_check; //저장아이디 구직자 vs 고용자 
+   private int r_id_check; //저장아이디 구직자0 vs 고용자1 
+   private String r_receive_id;    //받는 아이디(저장아이디가 누구한테쓰는지)
    private int r_star;    //평점
    private String r_content;   //내용
    private File r_img;   //사진   //올릴때 파일명과 달라짐
-   private String r_img_name;   //사진명   //올릴때 파일명과 달라짐
+   private String r_img_name;   //사진명   //올릴때 파일명과 달라짐	//db에 없음
    
    public AfterDTO() {
 	   System.out.println("AfterDTO 생성자 호출됨!");
    }
    
-   public AfterDTO(int r_num, String r_write_id, int r_id_check, int r_star, String r_content, File r_img) {
+   public AfterDTO(int r_num, String r_write_id, int r_id_check, String r_receive_id, int r_star, String r_content, File r_img) {
       super();
       this.r_num = r_num;
       this.r_write_id = r_write_id;
       this.r_id_check = r_id_check;
+      this.r_receive_id = r_receive_id;
       this.r_star = r_star;
       this.r_content = r_content;
       this.r_img = r_img;
@@ -51,8 +53,16 @@ public class AfterDTO {
    public void setR_id_check(int r_id_check) {
       this.r_id_check = r_id_check;
    }
+   
+   public String getR_receive_id() {
+	return r_receive_id;
+}
 
-   public int getR_star() {
+public void setR_receive_id(String r_receive_id) {
+	this.r_receive_id = r_receive_id;
+}
+
+public int getR_star() {
       return r_star;
    }
 

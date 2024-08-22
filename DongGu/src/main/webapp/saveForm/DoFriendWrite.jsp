@@ -24,14 +24,41 @@
 		</script>
 <%
 	}
+	
+	//어떤 초대장인지 파라미터로 받음 //string형식의 send_id변수로 설정해줌
+	String i_num_value = request.getParameter("i_num");
+	if(i_num_value==null || i_num_value.equals("")){
 %>
+		<script>
+			window.alert('잘못된 경로로 접속하셨습니다. 관리자에게 문의하세요');
+			history.back(); // 이전 페이지로 돌아가기
+		</script>
+<%		
+	}
+%>
+
+<script>
+	//저장전 데이터 존재여부파악
+	function datacheck(){
+		if(document.getElementById('ap_title').value.trim() === ""){
+			alert("지원제목을 입력해주세요.");
+			document.getElementById('ap_title').focus();
+			return false; // 폼 제출을 막습니다.
+			
+		}else if(document.getElementById('ap_content').value.trim() === ""){
+			alert("추가내용을 입력해주세요.");
+			document.getElementById('ap_content').focus();
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 <%@ include file="../Header.jsp" %>
 
-	<form name="DoWrite" action="DoWrite_ok.jsp">
+	<form name="DoWrite" action="DoWrite_ok.jsp" onsubmit="return datacheck();">
 	
-		<input type="hidden" name="i_num" id="" value="1" class="saveWS250" placeholder="초대장번호">
+		<input type="hidden" name="i_num" id="" value="<%=i_num_value %>" class="saveWS250" placeholder="초대장번호">
 		<% 
 			if(s_id != null && !s_id.equals("")){
 		%>
@@ -47,7 +74,7 @@
 				<tr>
 					<th>지원제목</th>
 					<td>
-						<input type="text" name="ap_title" id="" value="" class="saveWS250">
+						<input type="text" name="ap_title" id="ap_title" value="" class="saveWS250">
 					</td>
 				</tr>
 				
@@ -120,7 +147,7 @@
 				<tr>
 					<th>추가내용</th>
 					<td>
-						<textarea class="saveWS100p saveHS100" name="ap_content" placeholder="추가할 내용을 적어주세요."></textarea>
+						<textarea class="saveWS100p saveHS100" name="ap_content" id="ap_content" placeholder="추가할 내용을 적어주세요."></textarea>
 					</td>
 				</tr>
 			</table>
