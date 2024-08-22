@@ -292,23 +292,7 @@
 	.donggu_info .donggu_info_box .info_box_detail img {width: 76px; height: 76px; border-radius: 50%; object-fit: cover; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);} 
 	.donggu_info .donggu_info_box .donggu_info_p img {width: 15px; margin-left: 5px;}
 	
-	.rivew {
-		padding-top:200px;
-	}
-	.rivew .box {
-	    flex-direction: column;
-	}
-	.rivew .rivew_cont ul li {
-	    width: 48%;
-	}
-	.rivew .left_box {
-	    width: 100% !important;
-	    height: 200px !important;
-	    overflow: hidden;
-	}
-	.rivew .left_box img {
-	    width: 100%;
-	}
+	
 	
 	
 	
