@@ -301,9 +301,45 @@ public class QnABoardDAO {
 		}
 	}
 	
+	/* 위시리스트 등록을 위해 해당 작성자가 고용자(0)인지 구직자(1)인지 알기*/
+	public int isOwnerOrPet(String q_id) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = " select count(*) from owner where o_id = ? ";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, q_id);
+			rs = ps.executeQuery();
+			int num=-1;
+			if(rs.next()) {
+				num = rs.getInt(1);
+			}
+			
+			//고용자
+			if(num==1) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	/* 위시리스트 추가 또는 삭제*/
-	public int changeWishStatus(String sid,String q_num) {
+	public int changeWishStatus(String sid,String q_num,int w_id_check) {
 		
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
@@ -312,7 +348,6 @@ public class QnABoardDAO {
 			ps.setString(1, sid);
 			ps.setInt(2, 50);
 			ps.setString(3, q_num);
-			///////나중에수정///////
 			
 			
 			rs = ps.executeQuery();
@@ -334,10 +369,9 @@ public class QnABoardDAO {
 			else if(isEx==0) {
 				
 				sql =" insert into wishlist values(seq_wishlist_w_num.nextval, ?, ?, ?,?)";
-				//////////////////////////이거수정////////////////
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, sid);
-				ps.setInt(2, 0);//////////////////////////이거수정////////////////
+				ps.setInt(2, w_id_check);
 				ps.setInt(3, 50);
 				ps.setString(4, q_num);
 			}

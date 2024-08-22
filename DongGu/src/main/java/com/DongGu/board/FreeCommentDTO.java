@@ -9,7 +9,7 @@ public class FreeCommentDTO {
 	private String fc_date; /* 작성날짜 */
 	private String fc_img; /* 사진 */
 	private int fc_renum;	/*대댓글 번호*/
-	private int fc_ref;
+	private int fc_ref;		/* 부모번호 */
 	
 	private String fc_renum_nick; /*대댓글 닉네임*/
 	
@@ -21,6 +21,22 @@ public class FreeCommentDTO {
 	
 
 
+	public FreeCommentDTO(int fc_num, int f_num, String fc_id, String fc_nickname, String fc_content, String fc_date,
+			String fc_img, int fc_renum) {
+		super();
+		this.fc_num = fc_num;
+		this.f_num = f_num;
+		this.fc_id = fc_id;
+		this.fc_nickname = fc_nickname;
+		this.fc_content = fc_content;
+		this.fc_date = fc_date;
+		this.fc_img = fc_img;
+		this.fc_renum = fc_renum;
+	}
+
+
+
+
 	public FreeCommentDTO(int fc_num, String fc_content, String fc_img) {
 		super();
 		this.fc_num = fc_num;
@@ -28,7 +44,7 @@ public class FreeCommentDTO {
 		this.fc_img = fc_img;
 	}
 
-
+	
 
 
 	public FreeCommentDTO(int fc_num, int f_num, String fc_id, String fc_nickname, String fc_content, String fc_date,
