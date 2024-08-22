@@ -44,11 +44,11 @@
 					<th>비밀번호 찾기 질문</th>
 					<td>
 						<select name="q_num" class="saveWS260">
-							<option value="1">내가 처음으로 키웠던 반려동물의 이름은?</option>
-							<option value="2">내 반려동물이 가장 좋아하는 장난감은?</option>
-							<option value="3">내 반려동물이 가장 좋아하는 산책 장소는?</option>
-							<option value="4">내 반려동물의 생일(혹은 입양일)은?</option>
-							<option value="5">내 반려동물의 첫번째 수의사 이름은?</option>
+							<option value="1">내가 가장 좋아하는 간식은?</option>
+							<option value="2">제일 기억에 남는 영화는?</option>
+							<option value="3">부모님의 결혼기념일은?</option>
+							<option value="4">어릴적(혹은 현재) 제일 친한친구 이름은?</option>
+							<option value="5">제일 기억에 남는 생일선물은?</option>
 						</select>
 					</td>
 				</tr>

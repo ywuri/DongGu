@@ -189,6 +189,23 @@ public class memberDAO {
             }
             rs.close();
             ps.close();
+            
+            // admin 테이블에서 비밀번호 검사
+            String sql3 = "SELECT ad_pwd FROM admin WHERE ad_id=?";
+            ps = conn.prepareStatement(sql3);
+            ps.setString(1, userid);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String ad_pwd = rs.getString("ad_pwd");
+                if (ad_pwd.equals(userpwd)) {
+                    return LOGIN_OK;
+                } else {
+                    return NOT_PWD;
+                }
+            }
+            rs.close();
+            ps.close();
 
             return NOT_ID; // 두 테이블 모두에서 ID를 찾지 못한 경우
 
@@ -241,6 +258,21 @@ public class memberDAO {
                 userInfo = rs.getString("o_name");
                 session.setAttribute("snickname", rs.getString("o_nickname"));
                 session.setAttribute("usertype", 0);
+                rs.close();
+                ps.close();
+                return userInfo;
+            }
+            rs.close();
+            ps.close();
+            
+            // admin 테이블에서 정보 추출
+            String sql3 = "SELECT * FROM admin WHERE ad_id=?";
+            ps = conn.prepareStatement(sql3);
+            ps.setString(1, userid);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                session.setAttribute("usertype", 2);
                 rs.close();
                 ps.close();
                 return userInfo;
