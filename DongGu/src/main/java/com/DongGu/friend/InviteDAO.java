@@ -275,7 +275,7 @@ public class InviteDAO {
 						+ "        at.a_num,  "
 						+ "        i.i_title,  "
 						+ "        o.o_nickname,  "
-						+ "        i.i_date"
+						+ "        i.i_date,"
 						+ "        o.o_id "
 						+ "    order by i_num desc )c   "
 						+ ")b "
