@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.DongGu.friend.FriendDAO" %>    
+<%@ page import="com.DongGu.friend.InviteDAO" %>    
 <%@ page import="com.DongGu.friend.InviteDTO" %>   
-<jsp:useBean id="dao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
+<jsp:useBean id="dao" class="com.DongGu.friend.InviteDAO"></jsp:useBean>
 <jsp:useBean id="dto" class="com.DongGu.friend.InviteDTO"></jsp:useBean>
 <%
 

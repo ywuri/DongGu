@@ -53,7 +53,6 @@ function showFreeBoardImg(event){
 	        <input type="submit" value="등록" id="WriteFreeBoardSubmitButton">
 	    </span>
 	    </div>
-	    
 	</div>
 	
 	

@@ -29,14 +29,15 @@
 	String search_type=request.getParameter("search_type");
 	String search_word=request.getParameter("search_word");
 	
+	
 	String search_type_kor="";
-	if("q_title".equals(search_type)){
+	if("f_title".equals(search_type)){
 		search_type_kor="제목";
 	}
-	else if("q_content".equals(search_type)){
+	else if("f_content".equals(search_type)){
 		search_type_kor="내용";
 	}
-	else if("q_nickname".equals(search_type)){
+	else if("f_nickname".equals(search_type)){
 		search_type_kor="닉네임";
 	}
 	//System.out.println("search_type_kor "+search_type_kor);

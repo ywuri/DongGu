@@ -18,7 +18,11 @@ String q_id = request.getParameter("q_id");
 String sid = (String)session.getAttribute("sid");
 String q_num =  request.getParameter("q_num");
 
-int result = dao.changeWishStatus(sid,q_num );
+
+int w_id_check = dao.isOwnerOrPet(q_id);
+
+
+int result = dao.changeWishStatus(sid,q_num,w_id_check );
 
 //삭제되거나 추가성공
 if(result==1){

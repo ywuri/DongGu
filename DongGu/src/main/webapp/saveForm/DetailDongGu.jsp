@@ -3,7 +3,7 @@
 
 <%@ page import="java.sql.Date" %>   
 <%@ page import="com.DongGu.friend.InviteDTO" %>     
-<%@ page import="com.DongGu.friend.FriendDAO" %>     
+<%@ page import="com.DongGu.friend.InviteDAO" %>     
 <%@ page import="java.util.*" %>    
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<jsp:useBean id="dao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
+<jsp:useBean id="dao" class="com.DongGu.friend.InviteDAO"></jsp:useBean>
 <jsp:useBean id="dto" class="com.DongGu.friend.InviteDTO"></jsp:useBean>
 <%
 
@@ -100,7 +100,7 @@ if(sid!=null ){
 			
 			<li id="DetailDongGuButton">
 				<span id="spanSizeDe">초대에 응하시겠습니까? </span>
-				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/saveForm/DoFriendWrite.jsp'">
+				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/saveForm/DoFriendWrite.jsp?i_num=<%=i_num%>'">
 			</li>
 			
 			<li>

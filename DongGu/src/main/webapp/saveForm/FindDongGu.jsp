@@ -4,7 +4,7 @@
 <%@ page import="java.sql.Date.*" %>   
 <%@ page import="java.time.format.*" %>   
 <%@ page import="java.time.*" %>  
-<%@ page import="com.DongGu.friend.FriendDAO" %>    
+<%@ page import="com.DongGu.friend.InviteDAO" %>    
 <%@ page import="com.DongGu.friend.InviteDTO" %>         
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>  
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
-<jsp:useBean id="dao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
+<jsp:useBean id="dao" class="com.DongGu.friend.InviteDAO"></jsp:useBean>
 
 <style>
 

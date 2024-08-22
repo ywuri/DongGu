@@ -338,6 +338,7 @@ public class FriendDAO {
 		}
 	}
 	
+<<<<<<< HEAD
 	/** 마이페이지>초대장 수정하기(데이터 불러오기) */
 	public ArrayList<FriendDTO> getFriendData(int i_nums) {
 
@@ -454,93 +455,11 @@ public class FriendDAO {
 	
 	
 	
+=======
+>>>>>>> refs/heads/LJH
 
-	/* ======================지현 시작 ==========================*/
-	
-	/* 총 게시물 갯수 가져오기*/
-	public int getInviteCnt() {
-		try {
-			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql="select count(*) from invitation";
-			ps =conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			int result=0;
-			
-			if(rs.next()) { 
-				result=rs.getInt(1);
-			}
-			
-			//System.out.println(result);
-			return result;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			return 0;
-		}finally {
-			try {
-				if(ps!=null) ps.close();
-				if(conn!=null) conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
-	
-	
-	/* 검색결과 게시물 갯수 가져오기*/
-	public int getInviteCnt(String search_type,String search_word) {
-		try {
-			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql="";
-			
-			if("i_title".equals(search_type)) {
-				sql="select count(*) "
-						+ "    from invitation  "
-						+ "    where i_title like ? "
-						;
-			
-			}else if("o_nickname".equals(search_type)) {
-				sql="select count(*) "
-						+ "    from invitation i, animalinfo a,owner o  "
-						+ "    where i.ai_num = a.ai_num "
-						+ "    and o.o_id = a.o_id and  o.o_nickname like ?  "
-						; 
-			}
-			
-			ps =conn.prepareStatement(sql);
-			ps.setString(1, "%"+search_word+"%");
-			rs = ps.executeQuery();
-			int result=0;
-			
-			if(rs.next()) { 
-				result=rs.getInt(1);
-			}
-			
-			
-			//System.out.println(result);
-			return result;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			return 0;
-		}finally {
-			try {
-				if(ps!=null) ps.close();
-				if(conn!=null) conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
-	/* 글목록 가져오기 */
-	public ArrayList<InviteDTO> getInviteList(int cp,int listSize,int int_dongNang){
-		try {
-			conn=com.DongGu.db.DongGuDB.getConn();
 
+<<<<<<< HEAD
 			String sql ="select *  "
 					+ "from  "
 					+ "(select rownum as rnum, a.* from  "
@@ -763,5 +682,7 @@ public class FriendDAO {
 	/* 멍구가져오기 */
 	
 	/* ======================지현 끝 ==========================*/
+=======
+>>>>>>> refs/heads/LJH
 
 }

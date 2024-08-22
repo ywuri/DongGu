@@ -112,6 +112,7 @@ public class QnABoardDTO {
 	public void setQ_sunbun(int q_sunbun) {
 		this.q_sunbun = q_sunbun;
 	}
-	
+
+
 	
 }
