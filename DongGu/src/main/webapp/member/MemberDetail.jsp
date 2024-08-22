@@ -7,7 +7,12 @@
 <%@ page import="java.time.Period" %>
 <%@ page import="com.DongGu.mypage.MyPageDAO" %>    
 <%@ page import="com.DongGu.mypage.MyPageDTO" %>  
+<%@ page import="java.util.*" %>
+<%@ page import="com.DongGu.review.ReviewDTO" %>
+<%@ page import="com.DongGu.review.ReviewDAO" %>
+
  <jsp:useBean id="dao" class="com.DongGu.mypage.MyPageDAO"></jsp:useBean>
+<jsp:useBean id="rdao" class="com.DongGu.review.ReviewDAO"></jsp:useBean>
     
 <%
    String m_sid = (String)session.getAttribute("sid");
@@ -74,7 +79,10 @@
         
     // 결합된 주소
     String MaskedAddr = firstPart + " " + secondPart + " " + maskedThirdPart.toString();
-        
+    
+    
+    //후기 리스트
+    ArrayList<ReviewDTO> arrayReview = rdao.AfterListPerson(Integer.parseInt(request.getParameter("usertype")) , request.getParameter("o_id"));
  
  %>
 <!DOCTYPE html>
@@ -173,63 +181,36 @@
 
 	<div id='Tabid1' class="rivew_cont">
 		<ul>
-			<li>
+			<%
+			if(arrayReview==null|| arrayReview.size()==0){
+				%>
+					<li>해당 회원의 리뷰가 없습니다.</li>
+				<%
+			}
+			else{
+				for(int i=0;i<arrayReview.size();i++){
+				%>
+				<li>
 				<div class="box">
-					<div class="left_box">
+					<div style="background: url(<%=arrayReview.get(i).getR_img() %>) no-repeat top right; background-position: right -25px; background-size: cover;">
 					</div>
 					<div class="right_box">
 						<div class="rb_title">
 							<span class="best">Best</span>
-							<span class="addr">경남 거제시</span>
-							<span class="date">7월31일</span>
+							<span class="addr"><%=arrayReview.get(i).getR_write_id() %></span>
+							<span class="date"><%=arrayReview.get(i).getR_date() %></span>
 						</div>
 						<img src="img/star.png" alt="별점">
 						<p>
-						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워<br>
-						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.<br>
-						아자아자 화이자 !  
+						<%=arrayReview.get(i).getR_content() %>
 						</p>
 					</div>
 				</div>
 			</li>
-			<li>
-				<div class="box">
-					<div class="left_box">
-					</div>
-					<div class="right_box">
-						<div class="rb_title">
-							<span class="best">Best</span>
-							<span class="addr">경북 구미시</span>
-							<span class="date">7월31일</span>
-						</div>
-						<img src="img/star.png" alt="별점">
-						<p>
-						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워<br>
-						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.<br>
-						아자아자 화이자 !  
-						</p>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="box">
-					<div class="left_box">
-					</div>
-					<div class="right_box">
-						<div class="rb_title">
-							<span class="best">Best</span>
-							<span class="addr">대구광역시</span>
-							<span class="date">7월31일</span>
-						</div>
-						<img src="img/star.png" alt="별점">
-						<p>
-						강아지 너무 귀여워 동구들 짱짱입니다 ! 한쪽만 펼쳐진 귀, 콩 3개 ... 너무 사랑스러워<br>
-						우리 팀 아직 3일밖에 안지났지만 화이팅 해봅시다.<br>
-						아자아자 화이자 !  
-						</p>
-					</div>
-				</div>
-			</li>
+			<%
+			}
+		}
+			%>
 		</ul>
 	</div>
 	<!-- Tabid1 끝 -->
