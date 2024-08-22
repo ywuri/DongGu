@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.DongGu.review.IdReviewDTO" %>
-<%@ page import="com.DongGu.review.DongguReviewDTO" %>
-<%@ page import="com.DongGu.review.IdReviewDAO" %>
-<%@ page import="com.DongGu.review.DongguReviewDAO" %>
+<%@ page import="com.DongGu.review.OtherReviewDAO" %>
 
-<jsp:useBean id="rdao" class="com.DongGu.review.IdReviewDAO"></jsp:useBean>
-<jsp:useBean id="ddao" class="com.DongGu.review.DongguReviewDAO"></jsp:useBean>
+<jsp:useBean id="odao" class="com.DongGu.review.OtherReviewDAO"></jsp:useBean>
 
 <%!
     // 별점 이미지를 반환하는 메서드 정의
@@ -45,21 +42,21 @@
     }
 
     IdReviewDTO review = null;
-    DongguReviewDTO dongguReview = null;
     try {
-        review = rdao.getReviewByNum(reviewNum); // int로 변환된 값을 전달
-        dongguReview = ddao.getReviewByNum(reviewNum); // int로 변환된 값을 전달
+        review = odao.getReviewByNum(reviewNum); // int로 변환된 값을 전달
     } catch (Exception e) {
-        // 예외 내용을 출력
-        e.printStackTrace();
+        //e.printStackTrace(out);  // 예외 내용을 출력
     }
 
     if (review == null) {
-        out.println("해당 리뷰를 찾을 수 없습니다.");
+%>
+        <div class="error-message">
+            <p>해당 리뷰를 찾을 수 없습니다.</p>
+        </div>
+<%
     } else {
         // 이미지 경로가 null이거나 비어 있거나 "null"이라는 문자열인 경우 기본 이미지를 사용
         String imageUrl = (review.getR_img() != null && !review.getR_img().trim().isEmpty() && !"null".equalsIgnoreCase(review.getR_img())) ? review.getR_img() : "/DongGu/img/default.png";
-        String profileImageUrl = (dongguReview != null && dongguReview.getP_img() != null && !dongguReview.getP_img().trim().isEmpty()) ? dongguReview.getP_img() : "/DongGu/img/sinyou.jpg";
 %>
 <!DOCTYPE html>
 <html>
@@ -88,25 +85,6 @@
 					<p><%= review.getR_content() %></p>
 				</div>
 			</div>
-			<div class="donggu_info">
-				<div>
-					<div class="donggu_info_box">
-						<p class="donggu_info_p">담당 동구 정보<img src="/DongGu/img/magnifier.png"></p>
-						
-						<div class="info_box_detail">
-							<div>
-								<p style="text-align: right; margin-bottom: 10px; font-size: 20px; color: #333333; font-weight: 600; letter-spacing: -0.2px; line-height: 25px;"><%= dongguReview != null ? dongguReview.getP_nickname() : "알 수 없음" %></p>
-								<div style="display: flex; flex-direction: row; align-items: flex-end; gap: 10px;">
-									<p><a href="DongGu/member/MemberDetail.jsp"><%= dongguReview != null ? dongguReview.getG_name() + " 등급" : "등급 알 수 없음" %></a></p> | 
-									<p><%= dongguReview != null ? dongguReview.getAvg_star() : "N/A" %></p> | 
-									<p>후기 <%= dongguReview != null ? dongguReview.getReview_count() : "알 수 없음" %>개</p>
-								</div>
-							</div>
-								<img src="<%= profileImageUrl %>" alt="프로필 이미지"> <!-- DB에서 가져온 프로필 이미지 -->
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </section>
@@ -114,5 +92,5 @@
 </body>
 </html>
 <%
-    }
+    } // review가 null이 아닌 경우의 else 블록 종료
 %>
