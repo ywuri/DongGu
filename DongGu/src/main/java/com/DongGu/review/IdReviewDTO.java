@@ -45,7 +45,7 @@ public class IdReviewDTO {
 
 
 	public IdReviewDTO(int r_num, String r_write_id, int r_id_check, int r_star, String r_content, String r_img,
-               String r_img_name, Date r_date, String nickname, String animal_name, int animal_age) {
+               String r_img_name, Date r_date, String nickname, String ai_name, int ai_birth) {
 		 this.r_num = r_num;
 		 this.r_write_id = r_write_id;
 		 this.r_id_check = r_id_check;
