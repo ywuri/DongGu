@@ -79,7 +79,7 @@ public class MyPageDAO {
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
          		+ "JOIN animal a ON at.a_num = a.a_num "
-         		+ "JOIN application ap ON i.i_id = ap.i_id "
+         		+ "JOIN application ap ON i.i_num = ap.i_num "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
          		+ "ORDER BY ap.ap_num desc "
@@ -101,15 +101,16 @@ public class MyPageDAO {
                Date i_start = rs.getDate("i_start");
                Date i_end = rs.getDate("i_end");
                
-               String[] an_nums = an_num_link.split("/");
+               String[] an_nums = an_num_link.split("\\|");
                ArrayList<String> an_words = new ArrayList<>();
                
                for (int i = 0; i < an_nums.length; i++) {
+            	   
             	   String an_num = an_nums[i].trim();       
             	   String sql2 = "SELECT an_word FROM animalnature WHERE an_num = ?";
             	   
             	   ps2=conn.prepareStatement(sql2);
-            	   ps2.setString(1, an_num.trim());
+            	   ps2.setString(1, an_num);
                    
                    rs2 = ps2.executeQuery();                  
                    if (rs2.next()) {
@@ -126,6 +127,7 @@ public class MyPageDAO {
             
       }catch(Exception e) {
          e.printStackTrace();
+         System.err.println("여기 " );
          return null;         
       }finally {
          try {
@@ -157,7 +159,7 @@ public class MyPageDAO {
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
          		+ "JOIN animal a ON at.a_num = a.a_num "
-         		+ "JOIN application ap ON i.i_id = ap.i_id "
+         		+ "JOIN application ap ON i.i_num = ap.i_num "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
          		+ "ORDER BY ap.ap_num desc ) a"
@@ -185,7 +187,7 @@ public class MyPageDAO {
                Date i_start = rs.getDate("i_start");
                Date i_end = rs.getDate("i_end");
                
-               String[] an_nums = an_num_link.split("/");
+               String[] an_nums = an_num_link.split("\\|");
                ArrayList<String> an_words = new ArrayList<>();
                
                for (int i = 0; i < an_nums.length; i++) {
@@ -403,7 +405,7 @@ public class MyPageDAO {
 	         String sql10 = "SELECT o.o_name, o.o_nickname, "
 	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
 	         		+ "(SELECT COUNT(r.r_num) FROM review r  WHERE r.r_receive_id = o.o_id) AS reviewcount, "
-	         		+ "(SELECT COUNT(i.i_id) FROM invitation i JOIN animalinfo ai ON ai.ai_num = i.ai_num WHERE ai.o_id = o.o_id) AS invitationcount, "
+	         		+ "(SELECT COUNT(i.i_num) FROM invitation i JOIN animalinfo ai ON ai.ai_num = i.ai_num WHERE ai.o_id = o.o_id) AS invitationcount, "
 	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = o.o_id) AS w_num, "
 	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = o.o_id) AS wt_num_value "
 	         		+ "FROM owner o "
@@ -429,12 +431,12 @@ public class MyPageDAO {
 	         String sql30 = "select ai.ai_img, i.i_title, i.i_start, i.i_end, "
 	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
 	         		+ "(SELECT count(r.r_num) FROM review r WHERE r.r_receive_id = o.o_id) AS reviewcount, "
-	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_id ) AS w_num, "
-	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_id ) AS wt_num_value "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_num ) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_num ) AS wt_num_value "
 	         		+ "from invitation i "
 	         		+ "JOIN animalinfo ai on i.ai_num = ai.ai_num "
 	         		+ "JOIN owner o on ai.o_id = o.o_id "
-	         		+ "where i.i_id IN (select wt_num_value "
+	         		+ "where i.i_num IN (select wt_num_value "
 	         		+ "from wishlist "
 	         		+ "where w_id = ? and wt_num = ? ) ";
 	         
