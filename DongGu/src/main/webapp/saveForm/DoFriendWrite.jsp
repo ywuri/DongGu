@@ -87,7 +87,7 @@
 				<tr>
 					<th>사진</th>
 					<td>
-						<img src='/DongGu/img/webFolder/upload/<%=sImg %>' class='writeImgSize'>
+						<img src='/DongGu/img/Donggu/<%=sImg %>' class='writeImgSize'>
 					</td>
 				</tr>
 				<tr>

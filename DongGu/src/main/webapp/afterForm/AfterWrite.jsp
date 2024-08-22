@@ -72,7 +72,8 @@
 			}
 		%>
 		<input type="hidden" name="r_id_check" id="" value=<%=usertype %> class="saveWS250"><!-- 세션값(구직자>0 고용자>1) -->
-		<input type="hidden" name="" id="" value=<%=ut_text %> class="saveWS250"><!--  -->
+		<input type="hidden" name="" id="" value=<%=ut_text %> class="saveWS250"><!-- 고용자인지 구직자인지 확인하기 위한 용도로 만들어둠 -->
+		<input type="hidden" name="" id="" value=<%=ut_text %> class="saveWS250"><!-- 고용자인지 구직자인지 확인하기 위한 용도로 만들어둠 -->
 
 
 		<div class="saveTableOne">

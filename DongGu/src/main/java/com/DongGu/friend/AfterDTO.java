@@ -83,43 +83,6 @@ public class AfterDTO {
    public void setR_img_name(String r_img_name) {
       this.r_img_name = r_img_name;
    }
-   
-   
-   
-   /* --- 유리 --- */
-   private java.sql.Date r_date; // 등록날짜
-   private String nickname;
-
-   public AfterDTO(int r_num, String r_write_id, int r_id_check, int r_star, String r_content, File r_img, String r_img_name,
-      Date r_date, String nickname) {
-      super();
-      this.r_num = r_num;
-      this.r_write_id = r_write_id;
-      this.r_id_check = r_id_check;
-      this.r_star = r_star;
-      this.r_content = r_content;
-      this.r_img = r_img;
-      this.r_img_name = r_img_name;
-      this.r_date = r_date;
-      this.nickname = nickname;  // 초기화
-   }
-
-   public java.sql.Date getR_date() {
-      return r_date;
-   }
-   
-   public void setR_date(java.sql.Date r_date) {
-      this.r_date = r_date;
-   }
-   
-   public String getNickname() {
-      return nickname;
-   }
-   
-   public void setNickname(String nickname) {
-      this.nickname = nickname;
-   }
-      
 
 
 }
