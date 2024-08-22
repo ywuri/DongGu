@@ -16,8 +16,9 @@ request.setCharacterEncoding("utf-8");
 <%
 
 // 파일 업로드 처리
+String uploadPath = request.getRealPath("/") + "img/petsitter_profile/temp"; // 임시 저장 경로
 String savepath = request.getRealPath("/")+"img/petsitter_profile/";
-MultipartRequest mr = new MultipartRequest(request, savepath, 10 * 1024 * 1024, "utf-8");
+MultipartRequest mr = new MultipartRequest(request, uploadPath, 10 * 1024 * 1024, "utf-8");
 String originalFileName = mr.getFilesystemName("p_img");
 String newFileName="";
 //사진이 첨부됐으면
@@ -32,6 +33,7 @@ if (originalFileName != null) {
    newFileName = generateUniqueFileName( savepath, "profile", jpgType); // 예: "free1.jpg"
 
    // 파일 경로 객체 생성
+   File tempFile = new File(uploadPath, originalFileName);
    File finalFile = new File(savepath, newFileName);
 
    // 파일이 존재하면 삭제
@@ -42,6 +44,14 @@ if (originalFileName != null) {
       //System.out.println("기존 파일 삭제 완료: " + finalFile.getName());
   }
 
+   
+   
+  // 파일 이름 변경 (이동)
+  if (tempFile.renameTo(finalFile)) {
+      //System.out.println("파일이 성공적으로 이동되었습니다: " + newFileName);
+  } else {
+      //System.out.println("파일 이동에 실패했습니다: " + originalFileName);
+  }
 }
 
 // 현재 날짜로 p_date 설정
@@ -57,7 +67,7 @@ String p_nickname = mr.getParameter("p_nickname");
 
 String p_tel = mr.getParameter("p_tel1") + "-" + mr.getParameter("p_tel2") + "-" + mr.getParameter("p_tel3");
 String p_addr = mr.getParameter("p_addr1") + " " + mr.getParameter("p_addr2");
-String p_jumin = mr.getParameter("p_jumin1") + "-" + mr.getParameter("p_jumin");
+String p_jumin = mr.getParameter("p_jumin1") + "-" + mr.getParameter("p_jumin2");
 
 String p_ex_my = mr.getParameter("p_ex_my");
 String p_ex_other = mr.getParameter("p_ex_other");
@@ -85,7 +95,7 @@ mdto.setQ_num(q_num != null && !q_num.trim().isEmpty() ? Integer.parseInt(q_num)
 mdto.setP_answer(p_answer);
 mdto.setP_date(p_date);  // java.sql.Date를 명시적으로 사용
 mdto.setP_bank_name(p_bank_name);
-mdto.setP_bank_num(p_bank_name);
+mdto.setP_bank_num(p_bank_num);
 
 // 여기에 L_NUM을 5으로 설정
 mdto.setG_num(5);  // 등급번호를 5으로 설정

@@ -38,9 +38,15 @@ public class ownermemberDTO {
 	
 	
 	public ownermemberDTO() {
-		System.out.println("ownermemberDTO 생성자 호출됨!");
+		/* System.out.println("ownermemberDTO 생성자 호출됨!"); */
 	}
 
+	/* 상세페이지 가기위한 dto*/
+	public ownermemberDTO(int usertype, String o_id) {
+		super();
+		this.usertype = usertype;
+		this.o_id = o_id;
+	}
 
 	public ownermemberDTO (String o_id, String o_pwd, String o_name, int o_gender, String o_nickname, String o_tel,
 			String o_addr, String o_house, String o_jumin, Date o_date,int usertype) {

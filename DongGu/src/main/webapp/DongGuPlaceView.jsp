@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="java.util.*" %>
+<%@page import="com.DongGu.cafe.CafeDTO" %>
+<jsp:useBean id="cdao" class="com.DongGu.cafe.CafeDAO" scope="session"></jsp:useBean>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/DongGu.css">
+
 <style>
 section.view_place {width: 100%; display: flex; padding: 200px 0 100px 0; flex-direction: column; align-items: center; justify-content: space-around;}
 .view_place .info.img {height: 500px; overflow: hidden;}
@@ -34,83 +40,128 @@ section.view_place {width: 100%; display: flex; padding: 200px 0 100px 0; flex-d
     margin-top: 100px;
     border-radius: 10px;
     background: #fdcb08;}
+    
+.view_place .left_box .view_tag ul li > * {vertical-align:middle;}
+.view_place .left_box .view_tag ul li .tag_img {margin:-2px 0 0 0; width:20px;}  
 </style>
 </head>
+
+<% 
+	int idx_s = Integer.parseInt(request.getParameter("idx"));
+%>
+
+
 <body>
 <%@include file="SubHeader.jsp" %>
 <section class="view_place">
-	<div class="info img">
-		<img src="img/place01.jpg" >
+
+	<%
+		ArrayList<CafeDTO> arr = cdao.cafeData(idx_s);
+
+		if(arr==null||arr.size()==0){
+	%>
+	<div class="box">
+		<div class="txt_box">
+			<p class="big_txt">등록된 게시글이 없습니다.</p>
+		</div>
 	</div>
-	<div style="display: flex; gap: 50px; margin-top: 50px;">
-		<div class="left_box">
-			<p class="view_title">헬로우마루네</p>
-			<div class="view_addr">
-				<img src="img/icon_addr.png">
-				<p>서울 구로구 서해안로 2295 4층 2호</p>
-			</div>
-			<div class="view_tag">
-				<ul>
-					<li><input type="checkbox" checked value="소형견">소형견</li>
-					<li><input type="checkbox" checked value="중형견">중현경</li>
-					<li><input type="checkbox" checked value="대형견">대형견</li>
-					<li><input type="checkbox" checked value="초대형견">초대형견</li>
-					<li><input type="checkbox" checked value="포토존">포토존</li>
-					<li><input type="checkbox" disabled value="실내놀이터">실내놀이터</li>
-					<li><input type="checkbox" checked value="야외놀이터">야외놀이터</li>
-					<li><input type="checkbox" checked value="주차공간">주차공간</li>
-					<li><input type="checkbox" checked value="단체석">단체석</li>
-				</ul>
-			</div>
-			<div class="view_line"></div>
-			<div class="view_info">
-				<div class="info_title">
-					<img src="img/icon_info2.png">
-					<p>이용안내</p>
+	<%
+		}else {
+			//System.out.println(arr.size());
+			for(int i=0; i<arr.size(); i++){
+	%>
+	
+		<div class="info img">
+			<img src="/DongGu/img/cafe/<%=arr.get(i).getC_img() %>">
+		</div>
+		<div style="display: flex; gap: 50px; margin-top: 50px;">
+	
+	
+		
+			<div class="left_box">
+				<p class="view_title"><%=arr.get(i).getC_name() %></p>
+				<div class="view_addr">
+					<img src="img/icon_addr.png">
+					<p><%=arr.get(i).getC_addr() %></p>
 				</div>
-				<p class="info_txt">헬로우마루네 애견운동장은 강아지 유치원 , 장기호텔링 , 셀프목욕 , 호텔 , 용품을 구매할 수 있는 강아지를 위한 편의시설 공간입니다.</p>
-			</div>
-			<div class="view_animal">
-				<div class="animal_title">
-					<img src="img/icon_dog_yw.png" style="width:20px;">
-					<p>반려동물 동반 안내</p>
-				</div>
-				<div>
-					<ul class="animal_txt">
-						<li>1. 반려동물이 건강하고 예방접종이 완료된 상태여야 합니다.</li>
-						<li>2. 카페 내에서는 항상 반려동물에게 목줄을 착용시켜서 다른 손님이나 동물에게 피해를 주지 않도록 주의합니다.</li>
-						<li>3. 다른 손님이나 반려동물에게 공격적인 행동을 보일 경우, 퇴장을 요청받을 수 있습니다.</li>
-						<li>4. 반려동물 놀이시설이나 장난감을 사용할 때는 다른 손님과 조율하여 사용합니다.</li>
-						<li>5. 카페 내에서의 안전사고나 피해에 대한 책임은 반려동물 주인에게 있을 수 있습니다.</li>
+				<div class="view_tag">
+					<% 
+						//String detailTag = cdao.detailTag(arr.get(i).getC_vtag());
+						//String detailTag2 = cdao.detailTag2(arr.get(i).getC_num());
+						String detailTag3 = cdao.detailTag3(arr.get(i).getC_vtag());
+						//System.out.println(detailTag);
+					%>
+					<ul>
+						<%=detailTag3%>
+						<!-- 
+						<li><input type="checkbox" checked value="소형견">소형견</li>
+						<li><input type="checkbox" checked value="중형견">중형경</li>
+						<li><input type="checkbox" checked value="대형견">대형견</li>
+						<li><input type="checkbox" checked value="초대형견">초대형견</li>
+						<li><input type="checkbox" checked value="포토존">포토존</li>
+						<li><input type="checkbox" disabled checked value="실내놀이터">실내놀이터</li>
+						<li><input type="checkbox" checked value="야외놀이터">야외놀이터</li>
+						<li><input type="checkbox" checked value="주차공간">주차공간</li>
+						<li><input type="checkbox" checked value="단체석">단체석</li>
+						 -->
 					</ul>
 				</div>
-			</div>
-		</div>
-		<div class="right_box">
-			<div class="view_info_box">
-				<p class="title">영업안내</p>
-				<div class="info_box addr">
-					<p>업체 위치</p>
-					<p class="info_txt">서울 구로구 서해안로 2295 4층 2호</p>
-				</div>
-				<div class="info_box time">
-					<p>운영 시간</p>
-					<p class="info_txt">매일 11:00 ~ 20:00</p>
-				</div>
-				<div class="info_box link">
-					<p class="box_bigtxt">홈페이지</p>
-					<div style="display: flex; align-items: center; margin-top:10px;">
-						<img src="img/icon_naver.png" style="width:20px; margin-right: 10px;">
-						<p class="info_txt" style="margin:0;">네이버 플레이스</p>
+				<div class="view_line"></div>
+				<div class="view_info">
+					<div class="info_title">
+						<img src="img/icon_info2.png">
+						<p>이용안내</p>
 					</div>
-					
+					<p class="info_txt"><%=arr.get(i).getC_info() %></p>
+				</div>
+			
+				<div class="view_animal">
+					<div class="animal_title">
+						<img src="img/icon_dog_yw.png" style="width:20px;">
+						<p>반려동물 동반 안내</p>
+					</div>
+					<div>
+						<ul class="animal_txt">
+							<li>1. 반려동물이 건강하고 예방접종이 완료된 상태여야 합니다.</li>
+							<li>2. 카페 내에서는 항상 반려동물에게 목줄을 착용시켜서 다른 손님이나 동물에게 피해를 주지 않도록 주의합니다.</li>
+							<li>3. 다른 손님이나 반려동물에게 공격적인 행동을 보일 경우, 퇴장을 요청받을 수 있습니다.</li>
+							<li>4. 반려동물 놀이시설이나 장난감을 사용할 때는 다른 손님과 조율하여 사용합니다.</li>
+							<li>5. 카페 내에서의 안전사고나 피해에 대한 책임은 반려동물 주인에게 있을 수 있습니다.</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-			<!--  <div class="list_bt">
-				<p>목록으로</p>
-			</div>-->
+			<div class="right_box">
+				<div class="view_info_box">
+					<p class="title">영업안내</p>
+					<div class="info_box addr">
+						<p>업체 위치</p>
+						<p class="info_txt"><%=arr.get(i).getC_addr() %></p>
+					</div>
+					<div class="info_box time">
+						<p>운영 시간</p>
+						<p class="info_txt"><%=arr.get(i).getC_time() %></p>
+					</div>
+					<div class="info_box link">
+						<p class="box_bigtxt">홈페이지</p>
+						<div style="display: flex; align-items: center; margin-top:10px;">
+							<img src="img/icon_naver.png" style="width:20px; margin-right: 10px;">
+							<p class="info_txt" style="margin:0;"><%=arr.get(i).getC_url() %></p>
+						</div>
+						
+					</div>
+				</div>
+				<!--  <div class="list_bt">
+					<p>목록으로</p>
+				</div>-->
+			</div>
+			
+				
 		</div>
-	</div>
+	<%
+		}
+	}
+	%>
 </section>
 <%@include file="Footer.jsp" %>
 </body>

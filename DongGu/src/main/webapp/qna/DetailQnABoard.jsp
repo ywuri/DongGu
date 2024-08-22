@@ -63,7 +63,7 @@ array = dao.getNextQnABoard(q_num);
 					<%
 				}
 			%>
-			<div id="DetailBoardInfo" style="display:flex;">
+			<div id="DetailBoardInfo" >
 				<div style="width:700px;">
 					작성자 : <%=qdto.getQ_nickname()%>(<%=qdto.getQ_id()%>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					작성날짜 : <%=qdto.getQ_date().substring(0, 16)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

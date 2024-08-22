@@ -853,7 +853,7 @@ public class MyPageDAO {
 		}	 
 	
 	
-	
+
 	// 6-1. 마이페이지 회원 정보 페이지 - 회원등급 정보 뿌리기
 	public MyPageDTO mypage_memberLevel(String m_sid) {
 	      System.out.println("마이페이지 회원 정보 페이지 - 회원등급 정보 뿌리기 매서드 실행됨!");         
@@ -896,7 +896,7 @@ public class MyPageDAO {
 	         }
 	      }
 	   }
-	
+
 	
 	
    
