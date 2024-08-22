@@ -14,7 +14,7 @@
 String sid = (String)session.getAttribute("sid");
 String sname = (String)session.getAttribute("sname");
 String snickname = (String)session.getAttribute("snickname");
-Integer usertype = (Integer)session.getAttribute("usertype");
+Integer usertype = (Integer)session.getAttribute("usertype");	//1은 구직자, 0은 고용자
 %>
 <div class="wrapper"> <!-- wrapper 시작 -->
 <header class="dg_hd">

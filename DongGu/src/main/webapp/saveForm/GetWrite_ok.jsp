@@ -15,11 +15,13 @@
 	//String msg = result;
 	
 	
-
+	//System.out.println(request.getParameter("update_yn"));	//0이면 초대하기, 1이면 수정하기
 	//String update_yn = request.getParameter("update_yn");
 	
+	int update_yn_val = Integer.parseInt(request.getParameter("update_yn"));
+	
 	//등록모드
-	if(request.getParameter("update_yn") == "초대하기"){
+	if(update_yn_val == 0){
 
 		result = fdao.FriendOwnerWrite(fdto);
 		msg = result>0?"초대장이 등록되었습니다!":"초대장 등록이 되지 않았습니다. 관리자에게 문의하세요.";

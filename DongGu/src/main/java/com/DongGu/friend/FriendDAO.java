@@ -19,9 +19,9 @@ public class FriendDAO {
 	public static final int ERROR = -1;
 
 	public FriendDAO() {
+		System.out.println("FriendDAO 객체 생성됨! ");
 	}
-
-	/** 초대장(고용자글쓰기) */
+	
 	public int FriendOwnerWrite(FriendDTO fto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
@@ -37,8 +37,26 @@ public class FriendDAO {
 			ps.setString(5, fto.getI_start());
 			ps.setString(6, fto.getI_end());
 			
+			System.out.println("insert into invitation values(PK_invitation.nextval, ?,?,?, ?,?,?, sysdate)");
+			System.out.println(fto.getI_title());
+			System.out.println(fto.getAi_num());
+			System.out.println(1);
+			System.out.println(fto.getI_content());
+			System.out.println(fto.getI_start());
+			System.out.println(fto.getI_end());
+			
+
+			String dd = "insert into invitation values(seq_invitation_i_num.nextval, ?,?,?, ?,?,?, sysdate)";
+			dd += fto.getI_title();
+			dd += fto.getAi_num();
+			dd += 1;
+			dd += fto.getI_content();
+			dd += fto.getI_start();
+			dd += fto.getI_end();
+			
 			int count = ps.executeUpdate();
 			return count;
+			//return dd;
 
 		} catch (Exception e) {
 			e.printStackTrace();
