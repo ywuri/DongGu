@@ -11,6 +11,8 @@ public class QnABoardDTO {
 	private int q_ref ;/* 그룹번호(1번의 글의 답글인지 2번글의 답글인지. 누구 소속인지) */
 	private int q_lev; /* 들여쓰기횟수 (0이면 본문,1번이면 본문의 대한 답변) */
 	private int q_sunbun; /* 본문내에 순서. (1번본문의 답글이 2개 달리면 걔의 순서) */
+	
+	private int g_num; /* 등급번호 */
 
 	
 	public QnABoardDTO() {}
@@ -52,6 +54,25 @@ public class QnABoardDTO {
 	}
 	
 	
+	
+	public QnABoardDTO(int q_num, String q_id, String q_nickname, String q_title, String q_date, String q_content,
+			int q_vcnt, int q_ref, int q_lev, int q_sunbun, int g_num) {
+		super();
+		this.q_num = q_num;
+		this.q_id = q_id;
+		this.q_nickname = q_nickname;
+		this.q_title = q_title;
+		this.q_date = q_date;
+		this.q_content = q_content;
+		this.q_vcnt = q_vcnt;
+		this.q_ref = q_ref;
+		this.q_lev = q_lev;
+		this.q_sunbun = q_sunbun;
+		this.g_num = g_num;
+	}
+
+
+
 	public int getQ_num() {
 		return q_num;
 	}
@@ -111,6 +132,18 @@ public class QnABoardDTO {
 	}
 	public void setQ_sunbun(int q_sunbun) {
 		this.q_sunbun = q_sunbun;
+	}
+
+
+
+	public int getG_num() {
+		return g_num;
+	}
+
+
+
+	public void setG_num(int g_num) {
+		this.g_num = g_num;
 	}
 
 

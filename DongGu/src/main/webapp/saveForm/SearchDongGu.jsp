@@ -5,7 +5,7 @@
 <%@ page import="java.time.format.*" %>   
 <%@ page import="java.time.*" %>  
 
-<%@ page import="com.DongGu.friend.FriendDAO" %>    
+<%@ page import="com.DongGu.friend.InviteDAO" %>    
 <%@ page import="com.DongGu.friend.InviteDTO" %>        
     
 <!DOCTYPE html>

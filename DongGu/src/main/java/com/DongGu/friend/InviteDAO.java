@@ -381,13 +381,38 @@ public class InviteDAO {
 	            dto.setI_title(rs.getString("i_title"));
 	            dto.setI_start(rs.getDate("i_start"));
 	            dto.setI_end(rs.getDate("i_end"));
-	            dto.setI_content(rs.getString("i_content"));
+	            
 	            dto.setAi_img(rs.getString("ai_img"));
 	            dto.setO_id(rs.getString("o_id"));
 	            
-	            dto.setAi_alergy(rs.getString("ai_alergy"));
-	            dto.setAi_disease(rs.getString("ai_disease"));
-	            dto.setAi_caution(rs.getString("ai_caution"));
+	            //만약 널이라면
+	            if(rs.getString("ai_alergy")==null||("").equals(rs.getString("ai_alergy").trim())) {
+	            	dto.setAi_alergy("없고");
+	            }else {
+	            	dto.setAi_alergy(rs.getString("ai_alergy"));
+	            }
+	            
+	            if(rs.getString("ai_disease")==null||("").equals(rs.getString("ai_disease").trim())) {
+	            	dto.setAi_disease("없습니다.");
+	            }else {
+	            	dto.setAi_disease(rs.getString("ai_disease"));
+	            }
+	            
+	            if(rs.getString("ai_caution")==null||("").equals(rs.getString("ai_caution").trim())) {
+	            	dto.setAi_caution("특별한 건 없어요.");
+	            }else {
+	            	dto.setAi_caution(rs.getString("ai_caution"));
+	            }
+	            
+	            if(rs.getString("i_content")==null||("").equals(rs.getString("i_content").trim())) {
+	            	dto.setAi_alergy("");
+	            }else {
+	            	dto.setI_content(rs.getString("i_content"));
+	            }
+	            
+	            
+	            
+	            
 	            dto.setAi_name(rs.getString("ai_name"));
 	            dto.setAt_name(rs.getString("at_name"));
 	            dto.setO_nickname(rs.getString("o_nickname"));

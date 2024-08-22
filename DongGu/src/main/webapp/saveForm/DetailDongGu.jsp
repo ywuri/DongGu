@@ -87,15 +87,15 @@ if(sid!=null ){
 			<img class="DetailDongGuImg" src="/DongGu/img/<%=idto.getAi_img() %>" >
 		</div>
 		<ul id="DetailDongGuContentDiv" >
-			<li><a href="/DongGu/member/MemberDetail.jsp?usertype=0&o_id=<%=idto.getO_id() %>" class="linkDeco"><%=idto.getO_nickname() %></a>이</li>
+			<li><a href="/DongGu/member/MemberDetail.jsp?usertype=0&o_id=<%=idto.getO_id() %>" class="linkDeco"><%=idto.getO_nickname() %></a> 이/가</li>
 			<li><%=idto.getI_start() %>부터 <%=idto.getI_end() %>까지</li>
 			<li><%=idto.getA_num() %> <%=idto.getAt_name()%> <%=idto.getAi_name() %>(<span class="spanColor"><%=idto.getAge() %></span>)와</li>
 			<li>행복한 시간에 초대합니다~</li>
 			<li>우리 <%=idto.getAi_name() %>는 <span class="spanColor"><%=idto.getNature() %></span>입니다.</li>
 			<li><%=idto.getAi_name() %>의 알러지는 <span class="spanColor"><%=idto.getAi_alergy() %></span>,</li>
 			<li>아픈 곳은 <span class="spanColor"><%=idto.getAi_disease() %></span></li> 
-			<li>기타 주의사항은 <span class="spanColor"><%=idto.getAi_caution() %></span>입니다.</li> 
-			<li>그리고 <span class="spanColor"><%=idto.getI_content() %></span></li>
+			<li>기타 주의사항은 <span class="spanColor"><%=idto.getAi_caution() %></span></li> 
+			<li><%=idto.getI_content() %></li>
 			<li>대략적인 위치는 <span class="spanColor"><%=idto.getO_addr() %></span>입니다 </li>
 			
 			<li id="DetailDongGuButton">
