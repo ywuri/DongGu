@@ -114,7 +114,6 @@ public class QnABoardDAO {
 					+ "where rnum >= ?and rnum <=?";
 			
 			
-			
 			ps=conn.prepareStatement(sql);
 			ps.setInt(1, cp*listSize-(listSize-1));
 			ps.setInt(2, cp*listSize);
@@ -544,7 +543,7 @@ public class QnABoardDAO {
 						+ "( "
 						+ "    select *  "
 						+ "    from qna  "
-						+ "    where q_title like ? "
+						+ "    where q_title like ? and q_id !=' ' "
 						+ "    order by q_ref desc, q_sunbun)a  "
 						+ ")b "
 						+ "where rnum >=? and rnum <=?";
@@ -556,7 +555,7 @@ public class QnABoardDAO {
 						+ "( "
 						+ "    select *  "
 						+ "    from qna  "
-						+ "    where q_content like ? "
+						+ "    where q_content like ? q_id !=' '"
 						+ "    order by q_ref desc, q_sunbun)a  "
 						+ ")b "
 						+ "where rnum >=? and rnum <=?";
@@ -567,7 +566,7 @@ public class QnABoardDAO {
 						+ "( "
 						+ "    select *  "
 						+ "    from qna  "
-						+ "    where q_nickname like ? "
+						+ "    where q_nickname like ? q_id !=' '"
 						+ "    order by q_ref desc, q_sunbun)a  "
 						+ ")b "
 						+ "where rnum >=? and rnum <=?";

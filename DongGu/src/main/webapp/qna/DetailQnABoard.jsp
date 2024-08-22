@@ -51,7 +51,7 @@ array = dao.getNextQnABoard(q_num);
 		<div id="WriteFreeBoardMainDiv">
 			<div id="DetailBoardSubject" ><a href="/DongGu/qna/QnABoard.jsp" class="DetailBoardSubject">QnA 게시판 ></a></div>
 			<%
-				if(q_id.equals(" ")){
+				if(("").equals(q_id.trim())){
 					%>
 					<div id="DetailBoardTitle" style="color:#808080;">
 						<img style="width:28px; padding-right:10px;" src="/DongGu/img/icon_trash.svg"><%=qdto.getQ_title()%></div>
@@ -63,7 +63,7 @@ array = dao.getNextQnABoard(q_num);
 					<%
 				}
 			%>
-			<div id="DetailBoardInfo" >
+			<div id="DetailBoardInfo" style="display:flex;" >
 				<div style="width:700px;">
 					작성자 : <%=qdto.getQ_nickname()%>(<%=qdto.getQ_id()%>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					작성날짜 : <%=qdto.getQ_date().substring(0, 16)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -130,6 +130,10 @@ array = dao.getNextQnABoard(q_num);
 			//만약 갖고온글이 다음 글이라면?
 			if(array.get(0).getQ_num()>q_num){
 				%>
+				<div style="martin-top:20px;" class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDivText">
+					<span>다음 글</span>
+				</div>
+				
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
 					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
 				</div>
@@ -138,6 +142,10 @@ array = dao.getNextQnABoard(q_num);
 			//전글
 			else if(array.get(0).getQ_num()<q_num){
 				%>
+				<div style="martin-top:20px;" class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDivText">
+					<span>이전 글</span>
+				</div>
+				
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
 					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
 				</div>
@@ -146,12 +154,20 @@ array = dao.getNextQnABoard(q_num);
 		}
 		else if(array.size()==2){
 			
+			%>
+			<div style="martin-top:20px;" class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDivText">
+				<span>이전 글 | 다음 글</span>
+			</div>
+			<%
+			
 			if(array.get(0).getQ_num() >array.get(1).getQ_num() ){
 			%>
 			<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-				<p><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %></a></p> 
+				<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %></a></p> 
+			<hr style="border:1px solid #f2f2f2; margin:5px;">
 			</div>
-			<div class="QnABoardBottomMarginDiv">
+			
+			<div class=" QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv">
 				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
 			</div>
 			<%
@@ -159,7 +175,8 @@ array = dao.getNextQnABoard(q_num);
 			else{
 				%>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-					<p><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
+					<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
+				<hr style="border:1px solid #f2f2f2; ">
 				</div>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv ">
 					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>

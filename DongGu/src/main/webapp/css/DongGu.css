@@ -831,7 +831,7 @@ width:170px;
 }
 .DetailDongGuJoinButton{
 	font-size:17pt;
-	background: green;
+	background: #fdc408;
     border: 0px;
     border-radius: 6px;
     text-align: center;
@@ -1104,6 +1104,47 @@ width:170px;
 }
 
 .delete_icon{
+	
+}
+
+.linkDeco{
+	text-decoration:none;
+}
+.linkDeco:hover{
+	cursor: pointer;
+	color:orange!important;
+	/* font-size:13pt; */
+	font-weight:500;
+}
+
+#DetailDongGuInfoDiv2{
+	margin-top: 70px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    margin-left: 50px;
+    background: #fff;
+    padding: 30px;
+}
+
+.spanColor{
+	color: white;
+    background: skyblue;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#DetailDongGuButton2{
+	margin-top: 30px;
+    margin-bottom: 25px;
+}
+#spanSizeDe{
+	font-size: 18pt;
+    font-weight: 500;
+}
+#DetailDongGuContentDiv li{
+	margin-bottom:10px;
 	
 }
 	/* //	========== 이지현 끝 ============= // */

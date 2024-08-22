@@ -91,7 +91,7 @@
 				for(int i=0;i<array.size();i++){
 				%>
 				<tr>
-					<td><a href='/DongGu/qna/DetailQnABoard.jsp?f_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getQ_title() %></a><span class="FreeBoardComment"></span></td>
+					<td><a href='/DongGu/qna/DetailQnABoard.jsp?q_id=<%=array.get(i).getQ_id() %>&q_num=<%=array.get(i).getQ_num() %>&cp=<%=cp %>' class="FreeBoardA"><%=array.get(i).getQ_title() %></a><span class="FreeBoardComment"></span></td>
 					<td><%=array.get(i).getQ_nickname() %></td>
 					<td><%=array.get(i).getQ_vcnt() %></td>
 					<td><%=array.get(i).getQ_date() %></td>

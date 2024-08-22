@@ -58,7 +58,7 @@ Integer usertype = (Integer)session.getAttribute("usertype");
 				<a href="/DongGu/afterForm/AfterList.jsp"><span>이용후기</span></a>
 			</li>
 			<li>
-				<a href=/DongGu/notice/Notice.jsp"><span>고객센터</span></a>
+				<a href=/DongGu/notice/Notice.jsp><span>고객센터</span></a>
 			</li>
 		</ul>
 	</nav>
