@@ -14,37 +14,62 @@ public class MyPageDAO {
    private ResultSet rs, rs2;
    
    // 1-1. 마이페이지 메인페이지 - section 1
-   public MyPageDTO mypage_section1(String m_sid) {
+   public MyPageDTO mypage_section1(String m_sid, int m_usertype) {
       System.out.println("마이페이지 메인 - section 1 매서드 실행됨!");         
       MyPageDTO dto1 = null;
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT g.g_img,g.g_name, "
-        		  + "(SELECT COUNT(*) FROM application a WHERE a.p_id = ?) AS applycount, "
-                  + "(SELECT COUNT(*) FROM wishlist w WHERE w.w_id = ?) AS likecount, "
-                  + "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = ?) AS starcount "
-                  + "FROM petsitter ps JOIN grade g ON ps.g_num = g.g_num "
-                  + "WHERE ps.p_id = ?";
+         String sql_owner = "SELECT g.g_img,g.g_name, "
+         		+ "(SELECT COUNT(*)FROM invitation i WHERE i.ai_num IN (SELECT ai.ai_num FROM animalinfo ai WHERE ai.o_id = ? ))AS invitationcount , "
+         		+ "(SELECT COUNT(*) FROM wishlist w WHERE w.w_id = ? ) AS likecount, "
+         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = ? ) AS starcount "
+         		+ "FROM owner o JOIN grade g ON o.g_num = g.g_num "
+         		+ "WHERE o.o_id = ? ";
          
-         ps=conn.prepareStatement(sql);
-         ps.setString(1, m_sid);
-         ps.setString(2, m_sid);
-         ps.setString(3, m_sid);
-         ps.setString(4, m_sid);
+         String sql_petsitter = "SELECT g.g_img,g.g_name, "
+       		    + "(SELECT COUNT(*) FROM application a WHERE a.p_id = ?) AS applycount, "
+                + "(SELECT COUNT(*) FROM wishlist w WHERE w.w_id = ?) AS likecount, "
+                + "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = ?) AS starcount "
+                + "FROM petsitter ps JOIN grade g ON ps.g_num = g.g_num "
+                + "WHERE ps.p_id = ?";
          
          
-         rs = ps.executeQuery();
-         while(rs.next()) {          
-                String g_img = rs.getString("g_img");
-                String g_name = rs.getString("g_name");             
-                int applycount = rs.getInt("applycount");  
-                int likecount = rs.getInt("likecount"); 
-                double starcount = rs.getDouble("starcount"); 
-                
-                dto1 = new MyPageDTO(g_img, g_name, applycount, likecount, starcount);
-                  
-             }
+         if (m_usertype == 0) {
+        	 ps=conn.prepareStatement(sql_owner);
+        	 ps.setString(1, m_sid);
+             ps.setString(2, m_sid);
+             ps.setString(3, m_sid);
+             ps.setString(4, m_sid);    
+             
+             rs = ps.executeQuery();		   		         
+	         while(rs.next()) { 	                
+	        	 String g_img = rs.getString("g_img");
+	             String g_name = rs.getString("g_name");          
+	             int invitationcount = rs.getInt("invitationcount");   
+	             int likecount = rs.getInt("likecount"); 
+	             double starcount = rs.getDouble("starcount"); 
+	                
+	             dto1 = new MyPageDTO(g_img, g_name, invitationcount, likecount, starcount);
+	         }
+		} else if (m_usertype == 1) {
+			ps=conn.prepareStatement(sql_petsitter);
+       	 	ps.setString(1, m_sid);
+       	 	ps.setString(2, m_sid);
+            ps.setString(3, m_sid);
+            ps.setString(4, m_sid);
+            
+            rs = ps.executeQuery();		   		         
+	         while(rs.next()) { 	                
+	        	 String g_img = rs.getString("g_img");
+	             String g_name = rs.getString("g_name");          
+	             double applycount = rs.getDouble("applycount");  
+	             int likecount = rs.getInt("likecount"); 
+	             double starcount = rs.getDouble("starcount"); 
+	                
+	             dto1 = new MyPageDTO(g_img, g_name, applycount, likecount, starcount);
+	         }
+		}    	      	 
 
          return dto1;         
          

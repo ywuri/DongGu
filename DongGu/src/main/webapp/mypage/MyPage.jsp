@@ -9,11 +9,12 @@
 <%
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
+   Integer m_usertype = (Integer)session.getAttribute("usertype"); 
 %>
 
 
 <%
-   MyPageDTO dto1 = dao.mypage_section1(m_sid); 
+   MyPageDTO dto1 = dao.mypage_section1(m_sid, m_usertype); 
 
    if (dto1 == null) {
        out.println("dto1 null 값임");
@@ -22,11 +23,17 @@
    double applyCount = dto1.getApplycount();
    double widthPercentage1 = (applyCount / 30) * 100;
    int int_applyCount = (int)dto1.getApplycount();
+   
    double likeCount = dto1.getLikecount();
    double widthPercentage2 = (likeCount / 30) * 100;
    int int_likeCount = (int)dto1.getLikecount();
+   
    double starCount = dto1.getStarcount();
    double widthPercentage3 = (starCount / 5) * 100;
+   
+   double invitationCount = dto1.getInvitationcount();
+   double widthPercentage4 = (invitationCount / 30) * 100;
+   int int_invitationCount = (int)dto1.getInvitationcount();
 %>
 <!DOCTYPE html>
 <html>
@@ -135,7 +142,7 @@
                     <div id="jyl_info_short1_summary"><span id="jyl_info_short1_span"> summary</span></div>
                     <div id="jyl_info_short1_month"><span><%= m_sname %>님의 8월 현황</span></div>
                     
-                    
+                    <%if(m_usertype==1){ %>
                     <div id="jyl_info_short2">
                        <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_1.png"></div>
                        <div id="jyl_info_short4">
@@ -143,13 +150,29 @@
                           <div class="jyl_graph">
                              <div class="jyl_bar-background">
                               <div class="jyl_bar-fill1" style="width: <%= widthPercentage1 %>%;"></div>
-                          </div>
+                          </div>                      
                           <div class="jyl_label">
                               <span class="jyl_label1"><%= int_applyCount %></span><span class="jyl_label2"> / 30</span>
                           </div>
                       	</div>
                        </div>
-                   </div>                   
+                   </div>  
+                   <%}else if(m_usertype==0){ %>       
+                   <div id="jyl_info_short2">
+                       <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_1.png"></div>
+                       <div id="jyl_info_short4">
+                          <div id="jyl_info_short4_spandiv"><span id="jyl_info_short4_span">초대하기</span></div>
+                          <div class="jyl_graph">
+                             <div class="jyl_bar-background">
+                              <div class="jyl_bar-fill1" style="width: <%= widthPercentage4 %>%;"></div>
+                          </div>                      
+                          <div class="jyl_label">
+                              <span class="jyl_label1"><%=int_invitationCount %></span><span class="jyl_label2"> / 30</span>
+                          </div>
+                      	</div>
+                       </div>
+                   </div>  
+                   <% } %>          
                    
                    <div id="jyl_info_short2">
                        <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_2.png"></div>
