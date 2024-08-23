@@ -1,36 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@page import="java.util.*" %>
-<%@page import="java.util.Date" %>
-<%@page import="java.text.SimpleDateFormat" %>
-<%@page import="com.DongGu.friend.FriendDTO" %>
+	pageEncoding="UTF-8"%>
+
+<%@page import="java.util.*"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.DongGu.friend.FriendDTO"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- 
+
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 <jsp:useBean id="fdao" class="com.DongGu.friend.FriendDAO"></jsp:useBean>
 
 <%
-	String s_id =(String)session.getAttribute("sid");
-	if(s_id==null || s_id.equals("")){
+String s_id = (String) session.getAttribute("sid");
+if (s_id == null || s_id.equals("")) {
 %>
-		<script>
+<script>
 		window.alert('로그인 후 접속가능합니다.');
 		window.location.href="/DongGu/member/login.jsp";
 		</script>
 <%
-	}
-	String animalName = "";
+}
+String animalName = "";
 
-	//동물정보 기본 셋팅(로그인정보로)
-	if(s_id != null && !s_id.equals("")){
-		animalName = fdao.animalName(s_id, 0);
-    }
+//동물정보 기본 셋팅(로그인정보로)
+if (s_id != null && !s_id.equals("")) {
+animalName = fdao.animalName(s_id, 0);
+}
 %>
 <script>
 	function animalChange(myani_num, updateMode){
@@ -99,24 +99,24 @@
         //변수로 설정한 td id의 textContent를 
         //select box option을 통해 넘어온 값으로 바꿔주기
         data_ani_name.textContent = val_ani_name;
-        data_anitype_name.textContent = val_anitype_name;
+        data_anitype_name.textContent = "("+val_anitype_name+")";
 
         data_ani_img.innerHTML = "<img src='/DongGu/img/Animal/"+val_img+"' class='writeImgSize'>";
         data_ani_birth.textContent = val_birth;
 
         data_ani_alerg.textContent = val_aler;
         if(val_aler == "null" || val_aler == "" ){
-            data_ani_alerg.textContent = "없음";
+            data_ani_alerg.textContent = "알레르기 없음";
 		}
         
         data_ani_disea.textContent = val_dise;
         if(val_dise == "null" || val_dise == "" ){
-        	data_ani_disea.textContent = "없음";
+        	data_ani_disea.textContent = "병력사항 없음";
 		}
         
         data_ani_caut.textContent = val_caut;
         if(val_caut == "null" || val_caut == "" ){
-        	data_ani_caut.textContent = "없음";
+        	data_ani_caut.textContent = "주의사항 없음";
 		}
    	
         data_ani_nature.innerHTML = val_an_nat;
@@ -165,197 +165,205 @@
 	}
 </script>
 <%
-	// 현재 날짜를 가져와서 "yyyy-MM-dd" 형식으로 바꿔줌
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	String today = sdf.format(new Date());
-	
-	int a_num = 0;
-	int ai_num = 0;
-	String w_title = "";
-	String w_start = "";
-	String w_end = "";
-	String w_content = "";
-	
-	String iNumStr = request.getParameter("i_num");
-	String btnValue = "초대하기";
-	int btnValue_int = 0;
+// 현재 날짜를 가져와서 "yyyy-MM-dd" 형식으로 바꿔줌
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String today = sdf.format(new Date());
 
-	int i_nums = 0;
-	//마이페이지에서 넘어온 경우 iNumStr(  request.getParameter("i_num")  ) 값 존재
-	//수정모드
-	if (iNumStr != null && !iNumStr.isEmpty()) {
+int a_num = 0;
+int ai_num = 0;
+String w_title = "";
+String w_start = "";
+String w_end = "";
+String w_content = "";
 
-		btnValue = "초대장 수정하기";
-		btnValue_int = 1;
+String iNumStr = request.getParameter("i_num");
+String btnValue = "초대하기";
+int btnValue_int = 0;
 
-	    i_nums = Integer.parseInt(iNumStr);
-	    //int i_nums = Integer.parseInt(request.getParameter("i_num"));
-		
-		//마이페이지에서 수정하기 클릭시
-		ArrayList<FriendDTO> arr = fdao.getFriendData(i_nums);
-	
-		if(arr==null||arr.size()==0){
-			%>
-			<script>
+int i_nums = 0;
+//마이페이지에서 넘어온 경우 iNumStr(  request.getParameter("i_num")  ) 값 존재
+//수정모드
+if (iNumStr != null && !iNumStr.isEmpty()) {
+
+	btnValue = "초대장 수정하기";
+	btnValue_int = 1;
+
+	i_nums = Integer.parseInt(iNumStr);
+	//int i_nums = Integer.parseInt(request.getParameter("i_num"));
+
+	//마이페이지에서 수정하기 클릭시
+	ArrayList<FriendDTO> arr = fdao.getFriendData(i_nums);
+
+	if (arr == null || arr.size() == 0) {
+%>
+<script>
 			window.alert('데이터가 존재하지 않습니다. 관리자에게 문의하세요.');
 	        history.back(); // 이전 페이지로 돌아가기
 			</script>
-	<%
-		}else {
-		//System.out.println(arr.size());
-			for(int i=0; i<arr.size(); i++){
-				
-				a_num = arr.get(i).getI_num();
-				ai_num = arr.get(i).getAi_num();
-				w_title = arr.get(i).getI_title();
+<%
+} else {
+//System.out.println(arr.size());
+for (int i = 0; i < arr.size(); i++) {
 
-				String startDateTime = arr.get(i).getI_start();
-				String endDateTime = arr.get(i).getI_end();
-				
-				//시, 분, 초 자르고 날짜만 변수에 저장
-			    w_start = startDateTime.substring(0, 10);
-			    w_end = endDateTime.substring(0, 10);
-								
-				w_content = arr.get(i).getI_content();
-			}
+	a_num = arr.get(i).getI_num();
+	ai_num = arr.get(i).getAi_num();
+	w_title = arr.get(i).getI_title();
 
-			//동물정보 셋팅 변경(로그인정보 +마이페이지에서 넘어온 초대장키를 기준으로 동물정보 select box selected 시키기
-			animalName = fdao.animalName(s_id, ai_num);
-			%>
-			<script>
+	String startDateTime = arr.get(i).getI_start();
+	String endDateTime = arr.get(i).getI_end();
+
+	//시, 분, 초 자르고 날짜만 변수에 저장
+	w_start = startDateTime.substring(0, 10);
+	w_end = endDateTime.substring(0, 10);
+
+	w_content = arr.get(i).getI_content();
+}
+
+//동물정보 셋팅 변경(로그인정보 +마이페이지에서 넘어온 초대장키를 기준으로 동물정보 select box selected 시키기
+animalName = fdao.animalName(s_id, ai_num);
+%>
+<script>
 				//animalChange(<%=ai_num%>);
 				//updateModeAnimalInfo(<%=ai_num%>);
 			</script>
-			<%
-		}
-	//초대장 처음 등록시
-	}else{
-	
-		a_num = 0;
-		ai_num = 0;
-		w_title = "";
-		w_start = today;
-		w_end = today;
-		w_content = "";
-	}
+<%
+}
+//초대장 처음 등록시
+} else {
+
+a_num = 0;
+ai_num = 0;
+w_title = "";
+w_start = today;
+w_end = today;
+w_content = "";
+}
 %>
 </head>
 <body>
-<%@include file="../SubHeader.jsp" %>
-    
-	<form name="getWrite" action="GetWrite_ok.jsp" onsubmit="return datacheck();">
+	<%@include file="../SubHeader.jsp"%>
+
+	<form name="getWrite" action="GetWrite_ok.jsp"
+		onsubmit="return datacheck();">
 		<div class="saveTableOne">
-			<h3>초 대 장</h3>
-			
+			<h3>초 대 합 니 다</h3>
+
 			<!-- ok파일에서 필요 -->
-			<input type="hidden" name="update_yn" id="update_yn" value="<%=btnValue_int%>"><!-- 수정모드인지 등록모드인지 파악하기 위함 -->
-			<input type="hidden" name="i_nums" id="i_nums" value="<%=i_nums%>"><!-- 초대장의 기본키값 -->
+			<input type="hidden" name="update_yn" id="update_yn"
+				value="<%=btnValue_int%>">
+			<!-- 수정모드인지 등록모드인지 파악하기 위함 -->
+			<input type="hidden" name="i_nums" id="i_nums" value="<%=i_nums%>">
+			<!-- 초대장의 기본키값 -->
 			<table>
 				<tr>
-					<th>초대제목</th>
-					<td>
-						<input type="text" name="i_title" id="i_title" value="<%=w_title%>" class="saveWS250">
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="tac">
+						<input type="text" name="i_title"
+						id="i_title" value="<%=w_title%>" class="saveWS50p tac f16 fw500"
+						placeholder="초대 제목을 입력해주세요.">
 					</td>
 				</tr>
 				<tr>
-					<th>날짜</th>
-					<td>
-						<input type="date" name="i_start" id="i_start" value="<%=w_start%>" class="saveWS100" min="<%= today %>"> ~ 
-						<input type="date" name="i_end" id="i_end" value="<%=w_end%>" class="saveWS100" min="<%= today %>">
+					<td colspan="2" class="tac">
+						<input type="date" name="i_start"
+						id="i_start" value="<%=w_start%>" class="saveWS20p tac"
+						min="<%=today%>"> ~ <input type="date" name="i_end"
+						id="i_end" value="<%=w_end%>" class="saveWS20p tac"
+						min="<%=today%>">
 					</td>
 				</tr>
 				<tr>
-					<th>이름</th>
-					<td>
-						<select name="ai_num" id="ai_num" class="saveWS250" onchange="animalChange(this.value);">
-							<option value="">동물이름을 선택해주세요.</option>
+					<td></td>
+				</tr>
+
+
+				<!-- 
+				<tr>
+					<th colspan="4" class="saveMtitle">동물정보</th>
+				</tr>
+				 -->
+			</table>
+			<table class="animalBox">
+
+				<tr>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="tac" >
+						<select name="ai_num" id="ai_num"
+						class="saveWS50p tac f16 fw500" onchange="animalChange(this.value);">
+							<option value="">동물이름을 선택해주세요. 아래에 동물정보가 보여집니다.</option>
 							<%=animalName%>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th>동물</th>
-					<td id="data_ani_name">
-						**동물이름을 선택해주세요.
+					<td class="tar">
+						<span id="data_ani_name">동물종류</span>
+						<span id="data_anitype_name">(품종)</span>
+					</td>
+					<td id="data_ani_img" rowspan="6">사진</td>
+				</tr>
+				<tr>
+					<td id="data_ani_birth" class="tar">생일</td>
+				</tr>
+				<tr>
+					<td class="tar">
+						<div id="data_ani_nature">성격</div>
 					</td>
 				</tr>
 				<tr>
-					<th>품종</th>
-					<td id="data_anitype_name">
-						**동물이름을 선택해주세요.
+					<td id="data_ani_alerg" class="tar">알레르기</td>
+				</tr>
+				<tr>
+					<td id="data_ani_disea" class="tar">병력사항</td>
+				</tr>
+				<tr>
+					<td class="tar">
+						<textarea class="saveWS80p saveHS100 read_ta" id="data_ani_caut"
+							disabled>주의사항</textarea>
 					</td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td id="data_ani_img">
-						**동물이름을 선택해주세요.
-					</td>
-				</tr>
-				
-				<% 
-					if(s_id != null && !s_id.equals("")){
-						
-						String ownerData2 = fdao.ownerData(s_id);
-						String[] owner_arr = ownerData2.split("//");
-
-						String ownerAddr = owner_arr[0];
-						String ownerHouse = owner_arr[1];
-				%>
-				<tr>
-					<th>주소</th>
-					<td><%=ownerAddr %></td>
-				</tr>
-				<tr>
-					<th>자택종류</th>
-					<td><%=ownerHouse %></td>
 				</tr>
 				<%
-				    }
+				if (s_id != null && !s_id.equals("")) {
+
+					String ownerData2 = fdao.ownerData(s_id);
+					String[] owner_arr = ownerData2.split("//");
+
+					String ownerAddr = owner_arr[0];
+					String ownerHouse = owner_arr[1];
 				%>
 				<tr>
-					<th>생년월일</th>
-					<td id="data_ani_birth">
-						**동물이름을 선택해주세요.
+					<td colspan="2" class="tac">
+						<%=ownerAddr%>
+						(<%=ownerHouse%>)
 					</td>
 				</tr>
+				<%
+				}
+				%>
+
+			</table>
+			<table>
 				<tr>
-					<th>성격</th>
+					<td></td>
+				</tr>
+				<tr>
 					<td>
-						<div id="data_ani_nature">
-							**동물이름을 선택해주세요.
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>알레르기</th>
-					<td id="data_ani_alerg">
-						**동물이름을 선택해주세요.
-					</td>
-				</tr>
-				<tr>
-					<th>병력사항</th>
-					<td id="data_ani_disea">
-						**동물이름을 선택해주세요.
-					</td>
-				</tr>
-				<tr>
-					<th>주의사항</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" id="data_ani_caut" disabled>**동물이름을 선택해주세요.</textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>추가내용</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" placeholder="추가할 내용을 적어주세요." name="i_content" id="i_content"><%=w_content%></textarea>
+						<textarea class="saveWS95p saveHS100 write_ta"
+							placeholder="추가할 내용을 적어주세요." name="i_content" id="i_content"><%=w_content%></textarea>
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="" id="" value="<%=btnValue %>" class="saveBtnOne">
+			<div class="saveWS100p tac">
+				<input type="submit" name="" id="" value="<%=btnValue%>" class="saveBtnOne">
+			</div>
 		</div>
-		
+
 	</form>
-    
+
 	<!-- 
 	<form name="getWriteAnimal" action="GetWriteAnimal_ok.jsp">
 		<input type="text" name="my_animal_key" id="my_animal_key" value="">
@@ -366,30 +374,30 @@
 		<input type="text" name="write_content" id="write_content" value="">
 		
 	</form>
-	 -->	
-	 
-<script>
+	 -->
+
+	<script>
 	//0.1초 뒤에 select box 선택된 동물이름 기준으로 데이터 뿌려주기
 	setTimeout(function() {
-	    var aiNum = "<%= ai_num %>";
-	    if (aiNum) {
-	    	animalChange(aiNum);
-	    }
-	}, 100); // 100ms 대기
-	
-	
-	/*
-	function updateModeAnimalInfo(){
+	    var aiNum = "<%=ai_num%>
+		";
+			if (aiNum) {
+				animalChange(aiNum);
+			}
+		}, 100); // 100ms 대기
 
-        var update_ai_num = document.getElementById('update_ai_num').value;
-        alert(update_ai_num);
+		/*
+		function updateModeAnimalInfo(){
 
-		animalChange(update_ai_num);
-	}
-	*/
-</script>
-	
-<%@ include file="../Footer.jsp" %>
+		    var update_ai_num = document.getElementById('update_ai_num').value;
+		    alert(update_ai_num);
+
+			animalChange(update_ai_num);
+		}
+		 */
+	</script>
+
+	<%@ include file="../Footer.jsp"%>
 
 </body>
 </html>

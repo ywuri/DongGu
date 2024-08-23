@@ -92,14 +92,27 @@ public class MyPageDAO {
    
    
    // 1-2. 마이페이지 메인페이지 - section 2
-   public ArrayList<MyPageDTO> mypage_section2(String m_sid) {
+   public ArrayList<MyPageDTO> mypage_section2(String m_sid, int m_usertype) {
       System.out.println("마이페이지 메인 - section 2 매서드 실행됨!");         
       MyPageDTO dto2 = null;
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT * FROM ( "
-         		+ "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+         
+         String sql_owner = "SELECT * FROM ( "
+          		+ "SELECT i.i_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+          		+ "FROM invitation i "
+          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
+          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
+          		+ "JOIN animal a ON at.a_num = a.a_num "
+          		+ "JOIN matchingstate ms ON ms.m_num = i.m_num "
+          		+ "WHERE i.ai_num in (select ai.ai_num from animalinfo i where ai.o_id = ?) "
+          		+ "ORDER BY i.i_num desc  "
+          		+ ") "
+          		+ "WHERE ROWNUM <= 3 ";
+         
+         String sql_petsitter = "SELECT * FROM ( "
+         		+ "SELECT i.i_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
          		+ "FROM invitation i "
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
@@ -110,14 +123,21 @@ public class MyPageDAO {
          		+ "ORDER BY ap.ap_num desc "
          		+ ") "
          		+ "WHERE ROWNUM <= 3 ";
-            
-         ps=conn.prepareStatement(sql);
+         
+         
+         
+         if (m_usertype == 0) {
+        	 ps=conn.prepareStatement(sql_owner);
+         } else if(m_usertype == 1) {
+        	 ps=conn.prepareStatement(sql_petsitter);
+         }
          ps.setString(1, m_sid);
 
-            
+         
          rs = ps.executeQuery();
          ArrayList<MyPageDTO> mlist = new ArrayList<>();
          while(rs.next()) {          
+        	   int i_num = rs.getInt("i_num");  
         	   int a_num = rs.getInt("a_num");  
                String ai_img = rs.getString("ai_img");
                String an_num_link = rs.getString("an_num_link");             
@@ -143,7 +163,7 @@ public class MyPageDAO {
                    }
 			}
                
-               dto2 = new MyPageDTO(a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               dto2 = new MyPageDTO(i_num,a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
                mlist.add(dto2);
                      
             }
@@ -203,7 +223,8 @@ public class MyPageDAO {
             
          rs = ps.executeQuery();
          ArrayList<MyPageDTO> malist = new ArrayList<>();
-         while(rs.next()) {          
+         while(rs.next()) {     
+        	   int i_num = rs.getInt("i_num");  
         	   int a_num = rs.getInt("a_num");  
                String ai_img = rs.getString("ai_img");
                String an_num_link = rs.getString("an_num_link");             
@@ -228,7 +249,7 @@ public class MyPageDAO {
                    }
 			}
                
-               dto = new MyPageDTO(a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               dto = new MyPageDTO(i_num, a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
                malist.add(dto);
                      
             }

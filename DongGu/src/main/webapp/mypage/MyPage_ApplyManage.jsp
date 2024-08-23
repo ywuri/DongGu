@@ -10,6 +10,7 @@
 <%
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
+   Integer m_usertype = (Integer)session.getAttribute("usertype");   
 %>
 <%
    MyPageDTO dto = dao.mypage_ApplyManage1(m_sid); 
@@ -17,7 +18,7 @@
    DecimalFormat decimalFormat = new DecimalFormat("#,###");
    String s_g_price = decimalFormat.format(g_price);
    
-   MyPageDTO dto1 = dao.mypage_section1(m_sid); 
+   MyPageDTO dto1 = dao.mypage_section1(m_sid,m_usertype); 
    int i_applycount = (int)dto1.getApplycount();
 %>
 
