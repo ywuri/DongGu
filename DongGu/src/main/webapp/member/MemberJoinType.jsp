@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 </head>
 <body>
-<%@include file="/Header.jsp" %>
+	<%@include file="../SubHeader.jsp"%>
 
 	<form name="">
 	
