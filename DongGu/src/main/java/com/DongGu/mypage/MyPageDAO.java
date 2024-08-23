@@ -14,37 +14,62 @@ public class MyPageDAO {
    private ResultSet rs, rs2;
    
    // 1-1. 마이페이지 메인페이지 - section 1
-   public MyPageDTO mypage_section1(String m_sid) {
+   public MyPageDTO mypage_section1(String m_sid, int m_usertype) {
       System.out.println("마이페이지 메인 - section 1 매서드 실행됨!");         
       MyPageDTO dto1 = null;
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT g.g_img,g.g_name, "
-        		  + "(SELECT COUNT(*) FROM application a WHERE a.p_id = ?) AS applycount, "
-                  + "(SELECT COUNT(*) FROM wishlist w WHERE w.w_id = ?) AS likecount, "
-                  + "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = ?) AS starcount "
-                  + "FROM petsitter ps JOIN grade g ON ps.g_num = g.g_num "
-                  + "WHERE ps.p_id = ?";
+         String sql_owner = "SELECT g.g_img,g.g_name, "
+         		+ "(SELECT COUNT(*)FROM invitation i WHERE i.ai_num IN (SELECT ai.ai_num FROM animalinfo ai WHERE ai.o_id = ? ))AS invitationcount , "
+         		+ "(SELECT COUNT(*) FROM wishlist w WHERE w.w_id = ? ) AS likecount, "
+         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = ? ) AS starcount "
+         		+ "FROM owner o JOIN grade g ON o.g_num = g.g_num "
+         		+ "WHERE o.o_id = ? ";
          
-         ps=conn.prepareStatement(sql);
-         ps.setString(1, m_sid);
-         ps.setString(2, m_sid);
-         ps.setString(3, m_sid);
-         ps.setString(4, m_sid);
+         String sql_petsitter = "SELECT g.g_img,g.g_name, "
+       		    + "(SELECT COUNT(*) FROM application a WHERE a.p_id = ?) AS applycount, "
+                + "(SELECT COUNT(*) FROM wishlist w WHERE w.w_id = ?) AS likecount, "
+                + "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = ?) AS starcount "
+                + "FROM petsitter ps JOIN grade g ON ps.g_num = g.g_num "
+                + "WHERE ps.p_id = ?";
          
          
-         rs = ps.executeQuery();
-         while(rs.next()) {          
-                String g_img = rs.getString("g_img");
-                String g_name = rs.getString("g_name");             
-                int applycount = rs.getInt("applycount");  
-                int likecount = rs.getInt("likecount"); 
-                double starcount = rs.getDouble("starcount"); 
-                
-                dto1 = new MyPageDTO(g_img, g_name, applycount, likecount, starcount);
-                  
-             }
+         if (m_usertype == 0) {
+        	 ps=conn.prepareStatement(sql_owner);
+        	 ps.setString(1, m_sid);
+             ps.setString(2, m_sid);
+             ps.setString(3, m_sid);
+             ps.setString(4, m_sid);    
+             
+             rs = ps.executeQuery();		   		         
+	         while(rs.next()) { 	                
+	        	 String g_img = rs.getString("g_img");
+	             String g_name = rs.getString("g_name");          
+	             int invitationcount = rs.getInt("invitationcount");   
+	             int likecount = rs.getInt("likecount"); 
+	             double starcount = rs.getDouble("starcount"); 
+	                
+	             dto1 = new MyPageDTO(g_img, g_name, invitationcount, likecount, starcount);
+	         }
+		} else if (m_usertype == 1) {
+			ps=conn.prepareStatement(sql_petsitter);
+       	 	ps.setString(1, m_sid);
+       	 	ps.setString(2, m_sid);
+            ps.setString(3, m_sid);
+            ps.setString(4, m_sid);
+            
+            rs = ps.executeQuery();		   		         
+	         while(rs.next()) { 	                
+	        	 String g_img = rs.getString("g_img");
+	             String g_name = rs.getString("g_name");          
+	             double applycount = rs.getDouble("applycount");  
+	             int likecount = rs.getInt("likecount"); 
+	             double starcount = rs.getDouble("starcount"); 
+	                
+	             dto1 = new MyPageDTO(g_img, g_name, applycount, likecount, starcount);
+	         }
+		}    	      	 
 
          return dto1;         
          
@@ -67,32 +92,52 @@ public class MyPageDAO {
    
    
    // 1-2. 마이페이지 메인페이지 - section 2
-   public ArrayList<MyPageDTO> mypage_section2(String m_sid) {
+   public ArrayList<MyPageDTO> mypage_section2(String m_sid, int m_usertype) {
       System.out.println("마이페이지 메인 - section 2 매서드 실행됨!");         
       MyPageDTO dto2 = null;
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT * FROM ( "
-         		+ "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+         
+         String sql_owner = "SELECT * FROM ( "
+          		+ "SELECT i.i_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+          		+ "FROM invitation i "
+          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
+          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
+          		+ "JOIN animal a ON at.a_num = a.a_num "
+          		+ "JOIN matchingstate ms ON ms.m_num = i.m_num "
+          		+ "WHERE i.ai_num in (select ai.ai_num from animalinfo i where ai.o_id = ?) "
+          		+ "ORDER BY i.i_num desc  "
+          		+ ") "
+          		+ "WHERE ROWNUM <= 3 ";
+         
+         String sql_petsitter = "SELECT * FROM ( "
+         		+ "SELECT i.i_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
          		+ "FROM invitation i "
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
          		+ "JOIN animal a ON at.a_num = a.a_num "
-         		+ "JOIN application ap ON i.i_id = ap.i_id "
+         		+ "JOIN application ap ON i.i_num = ap.i_num "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
          		+ "ORDER BY ap.ap_num desc "
          		+ ") "
          		+ "WHERE ROWNUM <= 3 ";
-            
-         ps=conn.prepareStatement(sql);
+         
+         
+         
+         if (m_usertype == 0) {
+        	 ps=conn.prepareStatement(sql_owner);
+         } else if(m_usertype == 1) {
+        	 ps=conn.prepareStatement(sql_petsitter);
+         }
          ps.setString(1, m_sid);
 
-            
+         
          rs = ps.executeQuery();
          ArrayList<MyPageDTO> mlist = new ArrayList<>();
          while(rs.next()) {          
+        	   int i_num = rs.getInt("i_num");  
         	   int a_num = rs.getInt("a_num");  
                String ai_img = rs.getString("ai_img");
                String an_num_link = rs.getString("an_num_link");             
@@ -101,15 +146,16 @@ public class MyPageDAO {
                Date i_start = rs.getDate("i_start");
                Date i_end = rs.getDate("i_end");
                
-               String[] an_nums = an_num_link.split("/");
+               String[] an_nums = an_num_link.split("\\|");
                ArrayList<String> an_words = new ArrayList<>();
                
                for (int i = 0; i < an_nums.length; i++) {
+            	   
             	   String an_num = an_nums[i].trim();       
             	   String sql2 = "SELECT an_word FROM animalnature WHERE an_num = ?";
             	   
             	   ps2=conn.prepareStatement(sql2);
-            	   ps2.setString(1, an_num.trim());
+            	   ps2.setString(1, an_num);
                    
                    rs2 = ps2.executeQuery();                  
                    if (rs2.next()) {
@@ -117,7 +163,7 @@ public class MyPageDAO {
                    }
 			}
                
-               dto2 = new MyPageDTO(a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               dto2 = new MyPageDTO(i_num,a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
                mlist.add(dto2);
                      
             }
@@ -126,6 +172,7 @@ public class MyPageDAO {
             
       }catch(Exception e) {
          e.printStackTrace();
+         System.err.println("여기 " );
          return null;         
       }finally {
          try {
@@ -157,7 +204,7 @@ public class MyPageDAO {
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
          		+ "JOIN animal a ON at.a_num = a.a_num "
-         		+ "JOIN application ap ON i.i_id = ap.i_id "
+         		+ "JOIN application ap ON i.i_num = ap.i_num "
          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
          		+ "WHERE ap.p_id = ? "
          		+ "ORDER BY ap.ap_num desc ) a"
@@ -176,7 +223,8 @@ public class MyPageDAO {
             
          rs = ps.executeQuery();
          ArrayList<MyPageDTO> malist = new ArrayList<>();
-         while(rs.next()) {          
+         while(rs.next()) {     
+        	   int i_num = rs.getInt("i_num");  
         	   int a_num = rs.getInt("a_num");  
                String ai_img = rs.getString("ai_img");
                String an_num_link = rs.getString("an_num_link");             
@@ -185,7 +233,7 @@ public class MyPageDAO {
                Date i_start = rs.getDate("i_start");
                Date i_end = rs.getDate("i_end");
                
-               String[] an_nums = an_num_link.split("/");
+               String[] an_nums = an_num_link.split("\\|");
                ArrayList<String> an_words = new ArrayList<>();
                
                for (int i = 0; i < an_nums.length; i++) {
@@ -201,7 +249,7 @@ public class MyPageDAO {
                    }
 			}
                
-               dto = new MyPageDTO(a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               dto = new MyPageDTO(i_num, a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
                malist.add(dto);
                      
             }
@@ -403,7 +451,7 @@ public class MyPageDAO {
 	         String sql10 = "SELECT o.o_name, o.o_nickname, "
 	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
 	         		+ "(SELECT COUNT(r.r_num) FROM review r  WHERE r.r_receive_id = o.o_id) AS reviewcount, "
-	         		+ "(SELECT COUNT(i.i_id) FROM invitation i JOIN animalinfo ai ON ai.ai_num = i.ai_num WHERE ai.o_id = o.o_id) AS invitationcount, "
+	         		+ "(SELECT COUNT(i.i_num) FROM invitation i JOIN animalinfo ai ON ai.ai_num = i.ai_num WHERE ai.o_id = o.o_id) AS invitationcount, "
 	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = o.o_id) AS w_num, "
 	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = o.o_id) AS wt_num_value "
 	         		+ "FROM owner o "
@@ -429,12 +477,12 @@ public class MyPageDAO {
 	         String sql30 = "select ai.ai_img, i.i_title, i.i_start, i.i_end, "
 	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
 	         		+ "(SELECT count(r.r_num) FROM review r WHERE r.r_receive_id = o.o_id) AS reviewcount, "
-	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_id ) AS w_num, "
-	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_id ) AS wt_num_value "
+	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_num ) AS w_num, "
+	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_num ) AS wt_num_value "
 	         		+ "from invitation i "
 	         		+ "JOIN animalinfo ai on i.ai_num = ai.ai_num "
 	         		+ "JOIN owner o on ai.o_id = o.o_id "
-	         		+ "where i.i_id IN (select wt_num_value "
+	         		+ "where i.i_num IN (select wt_num_value "
 	         		+ "from wishlist "
 	         		+ "where w_id = ? and wt_num = ? ) ";
 	         

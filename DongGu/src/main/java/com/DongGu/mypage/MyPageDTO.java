@@ -110,6 +110,16 @@ public class MyPageDTO {
    }
    
    // 1-1. 인자 생성자(마이페이지 메인 section 1)
+   public MyPageDTO (String g_img,String g_name,int invitationcount,double likecount,double starcount) {
+      super();
+      this.g_img = g_img;
+      this.g_name = g_name;
+      this.invitationcount = invitationcount;
+      this.likecount = likecount;   
+      this.starcount = starcount;   
+   }
+   
+   // 1-1. 인자 생성자(마이페이지 메인 section 1)
    public MyPageDTO (String g_img,String g_name,double applycount,double likecount,double starcount) {
       super();
       this.g_img = g_img;
@@ -120,8 +130,9 @@ public class MyPageDTO {
    }
    
    // 1-2. 인자 생성자(마이페이지 메인 section 2 / 나의 지원 - 지원내역)	
-   public MyPageDTO(int a_num, String ai_img, String an_num_link, String m_name, String i_title, Date i_start, Date i_end, ArrayList<String> an_words) {
+   public MyPageDTO(int i_num, int a_num, String ai_img, String an_num_link, String m_name, String i_title, Date i_start, Date i_end, ArrayList<String> an_words) {
 	   super();
+	   this.i_num = i_num;
 	   this.a_num = a_num;
 	   this.ai_img = ai_img;
 	   this.an_num_link = an_num_link;

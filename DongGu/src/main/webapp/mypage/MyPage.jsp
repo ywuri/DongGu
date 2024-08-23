@@ -9,11 +9,12 @@
 <%
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
+   Integer m_usertype = (Integer)session.getAttribute("usertype"); 
 %>
 
 
 <%
-   MyPageDTO dto1 = dao.mypage_section1(m_sid); 
+   MyPageDTO dto1 = dao.mypage_section1(m_sid, m_usertype); 
 
    if (dto1 == null) {
        out.println("dto1 null 값임");
@@ -22,11 +23,17 @@
    double applyCount = dto1.getApplycount();
    double widthPercentage1 = (applyCount / 30) * 100;
    int int_applyCount = (int)dto1.getApplycount();
+   
    double likeCount = dto1.getLikecount();
    double widthPercentage2 = (likeCount / 30) * 100;
    int int_likeCount = (int)dto1.getLikecount();
+   
    double starCount = dto1.getStarcount();
    double widthPercentage3 = (starCount / 5) * 100;
+   
+   double invitationCount = dto1.getInvitationcount();
+   double widthPercentage4 = (invitationCount / 30) * 100;
+   int int_invitationCount = (int)dto1.getInvitationcount();
 %>
 <!DOCTYPE html>
 <html>
@@ -53,10 +60,25 @@
      <ul class="jyl_menu">
         <li class="jyl_menu_check"><a class="side_title" href="/DongGu/mypage/MyPage.jsp"><span>My Home</span></a></li>
         <li>
-            <a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>                   
+        <% if( m_usertype == 0 ){%>
+        	<a class="side_title toggle-menu" href="#"><span>나의 초대</span></a>      
+        <% }else if( m_usertype == 1 ){%>
+        	<a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>         
+        <% } %>                    
             <ul class="submenu">
-                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
-                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a></li>
+                <li class="jyl_submenu">
+                <% if( m_usertype == 0 ){%>
+                <a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>초대 내역</span></a>
+                <% }else if( m_usertype == 1 ){%>
+                <a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a>
+                <%}%>
+                </li>                
+                <li id="submenu_last" class="jyl_submenu">
+                <% if( m_usertype == 0 ){%>
+                <% }else if( m_usertype == 1 ){%>
+                <a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a>
+                <%}%>
+                </li>
              </ul>
         </li>  
        
@@ -135,7 +157,7 @@
                     <div id="jyl_info_short1_summary"><span id="jyl_info_short1_span"> summary</span></div>
                     <div id="jyl_info_short1_month"><span><%= m_sname %>님의 8월 현황</span></div>
                     
-                    
+                    <%if(m_usertype==1){ %>
                     <div id="jyl_info_short2">
                        <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_1.png"></div>
                        <div id="jyl_info_short4">
@@ -143,13 +165,29 @@
                           <div class="jyl_graph">
                              <div class="jyl_bar-background">
                               <div class="jyl_bar-fill1" style="width: <%= widthPercentage1 %>%;"></div>
-                          </div>
+                          </div>                      
                           <div class="jyl_label">
                               <span class="jyl_label1"><%= int_applyCount %></span><span class="jyl_label2"> / 30</span>
                           </div>
                       	</div>
                        </div>
-                   </div>                   
+                   </div>  
+                   <%}else if(m_usertype==0){ %>       
+                   <div id="jyl_info_short2">
+                       <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_4.png"></div>
+                       <div id="jyl_info_short4">
+                          <div id="jyl_info_short4_spandiv"><span id="jyl_info_short4_span">초대하기</span></div>
+                          <div class="jyl_graph">
+                             <div class="jyl_bar-background">
+                              <div class="jyl_bar-fill1" style="width: <%= widthPercentage4 %>%;"></div>
+                          </div>                      
+                          <div class="jyl_label">
+                              <span class="jyl_label1"><%=int_invitationCount %></span><span class="jyl_label2"> / 30</span>
+                          </div>
+                      	</div>
+                       </div>
+                   </div>  
+                   <% } %>          
                    
                    <div id="jyl_info_short2">
                        <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_2.png"></div>
@@ -192,17 +230,28 @@
   <!------------- section2 ----------->     
        <!------------- 지원 내역(최신순 3가지만) 영역 시작 ----------->  
        <div class="jyl_content2">   
-              <span class="jyl_content2_title">지원 내역</span>              
+       <% if(m_usertype==0){%>
+        	  <span class="jyl_content2_title">초대 내역</span>     
+       <%}else if(m_usertype==1){ %>
+              <span class="jyl_content2_title">지원 내역</span>      
+       <%} %>        
        </div>
        
        <%
-	    ArrayList<MyPageDTO> arr = dao.mypage_section2(m_sid); 
+	    ArrayList<MyPageDTO> arr = dao.mypage_section2(m_sid, m_usertype); 
 	    if (arr == null || arr.isEmpty()) {
 	    %>
+	    	<% if(m_usertype==0){%>
+	        <div class="jyl_content2_list2">   
+	        	<div><span class="jyl_my_arrempty1">초대 내역이 없습니다.</span></div>
+	        	<div><span class="jyl_my_arrempty2">얼른 초대해보세요!</span></div>
+	        </div>
+	        <%}else if(m_usertype==1){ %>
 	        <div class="jyl_content2_list2">   
 	        	<div><span class="jyl_my_arrempty1">지원 내역이 없습니다.</span></div>
 	        	<div><span class="jyl_my_arrempty2">얼른 지원해보세요!</span></div>
 	        </div>
+	        <%} %>
 	    <%
 	    } else {
 	        for (int i = 0; i < arr.size(); i++) {
@@ -261,7 +310,7 @@
             <div class="jyl_list1_info">
                 <div class="jyl_list1_info1">
                     <div class="jyl_list1_info1_1">
-                        <span class="jyl_list1_info1_title"><%= dto2.getI_title() %></span>
+                        <a class="jyl_list1_info1_1_1" href="/DongGu/saveForm/DetailDongGu.jsp?i_num=<%=dto2.getI_num() %>"><span class="jyl_list1_info1_title"><%= dto2.getI_title() %></span></a>
                     </div>
                     <div class="jyl_list1_info1_2">
                          <%
@@ -291,30 +340,58 @@
                     </div>
                 </div>
                 <div class="jyl_list1_info2">
-	                <div class="jyl_list1_info2_btn1"><a href="#"><span>상세 내역</span></a></div> 
+	                
 	                <%
 	                	if( m_name.equals("매칭 대기")){
-	                 %>  	                                    	
+	                 %>  	                     
+	                     <% if(m_usertype==0){%>   
+	                    <div class="jyl_list1_info2_btn1"><a href="#"><span>지원 현황</span></a></div>
+	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>초대 수정</span></a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>초대 취소</span></a></div>
+	                     <%}else if(m_usertype==1){%>           		                    
 	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>지원 수정</span></a></div>
 	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>지원 취소</span></a></div>
+	                    <% } %>
 	                 <%
 	                	} else if(m_name.equals("매칭 중")){
 	                 %>  
+	                 <% if(m_usertype==0){%>   
+	                  <div class="jyl_list1_info2_btn1"><a href="#"><span>지원 내역</span></a></div> 
+	                  <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 취소</span></a></div>       
+	                 <%}else if(m_usertype==1){%>              
 	                  <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 수락</span></a></div>
                       <div class="jyl_list1_info2_btn3"><a href="#"><span>매칭 거절</span></a></div>
+                      <% } %>
 	                  <%
 	                	} else if(m_name.equals("매칭 성공")){
 	                  %>
+	                  <% if(m_usertype==0){%>   
+	                  	<div class="jyl_list1_info2_btn1"><a href="#"><span>지원 내역</span></a></div>
+	                  	<div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 포기</span></a></div>
+	                  <%}else if(m_usertype==1){%> 	                   
 	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 포기</span></a></div>
+	                    <% } %>
 	                  <%
 		                } else if(m_name.equals("케어 완료")){
 		              %>
+		              <% if(m_usertype==0){%>  
+		              <div class="jyl_list1_info2_btn1"><a href="#"><span>결제 요청</span></a></div> 
 		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 작성</span></a></div>
+		              <%}else if(m_usertype==1){%> 
+		                <div class="jyl_list1_info2_btn1"><a href="#"><span>후기 작성</span></a></div> 
+		                <div class="jyl_list1_info2_btn2"><a href="#"><span>내 지원서</span></a></div>
+		                <% } %>
 		                <%
 		                } else if(m_name.equals("후기작성 완료")){
 		                %>
+		                <% if(m_usertype==0){%> 
+		                <div class="jyl_list1_info2_btn1"><a href="#"><span>초대 내역</span></a></div> 
+		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 보기</span></a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>지원 내역</span></a></div>
+		                <%}else if(m_usertype==1){%> 
 		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 보기</span></a></div>
 	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>내 지원서</span></a></div>
+	                    <% } %>
 		                 <%
 		                }
 		                %>           

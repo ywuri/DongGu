@@ -4,9 +4,27 @@
 <%@ page import="com.DongGu.review.ReviewDTO" %>
 
 <jsp:useBean id="rdao" class="com.DongGu.review.ReviewDAO"></jsp:useBean>
-<%
+<%!
     String uploadPath = "/DongGu/";  // 실제 프로젝트의 경로로 수정해야 함
-    String savepath = uploadPath + "img/webFolder/upload/";
+    String savepath = uploadPath + "img/animal/";
+    
+	// 별점 이미지
+    String getStarImage(int r_star) {
+        switch (r_star) {
+            case 1:
+                return "/DongGu/img/star_one.png";
+            case 2:
+                return "/DongGu/img/star_two.png";
+            case 3:
+                return "/DongGu/img/star_three.png";
+            case 4:
+                return "/DongGu/img/star_four.png";
+            case 5:
+                return "/DongGu/img/star.png";
+            default:
+                return "/DongGu/img/star.png"; // 기본 이미지 (0점)
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -15,17 +33,23 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 <style>
-.rivew {padding-top:200px;}
-.rivew .box {
-    flex-direction: column;
-}
-.rivew .rivew_cont ul li {
-    width: 48%;
-}
-.rivew .left_box {
-    width: 100% !important;
-    height: 200px !important;
-}
+	.rivew {
+		padding-top:200px;
+	}
+	.rivew .box {
+	    flex-direction: column;
+	}
+	.rivew .rivew_cont ul li {
+	    width: 48%;
+	}
+	.rivew .left_box {
+	    width: 100% !important;
+	    height: 200px !important;
+	    overflow: hidden;
+	}
+	.rivew .left_box img {
+	    width: 100%;
+	}
 </style>
 </head>
 <body>
@@ -69,14 +93,17 @@
         <li>
 			<a href="/DongGu/afterForm/AfterView.jsp?r_num=<%= dto.getR_num() %>">
 		        <div class="box">
-		            <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
+		            <div class="left_box">
+		            	<img src="<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img())) &&("").equals(dto.getR_img().trim()) ? dto.getR_img() : "/DongGu/img/default.png" %>" alt="이미지">
+		            </div> 
 		            <div class="right_box">
 		                <div class="rb_title">
 		                    <span class="best">Best</span>
 		                    <span class="addr"><%= dto.getNickname() %>[고용자]</span>
 		                    <span class="date"><%= dto.getR_date() %></span>
 		                </div>
-		                <img src="/DongGu/img/star.png" alt="별점">
+		                <!-- <img src="/DongGu/img/star.png" alt="별점"> -->
+		                <img src="<%= getStarImage(dto.getR_star()) %>" alt="별점">
 		                <p><%= dto.getR_content() %></p>
 		            </div>
 		        </div>
@@ -101,16 +128,19 @@
                 //System.out.println("DTO 내용 확인: " + dto.getR_content());
         %>
         <li>
-		    <a href="/DongGu/afterForm/AfterView.jsp">
+		    <a href="/DongGu/afterForm/NoDongguAfterView.jsp?r_num=<%= dto.getR_num() %>">
 		        <div class="box">
-		            <div class="left_box" style="background-image: url('<%= dto.getR_img() != null && !dto.getR_img().isEmpty() ? dto.getR_img() : "/DongGu/img/default.png" %>');"></div>
+		            <div class="left_box">
+		            	<img src="<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img())) &&("").equals(dto.getR_img().trim()) ? dto.getR_img() : "/DongGu/img/default.png" %>" alt="이미지">
+		            </div> 
 		            <div class="right_box">
 		                <div class="rb_title">
 		                    <span class="best">Best</span>
-		                    <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[고용자]</a></span>
+		                    <%-- <span class="addr"><a href="/DongGu/member/MemberDetail.jsp"><%= dto.getNickname() %>[고용자]</a></span> --%>
+		                    <span class="addr"><%= dto.getNickname() %>[구직자]</span>
 		                    <span class="date"><%= dto.getR_date() %></span>
 		                </div>
-		                <img src="/DongGu/img/star.png" alt="별점">
+		                 <img src="<%= getStarImage(dto.getR_star()) %>" alt="별점">
 		                <p><%= dto.getR_content() %></p>
 		            </div>
 		        </div>
