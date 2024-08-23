@@ -49,6 +49,7 @@
    .jyl_bar-fill3 {background-color: #fee37a; height: 100%; transition: width 0.3s;}
 </style>
 </head>
+
 <body >
 <%@ include file="../Header.jsp" %>
 
@@ -339,19 +340,30 @@
                     %>
                     </div>
                 </div>
-                <div class="jyl_list1_info2">
-	                
+                <div class="jyl_list1_info2">                
 	                <%
 	                	if( m_name.equals("매칭 대기")){
-	                 %>  	                     
-	                     <% if(m_usertype==0){%>   
-	                    <div class="jyl_list1_info2_btn1"><a href="#"><span>지원 현황</span></a></div>
-	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>초대 수정</span></a></div>
-	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>초대 취소</span></a></div>
-	                     <%}else if(m_usertype==1){%>           		                    
-	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>지원 수정</span></a></div>
-	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>지원 취소</span></a></div>
-	                    <% } %>
+	                 %>  	                            
+	                     <% if(m_usertype==0){%>            
+	                     <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
+	                     <input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                     <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">                
+	                    <div class="jyl_list1_info2_btn1"><a href="#" onclick="submitForm(<%= i %>,1)"><span>지원 현황</span></a></div>
+	                    <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,2)"><span>초대 수정</span></a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#" onclick="submitForm(<%= i %>,3)"><span>초대 취소</span></a></div>	 
+	                    </form>                    
+	                     <%}else if(m_usertype==1){%>      
+	                     <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">
+	                     <input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                     <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">
+						    <div class="jyl_list1_info2_btn2">
+						      <a href="#" onclick="submitForm(<%= i %>,11)"><span>지원 수정</span></a>
+						    </div>
+						    <div class="jyl_list1_info2_btn3">
+						      <a href="#" onclick="submitForm(<%= i %>,12)"><span>지원 취소</span></a>
+						    </div>
+						  </form>	                  
+	                    <% } %>	                       
 	                 <%
 	                	} else if(m_name.equals("매칭 중")){
 	                 %>  
@@ -359,8 +371,12 @@
 	                  <div class="jyl_list1_info2_btn1"><a href="#"><span>지원 내역</span></a></div> 
 	                  <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 취소</span></a></div>       
 	                 <%}else if(m_usertype==1){%>              
-	                  <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 수락</span></a></div>
-                      <div class="jyl_list1_info2_btn3"><a href="#"><span>매칭 거절</span></a></div>
+	                 <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post"> 
+	                 	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">
+	                  <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,13)"><span>매칭 수락</span></a></div>
+                      <div class="jyl_list1_info2_btn3"><a href="#" onclick="submitForm(<%= i %>,14)"><span>매칭 거절</span></a></div>
+                     </form>
                       <% } %>
 	                  <%
 	                	} else if(m_name.equals("매칭 성공")){
@@ -368,8 +384,12 @@
 	                  <% if(m_usertype==0){%>   
 	                  	<div class="jyl_list1_info2_btn1"><a href="#"><span>지원 내역</span></a></div>
 	                  	<div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 포기</span></a></div>
-	                  <%}else if(m_usertype==1){%> 	                   
-	                    <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 포기</span></a></div>
+	                  <%}else if(m_usertype==1){%> 	  
+	                  <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
+	                  	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">              
+	                    <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,15)"><span>매칭 포기</span></a></div>
+	                  </form>
 	                    <% } %>
 	                  <%
 		                } else if(m_name.equals("케어 완료")){
@@ -394,7 +414,27 @@
 	                    <% } %>
 		                 <%
 		                }
-		                %>           
+		                %>       
+		                <script>
+	                    function submitForm(index, actionValue) {
+							console.log(index, actionValue);                 	
+	                        const form = document.getElementById('form_' + index);
+					
+	                        // Clear any existing hidden inputs
+	                        const existingInput = form.querySelector('input[name="action"]');
+	                        if (existingInput) {
+	                          existingInput.remove();
+	                        }
+
+	                        const input = document.createElement('input');
+	                        input.type = 'hidden';
+	                        input.name = 'action';
+	                        input.value = actionValue;  // Set the action value (1 or 2)
+	                        form.appendChild(input);
+	                        
+	                        form.submit();
+	                      }
+						</script>        
                 </div>
             </div>    
         </div>

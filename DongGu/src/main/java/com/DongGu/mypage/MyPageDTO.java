@@ -130,9 +130,10 @@ public class MyPageDTO {
    }
    
    // 1-2. 인자 생성자(마이페이지 메인 section 2 / 나의 지원 - 지원내역)	
-   public MyPageDTO(int i_num, int a_num, String ai_img, String an_num_link, String m_name, String i_title, Date i_start, Date i_end, ArrayList<String> an_words) {
+   public MyPageDTO(int i_num, int ap_num, int a_num, String ai_img, String an_num_link, String m_name, String i_title, Date i_start, Date i_end, ArrayList<String> an_words) {
 	   super();
 	   this.i_num = i_num;
+	   this.ap_num = ap_num;
 	   this.a_num = a_num;
 	   this.ai_img = ai_img;
 	   this.an_num_link = an_num_link;
