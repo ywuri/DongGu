@@ -58,7 +58,7 @@
         out.println("해당 리뷰를 찾을 수 없습니다.");
     } else {
         // 이미지 경로가 null이거나 비어 있거나 "null"이라는 문자열인 경우 기본 이미지를 사용
-        String imageUrl = (review.getR_img() != null && !review.getR_img().trim().isEmpty() && !"null".equalsIgnoreCase(review.getR_img())) ? review.getR_img() : "/DongGu/img/default.png";
+        String imageUrl = (review.getR_img() != null && !review.getR_img().trim().equals("") && !"null".equalsIgnoreCase(review.getR_img())) ? review.getR_img() : "default.png";
         String profileImageUrl = (dongguReview != null && dongguReview.getP_img() != null && !dongguReview.getP_img().trim().isEmpty()) ? dongguReview.getP_img() : "/DongGu/img/sinyou.jpg";
 %>
 <!DOCTYPE html>
@@ -76,7 +76,7 @@
 		<div class="after_box">
 			<div class="animal_after">
 				<div class="after_img">
-					<img src="<%= imageUrl %>" alt="이미지">
+					<img src="/DongGu/img/<%= imageUrl %>" alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
 				</div>
 				<div class="after_txt">
 					<div class="after_title">
@@ -102,7 +102,7 @@
 									<p>후기 <%= dongguReview != null ? dongguReview.getReview_count() : "알 수 없음" %>개</p>
 								</div>
 							</div>
-								<img src="<%= profileImageUrl %>" alt="프로필 이미지"> <!-- DB에서 가져온 프로필 이미지 -->
+								<img src="/DongGu/img/petsitter_profile/<%= profileImageUrl %>" alt="프로필 이미지"> <!-- DB에서 가져온 프로필 이미지 -->
 						</div>
 					</div>
 				</div>
