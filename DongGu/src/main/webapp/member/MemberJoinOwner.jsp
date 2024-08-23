@@ -17,7 +17,7 @@
 	<form name="MemberJoinOwner" action="MemberJoinOwner_ok.jsp"
 		method="post" onsubmit="return checkForm()">
 
-		<div class="saveTableTwo">
+		<div class="saveTableTwo m180_auto">
 			<h3 class="saveTitle">고용자 가입하기</h3>
 			<div class="stt_box">
 				<table>

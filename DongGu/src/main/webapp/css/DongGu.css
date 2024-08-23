@@ -536,7 +536,6 @@
 .saveTableTwo {
 	width: 800px;
 	color: darkorange;
-	margin: 180px auto;
 }
 
 .saveTableTwo h3.saveTitle {
@@ -694,6 +693,23 @@
 	cursor: pointer;
 }
 
+.saveTableTwo .stt_box2 {
+	width: 100%;
+	margin: 20px auto;
+	padding:20px 0;
+}
+
+
+.saveTableTwo .stt_box2 .saveBtnOne {
+	width: 130px;
+	height: 60px;
+	border: 2px solid #fdcb08;
+	border-radius: 10px;
+	background-color: #fdcb08;
+	color: white;
+	cursor: pointer;
+	font-size: 17px;
+}
 
 .animalBox {
 	box-shadow: 1px 1px 12px rgba(0, 0, 0, .07);
@@ -769,14 +785,6 @@
 	color: darkorange;
 }
 
-.span_go_page {
-	width: 100%;
-	display: inline-block;
-	text-align: center;
-	margin-top: 20px;
-	cursor: pointer;
-}
-
 .writeImgSize {	width: 300px;}
 
 .saveWS40 {	width: 40px;}
@@ -796,8 +804,15 @@
 
 .saveHS100 {height: 100px;}
 
+
+.m180_auto {margin: 180px auto;}
+.m180_auto_80 {margin: 180px auto 80px;}
+
 .mt20 {	margin-top: 20px;}
 .mt100 {margin-top: 100px;}
+
+
+
 .mr20 {	margin-right: 20px;}
 .mr50 {	margin-right: 50px;}
 .ml20 {margin-left:20px;}
