@@ -11,6 +11,21 @@
 	li::marker {content: none;}
 	a {text-decoration: none; color: unset;}
 	
+	/* --- 스크롤 애니메이션 --- */	
+	[data-aos^=fade][data-aos^=fade].aos-animate {
+    opacity: 1;
+    transform: translateZ(0);}
+    
+    [data-aos=fade-down] {
+    transform: translate3d(0, -100px, 0);}
+    
+    [data-aos=fade-up] {
+    transform: translate3d(0, 100px, 0);}
+    
+    [data-aos][data-aos][data-aos-duration="1000"], body[data-aos-duration="1000"] [data-aos] {
+    transition-duration: 2s;}
+    
+	
 	/* --- nav css --- */
 	header.dg_hd {
 	    position: absolute; width:1470px; left: 50%; top: 50px; display: flex; justify-content: space-between; align-items: center; height: 80px; 
@@ -60,8 +75,14 @@
 	    display: block; visibility: visible; opacity: 1; margin-top: 0; padding: 10px 5px;
 	}
 	header.dg_hd nav > ul > li .dropdown p {
-	    display: flex; align-items: center; justify-content: space-between; color: #444; text-align: left; padding: 0 18px; margin: -4px 0; 
+	    display: flex; align-items: center; justify-content: space-between; color: #444; text-align: left; margin: -4px 0; 
 	    cursor: pointer; line-height: 40px; transition: opacity .3s ease;
+	}
+	header.dg_hd nav > ul > li .dropdown p a{
+	    width: 100%; height: 100%; padding: 0 18px;
+	}
+	header.dg_hd nav > ul > li .dropdown p img{
+	    margin-right: 15px;
 	}
 	header.dg_hd nav > ul > li .dropdown p:hover {
 	    background: rgba(253, 203, 8, 0.25); border-radius: 10px;
@@ -148,7 +169,8 @@
 	    color: #fdcb08;
 	}
 	.main .main_bt {
-	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 100px; border-radius: 10px; background: #fdcb08;
+	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 100px; 
+	    border-radius: 10px; background: #fdcb08; transition: 0.7s; 
 	}
 	.main .main_bt p {
 	    color: #fff; font-size: 17px; letter-spacing: 0.5px;
@@ -157,6 +179,9 @@
 	    padding: 0 0 0 10px;
 	}
 	
+	.main .main_bt:hover {
+	    background: #333; transition: 0.7s; 
+	}
 	/* --- index > count --- */
 	section.count {
 	    width: 100%; height: 340px; position: relative; box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);
@@ -218,8 +243,14 @@
 	    display: flex; justify-content: flex-start; align-items: flex-start; gap: 25px; border-radius: 30px; box-shadow: 10px 10px 24px 10px hsla(0, 5%, 92%, .5); background-color: #fff; box-sizing: border-box; padding: 35px;
 	}
 	.rivew .left_box {
-	    width: 340px; height: 170px; background: #000;
+	    width: 340px; height: 170px; background: #000; overflow:hidden;
 	}
+	.rivew .left_box img {
+	    width: 100%;
+	}
+	/* .rivew .right_box {
+	    width: 500px;
+	} */
 	.rivew .right_box .rb_title {
 	    display: flex; justify-content: flex-start; align-items: center; gap: 20px; margin-bottom: 16px;
 	}
@@ -243,12 +274,31 @@
 	    margin-top: 100px; margin: 0 auto; margin-top: 100px; border-radius: 10px; color: #595858; border: 1px solid #595858;
 	}
 	.rivew .rivew_bt img {
-	    padding: 0 0 0 10px;
+	    padding: 0 0 0 10px;  transition: opacity 0.5s ease; /* 트랜지션 효과 */ 
 	}
+
+	/* 기본 이미지 */
+	.rivew .rivew_bt img.hover {
+	    display: none; transition: 0.5s;   opacity: 0; /* 기본 상태에서 숨김 */
+	}
+	
+	/* 호버 시 이미지 교체 */
+	.rivew .rivew_bt:hover img.normal {
+	    display: none;  transition: 0.5s;     opacity: 0; /* 호버 시 원래 이미지 숨기기 */
+	}
+	
+	.rivew .rivew_bt:hover img.hover {
+	    display: inline-block; transition: 0.5s;   opacity: 1; /* 호버 시 보이도록 설정 */
+	}
+	
+	.rivew .rivew_bt:hover {
+	    color: #fff; border: 1px solid #fdcb08; background: #fdcb08; transition: 0.5s; 
+	}
+	
 	
 	/* --- banner --- */
 	section.bn {
-	    padding: 100px 0;
+	    padding: 100px 0; 
 	}
 	.bn .bk_bn {
 	    width: 1400px; background: #000; height: 450px; margin: 0 auto;
@@ -266,12 +316,15 @@
 	    color: #b2b2b2; font-size: 17px; line-height: 1.4; margin: 55px 0 0 0;
 	}
 	.bn .bn_bt {
-	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 50px; border-radius: 10px; color: #fff; border: 1px solid #fff;
+	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 50px; border-radius: 10px; 
+	    color: #fff; border: 1px solid #fff; transition: 0.7s;
 	}
 	.bn .bn_bt img {
 	    padding: 0 0 0 10px;
 	}
-
+	.bn .bn_bt:hover {
+	    color: #fff; border: 1px solid #fdcb08; background: #fdcb08; transition: 0.7s;
+	}
 
 	/* --- Sub > 이용후기 --- */
 	.view_after {width: 100%; display: flex; padding: 200px 0 100px 0; flex-direction: column; align-items: center; justify-content: space-around;}
@@ -286,7 +339,7 @@
 	.after_box .after_txt img {/* width:100px; */ margin-bottom: 30px;}
 	.after_box .after_txt p {font-size: 15px; color: #4D5055; word-break: keep-all; text-align: left; word-wrap: break-word;  line-height: 24px; white-space: pre-line;}
 	.donggu_info {background-color: #FAFAFC; width: 100%; display: flex; justify-content: flex-end;}
-	.donggu_info .donggu_info_box .info_box_detail {display: flex; align-items: center; gap: 10px; margin-right: 15px;}
+	.donggu_info .donggu_info_box .info_box_detail {display: flex; align-items: center; gap: 30px; margin-right: 15px;}
 	.donggu_info .donggu_info_box {padding: 20px 30px 20px 20px;}
 	.donggu_info .donggu_info_box .donggu_info_p {text-align: right; margin-bottom: 30px; font-size: 17px; color: #393C47; font-weight: 500; line-height: 25px;}
 	.donggu_info .donggu_info_box .info_box_detail img {width: 76px; height: 76px; border-radius: 50%; object-fit: cover; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);} 
