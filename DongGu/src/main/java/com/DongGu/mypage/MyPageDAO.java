@@ -947,5 +947,10 @@ public class MyPageDAO {
 
 	
 	
+	
+	
+	
+	
+	
    
 }

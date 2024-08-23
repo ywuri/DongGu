@@ -13,14 +13,57 @@
 
  <jsp:useBean id="dao" class="com.DongGu.mypage.MyPageDAO"></jsp:useBean>
 <jsp:useBean id="rdao" class="com.DongGu.review.ReviewDAO"></jsp:useBean>
-    
 <%
-   String m_sid = (String)session.getAttribute("sid");
-   String m_sname = (String)session.getAttribute("sname");
-%>    
-<%
-   	MyPageDTO dto = dao.mypage_ApplyManage2(m_sid); 
+	//페이징
+	String cp_s = request.getParameter("cp");//현재 페이지 
+	if(cp_s==null || cp_s.equals("")) cp_s="1";
+	int cp = Integer.parseInt(cp_s);
+
+	int listSize = 3; // 한 페이지에 표시할 게시물 수
+	int pageSize =5; // 페이지 버튼을 그룹으로 묶을 수 (예: 1~5 페이지 버튼).
+	
+	
+	//usertype 0이면 고용자
+    //usertype 1이면 구직자.
+	
+	//세션정보
+   	String m_sid = (String)session.getAttribute("sid");
+	System.out.println("memberdetail m_sid = "+m_sid);
+	String m_sname = (String)session.getAttribute("sname");
+
+   	String review_id = request.getParameter("o_id")==null||request.getParameter("o_id").trim().equals("")?request.getParameter("p_id"):request.getParameter("o_id");
+    //System.out.println("memberdetail review_id = "+review_id);
+   	String id_check = request.getParameter("usertype");
+	
+	
+    //후기 리스트
+    ArrayList<ReviewDTO> arrayReview = rdao.AfterListPerson(
+    		Integer.parseInt(request.getParameter("usertype")) ==0?1:0
+    		, review_id,cp,listSize);
+	
+	int totalCnt=rdao.getReviewCnt(Integer.parseInt(request.getParameter("usertype")) ==0?1:0, review_id); // 총 게시물 수
+	
+	int totalPage = totalCnt%listSize==0 ? (totalCnt/listSize):(totalCnt/listSize)+1;//총 페이지수
+
+	//사용자 현재 위치 그룹(3이면 1쪽)
+	int userGroup = (cp/pageSize)+1;
+	if(cp%pageSize==0)  userGroup = userGroup-1;
+	
+	
+	
+	MyPageDTO dto = null;
+	
+	//구직자정보 뿌리기
+	if(id_check.equals("1")){
+		dto = dao.mypage_memberDetailPet(review_id); 
+	}
+	//고용자 정보뿌리기
+	else{
+		dto = dao.mypage_memberDetailOwner(review_id); 
+	}
+	
 	String p_jumin = dto.getP_jumin();
+	
 	
 	// 주민번호를 '-'로 분리하여 배열로 반환
 	String jumin_first = p_jumin.split("-")[0]; // 980821
@@ -49,8 +92,8 @@
 	int man_age = Period.between(birth, today).getYears();
 	
 	// 결과 확인용
-	System.out.println("생년월일 : " + birth);
-	System.out.println("만나이 : " + man_age);
+	//System.out.println("생년월일 : " + birth);
+	//System.out.println("만나이 : " + man_age);
 %>
 <%
 	//원본 전화번호
@@ -81,13 +124,42 @@
     String MaskedAddr = firstPart + " " + secondPart + " " + maskedThirdPart.toString();
     
     
-    //후기 리스트
-    ArrayList<ReviewDTO> arrayReview = rdao.AfterListPerson(Integer.parseInt(request.getParameter("usertype")) , request.getParameter("o_id"));
+	int isWishList =-2;
+	if(m_sid!=null ){
+		//sid와 글번호로 해당 게시글 위시리스트에 있는지 확인
+		//reviewid = 케리아, sid=지현
+		isWishList = dao.isWishList(review_id,m_sid,request.getParameter("usertype").equals("0")?"1":"0");
+		System.out.println("isWishList = "+isWishList);
+}
+
  
  %>
+<%!
+// 별점 이미지
+String getStarImage(int r_star) {
+    switch (r_star) {
+        case 1:
+            return "/DongGu/img/star_one.png";
+        case 2:
+            return "/DongGu/img/star_two.png";
+        case 3:
+            return "/DongGu/img/star_three.png";
+        case 4:
+            return "/DongGu/img/star_four.png";
+        case 5:
+            return "/DongGu/img/star.png";
+        default:
+            return "/DongGu/img/star.png"; // 기본 이미지 (0점)
+    }
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+</style>
+
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
@@ -152,17 +224,64 @@
 
 
 
-<div class="jyl_content_mp">
+<div class="jyl_content_mp_ljh">
     
       
    <div class="jyl_content5_list_mp" style="position: relative;">   
-   		<img class="jyl_likeimg_heart" style="position: absolute; top: 25px;  right: 30px; width: 35px;  height: 35px;" alt="likelist1" src="/DongGu/img/yel13.png">
+   		
+   		<form name="wishListForm" action="MemberDetailWishList.jsp"  id="wishListForm">
+			<input type="hidden" name="m_sid" value="<%=m_sid %>">
+			<input type="hidden" name="review_id" value="<%=review_id %>">
+			<input type="hidden" name="id_check" value="<%=id_check %>">
+
+			<%
+			if(isWishList==1){
+				%>
+				<input type="image" id="wishHeart" class="heartIconSize" src="/DongGu/img/heart_full.svg">
+				<%
+			}else if(isWishList==0){
+				%>
+				<input type="image" id="wishHeart" class="heartIconSize" src="/DongGu/img/heart_empty.svg" >
+				<!-- <img class="jyl_likeimg_heart" style="position: absolute; top: 25px;  right: 30px; width: 35px;  height: 35px;" alt="likelist1" src="/DongGu/img/yel13.png">-->
+				<%
+			}else{
+				
+			}
+			%>
+		</form>
+   		
+   		
+   		
+   		
    		<div class="jyl_content5_list1">
    			<div class="jyl_content5_list1_div2_mp">
-	   			<div class="jyl_content5_list1_div2_1"><img class="jyl_content5_list1_div2_1_img_mp" src="/DongGu/img/petsitter_profile/<%= dto.getP_img()%>"></div>
+	   			<div class="jyl_content5_list1_div2_1">
+	   			<%
+	   			if(dto.getP_img()==null){
+	                if ("1".equals(gender)) {
+	                    int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
+	                    String imageSrc = "/DongGu/img/random1_" + randomIndex + ".png";
+	                    %>
+		   				<img class="jyl_content5_list1_div2_1_img_mp" src="<%=imageSrc%>">
+		   				<%
+	                } else if ("2".equals(gender)) {
+	                    int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
+	                    String imageSrc = "/DongGu/img/random2_" + randomIndex + ".png";
+	                    %>
+		   				<img class="jyl_content5_list1_div2_1_img_mp" src="<%=imageSrc%>">
+		   				<%
+	                }
+	   			}else{
+	   				%>
+	   				<img class="jyl_content5_list1_div2_1_img_mp" src="/DongGu/img/petsitter_profile/<%=dto.getP_img()%>">
+	   				<%
+	   			}
+               
+	   			%>
+	   				</div>
 	   		</div>
 	   		<div class="jyl_content5_list1_div1_mp">
-	   			<div class="jyl_content5_list1_div1_1_mp"><span><%= m_sname %></span></div>
+	   			<div class="jyl_content5_list1_div1_1_mp"><span><%= dto.getP_name() %></span></div>
 	   			<div class="jyl_content5_list1_div1_2_mp"><span><%= i_year %>년 (만 <%= man_age %>세)</span></div>
 	   			<div class="jyl_content5_list1_div1_3_mp">
 		   		<span class="jyl_like_info_star_mp">고용자 평점: <img class="jyl_likestar_img_mp" alt="likestar" src="/DongGu/img/m_sec1_3.png">
@@ -184,28 +303,45 @@
 			<%
 			if(arrayReview==null|| arrayReview.size()==0){
 				%>
-					<li>해당 회원의 리뷰가 없습니다.</li>
+					<li style="font-weight: 500;  font-size: 17pt;">해당 회원의 리뷰가 없습니다.</li>
 				<%
 			}
 			else{
 				for(int i=0;i<arrayReview.size();i++){
 				%>
 				<li>
-				<div class="box">
-					<div style="background: url(<%=arrayReview.get(i).getR_img() %>) no-repeat top right; background-position: right -25px; background-size: cover;">
-					</div>
-					<div class="right_box">
-						<div class="rb_title">
-							<span class="best">Best</span>
-							<span class="addr"><%=arrayReview.get(i).getR_write_id() %></span>
-							<span class="date"><%=arrayReview.get(i).getR_date() %></span>
+				<%
+				//노동구 - 펫시터가 쓴 후기
+				//그냥 에프터가 - 고용자가쓴
+				if(Integer.parseInt(id_check)==0){
+					%>
+					<a href="/DongGu/afterForm/NoDongguAfterView.jsp?r_num=<%= arrayReview.get(i).getR_num() %>">
+					<%
+				}
+				else{
+					%>
+					<a href="/DongGu/afterForm/AfterView.jsp?r_num=<%= arrayReview.get(i).getR_num() %>">
+					<%
+				}
+				%>
+				
+					<div class="box">
+						<div class="left_box">
+			            	<img style="width:100%;height:100%;" src='/DongGu/img/<%= (arrayReview.get(i).getR_img() != null && !arrayReview.get(i).getR_img().trim().equals("")) ? arrayReview.get(i).getR_img() : "default.png" %>'  alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
+			            </div> 
+						<div class="right_box">
+							<div class="rb_title">
+								<span class="best">Best</span>
+								<span class="addr"><%=arrayReview.get(i).getR_write_id() %></span>
+								<span class="date"><%=arrayReview.get(i).getR_date() %></span>
+							</div>
+							<img src="<%= getStarImage(arrayReview.get(i).getR_star()) %>" alt="별점">
+							<p>
+							<%=arrayReview.get(i).getR_content() %>
+							</p>
 						</div>
-						<img src="img/star.png" alt="별점">
-						<p>
-						<%=arrayReview.get(i).getR_content() %>
-						</p>
 					</div>
-				</div>
+				</a>
 			</li>
 			<%
 			}
@@ -220,13 +356,53 @@
 
 <div class="jyl_paging">
 		<div class="jyl_paging2" style="padding-top: 0px;">
-			<div class="jyl_paging_btn"><a href="MyPage_ApplyList.jsp?cp="><span>1</span></a></div>						 					    		
+		
+		<%
+		if(totalCnt!=0){
+			if(userGroup>1 ){
+				%>
+				<div class="jyl_paging_btn">
+						<a href="MemberDetail.jsp?usertype=<%=id_check %>&o_id=<%=review_id%>&cp=<%=(userGroup-1)*pageSize  %>;"><span>&lt;</span></a>
+				</div>
+				<%
+				}
+			for(int i=(userGroup-1)*pageSize+1;i<=(userGroup-1)*pageSize+pageSize ;i++){
+				if(cp==i){
+				%>
+				<div class="jyl_paging_btn jyl_paging_btn_active">
+						<a href="MemberDetail.jsp?usertype=<%=id_check %>&o_id=<%=review_id%>&cp=<%=i %>"><span><%=i %></span></a>
+						
+				</div>	
+				<%
+				}else{
+				%>
+				<div class="jyl_paging_btn">
+						<a href="MemberDetail.jsp?usertype=<%=id_check %>&o_id=<%=review_id%>&cp=<%=i %>"><span><%=i %></span></a>
+				</div>	
+				<%
+				}
+				if(i==totalPage) break;
+				
+			}
+			%>
+			
+			<%
+			if( userGroup != totalPage/pageSize+(totalPage%pageSize==0?0:1)  ){
+				%>
+				<div class="jyl_paging_btn">
+					<a href="MemberDetail.jsp?usertype=<%=id_check %>&o_id=<%=review_id%>&cp=<%= (userGroup+1)*pageSize- (pageSize-1)%>;"><span>&gt;</span></a>
+				</div>
+				<%
+				}
+		}
+		
+		%>	 					    		
 	</div>				
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;padding: 30px; padding-bottom: 60px;">
-<a href="/DongGu/afterForm/AfterWrite.jsp"><input type="button" value="후기작성" class="jyl_btn_md"></a>
- </div> 
+<!-- <a href="/DongGu/afterForm/AfterWrite.jsp"><input type="button" value="후기작성" class="jyl_btn_md"></a>
+  --></div> 
  
 </div>
 </div>
@@ -234,5 +410,24 @@
 	</div>
 </div>
 </body>
+
+<script>
+//위시리스트 되면 색깔 바꾸기
+document.getElementById('wishHeart').addEventListener('click', function(event) {
+    event.preventDefault(); // 폼 자동 제출 방지
+
+    var heartIcon = document.getElementById('wishHeart');
+    
+    if (heartIcon.src.includes('heart_empty.svg')) {
+        heartIcon.src = '/DongGu/img/heart_full.svg'; // 색이 채워진 하트 이미지로 변경
+    } else {
+        heartIcon.src = '/DongGu/img/heart_empty.svg'; // 빈 하트 이미지로 변경
+    }
+
+
+    document.getElementById('wishListForm').submit(); // 폼 제출
+});
+</script>
+
 <%@include file="../Footer.jsp" %>
 </html>

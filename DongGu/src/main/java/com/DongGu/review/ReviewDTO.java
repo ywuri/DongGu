@@ -31,7 +31,7 @@ public class ReviewDTO {
    }
    
    
-   
+
    public ReviewDTO(int r_num, String r_write_id, int r_id_check, int r_star, String r_content, String r_img, Date r_date,
 		String nickname) {
 	super();
@@ -44,8 +44,6 @@ public class ReviewDTO {
 	this.r_date = r_date;
 	this.nickname = nickname;
 }
-
-
 
 
 

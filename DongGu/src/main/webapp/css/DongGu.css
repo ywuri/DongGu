@@ -984,7 +984,7 @@ width:200px;
 width:200px;
 }
 #FreeBoardTable > thead>tr>th:last-child{
-width:170px;
+width:180px;
 }
 #FreeBoardTable >thead>tr>th{
 	border-top : solid 1px #fdcb08;;
@@ -2114,7 +2114,17 @@ width:170px;
 	
 	
 	
-	
+	.jyl_content_mp_ljh {
+    width: 100%;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 1850px; */
+}
 	
 	
 	
