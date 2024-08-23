@@ -99,7 +99,7 @@
    <div class="jyl_content4_list">   
    
    		<div class="jyl_content4_list1">
-	   		<div class="jyl_content4_list1_div1"><span class="jyl_content4_list1_span1"><%= m_sname %>님의 지원서</span></div>
+	   		<div class="jyl_content4_list1_div1"><span class="jyl_content4_list1_span1"><%= m_sname %>님의 기본 지원서</span></div>
 	   		<% if( dto.getP_update_date() != null ){%>
 	   		<div class="jyl_content4_list1_div2"><span class="jyl_content4_list1_span2"><%= dto.getP_update_date() %> 수정</span></div>
 	   		<%}%>

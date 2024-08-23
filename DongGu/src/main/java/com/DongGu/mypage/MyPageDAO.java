@@ -100,11 +100,12 @@ public class MyPageDAO {
          conn = com.DongGu.db.DongGuDB.getConn();
          
          String sql_owner = "SELECT * FROM ( "
-          		+ "SELECT i.i_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+          		+ "SELECT i.i_num, ap.ap_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
           		+ "FROM invitation i "
           		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
           		+ "JOIN animaltype at ON ai.at_num = at.at_num "
           		+ "JOIN animal a ON at.a_num = a.a_num "
+         		+ "LEFT OUTER JOIN application ap ON i.i_num = ap.i_num "
           		+ "JOIN matchingstate ms ON ms.m_num = i.m_num "
           		+ "WHERE i.ai_num in (select ai.ai_num from animalinfo i where ai.o_id = ?) "
           		+ "ORDER BY i.i_num desc  "
@@ -112,7 +113,7 @@ public class MyPageDAO {
           		+ "WHERE ROWNUM <= 3 ";
          
          String sql_petsitter = "SELECT * FROM ( "
-         		+ "SELECT i.i_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+         		+ "SELECT i.i_num, ap.ap_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
          		+ "FROM invitation i "
          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
@@ -138,6 +139,7 @@ public class MyPageDAO {
          ArrayList<MyPageDTO> mlist = new ArrayList<>();
          while(rs.next()) {          
         	   int i_num = rs.getInt("i_num");  
+        	   int ap_num = rs.getInt("ap_num");  
         	   int a_num = rs.getInt("a_num");  
                String ai_img = rs.getString("ai_img");
                String an_num_link = rs.getString("an_num_link");             
@@ -163,7 +165,7 @@ public class MyPageDAO {
                    }
 			}
                
-               dto2 = new MyPageDTO(i_num,a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               dto2 = new MyPageDTO(i_num,ap_num,a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
                mlist.add(dto2);
                      
             }
@@ -190,32 +192,54 @@ public class MyPageDAO {
    
      
    // 2-1. 마이페이지 지원내역 페이지 - 특정 페이지에 해당하는 목록 가져오기 
-   public ArrayList<MyPageDTO> mypage_applyList1(String m_sid,int cp,int listSize) {
+   public ArrayList<MyPageDTO> mypage_applyList1(String m_sid,int cp,int listSize, int m_usertype) {
       System.out.println("마이페이지 지원내역 - 특정 페이지에 해당하는 목록 가져오는 매서드 실행됨!");         
       MyPageDTO dto = null;
 
       try {
          conn = com.DongGu.db.DongGuDB.getConn();
-         String sql = "SELECT * "
-         		+ "FROM (SELECT ROWNUM rnum, a.* "
-         		+ "FROM ( "       		 
-         		+ "SELECT a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
-         		+ "FROM invitation i "
-         		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
-         		+ "JOIN animaltype at ON ai.at_num = at.at_num "
-         		+ "JOIN animal a ON at.a_num = a.a_num "
-         		+ "JOIN application ap ON i.i_num = ap.i_num "
-         		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
-         		+ "WHERE ap.p_id = ? "
-         		+ "ORDER BY ap.ap_num desc ) a"
-         		+ ") b "
-         		+ "WHERE rnum BETWEEN ? AND ? ";
+         
+         String sql_owner = "SELECT * "
+           		+ "FROM (SELECT ROWNUM rnum, a.* "
+           		+ "FROM ( "
+           		+ "SELECT i.i_num, ap.ap_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+           		+ "FROM invitation i "
+           		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
+           		+ "JOIN animaltype at ON ai.at_num = at.at_num "
+           		+ "JOIN animal a ON at.a_num = a.a_num "
+           		+ "JOIN application ap ON i.i_num = ap.i_num "
+           		+ "JOIN matchingstate ms ON ms.m_num = i.m_num "
+           		+ "WHERE i.ai_num in (select ai.ai_num from animalinfo i where ai.o_id = ?) "
+           		+ "ORDER BY i.i_num desc ) a "
+           		+ ") b "
+           		+ "WHERE rnum BETWEEN ? AND ?  ";
+         
+         
+         String sql_petsitter = "SELECT * "
+          		+ "FROM (SELECT ROWNUM rnum, a.* "
+          		+ "FROM ( "  
+          		+ "SELECT i.i_num, ap.ap_num, a.a_num,ai.ai_img, ai.an_num_link, ms.m_name,i.i_title,i.i_start, i.i_end "
+          		+ "FROM invitation i "
+          		+ "JOIN animalinfo ai ON i.ai_num = ai.ai_num "
+          		+ "JOIN animaltype at ON ai.at_num = at.at_num "
+          		+ "JOIN animal a ON at.a_num = a.a_num "
+          		+ "JOIN application ap ON i.i_num = ap.i_num "
+          		+ "JOIN matchingstate ms ON ms.m_num = ap.m_num "
+          		+ "WHERE ap.p_id = ? "
+          		+ "ORDER BY ap.ap_num desc ) a "
+          		+ ") b "
+          		+ "WHERE rnum BETWEEN ? AND ?  ";
+                      
          
          int start = (cp - 1) * listSize + 1;
          int end = cp * listSize;
  
-         
-         ps=conn.prepareStatement(sql);
+         if (m_usertype == 0) {
+        	 ps=conn.prepareStatement(sql_owner);
+         } else if(m_usertype == 1) {
+        	 ps=conn.prepareStatement(sql_petsitter);
+         }
+                
          ps.setString(1, m_sid);
          ps.setInt(2, start);
 		 ps.setInt(3, end);
@@ -224,7 +248,8 @@ public class MyPageDAO {
          rs = ps.executeQuery();
          ArrayList<MyPageDTO> malist = new ArrayList<>();
          while(rs.next()) {     
-        	   int i_num = rs.getInt("i_num");  
+        	   int i_num = rs.getInt("i_num"); 
+        	   int ap_num = rs.getInt("ap_num");       	   
         	   int a_num = rs.getInt("a_num");  
                String ai_img = rs.getString("ai_img");
                String an_num_link = rs.getString("an_num_link");             
@@ -249,7 +274,7 @@ public class MyPageDAO {
                    }
 			}
                
-               dto = new MyPageDTO(i_num, a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
+               dto = new MyPageDTO(i_num, ap_num,a_num, ai_img, an_num_link, m_name, i_title, i_start, i_end, an_words);
                malist.add(dto);
                      
             }
@@ -947,5 +972,387 @@ public class MyPageDAO {
 
 	
 	
+	// 7-1. 마이페이지 매칭별 기능 1 (구직자 - 지원 취소)
+	public int mypage_Ap_delete(String ap_num) {
+		System.out.println("마이페이지 매칭별 기능 1 (구직자 - 지원 취소) 매서드 실행됨!");         
+
+		      try {
+		         conn = com.DongGu.db.DongGuDB.getConn();
+		         String sql = "DELETE FROM	application "
+		         		+ "WHERE ap_num = ? ";
+		         
+		         ps=conn.prepareStatement(sql);
+		         ps.setString(1, ap_num);	         
+		         
+		         int rs = ps.executeUpdate();
+
+		         return rs;         
+		         
+		      }catch(Exception e) {
+		         e.printStackTrace();
+		         return -1;         
+		      }finally {
+		         try {
+		            if(rs!=null) rs.close();
+		            if(ps!=null) ps.close();
+		            if(conn!=null) conn.close();
+		         }catch (Exception e) {
+		            e.printStackTrace();
+		            
+		         }
+		      }
+		   }
+	
+	
+	// 7-2. 마이페이지 매칭별 기능 2 (구직자 - 매칭포기)
+	public int mypage_Iv_delete(String i_num) {
+		System.out.println("마이페이지 매칭별 기능 2 (구직자 - 매칭포기) 매서드 실행됨!");         
+
+			      try {
+			         conn = com.DongGu.db.DongGuDB.getConn();
+			         String sql = "DELETE FROM	invitation "
+			         		+ "WHERE i_num = ? ";
+			         
+			         ps=conn.prepareStatement(sql);
+			         ps.setString(1, i_num);	         
+			         
+			         int rs = ps.executeUpdate();
+
+			         return rs;         
+			         
+			      }catch(Exception e) {
+			         e.printStackTrace();
+			         return -1;         
+			      }finally {
+			         try {
+			            if(rs!=null) rs.close();
+			            if(ps!=null) ps.close();
+			            if(conn!=null) conn.close();
+			         }catch (Exception e) {
+			            e.printStackTrace();
+			            
+			         }
+			      }
+			   }
+
+	
+
+	// 7-3. 마이페이지 매칭별 기능 3 (구직자 - 매칭 수락)
+	public int mypage_Ap_update (String ap_num) {
+		System.out.println("마이페이지 매칭별 기능 3 (구직자 - 매칭수락) 매서드 실행됨!");         
+
+				      try {
+				         conn = com.DongGu.db.DongGuDB.getConn();
+				         String sql = "UPDATE application SET m_num = 3 where ap_num = ? ";
+				         
+				         ps=conn.prepareStatement(sql);
+				         ps.setString(1, ap_num);	         
+				         
+				         int rs = ps.executeUpdate();
+
+				         return rs;         
+				         
+				      }catch(Exception e) {
+				         e.printStackTrace();
+				         return -1;         
+				      }finally {
+				         try {
+				            if(rs!=null) rs.close();
+				            if(ps!=null) ps.close();
+				            if(conn!=null) conn.close();
+				         }catch (Exception e) {
+				            e.printStackTrace();
+				            
+				         }
+				      }
+				   }	
+
+
+	
+	
+	// 7-3. 마이페이지 매칭별 기능 4 (구직자 - 매칭 수락)
+	public int mypage_Iv_update (String i_num) {
+		System.out.println("마이페이지 매칭별 기능 4 (구직자 - 매칭수락) 매서드 실행됨!");         
+
+					      try {
+					         conn = com.DongGu.db.DongGuDB.getConn();
+					         String sql = "UPDATE invitation SET m_num = 3 where i_num = ? ";
+					         
+					         ps=conn.prepareStatement(sql);
+					         ps.setString(1, i_num);	         
+					         
+					         int rs = ps.executeUpdate();
+
+					         return rs;         
+					         
+					      }catch(Exception e) {
+					         e.printStackTrace();
+					         return -1;         
+					      }finally {
+					         try {
+					            if(rs!=null) rs.close();
+					            if(ps!=null) ps.close();
+					            if(conn!=null) conn.close();
+					         }catch (Exception e) {
+					            e.printStackTrace();
+					            
+					         }
+					      }
+					   }	
+
+	
+	
+	  ////////////////////지현////////////////////////
+	   // 마이페이지 고용자 (이름 생년월일 고용자평점 번호 주소 사진)
+	   public MyPageDTO mypage_memberDetailOwner(String m_sid) {     
+	         MyPageDTO dto = new MyPageDTO();
+
+	         try {
+	            conn = com.DongGu.db.DongGuDB.getConn();
+	            String sql = "SELECT  "
+	                  + "    o.o_jumin AS o_jumin, "
+	                  + "    o.o_tel AS o_tel, "
+	                  + "    o.o_addr AS o_addr, "
+	                  + "    o.o_name AS o_name, "
+	                  + "    NVL((SELECT ROUND(AVG(r.r_star), 1) FROM review r WHERE r.r_receive_id = o.o_id), 0) AS avg_star, "
+	                  + "    (SELECT COUNT(*) FROM review r WHERE r.r_receive_id = o.o_id) AS review_count "
+	                  + "FROM  "
+	                  + "    owner o "
+	                  + "LEFT JOIN  "
+	                  + "    review r ON o.o_id = r.r_receive_id "
+	                  + "WHERE  "
+	                  + "    o.o_id = ? ";
+	            
+	            
+	            ps=conn.prepareStatement(sql);
+	            ps.setString(1, m_sid);                     
+	            
+	            rs = ps.executeQuery();
+	            while(rs.next()) {          
+	                   String p_jumin = rs.getString("o_jumin");                   
+	                   String o_tel = rs.getString("o_tel");
+	                   String o_addr = rs.getString("o_addr");
+	                   String o_name = rs.getString("o_name");
+	                   Double avg_star = rs.getDouble("avg_star");
+	                   int reviewcount = rs.getInt("review_count");
+	                                                       
+	                   dto.setP_jumin(p_jumin);
+	                   dto.setP_tel(o_tel);
+	                   dto.setP_addr(o_addr);
+	                   dto.setP_name(o_name);
+	                   dto.setStarcount(avg_star);
+	                   dto.setReviewcount(reviewcount);
+	                }
+
+	            return dto;            
+	            
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	            return null;         
+	         }finally {
+	            try {
+	               if(rs!=null) rs.close();
+	               if(ps!=null) ps.close();
+	               if(conn!=null) conn.close();
+	            }catch (Exception e) {
+	               e.printStackTrace();
+	               
+	            }
+	         }
+	      }   
+	   
+	   
+	   // 마이페이지 구직자(이름 생년월일 고용자평점 번호 주소 사진)
+	   public MyPageDTO mypage_memberDetailPet(String m_sid) {      
+	         MyPageDTO dto =new MyPageDTO();
+
+	         try {
+	            conn = com.DongGu.db.DongGuDB.getConn();
+	            String sql = "SELECT  "
+	                  + "    p.p_jumin AS p_jumin, "
+	                  + "    p.p_tel AS p_tel, "
+	                  + "    p.p_addr AS p_addr, "
+	                  + "    p.p_name AS p_name, "
+	                  + "    NVL((SELECT ROUND(AVG(r.r_star), 1) FROM review r WHERE r.r_receive_id = p.p_id), 0) AS avg_star, "
+	                  + "    p.p_img AS p_img, "
+	                  + "    (SELECT COUNT(*) FROM review r WHERE r.r_receive_id = p.p_id) AS review_count "
+	                  + "FROM  "
+	                  + "    petsitter p "
+	                  + "LEFT JOIN  "
+	                  + "    review r ON p.p_id = r.r_receive_id "
+	                  + "WHERE  "
+	                  + "    p.p_id = ? ";
+	            
+	            ps=conn.prepareStatement(sql);
+	            ps.setString(1, m_sid);                    
+	            
+	            rs = ps.executeQuery();
+	            while(rs.next()) {          
+	               String p_jumin = rs.getString("p_jumin");                   
+	                   String p_tel = rs.getString("p_tel");
+	                   String p_addr = rs.getString("p_addr");
+	                   String p_name = rs.getString("p_name");
+	                   Double avg_star = rs.getDouble("avg_star");
+	                   String p_img = rs.getString("p_img");
+	                   int reviewcount = rs.getInt("review_count");
+	                                                       
+	                   dto.setP_jumin(p_jumin);
+	                   dto.setP_tel(p_tel);
+	                   dto.setP_addr(p_addr);
+	                   dto.setP_name(p_name);
+	                   dto.setStarcount(avg_star);
+	                   dto.setP_img(p_img);
+	                   dto.setReviewcount(reviewcount);
+	                   
+	                  }
+
+	            return dto;            
+	            
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	            return null;         
+	         }finally {
+	            try {
+	               if(rs!=null) rs.close();
+	               if(ps!=null) ps.close();
+	               if(conn!=null) conn.close();
+	            }catch (Exception e) {
+	               e.printStackTrace();
+	               
+	            }
+	         }
+	      }  
+	   
+	   
+	   /* 해당 회원에 위시리스트 체크 했는지*/
+	   public int isWishList(String review_id,String sid,String id_check) {
+	      try {
+	         // m_sid = jihyeon314 , review_id = keria
+	         conn=com.DongGu.db.DongGuDB.getConn();
+	         String sql="select count(*) from wishlist "
+	               + "where wt_num_value=? and w_id=? and wt_num=?";
+	         ps =conn.prepareStatement(sql);
+	         
+	         
+	         ps.setString(1, review_id);
+	         ps.setString(2, sid);
+	         
+	         //고용자인경우
+	         if(id_check.equals("0")) {
+	            ps.setInt(3, 20);
+	         }
+	         //구직자의 경우
+	         else if(id_check.equals("1")){
+	            ps.setInt(3, 10);
+	         }
+	         
+	         rs = ps.executeQuery();
+	         
+	         int result=0;
+	         if(rs.next()) {
+	            result = rs.getInt(1);
+	         }
+	         return result;
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return -1;
+	      }finally {
+	         try {
+	            rs.close();
+	            ps.close();
+	            conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+	   }
+	   
+	   
+	   /* 위시리스트 추가 또는 삭제*/
+	   public int changeWishStatus(String review_id,String m_sid,String id_check) {
+	      
+	      try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         String sql="select count(*) from wishlist "
+	               + "where w_id=? and wt_num=? and wt_num_value=?";
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, m_sid);
+	         
+	         //고용자인경우
+	         if(id_check.equals("0")) {
+	            ps.setInt(2, 20);
+	         }
+	         //구직자의 경우
+	         else if(id_check.equals("1")){
+	            ps.setInt(2, 10);
+	         }
+	         ps.setString(3,review_id);
+	         
+	         rs = ps.executeQuery();
+	         int isEx=0;
+	         if(rs.next()) {
+	            isEx = rs.getInt(1);
+	         }
+	         
+	         
+	         //위시리스트에 있으면 지우기
+	         if(isEx>=1) {
+	            sql = "delete from wishlist where w_id=? and wt_num=? and wt_num_value=?";
+	            ps = conn.prepareStatement(sql);
+	            
+	            
+	            ps.setString(1, m_sid);
+	            
+	            //고용자인경우
+	            if(id_check.equals("0")) {
+	               ps.setInt(2, 20);
+	            }
+	            //구직자의 경우
+	            else if(id_check.equals("1")){
+	               ps.setInt(2, 10);
+	            }
+	            
+	            ps.setString(3, review_id );
+	         }
+	         //위시리스트에 없으면 추가
+	         else if(isEx==0) {
+	            //reviewid = 케리아, sid=지현
+	            sql =" insert into wishlist values(seq_wishlist_w_num.nextval, ?, ?, ?,?)";
+	            
+	            // m_sid = jihyeon314 , review_id = keria
+
+	                  
+	            ps = conn.prepareStatement(sql);
+	            ps.setString(1, m_sid);
+	            ps.setInt(2, Integer.parseInt(id_check));
+	            //고용자인경우
+	            if(id_check.equals("0")) {
+	               ps.setInt(3, 20);
+	            }
+	            //구직자의 경우
+	            else if(id_check.equals("1")){
+	               ps.setInt(3, 10);
+	            }
+	            
+	            ps.setString(4, review_id);
+	            
+	         }
+	         
+	         int result = ps.executeUpdate();
+	         return result;
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         return -1;
+	      }finally {
+	         try {
+	            rs.close();
+	            ps.close();
+	            conn.close();
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+	   }
    
 }
