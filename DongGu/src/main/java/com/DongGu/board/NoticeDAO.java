@@ -37,6 +37,7 @@ public class NoticeDAO {
 			return 0;
 		}finally {
 			try {
+				if(rs!=null) rs.close();
 				if(ps!=null) ps.close();
 				if(conn!=null) conn.close();
 			}catch(Exception e) {
@@ -90,6 +91,7 @@ public class NoticeDAO {
 			return 0;
 		}finally {
 			try {
+				if(rs!=null) rs.close();
 				if(ps!=null) ps.close();
 				if(conn!=null) conn.close();
 			}catch(Exception e) {

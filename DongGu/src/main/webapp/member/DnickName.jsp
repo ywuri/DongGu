@@ -32,9 +32,9 @@ function NicknameCheck() {
 }
 </script>
 </head>
-<body>
+<body  style="background: #fffae5;">
 <form name="zipform" action="DnickName_ok.jsp">
-	<fieldset>
+	<fieldset style="border:none; text-align:center;">
 		<h2>닉네임 중복검사</h2>
 		<label>닉네임</label>
 		<input type="text" name="p_nickname" id="p_nickname" required="required" onkeyup="NicknameCheck()">

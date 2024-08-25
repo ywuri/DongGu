@@ -56,9 +56,20 @@
     File uploadedFile = mr.getFile("r_img");
     //adto.setR_img(uploadedFile); // 파일 필드 설정
     
+    
+    
+    //매칭상태 업데이트를 위해서 필요
+    String s_u_n = mr.getParameter("session_update_num");
+    int r_sun_i = Integer.parseInt(s_u_n);
+    
+    adto.setR_sun_i(r_sun_i);
+    
+    //System.out.println(uploadedFile);
+    
     String msg = "";
     String originalFileName = mr.getOriginalFileName("r_img"); // 원본 파일 이름
 
+    //System.out.println(originalFileName);
     if (uploadedFile != null && originalFileName != null) {
     	
     	// 파일 확장자
@@ -98,6 +109,8 @@
     		adto.setR_img_name(newFileName); //변경한 파일명 넘김
 
             int result = adao.AfterWrite(adto);
+
+            //int result2 = adao.MatchingUpdate(adto);
 
             msg = result > 0 ? "후기가 등록되었습니다!" : "후기가 등록되지 않았습니다. 관리자에게 문의하세요.";
             %>

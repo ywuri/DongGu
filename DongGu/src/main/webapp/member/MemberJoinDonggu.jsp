@@ -12,13 +12,13 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 
 <script>
-   function id_duplicateCheck(){
-      window.open('DidCheck.jsp','DidCheck','width=450,height=300');
+  /*  function id_duplicateCheck(){
+      window.open('DidCheck.jsp','DidCheck','width=450,height=150');
    }
    
    function nick_duplicateCheck(){
-      window.open('DnickName.jsp','DnickName','width=450,height=300');
-   }
+      window.open('DnickName.jsp','DnickName','width=450,height=150');
+   } */
    
    function pwCheck(){
       //var pwCheckText = "유효성검사";
@@ -51,193 +51,224 @@
 function deleteFile() {
       var fileInput = document.getElementById('ai_img');
       fileInput.value = '';
+      document.getElementById('fileName').innerHTML = '사진첨부는 jpg,png,gif 파일만 가능합니다. 사진을 선택해주세요.';
    }
+   
+
+
+//파일 탐색기 실행시
+window.onload = function() {
+    // 파일 탐색기 실행 시 파일 이름 표시
+    document.getElementById('p_img').addEventListener('change', function() {
+        if (this.files.length > 0) {
+            const fileName = this.files[0].name;
+            //alert('선택한 파일: ' + fileName);
+            document.getElementById('fileName').textContent = fileName;
+        } else {
+            document.getElementById('fileName').textContent = 'Choose File';
+        }
+    });
+};
    
 </script>
 
 </head>
 <body>
-<%@include file="/Header.jsp" %>
+	<%@include file="/SubHeader.jsp"%>
 
    <form name="MemberJoinDonggu"  method="post" enctype="multipart/form-data"  action="MemberJoinDonggu_ok.jsp" onsubmit="return checkForm()">
    
-      <div class="saveTableOne">
-         <h3>구직자 가입하기</h3>
-         <table>
-            <tr>
-               <th>아이디</th>
-               <td>
-                  <input type="text" name="p_id" id="p_id" value="" class="saveWS250" readonly onblur="idCheck()">
-                  <input type="button" name="" id="" value="아이디 중복검사" class="btnType1" onclick="id_duplicateCheck()">
-                  <span id="idText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>비밀번호</th>
-               <td>
-                  <input type="password" name="p_pwd" id="pw1" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요.">
-               </td>
-            </tr>
-            <tr>
-               <th>비밀번호확인</th>
-               <td>
-                  <input type="password" name="p_pwd" id="pw2" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요." onkeyup="pwCheck()">
-                  <span id="pwText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>비밀번호 찾기 질문</th>
-               <td>
-                  <select name="q_num" class="saveWS250">
-                     <option value="1">내가 가장 좋아하는 간식은?</option>
-                     <option value="2">제일 기억에 남는 영화는?</option>
-                     <option value="3">부모님의 결혼기념일은?</option>
-                     <option value="4">어릴적(혹은 현재) 제일 친한친구 이름은?</option>
-                     <option value="5">제일 기억에 남는 생일선물은?</option>
-                  </select>
-               </td>
-            </tr>
-            <tr>
-               <th>비밀번호 찾기 답</th>
-               <td>
-                  <input type="text" name="p_answer" id="p_answer" maxlength="12" value="" class="saveWS250" placeholder="기억할 수 있도록 간결히 답변해주세요." onblur="panswerCheck()">
-                  <span id="panswerText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>이름</th>
-               <td>
-                  <input type="text" name="p_name" id="p_name" value="" class="saveWS250" onkeyup="nameCheck()">
-                  <span id="nameText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>성별</th>
-               <td>
-                  <input type="radio" name="p_gender" id="p_gender1" value="1" class="" checked><label for="p_gender1">남자</label>
-                  <input type="radio" name="p_gender" id="p_gender2" value="2" class=""><label for="p_gender2">여자</label>
-               </td>
-            </tr>
-            <tr>
-               <th>흡연여부</th>
-               <td>
-                  <input type="radio" name="p_smoke" id="p_smoke1" value="1" class=""><label for="p_smoke1">흡연</label>
-                  <input type="radio" name="p_smoke" id="p_smoke2" value="0" class="" checked><label for="p_smoke2">비흡연</label>
-               </td>
-            </tr>
-            <tr>
-               <th>닉네임</th>
-               <td>
-                  <input type="text" name="p_nickname" id="p_nickname" value="" class="saveWS250"  readonly onblur="nicknameCheck()">
-                  <input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="nick_duplicateCheck()">
-                  <span id="nicknameText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-                <th>사진</th>
-                <td style="display: flex; align-items: baseline; gap: 10px;">
-                <div>
-                    <input type="file" name="p_img" accept="image/*" id="p_img" class="saveWS250">
-                    <p style="color: #b2b2b2; font-size: 14px; margin-top: 5px;">사진첨부는 jpg,png,gif 파일만 가능합니다.</p>
-                    <span id="imageText" class="dpib"></span>
-                </div>
-                    <button type="button" onclick="deleteFile()">삭제</button>
-                </td>
-            </tr>
-            <tr>
-               <th>연락처</th>
-               <td>
-                  <input type="text" name="p_tel1" id="p_tel1" value="" class="saveWS40" onkeyup="telCheck()"> - 
-                  <input type="text" name="p_tel2" id="p_tel2" value="" class="saveWS60" onkeyup="telCheck()"> - 
-                  <input type="text" name="p_tel3" id="p_tel3" value="" class="saveWS60" onkeyup="telCheck()">
-                  <span id="telText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>거주지</th>
-               <td>
-                  <input type="text" name="p_addr1" id="p_addr1" value="" class="saveWS250" placeholder="기본주소" onblur="addrCheck()">
-                  <input type="text" name="p_addr2" id="p_addr2" value="" class="saveWS250" placeholder="상세주소" onblur="addrCheck()">
-                  <span id="addrText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>주민번호</th>
-               <td>
-                  <input type="text" name="p_jumin1" id="p_jumin1" value="" class="saveWS60" onkeyup="juminCheck()"> - 
-                  <input type="text" name="p_jumin2" id="p_jumin2" value="" class="saveWS60" onkeyup="juminCheck()">
-                  <span id="juminText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>은행명</th>
-               <td>
-                  <select name="p_bank_name" class="saveWS250">
-                     <option value="1">KB국민은행</option>
-                     <option value="2">신한은행</option>
-                     <option value="3">하나은행</option>
-                     <option value="4">우리은행</option>
-                     <option value="5">SC제일은행</option>
-                     <option value="6">한국씨티은행</option>
-                     <option value="7">부산은행</option>
-                     <option value="8">대구은행</option>
-                     <option value="9">광주은행</option>
-                     <option value="10">전북은행</option>
-                     <option value="11">경남은행</option>
-                     <option value="12">제주은행</option>
-                     <option value="13">산업은행 (KDB)</option>
-                     <option value="14">IBK기업은행</option>
-                     <option value="15">NH농협은행</option>
-                     <option value="16">수협은행</option>
-                     <option value="17">Sh수협은행</option>
-                     <option value="18">우체국</option>
-                     <option value="19">카카오뱅크</option>
-                     <option value="20">케이뱅크</option>
-                     <option value="21">토스뱅크</option>
-                     <option value="22">기타(계좌번호 옆에 써주세요.)</option>
-                  </select>
-               </td>
-            </tr>
-            <tr>
-               <th>계좌번호</th>
-               <td>
-                  <input type="text" name="p_bank_num" id="p_bank_num" value="" class="saveWS250" placeholder="-를 포함해서 입력해주세요." onblur="banknumCheck()">
-                  <span id="banknumText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>반려경험</th>
-               <td>
-                  <textarea name="p_ex_my"  id="p_ex_my" class="saveWS100p saveHS100" placeholder="본인의 반려경험을 적어주세요." onblur="pexmyCheck()"></textarea>
-                  <span id="pexmyText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>동구경험</th>
-               <td>
-                  <textarea name="p_ex_other" id="p_ex_other" class="saveWS100p saveHS100" placeholder="타인의 반려동물을 돌봐본 경험을 적어주세요." onblur="pexotherCheck()"></textarea>
-                  <span id="pexotherText" class="dpib"></span>
-               </td>
-            </tr>
-            <tr>
-               <th>기타경험</th>
-               <td>
-                  <textarea name="p_ex_etc" id="p_ex_etc" class="saveWS100p saveHS100" placeholder="기타 경험을 적어주세요." onblur="pexetcCheck()"></textarea>
-                  <span id="pexetcText" class="dpib"></span>
-               </td>
-            </tr>
-         </table>
-         <input type="submit" name="" id="" value="동구할래요! 구직자 가입하기" class="saveBtnOne">
-      </div>
+		<div class="saveTableTwo m180_auto">
+			<h3 class="saveTitle">구직자 가입하기</h3>
+			<div class="stt_box">
+				<table>
+					<tr>
+		               <th>아이디</th>
+		               <td>
+		                  <input type="text" name="p_id" id="p_id" value="" class="saveWS250" readonly onblur="idCheck()">
+		                  <input type="button" name="" id="" value="아이디 중복검사" class="btnType1" onclick="id_duplicateCheck()">
+		                  <span id="idText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>비밀번호</th>
+		               <td>
+		                  <input type="password" name="p_pwd" id="pw1" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요.">
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>비밀번호확인</th>
+		               <td>
+		                  <input type="password" name="p_pwd" id="pw2" value="" class="saveWS250" placeholder="8자리 이상 + 문자와 숫자를 조합해주세요." onkeyup="pwCheck()">
+		                  <span id="pwText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>비밀번호 찾기 질문</th>
+		               <td>
+		                  <select name="q_num" class="saveWS250">
+		                     <option value="1">내가 가장 좋아하는 간식은?</option>
+		                     <option value="2">제일 기억에 남는 영화는?</option>
+		                     <option value="3">부모님의 결혼기념일은?</option>
+		                     <option value="4">어릴적(혹은 현재) 제일 친한친구 이름은?</option>
+		                     <option value="5">제일 기억에 남는 생일선물은?</option>
+		                  </select>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>비밀번호 찾기 답</th>
+		               <td>
+		                  <input type="text" name="p_answer" id="p_answer" maxlength="12" value="" class="saveWS250" placeholder="기억할 수 있도록 간결히 답변해주세요." onblur="panswerCheck()">
+		                  <span id="panswerText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>이름</th>
+		               <td>
+		                  <input type="text" name="p_name" id="p_name" value="" class="saveWS250" onkeyup="nameCheck()">
+		                  <span id="nameText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>성별</th>
+		               <td class="radio_td">
+		                  <input type="radio" name="p_gender" id="p_gender1" value="1" class="" checked><label for="p_gender1">남자</label>
+		                  <input type="radio" name="p_gender" id="p_gender2" value="2" class=""><label for="p_gender2" class="ml20">여자</label>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>흡연여부</th>
+		               <td class="radio_td">
+		                  <input type="radio" name="p_smoke" id="p_smoke1" value="1" class=""><label for="p_smoke1">흡연</label>
+		                  <input type="radio" name="p_smoke" id="p_smoke2" value="0" class="" checked><label for="p_smoke2" class="ml20">비흡연</label>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>닉네임</th>
+		               <td>
+		                  <input type="text" name="p_nickname" id="p_nickname" value="" class="saveWS250"  readonly onblur="nicknameCheck()">
+		                  <input type="button" name="" id="" value="닉네임 중복검사" class="btnType1" onclick="nick_duplicateCheck()">
+		                  <span id="nicknameText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		                <th>사진</th>
+		                <td style="display: flex; align-items: baseline; gap: 10px;">
+			                <div>
+								<input type="file" name="p_img" accept="image/*" id="p_img" class="saveWS250">		                
+			                    <p id="fileName" style="color: #b2b2b2; font-size: 14px; margin-top: 5px; cursor:pointer;" onclick="document.getElementById('p_img').click();">사진첨부는 jpg,png,gif 파일만 가능합니다. 사진을 선택해주세요.</p>
+			                    <span id="imageText" class="dpib"></span>
+			                </div>
+		                    <button type="button" onclick="deleteFile()">삭제</button>
+		                    
+		                    <!--
+		                <div>
+		                    <input type="file" name="p_img" accept="image/*" id="p_img" class="saveWS250">
+		                    <p style="color: #b2b2b2; font-size: 14px; margin-top: 5px;">사진첨부는 jpg,png,gif 파일만 가능합니다.</p>
+		                    <span id="imageText" class="dpib"></span>
+		                </div>
+		                    <button type="button" onclick="deleteFile()">삭제</button> 
+		                     -->
+		                </td>
+		            </tr>
+		            <tr>
+		               <th>연락처</th>
+		               <td>
+		                  <input type="text" name="p_tel1" id="p_tel1" value="" class="saveWS100" onkeyup="telCheck()"> - 
+		                  <input type="text" name="p_tel2" id="p_tel2" value="" class="saveWS100" onkeyup="telCheck()"> - 
+		                  <input type="text" name="p_tel3" id="p_tel3" value="" class="saveWS100" onkeyup="telCheck()">
+		                  <span id="telText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>주소</th>
+		               <td>
+		                  <input type="text" name="p_addr1" id="p_addr1" value="" class="saveWS400" placeholder="기본주소" onblur="addrCheck()">
+		                  <input type="text" name="p_addr2" id="p_addr2" value="" class="saveWS400" placeholder="상세주소" onblur="addrCheck()">
+		                  <span id="addrText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>주민번호</th>
+		               <td>
+		                  <input type="text" name="p_jumin1" id="p_jumin1" value="" class="saveWS100" onkeyup="juminCheck()"> - 
+		                  <input type="text" name="p_jumin2" id="p_jumin2" value="" class="saveWS100" onkeyup="juminCheck()">
+		                  <span id="juminText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>은행명</th>
+		               <td>
+		                  <select name="p_bank_name" class="saveWS250">
+		                     <option value="1">KB국민은행</option>
+		                     <option value="2">신한은행</option>
+		                     <option value="3">하나은행</option>
+		                     <option value="4">우리은행</option>
+		                     <option value="5">SC제일은행</option>
+		                     <option value="6">한국씨티은행</option>
+		                     <option value="7">부산은행</option>
+		                     <option value="8">대구은행</option>
+		                     <option value="9">광주은행</option>
+		                     <option value="10">전북은행</option>
+		                     <option value="11">경남은행</option>
+		                     <option value="12">제주은행</option>
+		                     <option value="13">산업은행 (KDB)</option>
+		                     <option value="14">IBK기업은행</option>
+		                     <option value="15">NH농협은행</option>
+		                     <option value="16">수협은행</option>
+		                     <option value="17">Sh수협은행</option>
+		                     <option value="18">우체국</option>
+		                     <option value="19">카카오뱅크</option>
+		                     <option value="20">케이뱅크</option>
+		                     <option value="21">토스뱅크</option>
+		                     <option value="22">기타(계좌번호 옆에 써주세요.)</option>
+		                  </select>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>계좌번호</th>
+		               <td>
+		                  <input type="text" name="p_bank_num" id="p_bank_num" value="" class="saveWS250" placeholder="-를 포함해서 입력해주세요." onblur="banknumCheck()">
+		                  <span id="banknumText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>반려경험</th>
+		               <td>
+		                  <textarea name="p_ex_my"  id="p_ex_my" class="saveWS80p saveHS100 write_ta" placeholder="본인의 반려경험을 적어주세요." onblur="pexmyCheck()"></textarea>
+		                  <span id="pexmyText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>동구경험</th>
+		               <td>
+		                  <textarea name="p_ex_other" id="p_ex_other" class="saveWS80p saveHS100 write_ta" placeholder="타인의 반려동물을 돌봐본 경험을 적어주세요." onblur="pexotherCheck()"></textarea>
+		                  <span id="pexotherText" class="dpib"></span>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th>기타경험</th>
+		               <td>
+		                  <textarea name="p_ex_etc" id="p_ex_etc" class="saveWS80p saveHS100 write_ta" placeholder="기타 경험을 적어주세요." onblur="pexetcCheck()"></textarea>
+		                  <span id="pexetcText" class="dpib"></span>
+		               </td>
+		            </tr>
+				</table>
+				<div class="saveWS100p tac mt20">
+					<input type="button" name="" id="" value="취소하기" class="CancelBtn">
+					<input type="submit" name="" id="" value="구직자 가입하기" class="saveBtnOne ml20">
+				</div>
+			</div>
+		</div>
       
-   </form>   
+	</form>   
    
 <%@include file="/Footer.jsp" %>
 <script>
 //아이디 중복 검사 창을 열고, 중복 검사 후 아이디를 설정
 function id_duplicateCheck() {
     // 중복 검사 창을 열고, 검사 후 아이디가 설정되면 idCheck 호출
-    window.open('DidCheck.jsp','DidCheck','width=450,height=300');
+    window.open('DidCheck.jsp','DidCheck','width=450,height=150');
 
     // 새 창이 닫힌 후 idCheck 함수 호출 (간단한 방법으로는 타이머를 이용)
     setTimeout(function() {
@@ -245,7 +276,7 @@ function id_duplicateCheck() {
     }, 500);  // 0.5초 후에 실행 (필요에 따라 조정 가능)
 }
 function nick_duplicateCheck(){
-   window.open('DnickName.jsp','DnickName','width=450,height=300');
+   window.open('DnickName.jsp','DnickName','width=450,height=150');
 }
 
 //아이디 비어있는지 확인하는 유효성 검사
@@ -372,6 +403,8 @@ var imageInput = document.getElementById('p_img');
        imageInput.value = '';  // 파일 선택 초기화
        imageText.innerHTML = '사진을 첨부해주세요.';
        imageText.style.color = 'red';
+       
+       document.getElementById('fileName').innerHTML = '사진첨부는 jpg,png,gif 파일만 가능합니다. 사진을 선택해주세요.';
    }
 
 // 연락처 유효성 검사

@@ -104,7 +104,7 @@
 	    </div>
             
       <div class="jyl_infoupdate">
-	      	<form action="/DongGu/mypage/MyPage_InfoUpdate_ok.jsp" method="post" enctype="multipart/form-data">
+	      	<form id="MyPage_InfoUpdate" action="/DongGu/mypage/MyPage_InfoUpdate_ok.jsp" method="post" enctype="multipart/form-data">
                 <ul id="jyl_joinul">
                     <li class="jyl_inputlist">
                     <div class="image-container">
@@ -210,7 +210,7 @@
 				        String nicknameValue = (m_usertype == 1) ? dto.getP_nickname() : dto.getO_nickname();
 				    %>
 				    <input type="text" id="nicknameInput" name="<%= nicknameName %>" placeholder="닉네임을 입력하세요" value="<%= nicknameValue %>">
-				    <input type="button" value="중복확인" class="jyl_btn" onclick="validateNickname()">    
+				    <input type="button" value="중복확인" class="jyl_btn" onclick="validateNickname(<%=m_usertype%>)">    
 				</li>
 
 
@@ -250,4 +250,21 @@
 </div>
 </body>
 <%@include file="../Footer.jsp" %>
+
+
+<script>
+function validateNickname(usertype){
+	
+	if(usertype==0){
+		window.open('/DongGu/mypage/NickName.jsp','고용자 닉네임체크','width=450,height=300');
+	}else if(usertype==1){
+		window.open('/DongGu/mypage/DnickName.jsp','구직자 닉네임체크','width=450,height=300');
+	}
+	
+	
+
+}
+</script>
+
 </html>
+

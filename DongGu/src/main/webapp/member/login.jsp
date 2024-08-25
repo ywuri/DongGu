@@ -175,7 +175,9 @@
 
 <body>
 	<header>
-		<div class="jyl_login_div"><a href="Index.jsp"><img  class="jyl_login_logo" src="../img/logo.png" alt="logo"></a></div>
+		<div class="jyl_login_div">
+			<a href="/DongGu/Index.jsp"><img  class="jyl_login_logo" src="../img/logo.png" alt="logo"></a>
+		</div>
 	</header>
 	 <form name="login" action="login_ok.jsp" method="post" onsubmit="return validateForm()">      
         <ul>

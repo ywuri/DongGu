@@ -28,7 +28,7 @@ else{
 	cp = Integer.parseInt( request.getParameter("cp"));
 }
 
-String q_id = request.getParameter("q_id");
+String q_id = qdto.getQ_id();
 String sid = (String)session.getAttribute("sid");
 
 int isWishList =-2;
@@ -135,7 +135,7 @@ array = dao.getNextQnABoard(q_num);
 				</div>
 				
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
-					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
+					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
 				</div>
 				<%
 			}
@@ -147,7 +147,7 @@ array = dao.getNextQnABoard(q_num);
 				</div>
 				
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
-					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
+					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
 				</div>
 				<%
 			}
@@ -163,12 +163,12 @@ array = dao.getNextQnABoard(q_num);
 			if(array.get(0).getQ_num() >array.get(1).getQ_num() ){
 			%>
 			<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-				<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %></a></p> 
+				<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %></a></p> 
 			<hr style="border:1px solid #f2f2f2; margin:5px;">
 			</div>
 			
 			<div class=" QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv">
-				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
+				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(1).getQ_num()%>&cp=<%=cp%>"><%=array.get(1).getQ_title() %> </a></p>
 			</div>
 			<%
 			}
@@ -179,7 +179,7 @@ array = dao.getNextQnABoard(q_num);
 				<hr style="border:1px solid #f2f2f2; ">
 				</div>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv ">
-					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_id=<%=q_id%>&q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
+					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/qna/DetailQnABoard.jsp?q_num=<%=array.get(0).getQ_num()%>&cp=<%=cp%>"><%=array.get(0).getQ_title() %> </a></p>
 				</div>
 				<%
 			}

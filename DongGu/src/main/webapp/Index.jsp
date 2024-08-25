@@ -25,8 +25,10 @@
 			<p class="bg_p"><b>동</b>물친<b>구</b>를<br>초대해보세요</p>
 			<p class="sm_p">나와 내 반려동물을 위한 돌봄서비스</p>
 			<div class="main_bt">
+			<a href="/DongGu/saveForm/GetFriendWrite.jsp">
 				<p>초대하기</p>
 				<img src="img/icon_dog.png">
+			</a>
 			</div>
 		</div>
 	</div>
@@ -152,9 +154,11 @@
 	<!-- Tabid2 끝 -->
 
 	<div class="rivew_bt">
-		<p style="font-weight: 500;"><a href="/DongGu/afterForm/AfterList.jsp">후기 더 보기</a></p>
+	<a href="/DongGu/afterForm/AfterList.jsp">후기 더 보기
+		<p style="font-weight: 500;"></p>
 		<img src="img/icon_dog_bk.png" class="normal">
 		<img src="img/icon_dog.png" class="hover" >
+	</a>
 	</div>
 </section>
 <!-- rivew 끝 -->
