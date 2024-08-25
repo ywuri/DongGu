@@ -146,7 +146,11 @@ section.view_place {width: 100%; display: flex; padding: 200px 0 100px 0; flex-d
 						<p class="box_bigtxt">홈페이지</p>
 						<div style="display: flex; align-items: center; margin-top:10px;">
 							<img src="img/icon_naver.png" style="width:20px; margin-right: 10px;">
-							<p class="info_txt" style="margin:0;"><%=arr.get(i).getC_url() %></p>
+							<p class="info_txt" style="margin:0;">
+								<a href='<%=arr.get(i).getC_url() %>'>
+									<%=arr.get(i).getC_url() %>
+								</a>
+							</p>
 						</div>
 						
 					</div>

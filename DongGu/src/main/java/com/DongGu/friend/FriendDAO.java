@@ -25,7 +25,7 @@ public class FriendDAO {
 	public int FriendOwnerWrite(FriendDTO fto) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "insert into invitation values(PK_invitation.nextval, ?,?,?, ?,?,?, sysdate)";
+			String sql = "insert into invitation values(seq_invitation_i_num.nextval, ?,?,?, ?,?,?, sysdate)";
 
 			ps = conn.prepareStatement(sql);
 
@@ -272,7 +272,7 @@ public class FriendDAO {
 	public int FriendSitterWrite(FriendDTO2 fto2) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "insert into application values(PK_application.nextval, ?,?,?, ?,?)";
+			String sql = "insert into application values(seq_application_ap_num.nextval, ?,?,?, ?,?)";
 
 			ps = conn.prepareStatement(sql);
 
@@ -435,6 +435,98 @@ public class FriendDAO {
 			ps.setString(5, fto.getI_end());
 			
 			ps.setInt(6, idx);
+			int count = ps.executeUpdate();
+			
+			return count;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+			//return "nono";
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+
+			}
+		}
+	}
+	
+	
+	
+
+
+	/** 마이페이지>지원할래요 수정하기(데이터 불러오기) */
+	public ArrayList<FriendDTO2> doFriendData(int s_ap_num) {
+
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select * from application where ap_num = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, s_ap_num);
+			rs = ps.executeQuery();
+			
+			ArrayList<FriendDTO2> arr = new ArrayList<FriendDTO2>();
+
+			
+			int i_num = 0;
+			int ap_num = 0;
+			String ap_title = "";
+			
+			int m_num = 0;
+			String p_id = "";
+			String ap_content = "";
+
+			if (rs.next()) {
+				i_num = rs.getInt("i_num");
+				ap_num = rs.getInt("ap_num");
+				m_num = rs.getInt("m_num");
+				ap_title = rs.getString("ap_title");
+				p_id = rs.getString("p_id");
+				ap_content = rs.getString("ap_content");
+				
+				FriendDTO2 dto2 = new FriendDTO2(i_num, ap_num, ap_title, m_num, p_id, ap_content);
+				arr.add(dto2);
+			}
+
+			return arr;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {
+
+			}
+		}
+	}
+	
+
+
+	/** 마이페이지>지원할래요(구직자수정하기) */
+	public int FriendSitterUpdate(int idx, FriendDTO2 fto2) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "update application set ap_title=?, ap_content=? where ap_num=?";
+
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, fto2.getAp_title());
+			ps.setString(2, fto2.getAp_content());
+			ps.setInt(3, idx);
 			int count = ps.executeUpdate();
 			
 			return count;

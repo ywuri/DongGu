@@ -14,6 +14,8 @@ public class AfterDTO {
    private String r_content;   //내용
    private File r_img;   //사진   //올릴때 파일명과 달라짐
    private String r_img_name;   //사진명   //올릴때 파일명과 달라짐	//db에 없음
+
+   private int r_sun_i;   //매칭상태 업데이트를 위해서 필요 (고용자인경우 초대장(invitation)의 키값, 구직자인경우 지원할래요(application)의 키값
    
    public AfterDTO() {
 	   System.out.println("AfterDTO 생성자 호출됨!");
@@ -55,15 +57,15 @@ public class AfterDTO {
    }
    
    public String getR_receive_id() {
-	return r_receive_id;
-}
-
-public void setR_receive_id(String r_receive_id) {
-	this.r_receive_id = r_receive_id;
-}
-
-public int getR_star() {
-      return r_star;
+		return r_receive_id;
+	}
+	
+	public void setR_receive_id(String r_receive_id) {
+		this.r_receive_id = r_receive_id;
+	}
+	
+	public int getR_star() {
+	      return r_star;
    }
 
    public void setR_star(int r_star) {
@@ -93,6 +95,16 @@ public int getR_star() {
    public void setR_img_name(String r_img_name) {
       this.r_img_name = r_img_name;
    }
+
+	public int getR_sun_i() {
+		return r_sun_i;
+	}
+	
+	public void setR_sun_i(int r_sun_i) {
+		this.r_sun_i = r_sun_i;
+	}
+   
+   
 
 
 }

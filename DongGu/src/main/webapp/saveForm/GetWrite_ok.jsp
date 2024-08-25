@@ -6,14 +6,11 @@
 <jsp:useBean id="fdao" class="com.DongGu.friend.FriendDAO" scope="session"></jsp:useBean>
 
 <%
-
-
-	
 	int result = 0;
-	//String result = fdao.FriendOwnerWrite(fdto);
 	String msg = "";
-	//String msg = result;
 	
+	//String result = fdao.FriendOwnerWrite(fdto);
+	//String msg = result;
 	
 	//System.out.println(request.getParameter("update_yn"));	//0이면 초대하기, 1이면 수정하기
 	//String update_yn = request.getParameter("update_yn");

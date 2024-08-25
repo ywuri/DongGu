@@ -25,7 +25,35 @@
     margin: 0 auto;
 }
 .place ul {display: flex; flex-direction: column; gap: 80px;}
-p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 600;}
+
+
+
+
+
+
+.topBox {width:90%;}
+.topBox p.title {margin-bottom:30px; text-align: left; font-size: 23px; font-weight: 600;}
+.topBox div {float:right; margin-top:-50px;} 
+.topBox div input {
+	width: 100px;
+	height: 30px;
+	border: 2px solid #fdcb08;
+	border-radius :10px;
+	background-color: #fdcb08;
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+/*
+p.title {margin-bottom:50px; text-align: left; font-size: 23px; font-weight: 600;}
+*/
+
+
+
+
+
+
 .place .place_box {display: flex; gap: 30px; padding-bottom: 30px; flex-wrap: wrap; justify-content: center;}
 .place .box {width: 400px;
     height: 381px;
@@ -51,11 +79,37 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
     font-size: 13px;}
 .place .box .img_box {width: 100%; height: 230px; background: #000; position: relative; overflow: hidden;}
 .place .box .img_box img {width: 100%; transform: translate(0%, -15%); position: absolute;}
+
+
+
+
+
+
+
+
 </style>
 </head>
 
 <%
-	int totalCnt = cdao.cafeTotalCnt();	//총 게시물 수
+
+
+	String s_area = request.getParameter("area");	//서울, 경기, 인천 검색
+	
+	if(s_area == null || s_area.equals("")){
+		s_area="0";
+	}
+
+	int i_area = Integer.parseInt(s_area);
+	
+	int totalCnt = 0;	//게시글 수
+	ArrayList<CafeDTO> arr = null;
+	
+	
+	
+	
+	
+	
+
 	int listSize = 6;	//한 개 페이지에 몇 개 보여줄지
 	int pageSize = 5;	//한 개 페이지에 보여줄 페이징 개수 (5개 숫자만 보여짐)
 	String cp_s = request.getParameter("cp");	//현재 페이지
@@ -66,25 +120,64 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
 	
 	int cp = Integer.parseInt(cp_s);
 	
+	
+	
+	
+	
+	
+	//0이 아닌경우 서울, 경기, 인천 검색중
+	if(i_area != 0){
+		
+		totalCnt = cdao.cafeTotalCntArea(i_area);	//총 게시물 수
+		arr = cdao.cafeListArea(cp, listSize, i_area);
+		
+		System.out.println(totalCnt);
+		
+
+		//String arr_s = "";
+		//arr_s = cdao.cafeListArea(cp, listSize, i_area);
+		//System.out.println(arr_s);
+		
+		
+	//0인경우 지역검색 아님, 전체 가져오기
+	}else {
+
+		totalCnt = cdao.cafeTotalCnt();	//총 게시물 수
+		arr = cdao.cafeList(cp, listSize);
+		
+	}
+
+	//int totalCnt = cdao.cafeTotalCnt();	//총 게시물 수
+	
+	
 	int totalPage = (totalCnt/listSize)+1;
 	if(totalCnt % listSize == 0) totalPage--;
 	
 	//사용자 현재 위치 그룹번호
 	int userGroup = cp / pageSize;
 	if(cp % pageSize == 0) userGroup--;
+	
 %>
 
 <body>
 <%@include file="SubHeader.jsp" %>
 <section class="place">
-	<p class="title">동구의 추천</p>
+	<div class="topBox">
+		<p class="title">동구의 추천</p>
+
+			<div>
+				<input type="button" value="전체" onclick="location.href='DongGuPlace.jsp?cp=1&area=0'">
+				<input type="button" value="서울" onclick="location.href='DongGuPlace.jsp?cp=1&area=1'">
+				<input type="button" value="경기" onclick="location.href='DongGuPlace.jsp?cp=1&area=2'">
+				<input type="button" value="인천" onclick="location.href='DongGuPlace.jsp?cp=1&area=3'">
+			</div>
+	</div>
 	
 	<ul>
 		<li>
 			<div class="place_box">
 					
 				<%
-					ArrayList<CafeDTO> arr = cdao.cafeList(cp, listSize);
 	
 					if(arr==null||arr.size()==0){
 				%>
@@ -187,7 +280,7 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
 	<%
 		if(userGroup != 0){
 			%>
-			&nbsp;&nbsp;<a href="DongGuPlace.jsp?cp=<%=(userGroup-1)*pageSize+pageSize%>">&lt;&lt;</a>&nbsp;&nbsp;
+			&nbsp;&nbsp;<a href="DongGuPlace.jsp?cp=<%=(userGroup-1)*pageSize+pageSize%>&area=<%=s_area%>">&lt;&lt;</a>&nbsp;&nbsp;
 			<%
 		}
 	%>
@@ -195,7 +288,7 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
 	<%
 		for(int i = userGroup*pageSize+1; i <= userGroup*pageSize+pageSize; i++){
 			%>
-			&nbsp;&nbsp;<a href="DongGuPlace.jsp?cp=<%=i%>" <% if(cp==i){%>style="font-weight:600; color:#ffbf00;"<%}else {%><%} %>><%=i %></a>&nbsp;&nbsp;
+			&nbsp;&nbsp;<a href="DongGuPlace.jsp?cp=<%=i%>&area=<%=s_area%>" <% if(cp==i){%>style="font-weight:600; color:#ffbf00;"<%}else {%><%} %>><%=i %></a>&nbsp;&nbsp;
 			<%
 			
 			if(i == totalPage){
@@ -207,7 +300,7 @@ p.title {margin-bottom:50px; text-align: center; font-size: 23px; font-weight: 6
 	<%
 		if(userGroup!=(totalPage/pageSize-(totalPage % pageSize == 0?1:0))){
 
-			%><a href="DongGuPlace.jsp?cp=<%=(userGroup+1)*pageSize+pageSize%>">&gt;&gt;</a><%
+			%><a href="DongGuPlace.jsp?cp=<%=(userGroup+1)*pageSize+pageSize%>&area=<%=s_area%>">&gt;&gt;</a><%
 		}
 	%>
 	<!-- ------------------------------------------------------------------- -->
