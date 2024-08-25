@@ -108,15 +108,21 @@ public class FreeBoardDAO {
 		try {
 			conn=com.DongGu.db.DongGuDB.getConn();
 			//String sql="select * from free order by f_date desc";
-			String sql ="select * "
-					+ "from  "
-					+ "(select rownum as rnum, a.* from  "
-					+ "( "
-					+ "		select * "
-					+ "		from free "
-					+ "		order by f_num desc )a "
-					+ ")b "
-					+ "where rnum >=? and rnum <=?";
+			String sql ="SELECT * "
+					+ "FROM   "
+					+ "(  "
+					+ "    SELECT rownum AS rnum, a.*  "
+					+ "    FROM   "
+					+ "    (  "
+					+ "        SELECT f_num, f_id, f_nickname, f_title, f_content, f_date, f_vcnt, f_img,  "
+					+ "               COALESCE(owner.g_num, petsitter.g_num) AS g_num  "
+					+ "        FROM free "
+					+ "        LEFT JOIN owner ON free.f_id = owner.o_id "
+					+ "        LEFT JOIN petsitter ON free.f_id = petsitter.p_id  "
+					+ "        ORDER BY free.f_num DESC  "
+					+ "    ) a  "
+					+ ") b "
+					+ "WHERE rnum >= ? AND rnum <= ?";
 			
 			ps=conn.prepareStatement(sql);
 			ps.setInt(1, cp*listSize-(listSize-1));
@@ -127,7 +133,7 @@ public class FreeBoardDAO {
 			while(rs.next()) {
 				FreeBoardDTO dto = new FreeBoardDTO( rs.getInt("f_num"),rs.getString("f_id"),
 						rs.getString("f_nickname"),rs.getString("f_title"),rs.getString("f_content"),rs.getString("f_date"),
-						rs.getInt("f_vcnt"),rs.getString("f_img"));
+						rs.getInt("f_vcnt"),rs.getString("f_img"),rs.getInt("g_num"));
 				array.add(dto);
 		
 			}
