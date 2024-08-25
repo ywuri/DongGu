@@ -41,7 +41,11 @@
 	//고용자 (usertype 세션값이 0)인경우 초대장(invitation > i_num에 num으로 받은값 )에 매칭상태를 5(이용후기작성완료)로 업데이트
 	//구직자 (usertype 세션값이 1)인경우 지원할래요(application > ap_num에 num으로 받은값)에 매칭상태를 5(이용후기작성완료)로 업데이트
 	
-	String num = request.getParameter("num");
+	String num = "";
+
+	if(request.getParameter("num")!=null && !request.getParameter("num").equals("")){
+		num = request.getParameter("num");
+	}
 	
 %>
 
@@ -129,7 +133,7 @@
 		<input type="hidden" name="" id="" value=<%=ut_text %> class="saveWS250"><!-- 고용자인지 구직자인지 확인하기 위한 용도로 만들어둠 -->
 		<input type="hidden" name="r_receive_id" id="" value="<%=send_id %>" class="saveWS250"><!-- 누구한테 쓰는지 파라미터로 받아온 값 담아줌 -->
 		
-		<input type="hidden" name="session_update_num" id="" value=<%=num %> class="saveWS250"><!-- 고용자로그인(초대장 i_num / 구직자로그인(지원할래요 ap_num  -->
+		<input type="hidden" name="session_update_num" id="" value="<%=num %>" class="saveWS250"><!-- 고용자로그인(초대장 i_num / 구직자로그인(지원할래요 ap_num  -->
 
 
 		<div class="saveTableTwo m180_auto_80">
