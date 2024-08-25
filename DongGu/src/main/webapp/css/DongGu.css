@@ -1405,6 +1405,10 @@ width:180px;
 .heartIconSize{
 	width:25px; 
 	cursor:pointer;
+}
+.heartIconSize1{
+	width:25px; 
+	cursor:pointer;
 	position: absolute;
 	top: 25px;
 	right: 25px;

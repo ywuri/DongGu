@@ -16,11 +16,32 @@
    String s_i_num = request.getParameter("i_num");
    int i_num = Integer.parseInt(s_i_num);
    String p_id = request.getParameter("p_id");
+   
+   %> 
+   <%
    String s_btn = request.getParameter("btn");
-   int btn = Integer.parseInt(s_btn);
+   int btn = 0; // 기본값 설정
+   if (s_btn != null && !s_btn.isEmpty()) {
+       try {
+           btn = Integer.parseInt(s_btn);
+       } catch (NumberFormatException e) {
+           // 예외 처리: 숫자 형식이 아님
+           e.printStackTrace(); // 로그에 예외 정보를 기록
+       }
+   }
+   
    String s_type = request.getParameter("type");
-   int type = Integer.parseInt(s_type);
-%>    
+   int type = 0; // 기본값 설정
+   if (s_type != null && !s_type.isEmpty()) {
+       try {
+           type = Integer.parseInt(s_type);
+       } catch (NumberFormatException e) {
+           // 예외 처리: 숫자 형식이 아님
+           e.printStackTrace(); // 로그에 예외 정보를 기록
+       }
+   }
+%>
+   
 <%
     MyPageDTO dto = dao.mypage_ApplyLook(p_id, i_num); 
     String p_jumin = dto.getP_jumin();

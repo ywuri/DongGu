@@ -143,7 +143,7 @@ if(result>=1 && result2>=1){
 result = dao.mypage_Ap_update3(ap_num);
 result2 = dao.mypage_Iv_update3(i_num);
 result3 = dao.mypage_p_Ap_delete2(i_num);
-if(result>=1 && result2>=1 && result3>=1){
+if(result>=1 && result2>=1 &&(result3>=1 || result3>-1)){
 %>
 		<script>
 		window.alert('매칭을 수락 하셨습니다!');

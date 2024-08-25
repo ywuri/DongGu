@@ -238,11 +238,11 @@ String getStarImage(int r_star) {
 			<%
 			if(isWishList==1){
 				%>
-				<input type="image" id="wishHeart" class="heartIconSize" src="/DongGu/img/heart_full.svg">
+				<input type="image" id="wishHeart" class="heartIconSize1" src="/DongGu/img/heart_full.svg">
 				<%
 			}else if(isWishList==0){
 				%>
-				<input type="image" id="wishHeart" class="heartIconSize" src="/DongGu/img/heart_empty.svg" >
+				<input type="image" id="wishHeart" class="heartIconSize1" src="/DongGu/img/heart_empty.svg" >
 				<!-- <img class="jyl_likeimg_heart" style="position: absolute; top: 25px;  right: 30px; width: 35px;  height: 35px;" alt="likelist1" src="/DongGu/img/yel13.png">-->
 				<%
 			}else{
