@@ -36,6 +36,7 @@ public class QnABoardDAO {
 			return 0;
 		}finally {
 			try {
+				if(rs!=null) rs.close();
 				if(ps!=null) ps.close();
 				if(conn!=null) conn.close();
 			}catch(Exception e) {
@@ -89,6 +90,7 @@ public class QnABoardDAO {
 			return 0;
 		}finally {
 			try {
+				if(rs!=null) rs.close();
 				if(ps!=null) ps.close();
 				if(conn!=null) conn.close();
 			}catch(Exception e) {
@@ -444,7 +446,7 @@ public class QnABoardDAO {
 
 		}catch (SQLException e) {
 	        e.printStackTrace();
-	        System.out.println("here2");
+	        //System.out.println("here2");
 	        return 0;
 	    } finally {
 	        // 자원 정리

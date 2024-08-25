@@ -22,7 +22,7 @@
 	if(cp_s==null || cp_s.equals("")) cp_s="1";
 	int cp = Integer.parseInt(cp_s);
 
-	int listSize = 10; // 한 페이지에 표시할 게시물 수
+	int listSize = 5; // 한 페이지에 표시할 게시물 수
 	int pageSize =5; // 페이지 버튼을 그룹으로 묶을 수 (예: 1~5 페이지 버튼).
 	
 	

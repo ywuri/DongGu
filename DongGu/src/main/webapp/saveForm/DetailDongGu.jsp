@@ -48,6 +48,9 @@ if(sid!=null ){
 	isWishList = dao.isWishList(i_num,sid);
 }
 
+//해당 sid가 이 동구디테일에 지원했으면 지원버튼 없애기
+int isApply = dao.isApplyInvite(sid, i_num);
+
 %>
 
 <%@include file="../SubHeader.jsp" %>
@@ -100,8 +103,19 @@ if(sid!=null ){
 			
 			<li id="DetailDongGuButton">
 				<span id="spanSizeDe">초대에 응하시겠습니까? </span>
-				<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/saveForm/DoFriendWrite.jsp?i_num=<%=i_num%>'">
-			</li>
+				<%
+				if(isApply==0 || isApply==-1){
+					%>
+					<input type="button" class="DetailDongGuJoinButton" value="수락하기" onclick="location.href='/DongGu/saveForm/DoFriendWrite.jsp?i_num=<%=i_num%>'">	
+					<%
+				}
+				else{
+					%>
+					<input type="button" class="DetailDongGuJoinButton" value="지원완료" >	
+					<%
+				}
+				%>
+				</li>
 			
 			<li>
 				<span>현재 참가자는 </span><span id="DetailDongGuCountNum"><%=idto.getDoCnt() %></span><span>명 입니다.</span>

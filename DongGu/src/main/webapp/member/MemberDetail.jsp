@@ -74,11 +74,12 @@
 	// 성별 코드에 따라 연도 결정
 	String gender =  p_jumin.split("-")[1].substring(0, 1); // 2123456 -> 2
 	
-	if (gender.equals("1") || gender.equals("2")) { // 1, 2 면 1900년대 생
-	    i_year += 1900; // 1998
-	} else { // 3,4 면 2000년대생 
-	    i_year += 2000;
-	}
+	// 성별 코드에 따라 연도 계산
+    if (gender.equals("1") || gender.equals("2")) { // 1, 2 면 1900년대 생
+        i_year += 1900;
+    } else if (gender.equals("3") || gender.equals("4")){ // 3,4 면 2000년대생 
+        i_year += 2000;
+    }
 	
 	// 월과 일 부분 추출
 	int month = Integer.parseInt(md.substring(0, 2)); // 08
@@ -258,13 +259,13 @@ String getStarImage(int r_star) {
 	   			<div class="jyl_content5_list1_div2_1">
 	   			<%
 	   			if(dto.getP_img()==null){
-	                if ("1".equals(gender)) {
+	                if ("1".equals(gender)|| "3".equals(gender)) {
 	                    int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
 	                    String imageSrc = "/DongGu/img/random1_" + randomIndex + ".png";
 	                    %>
 		   				<img class="jyl_content5_list1_div2_1_img_mp" src="<%=imageSrc%>">
 		   				<%
-	                } else if ("2".equals(gender)) {
+	                } else if ("2".equals(gender) || "4".equals(gender)) {
 	                    int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
 	                    String imageSrc = "/DongGu/img/random2_" + randomIndex + ".png";
 	                    %>

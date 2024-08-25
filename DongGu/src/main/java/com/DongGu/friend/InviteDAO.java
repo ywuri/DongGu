@@ -43,6 +43,7 @@ public class InviteDAO {
 			return 0;
 		}finally {
 			try {
+				if(rs!=null) rs.close();
 				if(ps!=null) ps.close();
 				if(conn!=null) conn.close();
 			}catch(Exception e) {
@@ -92,6 +93,7 @@ public class InviteDAO {
 			return 0;
 		}finally {
 			try {
+				if(rs!=null) rs.close();
 				if(ps!=null) ps.close();
 				if(conn!=null) conn.close();
 			}catch(Exception e) {
@@ -615,6 +617,38 @@ public class InviteDAO {
 				rs.close();
 				ps.close();
 				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//로그인한 아이디로 해당 초대장 지원헀는지 여부 알아오기
+	public int isApplyInvite(String sid, int i_num) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String slq="select count(*) from application where"
+					+ "	i_num =? and p_id =?";
+			ps = conn.prepareStatement(slq);
+			ps.setInt(1, i_num);
+			ps.setString(2, sid);
+			
+			
+			rs=ps.executeQuery();
+			int result=-1;
+			if(rs.next()){
+				result =rs.getInt(1);
+			}
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(ps!=null) ps.close();
+				if(conn!=null) conn.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}

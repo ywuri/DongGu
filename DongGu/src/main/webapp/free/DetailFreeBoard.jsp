@@ -53,7 +53,7 @@ else{
 	cp = Integer.parseInt( request.getParameter("cp"));
 }
 
-String f_id = request.getParameter("f_id");
+String f_id = qdto.getF_id();
 String sid = (String)session.getAttribute("sid");
 
 int isWishList =-2;
@@ -433,7 +433,7 @@ if(update_fc_num!=null && update_fc_num.length()!=0){
 				</div>
 			
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
-					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
+					<p><span class="QnABoardNextBeforeSpan">다음</span> <a href="/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
 				</div>
 				<%
 			}
@@ -445,7 +445,7 @@ if(update_fc_num!=null && update_fc_num.length()!=0){
 				</div>
 				
 				<div class="QnABoardNextBeforeSizeDiv QnABoardMarginDiv">
-					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
+					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
 				</div>
 				<%
 			}
@@ -463,23 +463,23 @@ if(update_fc_num!=null && update_fc_num.length()!=0){
 			%>
 			
 			<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-				<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?q_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %></a></p> 
+				<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %></a></p> 
 			<hr style="border:1px solid #f2f2f2; margin:5px;">
 			</div>
 			
 			<div class=" QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv">
-				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?q_id=<%=f_id%>&f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
+				<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
 			</div>
 			<%
 			}
 			else{
 				%>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardTopMarginDiv">
-					<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
+					<p style="margin-bottom: 10px;"><span class="QnABoardNextBeforeSpan">다음</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(1).getF_num()%>&cp=<%=cp%>"><%=array.get(1).getF_title() %> </a></p>
 				<hr style="border:1px solid #f2f2f2; ">
 				</div>
 				<div class="QnABoardNextBeforeSizeDiv QnABoardBottomMarginDiv ">
-					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_id=<%=f_id%>&f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
+					<p><span class="QnABoardNextBeforeSpan">이전</span>  <a href="/DongGu/free/DetailFreeBoard.jsp?f_num=<%=array.get(0).getF_num()%>&cp=<%=cp%>"><%=array.get(0).getF_title() %> </a></p>
 				</div>
 				<%
 			}
