@@ -214,7 +214,7 @@
 	   			</div>
 	   		</div>   		
 	   		<div class="jyl_content5_list1_div2">
-	   			<div class="jyl_content5_list1_div2_1"><img class="jyl_content5_list1_div2_1_img" src="/DongGu/img/<%= dto.getP_img()%>"></div>
+	   			<div class="jyl_content5_list1_div2_1"><img class="jyl_content5_list1_div2_1_img" src="/DongGu/img/petsitter_profile/<%= dto.getP_img()%>"></div>
 	   		</div>
    		</div>		
    		<form action="/DongGu/mypage/MyPage_ApplyManage_Update_ok.jsp" method="get">

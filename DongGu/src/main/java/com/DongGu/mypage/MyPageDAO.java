@@ -532,7 +532,7 @@ public class MyPageDAO {
 	         		+ "from free f 	"
 	         		+ "where f.f_num IN (select w.wt_num_value "
 	         		+ "from wishlist w "
-	         		+ "where w.w_id = ? and wt_num = ? ) ";
+	         		+ "where w.w_id = ? and w.wt_num = ? ) ";
 	         
 	         String sql50 = "select q.q_title,q.q_date, q.q_nickname, "
 	         		+ "(SELECT o.o_name FROM owner o WHERE o.o_id = q.q_id) AS o_name, "
@@ -624,11 +624,11 @@ public class MyPageDAO {
 			 }else if ("40".equals(likeValue)) {
 					 ps=conn.prepareStatement(sql40);
 		        	 ps.setString(1, m_sid);	      	 
-			         ps.setString(2, likeValue);
+			         ps.setInt(2, Integer.parseInt(likeValue) );
 			         ps.setString(3, m_sid);	      	 
-			         ps.setString(4, likeValue);	
+			         ps.setInt(4, Integer.parseInt(likeValue) );  
 			         ps.setString(5, m_sid);	      	 
-			         ps.setString(6, likeValue);
+			         ps.setInt(6, Integer.parseInt(likeValue) );	
 
 			         rs = ps.executeQuery();		   
 	 		         
