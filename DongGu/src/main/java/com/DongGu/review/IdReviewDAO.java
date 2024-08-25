@@ -63,4 +63,47 @@ public class IdReviewDAO {
         }
         return review;
     }
+    
+ // 특정 r_num에 해당하는 o_id 가져오기
+	/*
+	 * public String getO_id(int r_num) { String o_id = null; String sql =
+	 * "SELECT o_id FROM review WHERE r_num = ?";
+	 * 
+	 * try { conn = com.DongGu.db.DongGuDB.getConn(); pstmt =
+	 * conn.prepareStatement(sql); pstmt.setInt(1, r_num);
+	 * 
+	 * rs = pstmt.executeQuery();
+	 * 
+	 * if (rs.next()) { o_id = rs.getString("o_id"); // o_id 값을 가져옴 } } catch
+	 * (Exception e) { e.printStackTrace(); } finally { // 데이터베이스 리소스 정리 try { if
+	 * (rs != null) rs.close(); if (pstmt != null) pstmt.close(); if (conn != null)
+	 * conn.close(); } catch (Exception e) { e.printStackTrace(); } }
+	 * 
+	 * return o_id; // o_id 반환 }
+	 */
+    
+    
+ // 특정 p_nickname에 해당하는 p_id 가져오기
+    public String getP_id(String p_nickname) {
+        String p_id = null;
+        String sql = "SELECT p_id FROM petsitter WHERE p_nickname = ?"; // petsitter 테이블에서 p_nickname을 기준으로 p_id를 조회
+
+        try (Connection conn = com.DongGu.db.DongGuDB.getConn();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, p_nickname);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    p_id = rs.getString("p_id");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return p_id;
+    }
+
+
 }
+

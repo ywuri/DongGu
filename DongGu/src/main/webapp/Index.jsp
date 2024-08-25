@@ -96,7 +96,7 @@
                 <div class="right_box" style="width:500px;">
                     <div class="rb_title">
                         <span class="best">Best</span>
-                        <span class="addr"><%= dto.getNickname() %></span>
+                        <span class="addr"><%= dto.getNickname() %>[고용자]</span>
                         <span class="date"><%= dto.getR_date() %></span>
                     </div>
                     <img src="img/star.png" alt="별점">
@@ -134,7 +134,7 @@
                 <div class="right_box" style="width:500px;">
                     <div class="rb_title">
                         <span class="best">Best</span>
-                        <span class="addr"><%= dto.getNickname() %></span>
+                        <span class="addr"><%= dto.getNickname() %>[동구]</span>
                         <span class="date"><%= dto.getR_date() %></span>
                     </div>
                     <img src="img/star.png" alt="별점">
