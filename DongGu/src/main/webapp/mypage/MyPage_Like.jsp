@@ -28,12 +28,12 @@
             // 폼 제출
             document.getElementById('valueForm').submit();            
             // value 값 확인용
-            alert(document.getElementById('likevalue').value);
+            /*alert(document.getElementById('likevalue').value);*/
         }      
 </script>
 <script>
 function Removeheart(element) { 
-    alert("클릭됨!");
+    // alert("클릭됨!");
     var formId = element.getAttribute("data-form-id"); 
     var value = element.getAttribute("data-value");
     console.log("Data-value:", value);
@@ -64,19 +64,32 @@ function Removeheart(element) {
 	     <ul class="jyl_menu">
 	        <li><a class="side_title" href="/DongGu/mypage/MyPage.jsp"><span>My Home</span></a></li>
 	        <li>
-	            <a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>                   
+	            <% if( m_usertype == 0 ){%>
+		        	<a class="side_title toggle-menu" href="#"><span>나의 초대</span></a>      
+		        <% }else if( m_usertype == 1 ){%>
+		        	<a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>         
+		        <% } %>                                    
 	            <ul class="submenu1">
-	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
-	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a></li>
+	            	<li class="jyl_submenu">
+	             	<% if( m_usertype == 0 ){%>
+                	<a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>초대 내역</span></a>
+                	<% }else if( m_usertype == 1 ){%>
+	                <a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
+	                <%}%>
+	                <li id="submenu_last" class="jyl_submenu">
+	                <% if( m_usertype == 0 ){%>
+	                <a href="/DongGu/mypage/MyPage_InviteManage.jsp"><span>지원 현황 관리</span></a>               
+	                <% }else if( m_usertype == 1 ){%>
+	                <a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a>
+	                <%}%>
+	                </li>
 	             </ul>
 	        </li>  
 	       
 	        <li class="jyl_menu1">
 	            <a class="side_title toggle-menu" href="#"><span>나의 활동</span></a>
 	            <ul class="submenu1">
-	                <li class="jyl_submenu_check"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
-	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_BoardList.jsp"><span>게시판 활동 내역</span></a></li>
-	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ReviewList.jsp"><span>이용 후기 내역</span></a></li>
+	                <li id="submenu_last" class="jyl_submenu_check"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
 	            </ul>
 	        </li>
 	        <li>
@@ -85,8 +98,7 @@ function Removeheart(element) {
 	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_InfoUpdate.jsp"><span>회원정보 수정</span></a></li>
 	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_MemberLevel.jsp"><span>나의 회원 등급</span></a></li>
 	            </ul>
-	        </li>
-	        <li><a class="side_title" href="#"><span>1:1 문의</span></a></li>
+	        </li>	       
 	    </ul>
 		</div>
 		 <script>
@@ -125,7 +137,11 @@ function Removeheart(element) {
     	String likeValue = request.getParameter("likevalue"); 
 	    // likeValue가 null이거나 빈 문자열일 경우 기본 값으로 "10" 설정
 	    if (likeValue == null || likeValue.isEmpty()) {
-	        likeValue = "10";
+	     if( m_usertype == 0 ){
+	        likeValue = "20";
+	     }else if( m_usertype == 1 ){
+		        likeValue = "10";
+		     }
 	    }
 	    %>
 	    <%
@@ -158,12 +174,17 @@ function Removeheart(element) {
 	    
 	    
 	    <div class="like_category">
-	      <div class="like_category_list <%= "10".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(10);">관심 고용자</a></div>
+	    <% if( m_usertype == 0 ){%> 
 	      <div class="like_category_list <%= "20".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(20);">관심 구직자</a></div>
+	      <div class="like_category_list <%= "40".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(40);">관심 자유게시판</a></div>
+	      <div class="like_category_list <%= "50".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(50);">관심 QnA게시판</a></div>	          
+	    <% }else if( m_usertype == 1 ){%>
+	    <div class="like_category_list <%= "10".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(10);">관심 고용자</a></div>
 	      <div class="like_category_list <%= "30".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(30);">관심 초대장</a></div>
 	      <div class="like_category_list <%= "40".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(40);">관심 자유게시판</a></div>
-	      <div class="like_category_list <%= "50".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(50);">관심 QnA게시판</a></div>	      
-	    </div>
+	      <div class="like_category_list <%= "50".equals(likeValue) ? "category_selected" : "" %>"><a href="#" onclick="likeClick(50);">관심 QnA게시판</a></div>	      	    
+	    <% } %>
+	   </div>
 	  
 	      
 	 <%   

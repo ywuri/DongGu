@@ -48,6 +48,21 @@
    .jyl_bar-fill2 {background-color: #8290e3; height: 100%; transition: width 0.3s;}
    .jyl_bar-fill3 {background-color: #fee37a; height: 100%; transition: width 0.3s;}
 </style>
+<script>
+    function openPay(i_num) {
+        // 새로운 창을 열기 위해 window.open 사용
+        const url = '/DongGu/mypage/Pay.jsp?i_num=' + encodeURIComponent(i_num);
+        window.open(url, '_blank', 'width=600,height=450');
+    }
+    
+    function removePaymentButton() {
+        // 해당 버튼이 포함된 div를 찾습니다.
+        var buttonDiv = document.querySelector('.jyl_list1_info2_btn1_pay');
+        if (buttonDiv) {
+            buttonDiv.style.display = 'none'; // 버튼을 숨깁니다.
+        }
+    } 
+</script>
 </head>
 
 <body >
@@ -76,6 +91,7 @@
                 </li>                
                 <li id="submenu_last" class="jyl_submenu">
                 <% if( m_usertype == 0 ){%>
+                <a href="/DongGu/mypage/MyPage_InviteManage.jsp"><span>지원 현황 관리</span></a>               
                 <% }else if( m_usertype == 1 ){%>
                 <a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a>
                 <%}%>
@@ -86,9 +102,7 @@
         <li>
             <a class="side_title toggle-menu" href="#"><span>나의 활동</span></a>
             <ul class="submenu">
-                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
-                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_BoardList.jsp"><span>게시판 활동 내역</span></a></li>
-                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ReviewList.jsp"><span>이용 후기 내역</span></a></li>
+                <li  id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
             </ul>
         </li>
         <li>
@@ -98,7 +112,6 @@
                 <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_MemberLevel.jsp"><span>나의 회원 등급</span></a></li>
             </ul>
         </li>
-        <li><a class="side_title" href="#"><span>1:1 문의</span></a></li>
     </ul>
 	</div>
 	<script>
@@ -175,7 +188,7 @@
                    </div>  
                    <%}else if(m_usertype==0){ %>       
                    <div id="jyl_info_short2">
-                       <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/m_sec1_4.png"></div>
+                       <div id="jyl_info_short3"><img class="jyl_info_short3_img" alt="list1" src="/DongGu/img/likeinvitation.png"></div>
                        <div id="jyl_info_short4">
                           <div id="jyl_info_short4_spandiv"><span id="jyl_info_short4_span">초대하기</span></div>
                           <div class="jyl_graph">
@@ -237,7 +250,9 @@
               <span class="jyl_content2_title">지원 내역</span>      
        <%} %>        
        </div>
-       
+       <% 
+		Set<Integer> displayedINums = new HashSet<>();
+		%>
        <%
 	    ArrayList<MyPageDTO> arr = dao.mypage_section2(m_sid, m_usertype); 
 	    if (arr == null || arr.isEmpty()) {
@@ -257,6 +272,14 @@
 	    } else {
 	        for (int i = 0; i < arr.size(); i++) {
 	            MyPageDTO dto2 = arr.get(i);
+	            int i_num = dto2.getI_num();
+	            
+	         	// 중복된 i_num 체크
+	            if (displayedINums.contains(i_num)) {
+	                continue; // 이미 출력된 i_num이면 건너뛴다
+	            }
+
+	            displayedINums.add(i_num); // 새로 출력할 i_num 추가
 		%> 
 	         
     <div class="jyl_content2_list1">   
@@ -368,8 +391,12 @@
 	                	} else if(m_name.equals("매칭 중")){
 	                 %>  
 	                 <% if(m_usertype==0){%>   
-	                  <div class="jyl_list1_info2_btn1"><a href="#"><span>지원 내역</span></a></div> 
-	                  <div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 취소</span></a></div>       
+	                 <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post"> 
+	                 	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">
+	                  <div class="jyl_list1_info2_btn1"><a href="#" onclick="submitForm(<%= i %>,5)"><span>지원 내역</span></a></div> 
+	                  <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,6)"><span>매칭 취소</span></a></div>    
+	                  </form>   
 	                 <%}else if(m_usertype==1){%>              
 	                 <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post"> 
 	                 	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
@@ -382,35 +409,53 @@
 	                	} else if(m_name.equals("매칭 성공")){
 	                  %>
 	                  <% if(m_usertype==0){%>   
-	                  	<div class="jyl_list1_info2_btn1"><a href="#"><span>지원 내역</span></a></div>
-	                  	<div class="jyl_list1_info2_btn2"><a href="#"><span>매칭 포기</span></a></div>
+	                  <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
+	                  	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>"> 
+	                  	<div class="jyl_list1_info2_btn1"><a href="#" onclick="submitForm(<%= i %>,7)"><span>지원 내역</span></a></div>
+					  </form>
 	                  <%}else if(m_usertype==1){%> 	  
 	                  <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
 	                  	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
 	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">              
-	                    <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,15)"><span>매칭 포기</span></a></div>
+	                    <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,15)"><span>케어 완료</span></a></div>
 	                  </form>
 	                    <% } %>
 	                  <%
 		                } else if(m_name.equals("케어 완료")){
 		              %>
 		              <% if(m_usertype==0){%>  
-		              <div class="jyl_list1_info2_btn1"><a href="#"><span>결제 요청</span></a></div> 
-		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 작성</span></a></div>
+		              <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
+	                  	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>"> 
+		              <div class="jyl_list1_info2_btn1_pay"><a href="#" onclick="openPay(<%=dto2.getI_num() %>, <%= i %>);"><span>결제 요청</span></a></div> 
+		                <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,9)"><span>후기 작성</span></a></div>
+		                </form>
 		              <%}else if(m_usertype==1){%> 
-		                <div class="jyl_list1_info2_btn1"><a href="#"><span>후기 작성</span></a></div> 
-		                <div class="jyl_list1_info2_btn2"><a href="#"><span>내 지원서</span></a></div>
+		              <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
+	                  	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>"> 
+		                <div class="jyl_list1_info2_btn1"><a href="#" onclick="submitForm(<%= i %>,16)"><span>후기 작성</span></a></div> 
+		                <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,17)"><span>내 지원서</span></a></div>
+		               </form>
 		                <% } %>
 		                <%
 		                } else if(m_name.equals("후기작성 완료")){
 		                %>
 		                <% if(m_usertype==0){%> 
-		                <div class="jyl_list1_info2_btn1"><a href="#"><span>초대 내역</span></a></div> 
-		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 보기</span></a></div>
-	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>지원 내역</span></a></div>
+		                <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post"> 
+		                <input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>">   
+		                <div class="jyl_list1_info2_btn1"><a href="#" onclick="submitForm(<%= i %>,10)"><span>후기 보기</span></a></div>
+	                    <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,7)"><span>지원 내역</span></a></div>
+	                    </form>
 		                <%}else if(m_usertype==1){%> 
-		                <div class="jyl_list1_info2_btn2"><a href="#"><span>후기 보기</span></a></div>
-	                    <div class="jyl_list1_info2_btn3"><a href="#"><span>내 지원서</span></a></div>
+		                <form id="form_<%= i %>" action="/DongGu/mypage/MyPage_ok.jsp" method="post">   
+	                  	<input type="hidden" name="i_num" value="<%= dto2.getI_num() %>">
+	                    <input type="hidden" name="ap_num" value="<%= dto2.getAp_num() %>"> 
+		                <div class="jyl_list1_info2_btn2"><a href="#" onclick="submitForm(<%= i %>,18)"><span>후기 보기</span></a></div>
+	                    <div class="jyl_list1_info2_btn3"><a href="#" onclick="submitForm(<%= i %>,17)"><span>내 지원서</span></a></div>
+	                    </form>
 	                    <% } %>
 		                 <%
 		                }

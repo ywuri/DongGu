@@ -10,7 +10,7 @@
    String m_sid = (String)session.getAttribute("sid");
    String m_sname = (String)session.getAttribute("sname");
    Integer m_usertype = (Integer)session.getAttribute("usertype");  
-   MyPageDTO dto = dao.mypage_memberLevel(m_sid);
+   MyPageDTO dto = dao.mypage_memberLevel(m_sid, m_usertype);
 %>
  
 <!DOCTYPE html>
@@ -60,10 +60,8 @@
 	        <li>
 	            <a class="side_title toggle-menu" href="#"><span>나의 활동</span></a>
 	            <ul class="submenu1">
-	                <li class="jyl_submenu_check"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
-	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_BoardList.jsp"><span>게시판 활동 내역</span></a></li>
-	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ReviewList.jsp"><span>이용 후기 내역</span></a></li>
-	            </ul>
+	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
+	           </ul>
 	        </li>
 	        <li class="jyl_menu1">
 	            <a class="side_title toggle-menu" href="#"><span>회원 정보</span></a>
@@ -72,7 +70,6 @@
 	                <li id="submenu_last" class="jyl_submenu_check"><a href="/DongGu/mypage/MyPage_MemberLevel.jsp"><span>나의 회원 등급</span></a></li>
 	            </ul>
 	        </li>
-	        <li><a class="side_title" href="#"><span>1:1 문의</span></a></li>
 	    </ul>
 		</div>
 		 <script>

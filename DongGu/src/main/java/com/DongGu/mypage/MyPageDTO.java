@@ -33,6 +33,9 @@ public class MyPageDTO {
    private String p_ex_other;
    private String p_ex_etc;
    private String p_update_date;   
+   private Date p_date;  
+   private String p_bank_name;  
+   private String p_bank_num;  
       
    
    // 고용자
@@ -73,6 +76,7 @@ public class MyPageDTO {
    
    // 지원자 등록폼
    private int ap_num;
+   private String ap_content;
    
    // 후기
    private int r_num;
@@ -153,16 +157,15 @@ public class MyPageDTO {
    }
    
    // 1-4. 인자 생성자(마이페이지 나의 지원 - 지원서 관리 수정하기)	 
-   public MyPageDTO(String p_jumin, String p_tel, String p_addr, String p_img, String p_ex_my, String p_ex_oher, String p_ex_etc) {
+   public MyPageDTO(String p_jumin, String p_tel, String p_addr, String p_img, String p_ex_my, String p_ex_other, String p_ex_etc) {
 	   super();
 	   this.p_jumin = p_jumin;
 	   this.p_tel = p_tel;
 	   this.p_addr = p_addr;
 	   this.p_img = p_img;
 	   this.p_ex_my = p_ex_my;
-	   this.p_ex_other = p_ex_oher;
-	   this.p_ex_etc = p_ex_etc;
-	   
+	   this.p_ex_other = p_ex_other;
+	   this.p_ex_etc = p_ex_etc;  
    }
    
    // 1-5. 인자 생성자(마이페이지 관심내역 - 관심 초대장 정보 불러오기)
@@ -261,9 +264,75 @@ public class MyPageDTO {
        this.g_name = g_name;
        this.nextlevel = nextlevel;
     }
-
     
+    // 1-13. 인자 생성자(마이페이지 초대 내역 - 지원 현황 관리)	 
+    public MyPageDTO(int i_num, String p_id, int ap_num, String g_name, int g_price, String p_name) {
+ 	   super();
+ 	   this.i_num = i_num;
+ 	   this.p_id = p_id;
+ 	   this.ap_num = ap_num;
+ 	   this.g_name = g_name;
+ 	   this.g_price = g_price;
+ 	   this.p_name = p_name;
+    }
+
+    // 1-14. 인자 생성자(마이페이지 초대 내역 - 지원 현황 관리 상세 페이지)	 
+	public MyPageDTO(String p_name, String p_jumin, String p_tel, String p_addr, String p_img, String p_ex_my,
+			String p_ex_other, String p_ex_etc, String ap_content) {
+		super();
+		this.p_name = p_name;
+		this.p_jumin = p_jumin;
+		this.p_tel = p_tel;
+		this.p_addr = p_addr;
+		this.p_img = p_img;
+		this.p_ex_my = p_ex_my;
+		this.p_ex_other = p_ex_other;
+		this.p_ex_etc = p_ex_etc;
+		this.ap_content = ap_content;
+	}
+
+	 // 1-15. 인자 생성자(마이페이지 결제 정보 페이지)	
+	public MyPageDTO(Date p_date, String p_name, String p_bank_name, String p_bank_num) {
+		super();
+		this.p_date = p_date;
+		this.p_name = p_name;
+		this.p_bank_name = p_bank_name;
+		this.p_bank_num = p_bank_num;
+	}
+
 	// getter, setter 
+	public Date getP_date() {
+		return p_date;
+	}
+
+	public void setP_date(Date p_date) {
+		this.p_date = p_date;
+	}
+
+	public String getP_bank_name() {
+		return p_bank_name;
+	}
+
+	public void setP_bank_name(String p_bank_name) {
+		this.p_bank_name = p_bank_name;
+	}
+
+	public String getP_bank_num() {
+		return p_bank_num;
+	}
+
+	public void setP_bank_num(String p_bank_num) {
+		this.p_bank_num = p_bank_num;
+	}
+	
+    public String getAp_content() {
+		return ap_content;
+	}
+
+	public void setAp_content(String ap_content) {
+		this.ap_content = ap_content;
+	}
+      
   	public String getNextlevel() {
 		return nextlevel;
 	}

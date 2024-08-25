@@ -13,14 +13,27 @@
    Integer m_usertype = (Integer)session.getAttribute("usertype");   
 %>
 <%
-   MyPageDTO dto = dao.mypage_ApplyManage1(m_sid); 
-   int g_price = dto.getG_price();
-   DecimalFormat decimalFormat = new DecimalFormat("#,###");
-   String s_g_price = decimalFormat.format(g_price);
-   
-   MyPageDTO dto1 = dao.mypage_section1(m_sid,m_usertype); 
-   int i_applycount = (int)dto1.getApplycount();
-
+	// 페이징 처리를 위한 초반 세팅  
+	// 1. 총 게시물 수 
+	int totalCnt= dao.getTotal(m_sid, m_usertype);
+	// 2. 보여줄 리스트 수
+	int listSize = 5;
+	// 3. 페이지 수 
+	int pageSize = 5;
+	// 4. 사용자의 현재 위치
+	String cp_s = request.getParameter("cp");
+	if(cp_s==null||cp_s.equals("")){
+		cp_s ="1";
+	}
+	int cp = Integer.parseInt(cp_s);
+	
+	// 5. 총 페이지 
+	int totalPage = (totalCnt/listSize)+1;
+	if(totalCnt%listSize==0) totalPage--;
+	
+	// 6.사용자 현재 위치 그룹 번호
+	int userGroup = cp/pageSize;
+	if(cp%pageSize==0) userGroup--;
 %>
 
 <!DOCTYPE html>
@@ -42,18 +55,18 @@
      <ul class="jyl_menu">
         <li><a class="side_title" href="/DongGu/mypage/MyPage.jsp"><span>My Home</span></a></li>
         <li class="jyl_menu1">
-            <a class="side_title toggle-menu" href="#"><span>나의 지원</span></a>                   
+            <a class="side_title toggle-menu" href="#"><span>나의 초대</span></a>                   
             <ul class="submenu1">
-                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></li>
-                <li id="submenu_last" class="jyl_submenu_check"><a href="/DongGu/mypage/MyPage_ApplyManage.jsp"><span>지원서 관리</span></a></li>
+                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>초대 내역</span></a></li>
+                <li id="submenu_last" class="jyl_submenu_check"><a href="/DongGu/mypage/MyPage_InviteManage.jsp"><span>초대 현황 관리</span></a></li>
              </ul>
         </li>  
        
         <li>
             <a class="side_title toggle-menu" href="#"><span>나의 활동</span></a>
             <ul class="submenu1">
-                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
-           </ul>
+                <li  id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
+			</ul>
         </li>
         <li>
             <a class="side_title toggle-menu" href="#"><span>회원 정보</span></a>
@@ -91,41 +104,48 @@
      <div class="jyl_content">
     
       <div class="jyl_content1">   
-                <span class="jyl_content2_title">지원서 관리</span>              
+                <span class="jyl_content2_title">초대 현황 관리</span>              
       </div>
       
-   <div class="jyl_content4_list">   
-   
-   		<div class="jyl_content4_list1">
-	   		<div class="jyl_content4_list1_div1"><span class="jyl_content4_list1_span1"><%= m_sname %>님의 기본 지원서</span></div>
-	   		<% if( dto.getP_update_date() != null ){%>
-	   		<div class="jyl_content4_list1_div2"><span class="jyl_content4_list1_span2"><%= dto.getP_update_date() %> 수정</span></div>
-	   		<%}%>
-   		</div>
-   		<div class="jyl_content4_list2">
-	   		<div class="jyl_content4_list2_div1"><img class="jyl_content4_list2_img" src="/DongGu/img/applymanage1.png"></div>
-	   		<div class="jyl_content4_list2_div2"><span class="jyl_content4_list2_span2"><%= dto.getG_name() %></span></div>
-   		</div>
-   		<div class="jyl_content4_list3">
-	   		<div class="jyl_content4_list3_div1"><img class="jyl_content4_list3_img" src="/DongGu/img/applymanage2.png"></div>
-	   		<div class="jyl_content4_list3_div2"><span class="jyl_content4_list3_span2">1건당 나의 측정 금액 : <%= s_g_price %> 원</span></div>
-   		</div>
-   		<div class="jyl_content4_list4">
-	   		<div class="jyl_content4_list4_div1">
-	   			<div class="jyl_content4_list4_div1_1">
-	   				<div><a href="/DongGu/mypage/MyPage_ApplyManage_Look.jsp"><span>상세보기</span></a></div>
-	   			</div>
-	   			<div class="jyl_content4_list4_div1_1">
-	   				<div><a href="/DongGu/mypage/MyPage_ApplyList.jsp"><span>지원 내역</span></a></div>
-	   				<div class="jyl_overlay"><span><%= i_applycount %></span></div>
-	   			</div>  			
-	   		</div>
-	   		<div class="jyl_content4_list4_div2">
-	   		<div class="jyl_content4_list4_div2_btn"><a href="/DongGu/mypage/MyPage_ApplyManage_Update.jsp"><span>수정하기</span></a></div>
-	   		</div>
-   		</div>
-   		
-   </div>
+     <% 
+		Set<Integer> displayedINums = new HashSet<>();
+	 %>
+      
+     <%
+	    ArrayList<MyPageDTO> arr = dao.mypage_applyList1(m_sid,cp,listSize, m_usertype); 
+	    if (arr == null || arr.isEmpty()) {	    	
+	 %>
+	  <div class="jyl_content2_list2_list">   
+	        	<div><span class="jyl_my_arrempty1">초대 내역이 없습니다.</span></div>
+	        	<div><span class="jyl_my_arrempty2">얼른 초대해보세요!</span></div>
+	 </div>
+	 <%
+	 } else {
+	        for (int i = 0; i < arr.size(); i++) {
+	            MyPageDTO dto = arr.get(i);
+	            
+	            int i_num = dto.getI_num();
+	            
+	         	// 중복된 i_num 체크
+	            if (displayedINums.contains(i_num)) {
+	                continue; // 이미 출력된 i_num이면 건너뛴다
+	            }
+
+	            displayedINums.add(i_num); // 새로 출력할 i_num 추가
+		%> 
+      
+      <div class="jyl_content4_list_im">   
+   		<div class="jyl_content3_list1_3_im1">
+   				<span class="jyl_list1_info1_title" style="color:#444"><%= dto.getI_title() %></span>	
+   	    </div>
+   		<div class="jyl_content3_list1_3_im2">
+                 <a href="/DongGu/mypage/MyPage_InviteList.jsp?i_num=<%=dto.getI_num() %>&btn=0&type=1"><img class="jyl_img2" alt="button" src="/DongGu/img/arrow2.png"></a>
+        </div>	
+     </div>
+	<%
+	     }
+	 }
+	 %>
 
 	</div>
     <!------------- 오른쪽 컨텐츠 영역 끝 ----------->

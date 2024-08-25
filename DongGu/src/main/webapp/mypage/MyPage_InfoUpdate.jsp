@@ -62,10 +62,8 @@
 	        <li>
 	            <a class="side_title toggle-menu" href="#"><span>나의 활동</span></a>
 	            <ul class="submenu1">
-	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
-	                <li class="jyl_submenu"><a href="/DongGu/mypage/MyPage_BoardList.jsp"><span>게시판 활동 내역</span></a></li>
-	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_ReviewList.jsp"><span>이용 후기 내역</span></a></li>
-	            </ul>
+	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_Like.jsp"><span>관심 내역</span></a></li>
+	           </ul>
 	        </li>
 	        <li class="jyl_menu1">
 	            <a class="side_title toggle-menu" href="#"><span>회원 정보</span></a>
@@ -74,7 +72,6 @@
 	                <li id="submenu_last" class="jyl_submenu"><a href="/DongGu/mypage/MyPage_MemberLevel.jsp"><span>나의 회원 등급</span></a></li>
 	            </ul>
 	        </li>
-	        <li><a class="side_title" href="#"><span>1:1 문의</span></a></li>
 	    </ul>
 		</div>
 		 <script>
@@ -126,10 +123,10 @@
                                         if (jumin != null && jumin.length() > 7) {
                                             String secondBlock = jumin.split("-")[1].substring(0, 1); // 주민번호의 두 번째 블록의 첫 번째 문자
 
-                                            if ("1".equals(secondBlock)) {
+                                            if ("1".equals(secondBlock)||"3".equals(secondBlock)) {
                                                 int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
                                                 imageSrc = "/DongGu/img/random1_" + randomIndex + ".png";
-                                            } else if ("2".equals(secondBlock)) {
+                                            } else if ("2".equals(secondBlock)||"4".equals(secondBlock)) {
                                                 int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
                                                 imageSrc = "/DongGu/img/random2_" + randomIndex + ".png";
                                             }

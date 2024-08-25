@@ -232,7 +232,9 @@ public class MyPageDAO {
                       
          
          int start = (cp - 1) * listSize + 1;
+         System.out.println("start:"+start);
          int end = cp * listSize;
+         System.out.println("end:"+end);
  
          if (m_usertype == 0) {
         	 ps=conn.prepareStatement(sql_owner);
@@ -299,17 +301,28 @@ public class MyPageDAO {
    
    
    // 2-2. 마이페이지 지원내역 페이지 - 페이징 메서드(전체 게시글 카운트)
-   public int getTotal(String m_sid) {
-      System.out.println("마이페이지 지원내역 - 페이징 메서드(전체 게시글 카운트) 실행됨!");         
+   public int getTotal(String m_sid,int m_usertype) {
+      System.out.println("마이페이지 지원내역 - 페이징 메서드(전체 게시글 카운트) 실행됨!");    
       		
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			
-			String sql = "SELECT count(*) "
+			String sql_owner = "SELECT count(*) "
+					+ "FROM invitation i "
+					+ "JOIN animalinfo ai ON ai.ai_num = i.ai_num "
+					+ "JOIN owner o ON o.o_id = ai.o_id "
+					+ "WHERE o.o_id = ? ";
+			
+			String sql_petsitter = "SELECT count(*) "
 					+ "FROM application "
 					+ "WHERE p_id = ? ";
 			
-			ps=conn.prepareStatement(sql);
+			 if (m_usertype == 0) {
+	        	 ps=conn.prepareStatement(sql_owner);
+	         } else if(m_usertype == 1) {
+	        	 ps=conn.prepareStatement(sql_petsitter);
+	         }
+
 	        ps.setString(1, m_sid);
 			
 			rs = ps.executeQuery();
@@ -317,7 +330,7 @@ public class MyPageDAO {
 			if(rs.next()) {
 				result = rs.getInt(1);
 			}		
-			
+			System.out.println("전체 게시글:"+result);
 			return result;
 			
 		} catch (Exception e) {
@@ -928,19 +941,30 @@ public class MyPageDAO {
 	
 
 	// 6-1. 마이페이지 회원 정보 페이지 - 회원등급 정보 뿌리기
-	public MyPageDTO mypage_memberLevel(String m_sid) {
+	public MyPageDTO mypage_memberLevel(String m_sid, int m_usertype) {
 	      System.out.println("마이페이지 회원 정보 페이지 - 회원등급 정보 뿌리기 매서드 실행됨!");         
 	      MyPageDTO dto = null;
 
 	      try {
 	         conn = com.DongGu.db.DongGuDB.getConn();
-	         String sql = "SELECT g.g_img, g.g_name, next_grade.g_name AS nextlevel "
+	         String sql_owner = "SELECT g.g_img, g.g_name, NVL(next_grade.g_name, '다이아메달') AS nextlevel "
+		         		+ "FROM owner o "
+		         		+ "JOIN grade g ON o.g_num = g.g_num "
+		         		+ "LEFT JOIN grade next_grade ON g.g_num  = next_grade.g_num + 1 "
+		         		+ "WHERE o.o_id = ? ";
+	         
+	         String sql_petsitter = "SELECT g.g_img, g.g_name, NVL(next_grade.g_name, '다이아메달') AS nextlevel "
 	         		+ "FROM petsitter p "
 	         		+ "JOIN grade g ON p.g_num = g.g_num "
 	         		+ "LEFT JOIN grade next_grade ON g.g_num  = next_grade.g_num + 1 "
 	         		+ "WHERE p.p_id = ? ";
 	         
-	         ps=conn.prepareStatement(sql);
+	         
+	         if (m_usertype == 0) {
+			        ps = conn.prepareStatement(sql_owner);
+	         } else if (m_usertype == 1) {
+		        	ps = conn.prepareStatement(sql_petsitter);
+	         }
 	         ps.setString(1, m_sid);	         
 	         
 	         rs = ps.executeQuery();
@@ -972,13 +996,13 @@ public class MyPageDAO {
 
 	
 	
-	// 7-1. 마이페이지 매칭별 기능 1 (구직자 - 지원 취소)
-	public int mypage_Ap_delete(String ap_num) {
+	// 7-1. 마이페이지 매칭별 기능 (구직자 - 지원 취소)
+	public int mypage_p_Ap_delete(String ap_num) {
 		System.out.println("마이페이지 매칭별 기능 1 (구직자 - 지원 취소) 매서드 실행됨!");         
 
 		      try {
 		         conn = com.DongGu.db.DongGuDB.getConn();
-		         String sql = "DELETE FROM	application "
+		         String sql = "DELETE FROM application "
 		         		+ "WHERE ap_num = ? ";
 		         
 		         ps=conn.prepareStatement(sql);
@@ -1004,17 +1028,245 @@ public class MyPageDAO {
 		   }
 	
 	
-	// 7-2. 마이페이지 매칭별 기능 2 (구직자 - 매칭포기)
-	public int mypage_Iv_delete(String i_num) {
-		System.out.println("마이페이지 매칭별 기능 2 (구직자 - 매칭포기) 매서드 실행됨!");         
+	// 7-2. 마이페이지 매칭별 기능 (고용자 - 초대 취소 1, 고용자 - 매칭 취소 1)
+	public int mypage_o_Ap_delete1(String i_num) {
+		System.out.println("마이페이지 매칭별 기능 (고용자 - 초대 취소 1, 고용자 - 매칭 취소1) 매서드 실행됨!");         
 
-			      try {
-			         conn = com.DongGu.db.DongGuDB.getConn();
-			         String sql = "DELETE FROM	invitation "
+			   try {
+			       conn = com.DongGu.db.DongGuDB.getConn();
+			       String sql = "DELETE FROM application "
 			         		+ "WHERE i_num = ? ";
 			         
 			         ps=conn.prepareStatement(sql);
 			         ps.setString(1, i_num);	         
+			         
+			         int rs = ps.executeUpdate();
+			         System.out.println(rs);
+			         return rs;         
+			         
+			      }catch(Exception e) {
+			         e.printStackTrace();
+			         return -1;         
+			      }finally {
+			         try {
+			            if(rs!=null) rs.close();
+			            if(ps!=null) ps.close();
+			            if(conn!=null) conn.close();
+			         }catch (Exception e) {
+			            e.printStackTrace();
+			            
+			         }
+			      }
+			   }
+	
+	
+	
+	// 7-3. 마이페이지 매칭별 기능 (고용자 - 초대 취소 2, 고용자 - 매칭 취소 2)
+	public int mypage_o_Ap_delete2(String i_num) {
+				System.out.println("마이페이지 매칭별 기능  (고용자 - 초대 취소 2, 고용자 - 매칭 취소 2) 매서드 실행됨!");         
+
+				      try {
+				         conn = com.DongGu.db.DongGuDB.getConn();
+				         String sql = "DELETE FROM invitation "
+				         		+ "WHERE i_num = ? ";
+				         
+				         ps=conn.prepareStatement(sql);
+				         ps.setString(1, i_num);	         
+				         
+				         int rs = ps.executeUpdate();
+				         System.out.println(rs);
+				         return rs;         
+				         
+				      }catch(Exception e) {
+				         e.printStackTrace();
+				         return -1;         
+				      }finally {
+				         try {
+				            if(rs!=null) rs.close();
+				            if(ps!=null) ps.close();
+				            if(conn!=null) conn.close();
+				         }catch (Exception e) {
+				            e.printStackTrace();
+				            
+				         }
+				      }
+				   }
+		
+		
+	
+		// 7-4. 마이페이지 매칭별 기능 (고용자 - 선택하기1)
+		public int mypage_o_Ap_update2 (String ap_num) {
+			System.out.println("마이페이지 매칭별 기능 (고용자 - 선택하기1) 매서드 실행됨!");         
+
+					      try {
+					         conn = com.DongGu.db.DongGuDB.getConn();
+					         String sql = "UPDATE application SET m_num = 2 where ap_num = ? ";
+					         
+					         ps=conn.prepareStatement(sql);
+					         ps.setString(1, ap_num);	         
+					         
+					         int rs = ps.executeUpdate();
+
+					         return rs;         
+					         
+					      }catch(Exception e) {
+					         e.printStackTrace();
+					         return -1;         
+					      }finally {
+					         try {
+					            if(rs!=null) rs.close();
+					            if(ps!=null) ps.close();
+					            if(conn!=null) conn.close();
+					         }catch (Exception e) {
+					            e.printStackTrace();
+					            
+					         }
+					      }
+					   }			
+
+
+
+		// 7-5. 마이페이지 매칭별 기능 (고용자 - 선택하기2)
+		public int mypage_o_Iv_update2 (String i_num) {
+					System.out.println("마이페이지 매칭별 기능 (고용자 - 선택하기2) 매서드 실행됨!");         
+
+							      try {
+							         conn = com.DongGu.db.DongGuDB.getConn();
+							         String sql = "UPDATE invitation SET m_num = 2 where i_num = ? ";
+							         
+							         ps=conn.prepareStatement(sql);
+							         ps.setString(1, i_num);	         
+							         
+							         int rs = ps.executeUpdate();
+
+							         return rs;         
+							         
+							      }catch(Exception e) {
+							         e.printStackTrace();
+							         return -1;         
+							      }finally {
+							         try {
+							            if(rs!=null) rs.close();
+							            if(ps!=null) ps.close();
+							            if(conn!=null) conn.close();
+							         }catch (Exception e) {
+							            e.printStackTrace();
+							            
+							         }
+							      }
+							   }				
+
+		
+		
+		// 7-6. 마이페이지 매칭별 기능 (구직자 - 매칭 수락1)
+		public int mypage_Ap_update3 (String ap_num) {
+			System.out.println("마이페이지 매칭별 기능 3 (구직자 - 매칭수락) 매서드 실행됨!");         
+
+					      try {
+					         conn = com.DongGu.db.DongGuDB.getConn();
+					         String sql = "UPDATE application SET m_num = 3 where ap_num = ? ";
+					         
+					         ps=conn.prepareStatement(sql);
+					         ps.setString(1, ap_num);	         
+					         
+					         int rs = ps.executeUpdate();
+
+					         return rs;         
+					         
+					      }catch(Exception e) {
+					         e.printStackTrace();
+					         return -1;         
+					      }finally {
+					         try {
+					            if(rs!=null) rs.close();
+					            if(ps!=null) ps.close();
+					            if(conn!=null) conn.close();
+					         }catch (Exception e) {
+					            e.printStackTrace();
+					            
+					         }
+					      }
+					   }	
+
+
+		
+		
+		// 7-7. 마이페이지 매칭별 기능 (구직자 - 매칭 수락2)
+		public int mypage_Iv_update3 (String i_num) {
+			System.out.println("마이페이지 매칭별 기능 4 (구직자 - 매칭수락) 매서드 실행됨!");         
+
+						      try {
+						         conn = com.DongGu.db.DongGuDB.getConn();
+						         String sql = "UPDATE invitation SET m_num = 3 where i_num = ? ";
+						         
+						         ps=conn.prepareStatement(sql);
+						         ps.setString(1, i_num);	         
+						         
+						         int rs = ps.executeUpdate();
+
+						         return rs;         
+						         
+						      }catch(Exception e) {
+						         e.printStackTrace();
+						         return -1;         
+						      }finally {
+						         try {
+						            if(rs!=null) rs.close();
+						            if(ps!=null) ps.close();
+						            if(conn!=null) conn.close();
+						         }catch (Exception e) {
+						            e.printStackTrace();
+						            
+						         }
+						      }
+						   }
+		
+		
+
+		// 7-8. 마이페이지 매칭별 기능 (구직자 - 매칭 수락 3)
+		public int mypage_p_Ap_delete2(String i_num) {
+					System.out.println("마이페이지 매칭별 기능 (구직자 - 매칭 수락 3) 매서드 실행됨!");         
+
+					      try {
+					         conn = com.DongGu.db.DongGuDB.getConn();
+					         String sql = "DELETE FROM application "
+					         		+ "WHERE i_num = ? and m_num = 1";
+					         
+					         ps=conn.prepareStatement(sql);
+					         ps.setString(1, i_num);	         
+					         
+					         int rs = ps.executeUpdate();
+					         System.out.println(rs);
+					         return rs;         
+					         
+					      }catch(Exception e) {
+					         e.printStackTrace();
+					         return -1;         
+					      }finally {
+					         try {
+					            if(rs!=null) rs.close();
+					            if(ps!=null) ps.close();
+					            if(conn!=null) conn.close();
+					         }catch (Exception e) {
+					            e.printStackTrace();
+					            
+					         }
+					      }
+					   }	
+		
+		
+		
+	// 7-9. 마이페이지 매칭별 기능 (구직자 - 매칭거절 1)
+	public int mypage_Ap_delete(String ap_num) {
+		System.out.println("마이페이지 매칭별 기능 (구직자 - 매칭거절 1) 매서드 실행됨!");         
+
+			      try {
+			         conn = com.DongGu.db.DongGuDB.getConn();
+			         String sql = "DELETE FROM application "
+			         		+ "WHERE ap_num = ? ";
+			         
+			         ps=conn.prepareStatement(sql);
+			         ps.setString(1, ap_num);	         
 			         
 			         int rs = ps.executeUpdate();
 
@@ -1036,72 +1288,479 @@ public class MyPageDAO {
 			   }
 
 	
+	
+	// 7-10. 마이페이지 매칭별 기능 (구직자 - 매칭 거절 2)
+			public int mypage_Iv_update1 (String i_num) {
+				System.out.println("마이페이지 매칭별 기능 (구직자 - 매칭 거절 2) 매서드 실행됨!");         
 
-	// 7-3. 마이페이지 매칭별 기능 3 (구직자 - 매칭 수락)
-	public int mypage_Ap_update (String ap_num) {
-		System.out.println("마이페이지 매칭별 기능 3 (구직자 - 매칭수락) 매서드 실행됨!");         
+							      try {
+							         conn = com.DongGu.db.DongGuDB.getConn();
+							         String sql = "UPDATE invitation SET m_num = 1 where i_num = ? ";
+							         
+							         ps=conn.prepareStatement(sql);
+							         ps.setString(1, i_num);	         
+							         
+							         int rs = ps.executeUpdate();
 
-				      try {
-				         conn = com.DongGu.db.DongGuDB.getConn();
-				         String sql = "UPDATE application SET m_num = 3 where ap_num = ? ";
-				         
-				         ps=conn.prepareStatement(sql);
-				         ps.setString(1, ap_num);	         
-				         
-				         int rs = ps.executeUpdate();
+							         return rs;         
+							         
+							      }catch(Exception e) {
+							         e.printStackTrace();
+							         return -1;         
+							      }finally {
+							         try {
+							            if(rs!=null) rs.close();
+							            if(ps!=null) ps.close();
+							            if(conn!=null) conn.close();
+							         }catch (Exception e) {
+							            e.printStackTrace();
+							            
+							         }
+							      }
+							   }
 
-				         return rs;         
-				         
-				      }catch(Exception e) {
-				         e.printStackTrace();
-				         return -1;         
-				      }finally {
-				         try {
-				            if(rs!=null) rs.close();
-				            if(ps!=null) ps.close();
-				            if(conn!=null) conn.close();
-				         }catch (Exception e) {
-				            e.printStackTrace();
-				            
-				         }
-				      }
-				   }	
+			
+
+			// 7-11. 마이페이지 매칭별 기능 (구직자 - 케어완료 1)
+			public int mypage_Ap_update4 (String ap_num) {
+				System.out.println("마이페이지 매칭별 기능 (고용자 - 선택하기1) 매서드 실행됨!");         
+
+						      try {
+						         conn = com.DongGu.db.DongGuDB.getConn();
+						         String sql = "UPDATE application SET m_num = 4 where ap_num = ? ";
+						         
+						         ps=conn.prepareStatement(sql);
+						         ps.setString(1, ap_num);	         
+						         
+						         int rs = ps.executeUpdate();
+
+						         return rs;         
+						         
+						      }catch(Exception e) {
+						         e.printStackTrace();
+						         return -1;         
+						      }finally {
+						         try {
+						            if(rs!=null) rs.close();
+						            if(ps!=null) ps.close();
+						            if(conn!=null) conn.close();
+						         }catch (Exception e) {
+						            e.printStackTrace();
+						            
+						         }
+						      }
+						   }			
 
 
+
+			// 7-12. 마이페이지 매칭별 기능 (구직자 - 케어완료 2)
+			public int mypage_Iv_update4 (String i_num) {
+						System.out.println("마이페이지 매칭별 기능 (고용자 - 선택하기2) 매서드 실행됨!");         
+
+								      try {
+								         conn = com.DongGu.db.DongGuDB.getConn();
+								         String sql = "UPDATE invitation SET m_num = 4 where i_num = ? ";
+								         
+								         ps=conn.prepareStatement(sql);
+								         ps.setString(1, i_num);	         
+								         
+								         int rs = ps.executeUpdate();
+
+								         return rs;         
+								         
+								      }catch(Exception e) {
+								         e.printStackTrace();
+								         return -1;         
+								      }finally {
+								         try {
+								            if(rs!=null) rs.close();
+								            if(ps!=null) ps.close();
+								            if(conn!=null) conn.close();
+								         }catch (Exception e) {
+								            e.printStackTrace();
+								            
+								         }
+								      }
+								   }
+
+
+
+			// 7-13. 마이페이지 매칭별 기능 (구직자 - 후기작성)
+			public String mypage_p_review (String i_num) {
+				System.out.println("마이페이지 매칭별 기능 (구직자 - 후기작성) 매서드 실행됨!");         
+				String o_id = "";
+				
+				try {
+			         conn = com.DongGu.db.DongGuDB.getConn();
+			         String sql = "SELECT o.o_id "
+			         		+ "FROM owner o "
+			         		+ "JOIN animalinfo ai ON o. o_id = ai.o_id "
+			         		+ "JOIN invitation i ON ai.ai_num = i.ai_num "
+			         		+ "WHERE i.i_num = ? ";
+			         
+			         ps=conn.prepareStatement(sql);	    
+			         ps.setString(1, i_num);
+			         
+			         rs = ps.executeQuery();
+			         while(rs.next()) {          
+			        	    o_id = rs.getString("o_id");
+			         }
+
+			         return o_id;
+			         
+				}catch(Exception e) {
+			         e.printStackTrace();
+			         return null;         
+			      }finally {
+			         try {
+			            if(rs!=null) rs.close();
+			            if(ps!=null) ps.close();
+			            if(conn!=null) conn.close();
+			         }catch (Exception e) {
+			            e.printStackTrace();
+			               
+			         }
+			      }
+			   } 
+			
+			
+			// 7-14. 마이페이지 매칭별 기능 (구직자 - 내지원서)
+			public String mypage_p_LookApply (String ap_num) {
+				System.out.println("마이페이지 매칭별 기능 (구직자 - 후기작성) 매서드 실행됨!");         
+				String p_id = "";
+							
+					try {
+						conn = com.DongGu.db.DongGuDB.getConn();
+						String sql = "SELECT p.p_id "
+								+ "FROM application ap "
+								+ "JOIN invitation i ON i.i_num = ap.i_num "
+								+ "JOIN petsitter p ON ap.p_id = p.p_id "
+								+ "WHERE ap.ap_num = ? ";
+						         
+						ps=conn.prepareStatement(sql);	    
+						ps.setString(1, ap_num);
+						         
+						rs = ps.executeQuery();
+						while(rs.next()) {          
+						      p_id = rs.getString("p_id");
+						 }
+
+						return p_id;
+						         
+							}catch(Exception e) {
+						         e.printStackTrace();
+						         return null;         
+						      }finally {
+						         try {
+						            if(rs!=null) rs.close();
+						            if(ps!=null) ps.close();
+						            if(conn!=null) conn.close();
+						         }catch (Exception e) {
+						            e.printStackTrace();
+						               
+						         }
+						      }
+						   }
+			
+			// 7-15. 마이페이지 매칭별 기능 (고용자 - 후기작성)
+						public String mypage_o_review (String i_num) {
+							System.out.println("마이페이지 매칭별 기능 (구직자 - 후기작성) 매서드 실행됨!");         
+							String p_id = "";
+							
+							try {
+						         conn = com.DongGu.db.DongGuDB.getConn();
+						         String sql = "SELECT p.p_id "
+						         		+ "FROM application ap "
+						         		+ "JOIN invitation i on i.i_num = ap.i_num "
+						         		+ "JOIN petsitter p on ap.p_id = p.p_id "
+						         		+ "WHERE i.i_num = ? ";
+						         
+						         ps=conn.prepareStatement(sql);	    
+						         ps.setString(1, i_num);
+						         
+						         rs = ps.executeQuery();
+						         while(rs.next()) {          
+						        	    p_id = rs.getString("p_id");
+						         }
+
+						         return p_id;
+						         
+							}catch(Exception e) {
+						         e.printStackTrace();
+						         return null;         
+						      }finally {
+						         try {
+						            if(rs!=null) rs.close();
+						            if(ps!=null) ps.close();
+						            if(conn!=null) conn.close();
+						         }catch (Exception e) {
+						            e.printStackTrace();
+						               
+						         }
+						      }
+						   } 	
+						
+						
+		// 7-16. 마이페이지 매칭별 기능 (고용자 - 결제 요청)
+		public MyPageDTO mypage_o_pay (String i_num) {
+			System.out.println("마이페이지 매칭별 기능 (고용자 - 결제 요청) 매서드 실행됨!");         
+			 MyPageDTO dto = null;
+							
+			try {
+				conn = com.DongGu.db.DongGuDB.getConn();
+				 String sql = "SELECT p.p_date, p.p_name, p.p_bank_name,p.p_bank_num "
+				 		+ "FROM application ap "
+				 		+ "JOIN invitation i on i.i_num = ap.i_num "
+				 		+ "JOIN petsitter p on ap.p_id = p.p_id "
+				 		+ "WHERE i.i_num = ? ";
+						         
+						ps=conn.prepareStatement(sql);	    
+						ps.setString(1, i_num);
+						         
+						rs = ps.executeQuery();
+						while(rs.next()) {          
+							 Date p_date = rs.getDate("p_date");
+							 String p_name = rs.getString("p_name");
+						     String p_bank_name = rs.getString("p_bank_name");
+						     String p_bank_num = rs.getString("p_bank_num");
+						     
+						     dto = new MyPageDTO(p_date,p_name, p_bank_name,p_bank_num);
+						     }
+
+						    return dto;
+						         
+							}catch(Exception e) {
+						         e.printStackTrace();
+						         return null;         
+						      }finally {
+						         try {
+						            if(rs!=null) rs.close();
+						            if(ps!=null) ps.close();
+						            if(conn!=null) conn.close();
+						         }catch (Exception e) {
+						            e.printStackTrace();
+						               
+						         }
+						      }
+						   } 	
+						
+	// 8-1. 마이페이지 지원현황 페이지 - 해당 초대장에 지원한 지원서 목록 가져오기 
+	public ArrayList<MyPageDTO> mypage_InviteList(int i_num) {
+		      System.out.println("마이페이지 지원현황 - 해당 초대장에 지원한 지원서 목록 가져오는 매서드 실행됨!");         
+		      MyPageDTO dto = null;
+		      ArrayList<MyPageDTO> mlist = new ArrayList<>();
+		      try {
+		         conn = com.DongGu.db.DongGuDB.getConn();
+		         String sql = "SELECT p.p_id,ap.ap_num,p.p_name,g.g_name, g.g_price "
+		         		+ "FROM petsitter p "
+		         		+ "JOIN grade g ON p.g_num = g.g_num "
+		         		+ "JOIN application ap ON p.p_id = ap.p_id "
+		         		+ "JOIN invitation i ON ap.i_num = i.i_num "
+		         		+ "WHERE i.i_num = ? "
+		         		+ "ORDER BY g.g_price desc";
+		         
+		         ps=conn.prepareStatement(sql);
+		         ps.setInt(1, i_num);	      	         
+		         
+		         rs = ps.executeQuery();
+		         
+		         while(rs.next()) {         
+		        	 	String p_id = rs.getString("p_id");  
+		        	 	int ap_num = rs.getInt("ap_num");  
+		                String g_name = rs.getString("g_name");             
+		                int g_price = rs.getInt("g_price");  
+		                String p_name = rs.getString("p_name");  
+		                
+		                dto = new MyPageDTO(i_num,p_id,ap_num,g_name, g_price,p_name);
+		                mlist.add(dto);
+		             }
+		                        
+		         return mlist;          
+		            
+		      }catch(Exception e) {
+		         e.printStackTrace();
+		         return null;         
+		      }finally {
+		         try {
+		            if(rs!=null) rs.close();
+		            if(ps!=null) ps.close();
+		            if(conn!=null) conn.close();
+		         }catch (Exception e) {
+		            e.printStackTrace();
+		               
+		         }
+		      }
+		   }  	 
 	
 	
-	// 7-3. 마이페이지 매칭별 기능 4 (구직자 - 매칭 수락)
-	public int mypage_Iv_update (String i_num) {
-		System.out.println("마이페이지 매칭별 기능 4 (구직자 - 매칭수락) 매서드 실행됨!");         
+	
+	// 7-17. 마이페이지 매칭별 기능 (고용자 - 후기보기)
+	public String mypage_o_Lookreview (String m_sid,String ap_num) {
+		System.out.println("마이페이지 매칭별 기능 (고용자 - 후기보기) 매서드 실행됨!");        
+		
+		String r_num = "";
+		try {
+	         conn = com.DongGu.db.DongGuDB.getConn();
+	         String sql = "SELECT r.r_num "
+	         		+ "FROM review r  "
+	         		+ "WHERE r.r_write_id = ? and r.r_receive_id "
+	         		+ "= ( SELECT p.p_id FROM application ap JOIN petsitter p ON ap.p_id=p.p_id WHERE ap.ap_num = ?)";
+	         
+	         ps=conn.prepareStatement(sql);	    
+	         ps.setString(1, m_sid);
+	         ps.setString(2, ap_num);
+	         
+	         rs = ps.executeQuery();
+	         while(rs.next()) {          
+	        	 r_num = rs.getString("r_num");
+	         }
 
-					      try {
-					         conn = com.DongGu.db.DongGuDB.getConn();
-					         String sql = "UPDATE invitation SET m_num = 3 where i_num = ? ";
-					         
-					         ps=conn.prepareStatement(sql);
-					         ps.setString(1, i_num);	         
-					         
-					         int rs = ps.executeUpdate();
-
-					         return rs;         
-					         
-					      }catch(Exception e) {
-					         e.printStackTrace();
-					         return -1;         
-					      }finally {
-					         try {
-					            if(rs!=null) rs.close();
-					            if(ps!=null) ps.close();
-					            if(conn!=null) conn.close();
-					         }catch (Exception e) {
-					            e.printStackTrace();
-					            
-					         }
-					      }
-					   }	
-
+	         return r_num;
+	         
+		}catch(Exception e) {
+	         e.printStackTrace();
+	         return null;         
+	      }finally {
+	         try {
+	            if(rs!=null) rs.close();
+	            if(ps!=null) ps.close();
+	            if(conn!=null) conn.close();
+	         }catch (Exception e) {
+	            e.printStackTrace();
+	               
+	         }
+	      }
+	   } 		
 	
 	
+	
+	// 7-18. 마이페이지 매칭별 기능 (구직자 - 후기보기)
+		public String mypage_p_Lookreview (String m_sid,String i_num) {
+			System.out.println("마이페이지 매칭별 기능 (고용자 - 후기보기) 매서드 실행됨!");        
+			
+			String r_num = "";
+			try {
+		         conn = com.DongGu.db.DongGuDB.getConn();
+		         String sql = "SELECT r.r_num "
+		         		+ "FROM review r "
+		         		+ "WHERE r.r_write_id = ? and r.r_receive_id  "
+		         		+ "= ( SELECT o.o_id "
+		         		+ "FROM owner o "
+		         		+ "JOIN animalinfo ai ON o. o_id = ai.o_id "
+		         		+ "JOIN invitation i ON ai.ai_num = i.ai_num "
+		         		+ "WHERE i.i_num = ? ) ";
+		         
+		         ps=conn.prepareStatement(sql);	    
+		         ps.setString(1, m_sid);
+		         ps.setString(2, i_num);
+		         
+		         rs = ps.executeQuery();
+		         while(rs.next()) {          
+		        	 r_num = rs.getString("r_num");
+		         }
+
+		         return r_num;
+		         
+			}catch(Exception e) {
+		         e.printStackTrace();
+		         return null;         
+		      }finally {
+		         try {
+		            if(rs!=null) rs.close();
+		            if(ps!=null) ps.close();
+		            if(conn!=null) conn.close();
+		         }catch (Exception e) {
+		            e.printStackTrace();
+		               
+		         }
+		      }
+		   } 	
+	
+	// 8-1. 마이페이지 지원현황 페이지 - 해당 초대장 제목 가져오기 
+	public String mypage_InviteList_i_title(int i_num) {
+			      System.out.println("마이페이지 지원현황 - 해당 초대장 제목 가져오는 매서드 실행됨!");         
+			      String i_title = ""; 
+			      try {
+			         conn = com.DongGu.db.DongGuDB.getConn();
+			         String sql = "SELECT i_title "
+			         		+ "FROM invitation "			         		
+			         		+ "WHERE i_num = ? ";
+			         
+			         ps=conn.prepareStatement(sql);
+			         ps.setInt(1, i_num);	      	         
+			         
+			         rs = ps.executeQuery();
+			         
+			         while(rs.next()) {         
+			        	 	i_title = rs.getString("i_title");  		              
+			             }
+			                        
+			         return i_title;          
+			            
+			      }catch(Exception e) {
+			         e.printStackTrace();
+			         return null;         
+			      }finally {
+			         try {
+			            if(rs!=null) rs.close();
+			            if(ps!=null) ps.close();
+			            if(conn!=null) conn.close();
+			         }catch (Exception e) {
+			            e.printStackTrace();
+			               
+			         }
+			      }
+			   }
+
+	
+	// 8-2. 마이페이지 지원현황 페이지 - 해당 초대장에 지원한 지원서 정보 가져오기 
+	   public MyPageDTO mypage_ApplyLook(String p_id, int i_num) {
+		   	  System.out.println("마이페이지 지원현황 - 해당 초대장에 지원한 지원서 정보 가져오는 매서드 실행됨!");   
+		      MyPageDTO dto = null;
+
+		      try {
+		         conn = com.DongGu.db.DongGuDB.getConn();
+		         String sql = "SELECT p.p_name,p.p_jumin, p.p_tel, p.p_addr, p.p_img, "
+		         		+ "NVL(p.p_ex_my, '없음') AS p_ex_my, NVL(p.p_ex_other, '없음') AS p_ex_other, "
+		         		+ "NVL(p.p_ex_etc, '없음') AS p_ex_etc, NVL(ap.ap_content, '없음') AS ap_content "
+		         		+ "FROM petsitter p JOIN application ap ON p.p_id = ap.p_id "
+		         		+ "WHERE p.p_id = ? and i_num = ? ";
+		         
+		         ps=conn.prepareStatement(sql);
+		         ps.setString(1, p_id);	    
+		         ps.setInt(2, i_num);
+		         
+		         rs = ps.executeQuery();
+		         while(rs.next()) {          
+		        	    String p_name = rs.getString("p_name");
+		                String p_jumin = rs.getString("p_jumin");	                
+		                String p_tel = rs.getString("p_tel");
+		                String p_addr = rs.getString("p_addr");
+		                String p_img = rs.getString("p_img");
+		                String p_ex_my = rs.getString("p_ex_my");
+		                String p_ex_other = rs.getString("p_ex_other");
+		                String p_ex_etc = rs.getString("p_ex_etc");
+		                String ap_content = rs.getString("ap_content");
+		                	                                 
+		                dto = new MyPageDTO(p_name,p_jumin,p_tel,p_addr,p_img,p_ex_my,p_ex_other,p_ex_etc,ap_content);
+		             }
+
+		         return dto;	         
+		         
+		      }catch(Exception e) {
+		         e.printStackTrace();
+		         return null;         
+		      }finally {
+		         try {
+		            if(rs!=null) rs.close();
+		            if(ps!=null) ps.close();
+		            if(conn!=null) conn.close();
+		         }catch (Exception e) {
+		            e.printStackTrace();
+		            
+		         }
+		      }
+		   }	
 	  ////////////////////지현////////////////////////
 	   // 마이페이지 고용자 (이름 생년월일 고용자평점 번호 주소 사진)
 	   public MyPageDTO mypage_memberDetailOwner(String m_sid) {     
@@ -1354,5 +2013,10 @@ public class MyPageDAO {
 	         }
 	      }
 	   }
-   
+
+	   
+	   
+	   
+	
+	   
 }
