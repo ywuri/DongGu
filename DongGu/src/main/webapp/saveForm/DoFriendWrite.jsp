@@ -37,6 +37,63 @@
 		</script>
 <%		
 	}
+	
+	
+	//지원할래요 수정
+	String btnValue = "지원하기";
+	int btnValue_int = 0;
+	
+	//마이페이지에서 지원서 수정하기 모드인 경우 ap_num 존재
+	String s_ap_num = request.getParameter("ap_num");
+	
+	//숫자형변환
+	int i_ap_num = 0;
+	if(s_ap_num == null || s_ap_num.equals("")){
+		s_ap_num="";
+		
+	}else {
+
+		i_ap_num = Integer.parseInt(s_ap_num);
+	}
+
+	
+
+	int i_num = 0;
+	int ap_num = 0;
+	int m_num = 0;
+	
+	String ap_title = "";
+	String p_id = "";
+	String ap_content = "";
+	
+	if(i_ap_num != 0){
+		
+
+		btnValue = "지원서 수정하기";
+		btnValue_int = 1;
+		
+		ArrayList<FriendDTO2> arr = fdao.doFriendData(i_ap_num);
+		//System.out.println(arr.size());
+		for (int i = 0; i < arr.size(); i++) {
+
+			i_num = arr.get(i).getI_num();
+			ap_num = arr.get(i).getAp_num();
+			m_num = arr.get(i).getM_num();
+
+			ap_title = arr.get(i).getAp_title();
+			p_id = arr.get(i).getP_id();
+			ap_content = arr.get(i).getAp_content();
+		}
+		
+	//}else {
+		%>
+		<script>
+			//window.alert('데이터가 존재하지 않습니다. 관리자에게 문의하세요.');
+	        //history.back(); // 이전 페이지로 돌아가기
+		</script>
+		<%
+		
+	}
 %>
 
 <script>
@@ -90,13 +147,26 @@
 		
 		<div class="saveTableOne">
 			<h3>지 원 할 래 요!</h3>
+			
+			<!-- ok파일에서 필요 -->
+			<input type="hidden" name="update_yn" id="update_yn"
+				value="<%=btnValue_int%>">
+			<!-- 수정모드인지 등록모드인지 파악하기 위함 -->
+			<input type="hidden" name="ap_nums" id="ap_nums" value="<%=i_ap_num%>">
+			<!-- 초대장의 기본키값 -->
+			
 			<table>
 				<tr>
-					<th>지원제목</th>
-					<td>
-						<input type="text" name="ap_title" id="ap_title" value="" class="saveWS250">
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="tac">
+						<input type="text" name="ap_title" id="ap_title" value="<%=ap_title %>" class="saveWS50p tac f16 fw500"
+						placeholder="지원 제목을 입력해주세요.">
 					</td>
 				</tr>
+			</table>
+			<table class="animalBox">
 				
 				<% 
 					if(s_id != null && !s_id.equals("") && usertype == 1){
@@ -120,58 +190,57 @@
 						
 				%>
 				<tr>
-					<th>성별</th>
-					<td>
-						<%=sGenderVal %>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="tac">
+						제 성별은 <%=sGenderVal %>이며 <%=sSmokeVal %>자 입니다.
+						<br>
+						저는 "<%=sAddr %>"에서 지내고 있습니다.
 					</td>
 				</tr>
 				<tr>
-					<th>흡연여부</th>
 					<td>
-						<%=sSmokeVal %>
+						<textarea class="saveWS100p saveHS100 read_ta" disabled>
+							< 반려경험입니다. >
+							<%=sMy %>
+						</textarea>
 					</td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td>
+					<td rowspan="3">
 						<img src='/DongGu/img/petsitter_profile/<%=sImg %>' class='writeImgSize'>
 					</td>
 				</tr>
 				<tr>
-					<th>주소</th>
 					<td>
-						<%=sAddr %>
+						
+						<textarea class="saveWS100p saveHS100 read_ta" disabled>
+						< 동구경험입니다. >
+						<%=sOther %>
+						</textarea>
 					</td>
 				</tr>
 				<tr>
-					<th>반려경험</th>
 					<td>
-						<textarea class="saveWS100p saveHS100" disabled><%=sMy %></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>동구경험</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" disabled><%=sOther %></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>기타경험</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" disabled><%=sEtc %></textarea>
+						<textarea class="saveWS100p saveHS100 read_ta" disabled>
+						< 기타경험입니다. >
+						<%=sEtc %>
+						</textarea>
 					</td>
 				</tr>
 				<%
 				    }
 				%>
+			</table>
+			<table class="">
 				<tr>
-					<th>추가내용</th>
-					<td>
-						<textarea class="saveWS100p saveHS100" name="ap_content" id="ap_content" placeholder="추가할 내용을 적어주세요."></textarea>
+					<td colspan="2">
+						<textarea class="saveWS95p saveHS100 write_ta" name="ap_content" id="ap_content" placeholder="추가할 내용을 적어주세요."><%=ap_content %></textarea>
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="" id="" value="지원하기" class="saveBtnOne">
+			<div class="saveWS100p tac">
+				<input type="submit" name="" id="" value="<%=btnValue %>" class="saveBtnOne">
+			</div>
 		</div>
 		
 	</form>	

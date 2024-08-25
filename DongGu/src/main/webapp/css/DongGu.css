@@ -540,6 +540,30 @@
 	cursor: pointer;
 }
 
+.saveTableOne table tr td textarea.read_ta {
+	border: 0px solid #FAF3D1;
+	border-radius: 30px;
+	background: #fff;
+	text-align: right;
+	padding: 10px;
+	resize: none;
+	background: #fff;
+	text-align: right;
+	padding: 10px;
+	color: darkorange;
+	font-size:16px;
+}
+
+.saveTableOne table tr td textarea.write_ta {
+	border: 0px solid #FAF3D1;
+	border-radius: 30px;
+	background: #FAF3D1;
+	padding: 20px;
+	resize: none;
+	color: darkorange;
+}
+
+
 
 .saveTableTwo {
 	width: 800px;
@@ -719,6 +743,33 @@
 	font-size: 17px;
 }
 
+.saveTableTwo table tr td textarea.write_ta {
+	border: 0px solid #FAF3D1;
+	border-radius: 30px;
+	background: #fff;
+	padding: 20px;
+	resize: none;
+	color: darkorange;
+}
+
+
+
+/* 이용후기 사진 선택 input 디자인 */
+.saveTableTwo input[type="file"] {
+    display: none;
+}
+
+.saveTableTwo .saveBtnTwo {
+	width: 200px;
+	height: 60px;
+	border: 2px solid #fdcb08;
+	border-radius: 10px;
+	background-color: #fdcb08;
+	color: white;
+	cursor: pointer;
+	font-size: 17px;
+}
+
 .animalBox {
 	box-shadow: 1px 1px 12px rgba(0, 0, 0, .07);
 }
@@ -758,29 +809,6 @@
 	border: 1px solid #fdcb08;
 	border-radius: 5px;
 	font-size: 12px;
-}
-
-.saveTableOne table tr td textarea.read_ta {
-	border: 0px solid #FAF3D1;
-	border-radius: 30px;
-	background: #fff;
-	text-align: right;
-	padding: 10px;
-	resize: none;
-	background: #fff;
-	text-align: right;
-	padding: 10px;
-	color: darkorange;
-	font-size:16px;
-}
-
-.saveTableOne table tr td textarea.write_ta {
-	border: 0px solid #FAF3D1;
-	border-radius: 30px;
-	background: #FAF3D1;
-	padding: 20px;
-	resize: none;
-	color: darkorange;
 }
 
 .margin_tbtype1 {
@@ -878,6 +906,19 @@
 	margin-left: -40px;
 	font-size: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* //	========== 임수아 끝 ============= // */
 	
@@ -2150,30 +2191,3 @@ width:180px;
 }
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-

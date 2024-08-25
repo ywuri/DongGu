@@ -4,7 +4,7 @@ package com.DongGu.friend;
 public class FriendDTO2 {
 
 	private int i_num;	//초대장번호
-	private String ap_num;	//지원번호
+	private int ap_num;	//지원번호
 	private String ap_title; 	//지원제목
 	
 	private int m_num; 	//매칭상태번호	
@@ -14,7 +14,7 @@ public class FriendDTO2 {
 	
 	public FriendDTO2() {}
 	
-	public FriendDTO2(int i_num, String ap_num, String ap_title, int m_num, String p_id, String ap_content) {
+	public FriendDTO2(int i_num, int ap_num, String ap_title, int m_num, String p_id, String ap_content) {
 		super();
 		this.i_num = i_num;
 		this.ap_num = ap_num;
@@ -33,11 +33,11 @@ public class FriendDTO2 {
 		this.i_num = i_num;
 	}
 
-	public String getAp_num() {
+	public int getAp_num() {
 		return ap_num;
 	}
 
-	public void setAp_num(String ap_num) {
+	public void setAp_num(int ap_num) {
 		this.ap_num = ap_num;
 	}
 

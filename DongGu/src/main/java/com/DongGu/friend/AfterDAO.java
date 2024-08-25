@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class AfterDAO {
 
 	private Connection conn;
-	private PreparedStatement ps;
+	private PreparedStatement ps, ps2;
 	private ResultSet rs;
 
 	public AfterDAO() {
@@ -19,7 +19,9 @@ public class AfterDAO {
 	public int AfterWrite(AfterDTO ato) {
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "insert into review values(PK_review.nextval, ?,?,?, ?,?,?)";
+			String sql = "insert into review values(seq_review_r_num.nextval, ?,?,?, ?,?,?, sysdate)";
+			
+			System.out.println(sql);
 
 			ps = conn.prepareStatement(sql);
 
@@ -31,7 +33,60 @@ public class AfterDAO {
 			ps.setString(5, ato.getR_content());
 			ps.setString(6, ato.getR_img_name());	//확장자명을 담은 파일명으로 저장
 
-			int count = ps.executeUpdate();
+			System.out.println(ato.getR_write_id());
+			System.out.println(ato.getR_id_check());
+			System.out.println(ato.getR_receive_id());
+			System.out.println(ato.getR_star());
+			System.out.println(ato.getR_content());
+			System.out.println(ato.getR_img_name());
+
+			int count1 = ps.executeUpdate();
+			
+			
+
+			String sql2 = "";
+
+			//고용자, 초대장 수정
+			if(ato.getR_id_check() == 0) {
+
+				sql2 = "update invitation set m_num =5 where i_num = ? ";
+				
+			//구직자, 지원할래요 수정
+			}else {
+				sql2 = "update application set m_num =5 where ap_num = ? ";
+			}
+			
+			System.out.println(sql2);
+
+			ps2 = conn.prepareStatement(sql2);
+			ps2.setInt(1, ato.getR_sun_i()); //세션값에 따른 초대장, 지원할래요 키값
+
+			int count2 = ps2.executeUpdate();
+			ps2.close();
+			
+			
+			int count = 0;
+			
+			//이용후기 저장 앤드 초대장or지원할래요 업데이트 된 경우는 count=1
+			if(count1 == 1 && count2 == 1) {
+				count = 1;
+				
+			//
+			}else {
+				//이용후기 저장만 된 경우는 count = 2
+				if(count1 == 1 && count2 == 0) {
+					count = 2;
+					
+				//초대장or지원할래요만 업데이트 된 경우는 count = 3
+				}else if(count1 == 0 && count2 == 1) {
+					count = 2;
+					
+				//둘다 안된경우 count=0
+				}else {
+					count = 0;
+				}
+			}
+			
 			return count;
 
 		} catch (Exception e) {

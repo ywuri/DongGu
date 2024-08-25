@@ -105,6 +105,136 @@ public class CafeDAO {
 		}
 	}
 	
+	/** 동구의 추천 리스트 (지역검색) */
+	public ArrayList<CafeDTO> cafeListArea(int cp, int ls, int area) {
+		
+		System.out.println(area);
+		
+		String sql = "";
+		int start = 0;
+		int end = 0;
+		String s_area = "";
+		
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			
+			start=(cp-1)*ls+1;
+			end=cp*ls;
+			sql = " select * from "
+							+ " ( "
+							+ "    select rownum as rnum, a.* "
+							+ "    from (select * from cafe where c_addr like ? order by c_num desc)a "
+							+ " )b "
+							+ " where rnum >= ? and rnum <= ? ";
+			
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			
+			if(area == 1) {
+				ps.setString(1, "%서울%");
+				s_area = "서울";
+				
+			}else if(area == 2) {
+				ps.setString(1, "%경기%");
+				s_area = "경기";
+				
+			}else if(area == 3) {
+				ps.setString(1, "%인천%");
+				s_area = "인천";
+				
+			}
+			
+			rs=ps.executeQuery();
+			
+			ArrayList<CafeDTO> arr = new ArrayList<CafeDTO>();
+			int c_num = 0;
+			String c_name = "";
+			while(rs.next()) {
+				c_num = rs.getInt("c_num");
+				c_name = rs.getString("c_name");
+				String c_img = rs.getString("c_img");
+				String c_addr = rs.getString("c_addr");
+				String c_time = rs.getString("c_time");
+				String c_url = rs.getString("c_url");
+				String c_info = rs.getString("c_info");
+				String c_vtag = rs.getString("c_vtag");
+				String c_ltag = rs.getString("c_ltag");
+				
+				//int readnum = rs.getInt("readnum");
+				//int ref = rs.getInt("ref");
+				//int lev = rs.getInt("lev");
+				//int sunbun = rs.getInt("sunbun");
+				
+				CafeDTO dto = new CafeDTO(c_num, c_name, c_img, c_addr, c_time, c_url, c_info, c_vtag, c_ltag);
+				
+				arr.add(dto);
+			}
+			
+			System.out.println(sql);
+			System.out.println(start+"//"+end+"//"+s_area);
+			return arr;
+			//return sql+area;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			
+		}finally {
+			try {
+				
+				if(rs!=null)rs.close();
+				if(ps!=null)ps.close();
+				if(conn!=null)conn.close();
+				
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
+
+	
+	/** 동구의 추천 총 게시글 수 (지역검색) */
+	public int cafeTotalCntArea(int area) {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select count(*) from cafe where c_addr like ? ";
+
+			ps = conn.prepareStatement(sql);
+			
+			if(area == 1) {
+				ps.setString(1, "%서울%");
+				
+			}else if(area == 2) {
+				ps.setString(1, "%경기%");
+				
+			}else if(area == 3) {
+				ps.setString(1, "%인천%");
+				
+			}
+			
+			rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			return count==0?1:count;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+			
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(ps!=null)ps.close();
+				if(conn!=null)conn.close();
+				
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
+	
 
 	/** 동구의 추천 리스트 > 상세 */
 	public ArrayList<CafeDTO> cafeData(int idx){
