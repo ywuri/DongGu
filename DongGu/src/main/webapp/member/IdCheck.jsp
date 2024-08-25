@@ -21,7 +21,7 @@ function idCheck() {
         idText.style.color = 'red';
         submitButton.disabled = true;
     } else if (idWordRegex.test(idCheckValue)) {
-        idText.innerHTML = '올바른 아이디 구성입니다.';
+        idText.innerHTML = '<br>올바른 아이디 구성입니다.';
         idText.style.color = 'green';
         submitButton.disabled = false;
     } else {
@@ -40,9 +40,9 @@ function sendValidIdToParent() {
 }
 </script>
 </head>
-<body>
+<body style="background: #fffae5;">
 <form name="zipform" action="javascript:sendValidIdToParent();">
-    <fieldset>
+    <fieldset style="border:none; text-align:center;">
         <h2>ID 중복검사</h2>
         <label>ID</label>
         <input type="text" name="o_id" id="o_id" value="" required="required" onkeyup="idCheck()">

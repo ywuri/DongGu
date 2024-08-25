@@ -39,9 +39,9 @@ function sendValidNicknameToParent() {
 }
 </script>
 </head>
-<body>
+<body style="background: #fffae5;">
 <form name="zipform" action="javascript:sendValidNicknameToParent();">
-    <fieldset>
+    <fieldset style="border:none; text-align:center;">
         <h2>닉네임 중복검사</h2>
         <label>닉네임</label>
         <input type="text" name="o_nickname" id="o_nickname" required="required" onkeyup="NicknameCheck()">

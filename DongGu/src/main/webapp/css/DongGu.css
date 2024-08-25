@@ -169,7 +169,11 @@
 	    color: #fdcb08;
 	}
 	.main .main_bt {
-	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; margin-top: 100px; 
+	    cursor: pointer; max-width: 130px; height: 60px; width: 130px; height: 60px; 
+	    border-radius: 10px; background: #fdcb08; transition: 0.7s;  margin-top: 100px; transition: 0.7s; 
+	}
+	.main .main_bt a {
+	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; 
 	    border-radius: 10px; background: #fdcb08; transition: 0.7s; 
 	}
 	.main .main_bt p {
@@ -179,7 +183,7 @@
 	    padding: 0 0 0 10px;
 	}
 	
-	.main .main_bt:hover {
+	.main .main_bt:hover a {
 	    background: #333; transition: 0.7s; 
 	}
 	/* --- index > count --- */
@@ -270,28 +274,32 @@
 	    color: #d2d2d2;
 	}
 	.rivew .rivew_bt {
+	    max-width: 130px; height: 60px; 
+	    margin-top: 100px; margin: 0 auto; margin-top: 100px; border-radius: 10px; /*color: #595858; border: 1px solid #595858;*/
+	}
+	.rivew .rivew_bt a {
 	    display: flex; cursor: pointer; align-items: center; justify-content: center; width: 130px; height: 60px; 
-	    margin-top: 100px; margin: 0 auto; margin-top: 100px; border-radius: 10px; color: #595858; border: 1px solid #595858;
+	    margin: 0 auto; margin-top: 100px; border-radius: 10px; color: #595858; border: 1px solid #595858;
 	}
 	.rivew .rivew_bt img {
 	    padding: 0 0 0 10px;  transition: opacity 0.5s ease; /* 트랜지션 효과 */ 
 	}
 
 	/* 기본 이미지 */
-	.rivew .rivew_bt img.hover {
+	.rivew .rivew_bt a img.hover {
 	    display: none; transition: 0.5s;   opacity: 0; /* 기본 상태에서 숨김 */
 	}
 	
 	/* 호버 시 이미지 교체 */
-	.rivew .rivew_bt:hover img.normal {
+	.rivew .rivew_bt:hover a img.normal {
 	    display: none;  transition: 0.5s;     opacity: 0; /* 호버 시 원래 이미지 숨기기 */
 	}
 	
-	.rivew .rivew_bt:hover img.hover {
+	.rivew .rivew_bt:hover a img.hover {
 	    display: inline-block; transition: 0.5s;   opacity: 1; /* 호버 시 보이도록 설정 */
 	}
 	
-	.rivew .rivew_bt:hover {
+	.rivew .rivew_bt:hover a{
 	    color: #fff; border: 1px solid #fdcb08; background: #fdcb08; transition: 0.5s; 
 	}
 	

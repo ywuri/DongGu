@@ -5,7 +5,7 @@
 <jsp:useBean id="rdao" class="com.DongGu.review.ReviewDAO"></jsp:useBean>
 <%!
     String uploadPath = "/DongGu/";  // 실제 프로젝트의 경로로 수정해야 함
-    String savepath = uploadPath + "img/animal/";
+    String savepath = uploadPath + "img/webFolder/upload/";
     
     // 별점 이미지
     String getStarImage(int r_star) {
@@ -25,75 +25,20 @@
         }
     }
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이용후기</title>
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 <style>
-	.rivew {
-		padding-top:200px;
-	}
-	.rivew .box {
-	    flex-direction: column;
-	}
-	.rivew .rivew_cont ul li {
-	    width: 48%;
-	}
-	.rivew .left_box {
-	    width: 100% !important;
-	    height: 200px !important;
-	    overflow: hidden;
-	}
-	.rivew .left_box img {
-	    width: 100%;
-	}
+    .rivew { padding-top: 200px; }
+    .rivew .box { flex-direction: column; }
+    .rivew .rivew_cont ul li { width: 48%; }
+    .rivew .left_box { width: 100% !important; height: 200px !important; }
 </style>
 </head>
-<%
-
-	String cp_s = request.getParameter("cp");//현재 페이지 
-	if(cp_s==null || cp_s.equals("")) cp_s="1";
-	int cp = Integer.parseInt(cp_s);
-
-	int listSize = 2; // 한 페이지에 표시할 게시물 수
-	int pageSize = 5; // 페이지 버튼을 그룹으로 묶을 수 (예: 1~5 페이지 버튼).
-	
-	int rIdCheck = 0; // 기본값으로 DongGu 탭을 설정
-
-	//리스트갖고오기
-	//ArrayList<ReviewDTO> array = new ArrayList<>();
-	//array = rdao.getReviewList(cp,listSize,rIdCheck);
-	
-	List<ReviewDTO> oreview = rdao.getReviewList(cp, listSize, 0); // rIdCheck = 0 (DongGu)
-	List<ReviewDTO> preview = rdao.getReviewList(cp, listSize, 1); // rIdCheck = 1 (Other)
-	
-	
-	//int totalCnt=rdao.getReviewCnt(); // 총 게시물 수	
-	int totalCnt_ore = rdao.getReviewCnt(0);
-	//System.out.println("totalCnt_ore ="+totalCnt_ore);
-	int totalCnt_pre = rdao.getReviewCnt(1);
-	//System.out.println("totalCnt_pre ="+totalCnt_pre);
-	
-	
-	//int totalPage = totalCnt%listSize==0 ? (totalCnt/listSize):(totalCnt/listSize)+1;//총 페이지수
-	int totalPage_ore = totalCnt_ore%listSize==0 ? (totalCnt_ore/listSize):(totalCnt_ore/listSize)+1;//총 페이지수
-	int totalPage_pre = totalCnt_pre%listSize==0 ? (totalCnt_pre/listSize):(totalCnt_pre/listSize)+1;//총 페이지수
-
-	//사용자 현재 위치 그룹(3이면 1쪽)
-	//int userGroup = (cp/pageSize)+1;
-	//if(cp%pageSize==0)  userGroup = userGroup-1;
-	
-	int userGroup_ore = (cp/pageSize)+1;
-	if(cp%pageSize==0)  userGroup_ore = userGroup_ore-1;
-	
-	int userGroup_pre = (cp/pageSize)+1;
-	if(cp%pageSize==0)  userGroup_pre = userGroup_pre-1;
-
-	
-	
-%>
 <body>
 <%@include file="/SubHeader.jsp" %>
 
@@ -102,24 +47,63 @@
     <div class="radio-checked">
         <div class="radio-checked_highlight"></div>
         <div class="radio-checked_container">
-            <input checked="checked" class="radio-checked_input" id="on" name="status" type="radio" value="on" /> 
-            <label class="radio-checked_label radio-checked_label--on" onclick="Tabbutton(1)" for="on">DongGu</label> 
-            <input class="radio-checked_input" id="off" name="status" type="radio" value="off" />
-            <label class="radio-checked_label radio-checked_label--off" onclick="Tabbutton(2)" for="off">Other</label>
+            <input checked="checked" class="radio-checked_input" id="on" name="status" type="radio" value="on"
+                   onclick="switchTab(1)" /> 
+            <label class="radio-checked_label radio-checked_label--on" for="on">DongGu</label> 
+            <input class="radio-checked_input" id="off" name="status" type="radio" value="off"
+                   onclick="switchTab(2)" />
+            <label class="radio-checked_label radio-checked_label--off" for="off">Other</label>
         </div>
     </div>
+    
     <script language="javascript">
-        function Tabbutton(index) {
-            document.getElementById('Tabid1').style.display = index === 1 ? '' : 'none';
-            document.getElementById('Tabid2').style.display = index === 2 ? '' : 'none';
-            
-            document.getElementById('tabdiv1').style.display = index === 1 ? '' : 'none';
-            document.getElementById('tabdiv2').style.display = index === 2 ? '' : 'none';
+    function switchTab(index) {
+        document.getElementById("selectedTab").value = index;  // 선택된 탭 상태를 저장
+        localStorage.setItem('selectedTab', index); // localStorage에 탭 상태 저장
+        for (let i = 1; i <= 2; i++) {
+            const thisMenu = document.getElementById("Tabid" + i).style;
+            thisMenu.display = (i === index) ? "" : "none";
         }
-    </script>
-    <div id='Tabid1' class="rivew_cont">
+
+        // 하이라이트 위치를 설정
+        const highlight = document.querySelector('.radio-checked_highlight');
+        if (index === 1) {
+            highlight.style.left = '0px';
+        } else if (index === 2) {
+            highlight.style.left = '120px';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // localStorage에서 선택된 탭 값을 가져옴
+        const selectedTab = localStorage.getItem('selectedTab') || "1"; 
+        document.getElementById("selectedTab").value = selectedTab;
+        switchTab(parseInt(selectedTab));
+
+        // 무한 스크롤 구현
+        window.onscroll = function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                const form = document.getElementById('nextPageForm');
+                form.cp.value = parseInt(form.cp.value) + 1; // 현재 페이지를 1 증가
+                form.selectedTab.value = selectedTab; // 선택된 탭을 전송
+                form.submit(); // 폼 전송
+            }
+        };
+    });
+</script>
+
+
+
+
+	
+    <div id="Tabid1" class="rivew_cont">
         <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
             <%
+                String cp_s = request.getParameter("cp");
+                if (cp_s == null || cp_s.equals("")) cp_s = "1";
+                int cp = Integer.parseInt(cp_s);
+
+                List<ReviewDTO> oreview = rdao.AfterList(0);
                 if (oreview != null && !oreview.isEmpty()) {
                     for (ReviewDTO dto : oreview) {
             %>
@@ -127,7 +111,7 @@
                 <a href="/DongGu/afterForm/AfterView.jsp?r_num=<%= dto.getR_num() %>">
                     <div class="box">
                         <div class="left_box">
-                            <img src="/DongGu/img/<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img())) &&("").equals(dto.getR_img().trim()) ? dto.getR_img() : "/DongGu/img/default.png" %>" alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
+                            <img src="/DongGu/img/<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img())) &&!("").equals(dto.getR_img().trim()) ? dto.getR_img() : "default.png" %>" alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
                         </div> 
                         <div class="right_box">
                             <div class="rb_title">
@@ -150,9 +134,10 @@
         </ul>
     </div>
 
-    <div id='Tabid2' class="rivew_cont" style="display:none;">
+    <div id="Tabid2" class="rivew_cont" style="display:none;">
         <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
             <%
+                List<ReviewDTO> preview = rdao.AfterList(1);
                 if (preview != null && !preview.isEmpty()) {
                     for (ReviewDTO dto : preview) {
             %>
@@ -165,7 +150,7 @@
                         <div class="right_box">
                             <div class="rb_title">
                                 <span class="best">Best</span>
-                                <span class="addr"><%= dto.getNickname() %>[구직자]</span>
+                                <span class="addr"><%= dto.getNickname() %>[동구]</span>
                                 <span class="date"><%= dto.getR_date() %></span>
                             </div>
                             <img src="<%= getStarImage(dto.getR_star()) %>" alt="별점">
@@ -182,89 +167,16 @@
             %>
         </ul>
     </div>
-    
-    
-	<div id="tabdiv1" style="text-align: center;">
-    <%
-        if(totalCnt_ore != 0){
-            if(userGroup_ore > 1 ){
-    %>
-                <input class="FreeBoardButton" type="button" value="이전"  
-                onclick="location.href='/DongGu/afterForm/AfterList.jsp?cp=<%=(userGroup_ore-1)*pageSize %>';">
-    <%
-            }
-            for(int i=(userGroup_ore-1)*pageSize+1; i<=(userGroup_ore-1)*pageSize+pageSize; i++){
-                if(cp == i){
-    %>
-                &nbsp;&nbsp;<a href="/DongGu/afterForm/AfterList.jsp?cp=<%=i %>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
-    <%
-                } else {
-    %>
-                &nbsp;&nbsp;<a href="/DongGu/afterForm/AfterList.jsp?cp=<%=i %>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
-    <%
-                }
-                if(i == totalPage_ore) break;
-            }
-    %>
-    <%
-            if(userGroup_ore != totalPage_ore/pageSize+(totalPage_ore%pageSize==0?0:1)){
-    %>
-                <input class="FreeBoardButton" type="button" value="다음"  
-                onclick="location.href='/DongGu/afterForm/AfterList.jsp?cp=<%= (userGroup_ore+1)*pageSize- (pageSize-1)%>';">
-    <%
-            }
-        }
-    %>
-    </div>
-    
-    <div id="tabdiv2" style="text-align: center; display:none;">
-    <%
-        if(totalCnt_pre != 0){
-            if(userGroup_pre > 1 ){
-    %>
-                <input class="FreeBoardButton" type="button" value="이전"  
-                onclick="location.href='/DongGu/afterForm/AfterList.jsp?cp=<%=(userGroup_pre-1)*pageSize %>';">
-    <%
-            }
-            for(int i=(userGroup_pre-1)*pageSize+1; i<=(userGroup_pre-1)*pageSize+pageSize; i++){
-                if(cp == i){
-    %>
-                &nbsp;&nbsp;<a href="/DongGu/afterForm/AfterList.jsp?cp=<%=i %>" class="FreeBoardPageNum" style="color:red;"><%=i %></a>&nbsp;&nbsp;
-    <%
-                } else {
-    %>
-                &nbsp;&nbsp;<a href="/DongGu/afterForm/AfterList.jsp?cp=<%=i %>" class="FreeBoardPageNum"><%=i %></a>&nbsp;&nbsp;
-    <%
-                }
-                if(i == totalPage_pre) break;
-            }
-    %>
-    <%
-            if(userGroup_pre != totalPage_pre/pageSize+(totalPage_pre%pageSize==0?0:1)){
-    %>
-                <input class="FreeBoardButton" type="button" value="다음"  
-                onclick="location.href='/DongGu/afterForm/AfterList.jsp?cp=<%= (userGroup_pre+1)*pageSize- (pageSize-1)%>';">
-    <%
-            }
-        }
-    %>
-    </div>
+
+    <form id="nextPageForm" method="get" action="AfterList.jsp">
+    	<input type="hidden" name="cp" value="<%= cp %>"> <!-- 기본 페이지 값 설정 -->
+    	<input type="hidden" id="selectedTab" name="selectedTab" value="<%= request.getParameter("selectedTab") != null ? request.getParameter("selectedTab") : "1" %>"> <!-- 탭 상태 유지 -->
+	</form>
+
+
+
 </section>
 
 <%@include file="../Footer.jsp" %>
-<script>
-  const radioInputs = document.querySelectorAll('.radio-checked_input');
-  const highlight = document.querySelector('.radio-checked_highlight');
-
-  radioInputs.forEach(input => {
-    input.addEventListener('change', (event) => {
-      if (event.target.id === 'on') {
-        document.documentElement.style.setProperty('--highlight-left', '0px');
-      } else if (event.target.id === 'off') {
-        document.documentElement.style.setProperty('--highlight-left', '120px');
-      }
-    });
-  });
-</script>
 </body>
 </html>

@@ -12,13 +12,13 @@
 <link rel="stylesheet" type="text/css" href="/DongGu/css/DongGu.css">
 
 <script>
-   function id_duplicateCheck(){
-      window.open('DidCheck.jsp','DidCheck','width=450,height=300');
+  /*  function id_duplicateCheck(){
+      window.open('DidCheck.jsp','DidCheck','width=450,height=150');
    }
    
    function nick_duplicateCheck(){
-      window.open('DnickName.jsp','DnickName','width=450,height=300');
-   }
+      window.open('DnickName.jsp','DnickName','width=450,height=150');
+   } */
    
    function pwCheck(){
       //var pwCheckText = "유효성검사";
@@ -237,7 +237,7 @@ function deleteFile() {
 //아이디 중복 검사 창을 열고, 중복 검사 후 아이디를 설정
 function id_duplicateCheck() {
     // 중복 검사 창을 열고, 검사 후 아이디가 설정되면 idCheck 호출
-    window.open('DidCheck.jsp','DidCheck','width=450,height=300');
+    window.open('DidCheck.jsp','DidCheck','width=450,height=150');
 
     // 새 창이 닫힌 후 idCheck 함수 호출 (간단한 방법으로는 타이머를 이용)
     setTimeout(function() {
@@ -245,7 +245,7 @@ function id_duplicateCheck() {
     }, 500);  // 0.5초 후에 실행 (필요에 따라 조정 가능)
 }
 function nick_duplicateCheck(){
-   window.open('DnickName.jsp','DnickName','width=450,height=300');
+   window.open('DnickName.jsp','DnickName','width=450,height=150');
 }
 
 //아이디 비어있는지 확인하는 유효성 검사

@@ -41,9 +41,9 @@ function sendValidIdToParent() {
 
 </script>
 </head>
-<body>
+<body  style="background: #fffae5;">
 <form name="zipform" action="DidCheck_ok.jsp">
-	<fieldset>
+	<fieldset style="border:none; text-align:center;">
 		<h2>ID 중복검사</h2>
 		<label>ID</label>
 		<input type="text" name="p_id" id="p_id" required="required" onkeyup="idCheck()">

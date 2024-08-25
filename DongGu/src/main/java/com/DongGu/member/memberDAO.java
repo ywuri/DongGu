@@ -1,6 +1,8 @@
 package com.DongGu.member;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.naming.*;
 import javax.servlet.http.HttpSession;
 import javax.sql.*;
@@ -385,8 +387,102 @@ public class memberDAO {
     }
 
 
+    /** ID 찾기 관련 메서드 */
+    public String IdSearch(String name, String tel) {
+        String id = null;
+
+        try {
+            conn = com.DongGu.db.DongGuDB.getConn();
+
+            // owner 테이블에서 검색
+            String sql = "SELECT o_id FROM owner WHERE o_name = ? AND o_tel = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, tel);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getString("o_id");
+                return id; // owner 테이블에서 찾으면 반환
+            }
+
+            rs.close();
+            ps.close();
+
+            // petsitter 테이블에서 검색
+            sql = "SELECT p_id FROM petsitter WHERE p_name = ? AND p_tel = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, tel);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getString("p_id");
+                return id; // petsitter 테이블에서 찾으면 반환
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+        }
+        return null; // ID를 찾지 못한 경우 null 반환
+    }
+    
+    /** PW 찾기 관련 메서드 */
+    public String PwSearch(String id, String answer) {
+        String pw = null;
+
+        try {
+            conn = com.DongGu.db.DongGuDB.getConn();
+
+            // owner 테이블에서 검색
+            String sql = "SELECT o_pwd FROM owner WHERE o_id = ? AND q_answer = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setString(2, answer);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+            	pw = rs.getString("o_pwd");
+                return pw; // owner 테이블에서 찾으면 반환
+            }
+
+            rs.close();
+            ps.close();
+
+            // petsitter 테이블에서 검색
+            sql = "SELECT p_pwd FROM petsitter WHERE p_id = ? AND p_answer = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setString(2, answer);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getString("p_pwd");
+                return id; // petsitter 테이블에서 찾으면 반환
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+        }
+        return null; // ID를 찾지 못한 경우 null 반환
+    }
     
     
+
 	
 	//	========== 고유리 끝 ============= //
 	
