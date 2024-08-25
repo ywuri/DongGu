@@ -101,8 +101,7 @@ animalName = fdao.animalName(s_id, 0);
         data_ani_name.textContent = val_ani_name;
         data_anitype_name.textContent = "("+val_anitype_name+")";
 
-        data_ani_img.innerHTML = "<img src='/DongGu/img/animal/"+val_img+"' class='writeImgSize'>";
-        data_ani_birth.textContent = val_birth;
+        data_ani_img.innerHTML = "<img src='/DongGu/img/animal/"+val_img+"' class='writeImgSize'>";        data_ani_birth.textContent = val_birth;
 
         data_ani_alerg.textContent = val_aler;
         if(val_aler == "null" || val_aler == "" ){

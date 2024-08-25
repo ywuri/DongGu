@@ -191,7 +191,7 @@ console.log(i_num, actionValue);
 var i_num = '<%= i_num %>';
 var ap_num = '<%= ap_num %>';
 var actionValue = '<%= actionValue %>';
-location.href = '/DongGu/mypage/MyPage_InviteList.jsp?i_num='+encodeURIComponent(i_num)+'&btn=0';
+location.href = '/DongGu/mypage/MyPage_InviteList.jsp?i_num='+encodeURIComponent(i_num)+'&btn=0&type=0';
 </script>
 <%
       break;

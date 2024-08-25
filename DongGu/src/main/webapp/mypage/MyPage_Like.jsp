@@ -215,10 +215,10 @@ function Removeheart(element) {
                     if (jumin != null && jumin.length() > 7) {
                         String secondBlock = jumin.split("-")[1].substring(0, 1); // 주민번호의 두 번째 블록의 첫 번째 문자
 
-                        if ("1".equals(secondBlock)) {
+                        if ("1".equals(secondBlock)|| "3".equals(secondBlock)) {
                             int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
                             imageSrc = "/DongGu/img/random1_" + randomIndex + ".png";
-                        } else if ("2".equals(secondBlock)) {
+                        } else if ("2".equals(secondBlock) || "4".equals(secondBlock)) {
                             int randomIndex = (int) (Math.random() * 5) + 1; // 1 ~ 5 사이의 랜덤 숫자
                             imageSrc = "/DongGu/img/random2_" + randomIndex + ".png";
                         }
@@ -286,7 +286,7 @@ function Removeheart(element) {
 	                <a href="#" onclick="Removeheart(this);" data-form-id="<%= i %>" data-value="<%= dto.getW_num() %>">
                             <img class="jyl_likeimg_heart" alt="likelist1" src="/DongGu/img/yel13.png">
                     </a>	                
-                    <img class="jyl_likepetsitterimg" alt="likelist1" src="/DongGu/img/<%= dto.getP_img()%>">
+                    <img class="jyl_likepetsitterimg" alt="likelist1" src="/DongGu/img/petsitter_profile/<%= dto.getP_img()%>">
 	            </div>
 	            <div class="jyl_like_list1_info_20">
 	                <ul>
@@ -397,7 +397,7 @@ function Removeheart(element) {
                           if(dto.getF_img()!=null){
                           %>
                         	<div class="jyl_freelikeimg_margin">				                
-				                <img class="jyl_freelikeimg" alt="likelist1" src="/DongGu/img/<%= dto.getF_img() %>">
+				                <img class="jyl_freelikeimg" alt="likelist1" src="/DongGu/img/free/<%= dto.getF_img() %>">
 				            </div>     
 				          <%
                           }
