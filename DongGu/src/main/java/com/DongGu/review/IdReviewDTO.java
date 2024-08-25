@@ -20,6 +20,11 @@ public class IdReviewDTO {
 	   
 	   private String ai_name;   // 동물 이름
 	   private int ai_birth;       // 동물 나이
+	   
+	   // 새로 추가된 필드들
+	    private int usertype;  // 사용자 타입 (0: 고용자, 1: 구직자)
+	    private String o_id;   // 고용자 ID
+	    private String p_id;   // 구직자 ID
 
 	   
 	    public IdReviewDTO() {
@@ -58,8 +63,30 @@ public class IdReviewDTO {
 		 this.ai_name = ai_name;
 		 this.ai_birth = ai_birth;
 		}
+	
+	
+	public IdReviewDTO(int r_num, String r_write_id, int r_id_check, int r_star, String r_content, String r_img,
+			String r_img_name, Date r_date, String nickname, String ai_name, int ai_birth, int usertype, String o_id,
+			String p_id) {
+		super();
+		this.r_num = r_num;
+		this.r_write_id = r_write_id;
+		this.r_id_check = r_id_check;
+		this.r_star = r_star;
+		this.r_content = r_content;
+		this.r_img = r_img;
+		this.r_img_name = r_img_name;
+		this.r_date = r_date;
+		this.nickname = nickname;
+		this.ai_name = ai_name;
+		this.ai_birth = ai_birth;
+		this.usertype = usertype;
+		this.o_id = o_id;
+		this.p_id = p_id;
+	}
 
-	   public java.sql.Date getR_date() {
+
+	public java.sql.Date getR_date() {
 	      return r_date;
 	   }
 	   
@@ -153,6 +180,36 @@ public class IdReviewDTO {
 
 		public void setAi_birth(int ai_birth) {
 			this.ai_birth = ai_birth;
+		}
+
+
+		public int getUsertype() {
+			return usertype;
+		}
+
+
+		public void setUsertype(int usertype) {
+			this.usertype = usertype;
+		}
+
+
+		public String getO_id() {
+			return o_id;
+		}
+
+
+		public void setO_id(String o_id) {
+			this.o_id = o_id;
+		}
+
+
+		public String getP_id() {
+			return p_id;
+		}
+
+
+		public void setP_id(String p_id) {
+			this.p_id = p_id;
 		}
 
 		

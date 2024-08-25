@@ -46,22 +46,24 @@
 
     IdReviewDTO review = null;
     DongguReviewDTO dongguReview = null;
+    String p_id = null;
+
     try {
-        review = rdao.getReviewByNum(reviewNum); // int로 변환된 값을 전달
-        dongguReview = ddao.getReviewByNum(reviewNum); // int로 변환된 값을 전달
+        review = rdao.getReviewByNum(reviewNum);
+        dongguReview = ddao.getReviewByNum(reviewNum);
+
+        if (dongguReview != null && dongguReview.getP_nickname() != null) {
+            p_id = rdao.getP_id(dongguReview.getP_nickname());  // p_nickname으로 p_id 가져오기
+        }
     } catch (Exception e) {
-        // 예외 내용을 출력
         e.printStackTrace();
     }
 
     if (review == null) {
         out.println("해당 리뷰를 찾을 수 없습니다.");
     } else {
-        // 이미지 경로가 null이거나 비어 있거나 "null"이라는 문자열인 경우 기본 이미지를 사용
         String imageUrl = (review.getR_img() != null && !review.getR_img().trim().equals("") && !"null".equalsIgnoreCase(review.getR_img())) ? review.getR_img() : "default.png";
-
-        String profileImageUrl = (dongguReview.getP_img() != null && dongguReview.getP_img().trim().equals("") && !"null".equalsIgnoreCase(dongguReview.getP_img())) ? dongguReview.getP_img() : "profile1.png";
-
+        String profileImageUrl = (dongguReview != null && dongguReview.getP_img() != null && !dongguReview.getP_img().trim().equals("") && !"null".equalsIgnoreCase(dongguReview.getP_img())) ? dongguReview.getP_img() : "profile1.png";
 %>
 <!DOCTYPE html>
 <html>
@@ -74,7 +76,6 @@
 <%@include file="/SubHeader.jsp" %>
 
 <section class="view_after">
-
    <div>
       <div class="after_box">
          <div class="animal_after">
@@ -97,17 +98,20 @@
 						<p class="donggu_info_p">담당 동구 정보<img src="/DongGu/img/magnifier.png"></p>
 						
 						<div class="info_box_detail">
-							<div>
-								<p style="text-align: right; margin-bottom: 10px; font-size: 20px; color: #333333; font-weight: 600; letter-spacing: -0.2px; line-height: 25px;"><%= dongguReview != null ? dongguReview.getP_nickname() : "알 수 없음" %></p>
-								<div style="display: flex; flex-direction: row; align-items: flex-end; gap: 10px;">
-									<p><a href="DongGu/member/MemberDetail.jsp"><%= dongguReview != null ? dongguReview.getG_name() + " 등급" : "등급 알 수 없음" %></a></p> | 
-									<p><%= dongguReview != null ? dongguReview.getAvg_star() : "N/A" %></p> | 
-									<p>후기 <%= dongguReview != null ? dongguReview.getReview_count() : "알 수 없음" %>개</p>
-								</div>
-							</div>
+						    <div>
+						        <p style="text-align: right; margin-bottom: 10px; font-size: 20px; color: #333333; font-weight: 600; letter-spacing: -0.2px; line-height: 25px;">
+						            <a href="/DongGu/member/MemberDetail.jsp?p_id=<%= p_id %>&usertype=1">
+						                <%= dongguReview != null ? dongguReview.getP_nickname() : "알 수 없음" %>
+						            </a>
+						        </p>
+						        <div style="display: flex; flex-direction: row; align-items: flex-end; gap: 10px;">
+						            <p><%= dongguReview != null ? dongguReview.getG_name() + " 등급" : "등급 알 수 없음" %></p> | 
+						            <p><%= dongguReview != null ? dongguReview.getAvg_star() : "N/A" %></p> | 
+						            <p>후기 <%= dongguReview != null ? dongguReview.getReview_count() : "알 수 없음" %>개</p>
+						        </div>
+						    </div>
 
-								<img src="/DongGu/img/petsitter_profile/<%= profileImageUrl %>" alt="프로필 이미지" onerror="this.onerror=null; this.src='/DongGu/img/petsitter_profile/profile1.png';"> <!-- DB에서 가져온 프로필 이미지 -->
-
+						    <img src="/DongGu/img/petsitter_profile/<%= profileImageUrl %>" alt="프로필 이미지" onerror="this.onerror=null; this.src='/DongGu/img/petsitter_profile/profile1.png';"> <!-- DB에서 가져온 프로필 이미지 -->
 						</div>
 					</div>
 				</div>
@@ -121,3 +125,4 @@
 <%
     }
 %>
+
