@@ -10,6 +10,8 @@ public class FreeBoardDTO {
 	private int f_vcnt;/* 조회수 */
 	private String f_img; /* 사진 이름 */
 	
+	private int g_num; /*등급번호*/
+	
 
 	
 	public FreeBoardDTO() {}
@@ -78,6 +80,25 @@ public class FreeBoardDTO {
 		this.f_date = f_date;
 		this.f_vcnt = f_vcnt;
 		this.f_img = f_img;
+	}
+
+	
+	
+	
+
+
+	public FreeBoardDTO(int f_num, String f_id, String f_nickname, String f_title, String f_content, String f_date,
+			int f_vcnt, String f_img, int g_num) {
+		super();
+		this.f_num = f_num;
+		this.f_id = f_id;
+		this.f_nickname = f_nickname;
+		this.f_title = f_title;
+		this.f_content = f_content;
+		this.f_date = f_date;
+		this.f_vcnt = f_vcnt;
+		this.f_img = f_img;
+		this.g_num = g_num;
 	}
 
 
@@ -174,6 +195,18 @@ public class FreeBoardDTO {
 
 	public void setF_img(String f_img) {
 		this.f_img = f_img;
+	}
+
+
+
+	public int getG_num() {
+		return g_num;
+	}
+
+
+
+	public void setG_num(int g_num) {
+		this.g_num = g_num;
 	}
 
 
