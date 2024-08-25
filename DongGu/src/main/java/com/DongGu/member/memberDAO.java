@@ -111,7 +111,7 @@ public class memberDAO {
 	        conn = com.DongGu.db.DongGuDB.getConn();
 
 	        // p_nickname이 petsitter 또는 owner 테이블에 있는지 확인
-	        if (mdto.getP_nickname() != null && !mdto.getP_nickname().trim().isEmpty()) {
+	        if (mdto.getP_nickname() != null && !mdto.getP_nickname().trim().isEmpty()&&!("").equals(mdto.getP_nickname().trim())) {
 	            String sql1 = "SELECT 1 FROM petsitter WHERE p_nickname = ? UNION SELECT 1 FROM owner WHERE o_nickname = ?";
 	            try (PreparedStatement ps1 = conn.prepareStatement(sql1)) {
 	                ps1.setString(1, mdto.getP_nickname());
@@ -125,7 +125,7 @@ public class memberDAO {
 	        }
 
 	        // o_nickname이 owner 또는 petsitter 테이블에 있는지 확인
-	        if (isUnique && odto.getO_nickname() != null && !odto.getO_nickname().trim().isEmpty()) {
+	        if (isUnique && odto.getO_nickname() != null && !odto.getO_nickname().trim().isEmpty()&&!("").equals(odto.getO_nickname().trim()))  {
 	            String sql2 = "SELECT 1 FROM owner WHERE o_nickname = ? UNION SELECT 1 FROM petsitter WHERE p_nickname = ?";
 	            try (PreparedStatement ps2 = conn.prepareStatement(sql2)) {
 	                ps2.setString(1, odto.getO_nickname());
