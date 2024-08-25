@@ -485,7 +485,7 @@ public class MyPageDAO {
 	      ArrayList<MyPageDTO> mlist = new ArrayList<>(); 
 	      try {
 	         conn = com.DongGu.db.DongGuDB.getConn();
-	         
+
 	         String sql10 = "SELECT o.o_name, o.o_nickname, "
 	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
 	         		+ "(SELECT COUNT(r.r_num) FROM review r  WHERE r.r_receive_id = o.o_id) AS reviewcount, "
@@ -510,19 +510,19 @@ public class MyPageDAO {
 	         		+ "SELECT w.wt_num_value "
 	         		+ "FROM wishlist w "
 	         		+ "WHERE w.w_id = ? "
-	         		+ "AND w.wt_num = ? )"; 
+	         		+ "AND w.wt_num = ? ) "; 
 	         
 	         String sql30 = "select ai.ai_img, i.i_title, i.i_start, i.i_end, "
 	         		+ "(SELECT AVG(r.r_star) FROM review r WHERE r.r_receive_id = o.o_id) AS starcount, "
-	         		+ "(SELECT count(r.r_num) FROM review r WHERE r.r_receive_id = o.o_id) AS reviewcount, "
+	         		+ "(SELECT COUNT(r.r_num) FROM review r WHERE r.r_receive_id = o.o_id) AS reviewcount, "
 	         		+ "(SELECT w.w_num FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_num ) AS w_num, "
 	         		+ "(SELECT w.wt_num_value FROM wishlist w WHERE w.w_id = ? AND w.wt_num = ? AND w.wt_num_value = i.i_num ) AS wt_num_value "
 	         		+ "from invitation i "
 	         		+ "JOIN animalinfo ai on i.ai_num = ai.ai_num "
 	         		+ "JOIN owner o on ai.o_id = o.o_id "
 	         		+ "where i.i_num IN (select wt_num_value "
-	         		+ "from wishlist "
-	         		+ "where w_id = ? and wt_num = ? ) ";
+	         		+ "from wishlist w "
+	         		+ "where w.w_id = ? and w.wt_num = ? ) ";
 	         
 	         String sql40 = "select f.f_img, f.f_title,f.f_date, f.f_nickname, "
 	         		+ "(SELECT o.o_name FROM owner o WHERE o.o_id = f.f_id) AS o_name, "
@@ -542,7 +542,7 @@ public class MyPageDAO {
 	         		+ "from qna q "
 	         		+ "where q.q_num IN (select w.wt_num_value "
 	         		+ "from wishlist w "
-	         		+ "where w.w_id = ? and wt_num = ? ) ";
+	         		+ "where w.w_id = ? and w.wt_num = ? ) ";
 	         
 	         
 	         if ("10".equals(likeValue)) {
@@ -599,11 +599,11 @@ public class MyPageDAO {
 	      	 }else if ("30".equals(likeValue)) {
 	        	 ps=conn.prepareStatement(sql30);
 	        	 ps.setString(1, m_sid);	      	 
-		         ps.setString(2, likeValue);	
-		         ps.setString(3, m_sid);	      	 
-		         ps.setString(4, likeValue);	
+	        	 ps.setInt(2, Integer.parseInt(likeValue) );   
+	             ps.setString(3, m_sid);      	 
+		         ps.setInt(4, Integer.parseInt(likeValue) );     
 		         ps.setString(5, m_sid);	      	 
-		         ps.setString(6, likeValue);	
+		         ps.setInt(6, Integer.parseInt(likeValue) );	
          
 		         rs = ps.executeQuery();		      
 		         		         
@@ -668,6 +668,8 @@ public class MyPageDAO {
 			                	                                 
 			                dto = new MyPageDTO(q_title,q_date,q_nickname,o_name,p_name,w_num,wt_num_value);
 			                mlist.add(dto);
+			                int count  = mlist.size();
+			                System.out.println(count);
 			             }
 			 }
 	                       
