@@ -108,7 +108,7 @@ public class CafeDAO {
 	/** 동구의 추천 리스트 (지역검색) */
 	public ArrayList<CafeDTO> cafeListArea(int cp, int ls, int area) {
 		
-		System.out.println(area);
+		//System.out.println(area);
 		
 		String sql = "";
 		int start = 0;
@@ -172,8 +172,8 @@ public class CafeDAO {
 				arr.add(dto);
 			}
 			
-			System.out.println(sql);
-			System.out.println(start+"//"+end+"//"+s_area);
+			//System.out.println(sql);
+			//System.out.println(start+"//"+end+"//"+s_area);
 			return arr;
 			//return sql+area;
 			

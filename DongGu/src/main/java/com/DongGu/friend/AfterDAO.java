@@ -21,7 +21,7 @@ public class AfterDAO {
 			conn = com.DongGu.db.DongGuDB.getConn();
 			String sql = "insert into review values(seq_review_r_num.nextval, ?,?,?, ?,?,?, sysdate)";
 			
-			System.out.println(sql);
+			//System.out.println(sql);
 
 			ps = conn.prepareStatement(sql);
 
@@ -33,17 +33,16 @@ public class AfterDAO {
 			ps.setString(5, ato.getR_content());
 			ps.setString(6, ato.getR_img_name());	//확장자명을 담은 파일명으로 저장
 
-			System.out.println(ato.getR_write_id());
-			System.out.println(ato.getR_id_check());
-			System.out.println(ato.getR_receive_id());
-			System.out.println(ato.getR_star());
-			System.out.println(ato.getR_content());
-			System.out.println(ato.getR_img_name());
+			//System.out.println(ato.getR_write_id());
+			//System.out.println(ato.getR_id_check());
+			//System.out.println(ato.getR_receive_id());
+			//System.out.println(ato.getR_star());
+			//System.out.println(ato.getR_content());
+			//System.out.println(ato.getR_img_name());
 
 			int count1 = ps.executeUpdate();
 			
 			
-
 			String sql2 = "";
 
 			//고용자, 초대장 수정
@@ -56,7 +55,7 @@ public class AfterDAO {
 				sql2 = "update application set m_num =5 where ap_num = ? ";
 			}
 			
-			System.out.println(sql2);
+			//System.out.println(sql2);
 
 			ps2 = conn.prepareStatement(sql2);
 			ps2.setInt(1, ato.getR_sun_i()); //세션값에 따른 초대장, 지원할래요 키값
@@ -103,6 +102,39 @@ public class AfterDAO {
 			}
 		}
 	}
+	
+	
+
+	/** 이용후기 저장 후 이용후기 상세로 가기위해 키값필요 */
+	public int AfterWriteView() {
+		try {
+			conn = com.DongGu.db.DongGuDB.getConn();
+			String sql = "select r_num from review order by r_num desc ";
+			
+			System.out.println(sql);
+			
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.next();
+			int r_num = rs.getInt(1);
+			return r_num==0?0:r_num;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+			
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(ps!=null)ps.close();
+				if(conn!=null)conn.close();
+				
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
+	
 	
 	/** --- 유리가 한 것 --- 
 	// 후기 뿌리기

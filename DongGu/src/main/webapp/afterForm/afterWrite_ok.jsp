@@ -39,6 +39,7 @@
     adto.setR_write_id(mr.getParameter("r_id"));
     
     String r_id_check = mr.getParameter("r_id_check");
+    //세션값(구직자>1 고용자>0) 
     int param_r_idc = Integer.parseInt(r_id_check);
     
     adto.setR_id_check(param_r_idc);
@@ -60,10 +61,15 @@
     
     //매칭상태 업데이트를 위해서 필요
     String s_u_n = mr.getParameter("session_update_num");
-    int r_sun_i = Integer.parseInt(s_u_n);
-    
-    adto.setR_sun_i(r_sun_i);
-    
+  	//System.out.println(mr.getParameter("session_update_num")+"///dddddddd//");
+    int r_sun_i = 0;
+  	if(s_u_n != null && !s_u_n.equals("")){
+  	    r_sun_i = Integer.parseInt(s_u_n);
+  	    
+  	    adto.setR_sun_i(r_sun_i);
+    }
+  	
+  	//System.out.println(r_sun_i+"/////");
     //System.out.println(uploadedFile);
     
     String msg = "";
@@ -113,12 +119,31 @@
             //int result2 = adao.MatchingUpdate(adto);
 
             msg = result > 0 ? "후기가 등록되었습니다!" : "후기가 등록되지 않았습니다. 관리자에게 문의하세요.";
+            
+
+            int r_num = adao.AfterWriteView();
+
+            msg = r_num > 0 ? "후기가 등록되었습니다!" : "후기가 등록되지 않았습니다. 관리자에게 문의하세요.22";
+
             %>
             <script>
                 window.alert('<%=msg%>');
-                location.href='/DongGu/afterForm/AfterList.jsp'; 
-
-            </script>
+                //location.href='/DongGu/afterForm/AfterList.jsp'; 
+                //location.href='/DongGu/mypage/MyPage_ApplyList.jsp';
+                
+				
+			      var param_r_idc = '<%= param_r_idc %>';
+			      var r_num = '<%= r_num %>';
+				
+				//구직자 로그인상태
+				if(param_r_idc == 1){
+					location.href='/DongGu/afterForm/NoDongguAfterView.jsp?r_num='+r_num;
+				             
+					//고용자 로그인상태
+				}else {
+					location.href='/DongGu/afterForm/AfterView.jsp?r_num='+r_num;	
+				}
+    		</script>
             <%
         }
     } else {
