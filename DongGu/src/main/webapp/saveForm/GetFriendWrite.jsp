@@ -101,7 +101,7 @@ animalName = fdao.animalName(s_id, 0);
         data_ani_name.textContent = val_ani_name;
         data_anitype_name.textContent = "("+val_anitype_name+")";
 
-        data_ani_img.innerHTML = "<img src='/DongGu/img/Animal/"+val_img+"' class='writeImgSize'>";
+        data_ani_img.innerHTML = "<img src='/DongGu/img/animal/"+val_img+"' class='writeImgSize'>";
         data_ani_birth.textContent = val_birth;
 
         data_ani_alerg.textContent = val_aler;
@@ -256,7 +256,7 @@ function validateDates(startend) {
     const end = new Date(endDate);
 
     // 종료 날짜가 시작 날짜보다 늦은지 확인
-    if (end <= start) {
+    if (end < start) {
         alert('종료 날짜는 시작 날짜보다 늦어야 합니다. 날짜를 다시 입력해주세요. 오늘날짜로 다시 셋팅됩니다.');
         
         if(startend == 'start'){

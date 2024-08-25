@@ -14,6 +14,7 @@
 
 	int result = 0;
 	String msg = "";
+	String go_page = "";
 
 	int update_yn_val = Integer.parseInt(request.getParameter("update_yn"));
 	System.out.println(update_yn_val);
@@ -22,31 +23,32 @@
 	if(update_yn_val == 0){
 
 		result = fdao.FriendSitterWrite(fdto2);
-		msg = result>0?"초대에 응하셨습니다!":"초대에 응하지 못했습니다. 관리자에게 문의하세요.";
+		//msg = result>0?"초대에 응하셨습니다!":"초대에 응하지 못했습니다. 관리자에게 문의하세요.";
+		if(result>0){
+			msg = "초대에 응하셨습니다!";
+			go_page = "/DongGu/saveForm/DetailDongGu.jsp?i_num="+fdto2.getI_num();
+		}else {
+			msg = "초대에 응하지 못했습니다. 관리자에게 문의하세요.";
+		}
 		
+		System.out.println("dddddd");
 	//수정모드
 	}else {
 		int ap_num_value = Integer.parseInt(request.getParameter("ap_nums"));
 		result = fdao.FriendSitterUpdate(ap_num_value, fdto2);
-		msg = result>0?"초대장이 수정되었습니다!":"초대장 수정이 되지 않았습니다. 관리자에게 문의하세요.";
-		
+		//msg = result>0?"초대장이 수정되었습니다!":"초대장 수정이 되지 않았습니다. 관리자에게 문의하세요.";
+
+		if(result>0){
+			msg = "지원서가 수정되었습니다!";
+			go_page = "/DongGu/mypage/MyPage.jsp";
+		}else {
+			msg = "지원서 수정이 되지 않았습니다. 관리자에게 문의하세요.";
+		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 %>
 <script>
 	//alert('1234');
 	window.alert('<%=msg%>');
-	location.href='/DongGu/Index.jsp';
+	//location.href='/DongGu/Index.jsp';
+	location.href='<%=go_page%>';
 </script>
