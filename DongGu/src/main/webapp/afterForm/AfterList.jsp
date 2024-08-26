@@ -149,8 +149,12 @@
                 <a href="/DongGu/afterForm/NoDongguAfterView.jsp?r_num=<%= dto.getR_num() %>">
                     <div class="box">
                         <div class="left_box">
-                            <img src="/DongGu/img/<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img())) &&!("").equals(dto.getR_img().trim()) ? dto.getR_img() : "default.png" %>" alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
-                        </div> 
+                           <img src="<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img().trim())) 
+                      ? "/DongGu/img/after/" + dto.getR_img() 
+                      : "/DongGu/img/default.png" %>" 
+                      alt="이미지" 
+                      onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
+                  </div> 
                         <div class="right_box">
                             <div class="rb_title">
                                 <span class="best">Best</span>
