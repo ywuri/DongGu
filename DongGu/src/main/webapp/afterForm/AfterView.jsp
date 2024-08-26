@@ -62,7 +62,9 @@
     if (review == null) {
         out.println("해당 리뷰를 찾을 수 없습니다.");
     } else {
+
         //String imageUrl = "/DongGu/img/after/" + (review.getR_img() != null && !review.getR_img().trim().isEmpty() && !"null".equalsIgnoreCase(review.getR_img().trim()) ? review.getR_img() : "default.png");
+
         String profileImageUrl = (dongguReview != null && dongguReview.getP_img() != null && !dongguReview.getP_img().trim().equals("") && !"null".equalsIgnoreCase(dongguReview.getP_img())) ? dongguReview.getP_img() : "profile1.png";
 %>
 <!DOCTYPE html>
@@ -79,6 +81,7 @@
    <div>
       <div class="after_box">
          <div class="animal_after">
+
             <div class="after_img">    
              	 <img src="<%= (review.getR_img() != null && !review.getR_img().isEmpty() && !"null".equals(review.getR_img().trim())) 
 						    ? "/DongGu/img/after/" + review.getR_img() 
@@ -86,6 +89,7 @@
 						    alt="이미지" 
 						    onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
             	</div>
+
 				<div class="after_txt">
 					<div class="after_title">
 					    <span class="name"><%= review.getAi_name() %>&nbsp;<b>·</b></span>

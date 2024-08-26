@@ -759,6 +759,11 @@
     display: none;
 }
 
+
+/* 이용후기 사진 선택 input 디자인 */
+.saveTableTwo input[type="file"].file2 {
+    display: block;
+}
 .saveTableTwo .saveBtnTwo {
 	width: 200px;
 	height: 60px;
@@ -1403,6 +1408,10 @@ width:180px;
 	width:170px;
 }
 .heartIconSize{
+	width:25px; 
+	cursor:pointer;
+}
+.heartIconSize1{
 	width:25px; 
 	cursor:pointer;
 	position: absolute;

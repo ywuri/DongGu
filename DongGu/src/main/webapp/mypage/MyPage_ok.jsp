@@ -143,7 +143,7 @@ if(result>=1 && result2>=1){
 result = dao.mypage_Ap_update3(ap_num);
 result2 = dao.mypage_Iv_update3(i_num);
 result3 = dao.mypage_p_Ap_delete2(i_num);
-if(result>=1 && result2>=1 && result3>=1){
+if(result>=1 && result2>=1 &&(result3>=1 || result3>-1)){
 %>
 		<script>
 		window.alert('매칭을 수락 하셨습니다!');
@@ -191,7 +191,7 @@ console.log(i_num, actionValue);
 var i_num = '<%= i_num %>';
 var ap_num = '<%= ap_num %>';
 var actionValue = '<%= actionValue %>';
-location.href = '/DongGu/mypage/MyPage_InviteList.jsp?i_num='+encodeURIComponent(i_num)+'&btn=0';
+location.href = '/DongGu/mypage/MyPage_InviteList.jsp?i_num='+encodeURIComponent(i_num)+'&btn=0&type=0';
 </script>
 <%
       break;

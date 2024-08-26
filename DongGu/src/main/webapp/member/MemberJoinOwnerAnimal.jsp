@@ -63,120 +63,127 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
 
 <!-- 폼 시작 -->
 <form name="" action="MemberJoinOwnerAnimal_ok.jsp" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-    <div class="saveTableOne">
+    
+    
+	<div class="saveTableTwo m180_auto">
         <h3>내 반려동물 정보를 입력해주세요!</h3>
-        <table>
-            <tr>
-                <th>종류</th>
-                <td>
-                    <!-- 대분류 선택 필드 -->
-                    <select name="a_name" id="a_name" class="saveWS260" onchange="filterAnimalTypes()">
-                        <%
-                            for (String[] arr : BigAnimalList) {
-                                String selected = arr[1].equals("강아지") ? "selected" : "";
-                        %>
-                        <option value="<%=arr[0] %>" <%=selected %>><%=arr[1] %></option>
-                        <%
-                            }
-                        %>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>품종</th>
-                <td>
-                     <select name="at_name" id="at_name" class="saveWS260">
-                        <%
-                            for (String[] arr : SmallAnimalList) {
-                                String parent = arr[1];
-                        %>
-                        <option value="<%=arr[0] %>" data-parent="<%=parent %>"><%=arr[2] %></option>
-                       
-                        <%
-                            }
-                        %>
-                         
-                    </select>
-                    <!-- 숨겨진 필드 (at_num을 전송하기 위한) -->
-                    <input type="hidden" name="at_num" id="at_num" value="">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th>이름</th>
-                <td>
-                    <input type="text" name="ai_name" id="ai_name" value="" class="saveWS250" onkeyup="nameCheck()">
-                    <span id="nameText" class="dpib"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>성별</th>
-                <td>
-                    <input type="radio" name="ai_gender" id="ai_gender1" value="1" checked><label for="ai_gender1">남자</label>
-                    <input type="radio" name="ai_gender" id="ai_gender2" value="2"><label for="ai_gender2">여자</label>
-                </td>
-            </tr>
-            <tr>
-                <th>사진</th>
-                <td style="display: flex; align-items: baseline; gap: 10px;">
-                <div>
-                    <input type="file" name="ai_img" accept="image/*" id="ai_img" class="saveWS250">
-                    <p style="color: #b2b2b2; font-size: 14px; margin-top: 5px;">사진첨부는 jpg,png,gif 파일만 가능합니다.</p>
-                     <span id="imageText" class="dpib"></span>
-                </div>
-                    <button type="button" onclick="deleteFile()">삭제</button>
-                </td>
-            </tr>
-            <tr>
-                <th>생년월일</th>
-                <td>
-                    <input type="date" name="ai_birth" id="ai_birth" value="" class="saveWS250" onkeyup="birthCheck()" oninput="birthCheck()">
-                    <span id="birthText" class="dpib"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>성격</th>
-                <td>
-                	<% 
-                	for(int i=0;i<natureList.size();i++){
-                		String anWord = natureList.get(i);
-                        int anNum  = i + 1;
-
-                	%>
-						<input type="checkbox" name="an_num_link" value="<%=anNum  %>" onclick="natureCheck()"><%=anWord %>
-                    <%
-	                    if ((i + 1) % 5 == 0){
-	                    	out.print("<br/>");
-	                    }
-                	}
-                	
-                    %>
-                    <span id="natureText" class="dpib"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>알레르기</th>
-                <td>
-                    <input type="text" name="ai_alergy" id="ai_alergy" value="" class="saveWS250" placeholder="알레르기가 없다면 '없음'이라고 입력해주세요." onblur="alergyCheck()">
-                    <span id="alergyText" class="dpib"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>병력사항</th>
-                <td>
-                    <input type="text" name="ai_disease" id="ai_disease" value="" class="saveWS250" placeholder="병력사항이 없다면 '없음'이라고 입력해주세요." onblur="diseaseCheck()">
-                    <span id="diseaseText" class="dpib"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>주의사항</th>
-                <td>
-                    <textarea name="ai_caution" id="ai_caution" class="saveWS100p saveHS100" placeholder="동구가 주의해야 할 점을 적어주세요. (안는 걸 싫어합니다, 손을 내밀면 할퀼 수 있으니 조심해주세요.)" onblur="cautionCheck()"></textarea>
-                    <span id="cautionText" class="dpib"></span>
-                </td>
-            </tr>
-        </table>
-        <input type="submit" name="submit" id="submit" value="동물친구정보 입력완료!" class="saveBtnOne">
+			<div class="stt_box">
+				<table>
+	            <tr>
+	                <th>종류</th>
+	                <td>
+	                    <!-- 대분류 선택 필드 -->
+	                    <select name="a_name" id="a_name" class="saveWS260" onchange="filterAnimalTypes()">
+	                        <%
+	                            for (String[] arr : BigAnimalList) {
+	                                String selected = arr[1].equals("강아지") ? "selected" : "";
+	                        %>
+	                        <option value="<%=arr[0] %>" <%=selected %>><%=arr[1] %></option>
+	                        <%
+	                            }
+	                        %>
+	                    </select>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>품종</th>
+	                <td>
+	                     <select name="at_name" id="at_name" class="saveWS260">
+	                        <%
+	                            for (String[] arr : SmallAnimalList) {
+	                                String parent = arr[1];
+	                        %>
+	                        <option value="<%=arr[0] %>" data-parent="<%=parent %>"><%=arr[2] %></option>
+	                       
+	                        <%
+	                            }
+	                        %>
+	                         
+	                    </select>
+	                    <!-- 숨겨진 필드 (at_num을 전송하기 위한) -->
+	                    <input type="hidden" name="at_num" id="at_num" value="">
+	                    
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>이름</th>
+	                <td>
+	                    <input type="text" name="ai_name" id="ai_name" value="" class="saveWS250" onkeyup="nameCheck()">
+	                    <span id="nameText" class="dpib"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>성별</th>
+	                <td>
+	                    <input type="radio" name="ai_gender" id="ai_gender1" value="1" checked><label for="ai_gender1">남자</label>
+	                    <input type="radio" name="ai_gender" id="ai_gender2" value="2"><label for="ai_gender2">여자</label>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>사진</th>
+	                <td style="display: flex; align-items: baseline; gap: 10px; height:60px;">
+	                <div>
+	                    <input type="file" name="ai_img" accept="image/*" id="ai_img" class="saveWS250 file2 ">
+	                    <p style="color: #b2b2b2; font-size: 14px; margin-top: 5px;">사진첨부는 jpg,png,gif 파일만 가능합니다.</p>
+	                     <span id="imageText" class="dpib"></span>
+	                </div>
+	                    <button type="button" onclick="deleteFile()">삭제</button>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>생년월일</th>
+	                <td>
+	                    <input type="date" name="ai_birth" id="ai_birth" value="" class="saveWS250" onkeyup="birthCheck()" oninput="birthCheck()">
+	                    <span id="birthText" class="dpib"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>성격</th>
+	                <td>
+	                	<% 
+	                	for(int i=0;i<natureList.size();i++){
+	                		String anWord = natureList.get(i);
+	                        int anNum  = i + 1;
+	
+	                	%>
+							<input type="checkbox" name="an_num_link" value="<%=anNum  %>" onclick="natureCheck()"><%=anWord %>
+	                    <%
+		                    if ((i + 1) % 5 == 0){
+		                    	out.print("<br/>");
+		                    }
+	                	}
+	                	
+	                    %>
+	                    <span id="natureText" class="dpib"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>알레르기</th>
+	                <td>
+	                    <input type="text" name="ai_alergy" id="ai_alergy" value="" class="saveWS250" placeholder="알레르기가 없다면 '없음'이라고 입력해주세요." onblur="alergyCheck()">
+	                    <span id="alergyText" class="dpib"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>병력사항</th>
+	                <td>
+	                    <input type="text" name="ai_disease" id="ai_disease" value="" class="saveWS250" placeholder="병력사항이 없다면 '없음'이라고 입력해주세요." onblur="diseaseCheck()">
+	                    <span id="diseaseText" class="dpib"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>주의사항</th>
+	                <td>
+	                    <textarea name="ai_caution" id="ai_caution" class="saveWS100p saveHS100" placeholder="동구가 주의해야 할 점을 적어주세요. (안는 걸 싫어합니다, 손을 내밀면 할퀼 수 있으니 조심해주세요.)" onblur="cautionCheck()"></textarea>
+	                    <span id="cautionText" class="dpib"></span>
+	                </td>
+	            </tr>
+	        </table>
+			<div class="saveWS100p tac mt20">
+				<input type="button" name="" id="CancelBtn" value="취소하기" class="CancelBtn">
+        		<input type="submit" name="submit" id="submit" value="동물정보 저장" class="saveBtnOne ml20 ">
+			</div>
+    	</div>
     </div>
 
 </form>    
