@@ -101,8 +101,7 @@ animalName = fdao.animalName(s_id, 0);
         data_ani_name.textContent = val_ani_name;
         data_anitype_name.textContent = "("+val_anitype_name+")";
 
-        data_ani_img.innerHTML = "<img src='/DongGu/img/animal/"+val_img+"' class='writeImgSize'>";
-        data_ani_birth.textContent = val_birth;
+        data_ani_img.innerHTML = "<img src='/DongGu/img/animal/"+val_img+"' class='writeImgSize'>";        data_ani_birth.textContent = val_birth;
 
         data_ani_alerg.textContent = val_aler;
         if(val_aler == "null" || val_aler == "" ){
@@ -239,6 +238,44 @@ w_end = today;
 w_content = "";
 }
 %>
+<script>
+function validateDates(startend) {
+    // 날짜 입력 요소 가져오기
+    const startDate = document.getElementById('i_start').value;
+    const endDate = document.getElementById('i_end').value;
+
+    // 날짜 입력 값이 모두 입력되었는지 확인
+    if (!startDate || !endDate) {
+        alert('시작 날짜와 종료 날짜를 모두 입력하세요.');
+        return;
+    }
+
+    // 날짜를 Date 객체로 변환
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // 종료 날짜가 시작 날짜보다 늦은지 확인
+    if (end < start) {
+        alert('종료 날짜는 시작 날짜보다 늦어야 합니다. 날짜를 다시 입력해주세요. 오늘날짜로 다시 셋팅됩니다.');
+        
+        if(startend == 'start'){
+        	document.getElementById('i_start').value = '<%=today%>';
+        	document.getElementById('i_start').focus();
+        }else {
+        	document.getElementById('i_end').value = '<%=today%>';
+        	document.getElementById('i_end').focus();
+        }
+        
+    }
+}
+
+window.onload = function() {
+    // 페이지 로드 후 종료 날짜 input에 이벤트 리스너 추가
+    document.getElementById('endDate').addEventListener('change', validateEndDate);
+    
+};
+</script>
+
 </head>
 <body>
 	<%@include file="../SubHeader.jsp"%>
@@ -269,10 +306,14 @@ w_content = "";
 					<td colspan="2" class="tac">
 						<input type="date" name="i_start"
 						id="i_start" value="<%=w_start%>" class="saveWS20p tac"
-						min="<%=today%>"> ~ <input type="date" name="i_end"
+						min="<%=today%>" onchange="validateDates('start')"> ~ <input type="date" name="i_end"
 						id="i_end" value="<%=w_end%>" class="saveWS20p tac"
-						min="<%=today%>">
+						min="<%=today%>" onchange="validateDates('end')">
 					</td>
+					
+
+					
+					
 				</tr>
 				<tr>
 					<td></td>

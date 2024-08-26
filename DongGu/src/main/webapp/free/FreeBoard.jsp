@@ -94,7 +94,9 @@
 						%>
 						<td id="QnABoardTitle"><a style="color:#808080" href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
 						<img style="width:12px;" src="/DongGu/img/icon_trash.svg">
-						<%=array.get(i).getF_title() %>
+						
+						
+						
 						</a>
 					<%
 					}
@@ -114,7 +116,30 @@
 						else{
 							%>
 							<td id="QnABoardTitle"><a href='/DongGu/free/DetailFreeBoard.jsp?f_id=<%=array.get(i).getF_id() %>&f_num=<%=array.get(i).getF_num() %>&cp=<%=cp %>' class="FreeBoardA QnABoardMarginleft" >
-							<%=array.get(i).getF_title() %>
+							<%
+						if(array.get(i).getG_num()==1){
+							%>
+							<span style="color:red;"><%=array.get(i).getF_title() %></span>
+							<%
+						}
+						else if(array.get(i).getG_num()==2){
+							%>
+							<span style="color:blue;"><%=array.get(i).getF_title() %></span>
+							<%
+						}else if(array.get(i).getG_num()==3){
+							%>
+							<span style="color:green;"><%=array.get(i).getF_title() %></span>
+							<%
+						}else if(array.get(i).getG_num()==4){
+							%>
+							<span style="color:#e6e600;"><%=array.get(i).getF_title() %></span>
+							<%
+						}else if(array.get(i).getG_num()==5){
+							%>
+							<span style="color:black;"><%=array.get(i).getF_title() %></span>
+							<%
+						}
+						%>
 							<%for(Integer key: keySets){
 								if(array.get(i).getF_num() ==key){
 									%><span class="FreeBoardComment">[<%=map.get(key) %>]</span><%

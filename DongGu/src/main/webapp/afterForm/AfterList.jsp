@@ -79,9 +79,23 @@
         const selectedTab = localStorage.getItem('selectedTab') || "1"; 
         document.getElementById("selectedTab").value = selectedTab;
         switchTab(parseInt(selectedTab));
-    });
-    </script>
 
+        // 무한 스크롤 구현
+        window.onscroll = function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                const form = document.getElementById('nextPageForm');
+                form.cp.value = parseInt(form.cp.value) + 1; // 현재 페이지를 1 증가
+                form.selectedTab.value = selectedTab; // 선택된 탭을 전송
+                form.submit(); // 폼 전송
+            }
+        };
+    });
+</script>
+
+
+
+
+	
     <div id="Tabid1" class="rivew_cont">
         <ul style="display: flex; flex-wrap: wrap; justify-content: space-between;">
             <%
@@ -96,13 +110,14 @@
             <li>
                 <a href="/DongGu/afterForm/AfterView.jsp?r_num=<%= dto.getR_num() %>">
                     <div class="box">
-                        <div class="left_box">
-                        	<img src="<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img().trim())) 
-						    ? "/DongGu/img/after/" + dto.getR_img() 
-						    : "/DongGu/img/default.png" %>" 
-						    alt="이미지" 
-						    onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
-						</div> 
+                       <div class="left_box">
+                           <img src="<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img().trim())) 
+                      ? "/DongGu/img/after/" + dto.getR_img() 
+                      : "/DongGu/img/default.png" %>" 
+                      alt="이미지" 
+                      onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
+                  </div> 
+            
                         <div class="right_box">
                             <div class="rb_title">
                                 <span class="best">Best</span>
@@ -135,12 +150,8 @@
                 <a href="/DongGu/afterForm/NoDongguAfterView.jsp?r_num=<%= dto.getR_num() %>">
                     <div class="box">
                         <div class="left_box">
-                        	<img src="<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img().trim())) 
-						    ? "/DongGu/img/after/" + dto.getR_img() 
-						    : "/DongGu/img/default.png" %>" 
-						    alt="이미지" 
-						    onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
-						</div> 
+                            <img src="/DongGu/img/<%= (dto.getR_img() != null && !dto.getR_img().isEmpty() && !"null".equals(dto.getR_img())) &&!("").equals(dto.getR_img().trim()) ? dto.getR_img() : "default.png" %>" alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
+                        </div> 
                         <div class="right_box">
                             <div class="rb_title">
                                 <span class="best">Best</span>
@@ -166,6 +177,8 @@
     	<input type="hidden" name="cp" value="<%= cp %>"> <!-- 기본 페이지 값 설정 -->
     	<input type="hidden" id="selectedTab" name="selectedTab" value="<%= request.getParameter("selectedTab") != null ? request.getParameter("selectedTab") : "1" %>"> <!-- 탭 상태 유지 -->
 	</form>
+
+
 
 </section>
 
