@@ -310,7 +310,11 @@ public class FriendDAO {
 
 		try {
 			conn = com.DongGu.db.DongGuDB.getConn();
-			String sql = "select * from petsitter where p_id = ?";
+			String sql = "select p_gender, p_smoke, p_img, p_addr, "
+			           + "NVL(p_ex_my, '없음') as p_ex_my, "
+			           + "NVL(p_ex_other, '없음') as p_ex_other, "
+			           + "NVL(p_ex_etc, '없음') as p_ex_etc "
+			           + "from petsitter where p_id = ?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, s_id);
 			rs = ps.executeQuery();
@@ -332,7 +336,6 @@ public class FriendDAO {
 				sitterOther = rs.getString("p_ex_other").replaceAll("\n", "<br>");
 				sitterEtc = rs.getString("p_ex_etc").replaceAll("\n", "<br>");
 			}
-
 			return sitterGender + "//" + sitterSmoke + "//" + sitterImg + "//" + sitterAddr + "//" + sitterMy + "//"
 					+ sitterOther + "//" + sitterEtc;
 
