@@ -74,7 +74,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    /* document.addEventListener("DOMContentLoaded", function() {
         // localStorage에서 선택된 탭 값을 가져옴
         const selectedTab = localStorage.getItem('selectedTab') || "1"; 
         document.getElementById("selectedTab").value = selectedTab;
@@ -89,7 +89,7 @@
                 form.submit(); // 폼 전송
             }
         };
-    });
+    }); */
 </script>
 
 
