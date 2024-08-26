@@ -318,7 +318,7 @@ public class memberDAO {
     		ps.setString(9, odto.getO_jumin());
     		ps.setInt(10, odto.getQ_num());
     		ps.setString(11, odto.getQ_answer());
-    		ps.setInt(12, odto.getL_numl());
+    		ps.setInt(12, 5);
     		
     		int count = ps.executeUpdate();
     		return count;

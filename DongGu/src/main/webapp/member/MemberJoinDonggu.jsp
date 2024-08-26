@@ -526,7 +526,7 @@ var imageInput = document.getElementById('p_img');
          pexmyText.innerHTML = '';
          return true;
       } else{
-         pexmyText.innerHTML = '자택종류를 입력해주세요.(특수문자 사용불가)';
+         pexmyText.innerHTML = '반려경험을 입력해주세요.(특수문자 사용불가)';
          pexmyText.style.color = 'red';
          return false;
       }
@@ -544,7 +544,7 @@ var imageInput = document.getElementById('p_img');
          pexotherText.innerHTML = '';
          return true;
       } else{
-         pexotherText.innerHTML = '자택종류를 입력해주세요.(특수문자 사용불가)';
+         pexotherText.innerHTML = '동구경험을 입력해주세요.(특수문자 사용불가)';
          pexotherText.style.color = 'red';
          return false;
       }
@@ -562,7 +562,7 @@ var imageInput = document.getElementById('p_img');
          pexetcText.innerHTML = '';
          return true;
       } else{
-         pexetcText.innerHTML = '자택종류를 입력해주세요.(특수문자 사용불가)';
+         pexetcText.innerHTML = '기타경험을 입력해주세요.(특수문자 사용불가)';
          pexetcText.style.color = 'red';
          return false;
       }

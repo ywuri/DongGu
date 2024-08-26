@@ -41,11 +41,11 @@ function sendValidIdToParent() {
 </script>
 </head>
 <body style="background: #fffae5;">
-<form name="zipform" action="javascript:sendValidIdToParent();">
+<form name="zipform" action="IdCheck_ok.jsp">
     <fieldset style="border:none; text-align:center;">
         <h2>ID 중복검사</h2>
         <label>ID</label>
-        <input type="text" name="o_id" id="o_id" value="" required="required" onkeyup="idCheck()">
+        <input type="text" name="o_id" id="o_id" required="required" onkeyup="idCheck()">
         <input type="submit" value="중복확인" id="submitButton" disabled> <!-- 초기엔 비활성화 -->
         <span id="idText" class="dpib" style="display: inline-block;"></span>
     </fieldset>

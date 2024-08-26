@@ -41,8 +41,8 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
  /**String savepath = application.getRealPath("/") + "uploaded_files"; // 저장할 경로 설정
  File saveDir = new File(savepath);*/
 	//사진이 있다면 사진 처리
- String uploadPath = request.getRealPath("/") + "img/Animal/temp"; // 임시 저장 경로
- String savepath = request.getRealPath("/")+"img/Animal/";
+ String uploadPath = request.getRealPath("/") + "img/animal/temp"; // 임시 저장 경로
+ String savepath = request.getRealPath("/")+"img/animal/";
  File saveDir = new File(savepath);
 
  // 경로가 존재하지 않으면 폴더 생성

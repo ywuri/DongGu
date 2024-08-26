@@ -126,7 +126,7 @@ String msg = result > 0 ? "회원가입 성공!" : "회원가입 실패!";
 
 <script>
 window.alert('<%=msg%>');
-location.href='MemberJoinDonggu.jsp';
+location.href='login.jsp';
 </script>
 
 <%!

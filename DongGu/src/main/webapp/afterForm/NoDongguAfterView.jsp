@@ -56,7 +56,7 @@
 <%
     } else {
         // 이미지 경로가 null이거나 비어 있거나 "null"이라는 문자열인 경우 기본 이미지를 사용
-        String imageUrl = (review.getR_img() != null && !review.getR_img().trim().isEmpty() && !"null".equalsIgnoreCase(review.getR_img())) ? review.getR_img() : "/DongGu/img/default.png";
+        //String imageUrl = (review.getR_img() != null && !review.getR_img().trim().isEmpty() && !"null".equalsIgnoreCase(review.getR_img())) ? review.getR_img() : "/DongGu/img/default.png";
        
 %>
 <!DOCTYPE html>
@@ -74,7 +74,11 @@
 		<div class="after_box">
 			<div class="animal_after">
 				<div class="after_img">
-					<img src="<%= imageUrl %>" alt="이미지" alt="이미지" onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
+					<img src="<%= (review.getR_img() != null && !review.getR_img().isEmpty() && !"null".equals(review.getR_img().trim())) 
+						    ? "/DongGu/img/after/" + review.getR_img() 
+						    : "/DongGu/img/default.png" %>" 
+						    alt="이미지" 
+						    onerror="this.onerror=null; this.src='/DongGu/img/default.png';">
 				</div>
 				<div class="after_txt">
 					<div class="after_title">

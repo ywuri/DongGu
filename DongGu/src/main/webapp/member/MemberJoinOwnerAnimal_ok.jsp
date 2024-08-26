@@ -11,7 +11,7 @@ request.setCharacterEncoding("utf-8");
 <%
 try {
     // 파일 업로드 처리
-    String savePath = application.getRealPath("/") + "uploaded_files";
+    String savePath = application.getRealPath("/") + "img/animal/";
     MultipartRequest mr = new MultipartRequest(request, savePath, 10 * 1024 * 1024, "utf-8");
 
     // 업로드된 파일 이름을 DTO에 설정

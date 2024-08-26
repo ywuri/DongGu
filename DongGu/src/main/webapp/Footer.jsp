@@ -43,7 +43,7 @@ footer .area div > ul li::marker {content: none;}
 		<div class="ft02">
 			<ul>
 				<li>
-					<span><b>[E-mail]</b></span>
+					<span><b>E-mail</b></span>
 					<p style="margin-top: 16px;">jip3022@naver.com (지원관련 문의)</p>
 					<p style="margin-top: 16px;">zzz4776@naver.com (홈페이지 관련 문의)</p>
 				</li>

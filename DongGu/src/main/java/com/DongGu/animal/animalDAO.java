@@ -143,7 +143,7 @@ public class animalDAO {
 	        conn = com.DongGu.db.DongGuDB.getConn();
 	        
 	        String sql = "INSERT INTO ANIMALINFO (ai_num, o_id, at_num, ai_name, ai_gender, ai_img, ai_birth, an_num_link, ai_alergy, ai_disease, ai_caution) " +
-	                     "VALUES (animal_seq.NEXTVAL, ?, ?, ?, ?, ?, to_date(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
+	                     "VALUES (seq_animalinfo_ai_num.NEXTVAL, ?, ?, ?, ?, ?, to_date(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
 	        ps = conn.prepareStatement(sql);
 	        
 	        ps.setString(1, adto.getO_id());

@@ -40,7 +40,7 @@ function sendValidNicknameToParent() {
 </script>
 </head>
 <body style="background: #fffae5;">
-<form name="zipform" action="javascript:sendValidNicknameToParent();">
+<form name="zipform" action="NickName_ok.jsp">
     <fieldset style="border:none; text-align:center;">
         <h2>닉네임 중복검사</h2>
         <label>닉네임</label>

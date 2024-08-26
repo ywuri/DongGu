@@ -33,7 +33,7 @@ function idCheck() {
 
 //중복 검사 후 부모 창에 유효한 아이디 전달
 function sendValidIdToParent() {
-    var idCheckValue = document.getElementById('o_id').value;
+    var idCheckValue = document.getElementById('p_id').value;
     // 부모 창의 setIdCheckResult 함수 호출
     window.opener.setIdCheckResult(idCheckValue);
     window.close();
